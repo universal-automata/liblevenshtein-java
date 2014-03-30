@@ -19,7 +19,7 @@ public class MemoizedMergeAndSplit extends AbstractMemoized {
   public int memoizedDistance(String v, String w) {
     val key = new SymmetricImmutablePair<String>(v,w);
 
-    int distance = memo.get(key);
+    int distance = memo.getInt(key);
     if (distance != DEFAULT_RETURN_VALUE) {
       return distance;
     }
@@ -41,8 +41,8 @@ public class MemoizedMergeAndSplit extends AbstractMemoized {
 
     // Discard identical characters
     while (a == b && x.length() > 0 && y.length() > 0) {
-      a = v.charAt(0); v = x; x = v.substring(1);
-      b = w.charAt(0); w = y; y = w.substring(1);
+      a = x.charAt(0); v = x; x = v.substring(1);
+      b = y.charAt(0); w = y; y = w.substring(1);
     }
 
     // x.length() == 0 or y.length() == 0

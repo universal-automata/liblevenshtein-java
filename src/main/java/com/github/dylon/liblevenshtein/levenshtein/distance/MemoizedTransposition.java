@@ -19,7 +19,7 @@ public class MemoizedTransposition extends AbstractMemoized {
   public int memoizedDistance(String v, String w) {
     val key = new SymmetricImmutablePair<String>(v,w);
 
-    int distance = memo.get(key);
+    int distance = memo.getInt(key);
     if (distance != DEFAULT_RETURN_VALUE) {
       return distance;
     }
@@ -80,19 +80,21 @@ public class MemoizedTransposition extends AbstractMemoized {
       min_distance = distance;
     }
 
-    final char a_1 = x.charAt(0);  // prefix-character of x
-    final char b_1 = y.charAt(0);  // prefix-character of y
-    if (a == b_1 && a_1 == b) {
-      distance = memoizedDistance(f(v,1), f(w,1));
-      if (0 == distance) {
-        memo.put(key, 1);
-        return 1;
-      }
+		if (x.length() > 0 && y.length() > 0) {
+    	final char a_1 = x.charAt(0);  // prefix-character of x
+    	final char b_1 = y.charAt(0);  // prefix-character of y
+    	if (a == b_1 && a_1 == b) {
+      	distance = memoizedDistance(f(v,1), f(w,1));
+      	if (0 == distance) {
+        	memo.put(key, 1);
+        	return 1;
+      	}
 
-      if (distance < min_distance) {
-        min_distance = distance;
-      }
-    }
+      	if (distance < min_distance) {
+        	min_distance = distance;
+      	}
+    	}
+		}
 
     distance = 1 + min_distance;
     memo.put(key, distance);

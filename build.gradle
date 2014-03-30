@@ -11,9 +11,20 @@ dependencies {
   //compile 'org.slf4j:slf4j-api:1.7.6'
   //runtime 'ch.qos.logback:logback-classic:1.1.1'
   //runtime 'org.codehaus.groovy:groovy-all:2.2.2'
-  testCompile 'org.testng:testing:6.1.1'
+  testCompile 'org.testng:testng:6.1.1'
 }
 
 tasks.withType(Compile) {
   options.compilerArgs << "-Xlint:unchecked"
+}
+
+test {
+	useTestNG()
+
+	testLogging {
+		exceptionFormat "full"
+		showStandardStreams true
+		showExceptions true
+		showStackTraces true
+	}
 }

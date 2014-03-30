@@ -41,20 +41,18 @@ public class SymmetricImmutablePair<Type extends Comparable<Type>>
       @NonNull final Type first,
       @NonNull final Type second) {
 
-    this.first = first;
-    this.second = second;
-
-    Type a, b;
-    if (first.compareTo(second) > 0) {
-      a = second; b = first;
-    }
-    else {
-      a = first; b = second;
-    }
+		if (first.compareTo(second) < 0) {
+			this.first = first;
+			this.second = second;
+		}
+		else {
+			this.first = second;
+			this.second = first;
+		}
 
     this.hashCode = new HashCodeBuilder(541, 7873)
-      .append(a)
-      .append(b)
+      .append(this.first)
+      .append(this.second)
       .toHashCode();
   }
 
@@ -64,19 +62,9 @@ public class SymmetricImmutablePair<Type extends Comparable<Type>>
    */
   @Override
   public int compareTo(final SymmetricImmutablePair<Type> other) {
-    Type a = first, b = second, c = other.first(), d = other.second(), t;
-
-    if (a.compareTo(b) > 0) {
-      t = a; a = b; b = t;
-    }
-
-    if (c.compareTo(d) > 0) {
-      t = c; c = d; d = t;
-    }
-
-    final int a_c = a.compareTo(c);
-    if (a_c == 0) return b.compareTo(d);
-    return a_c;
+    final int c = first.compareTo(other.first());
+    if (0 == c) return second.compareTo(other.second());
+    return c;
   }
 
   /**
