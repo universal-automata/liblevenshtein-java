@@ -15,5 +15,5 @@ dependencies {
 }
 
 tasks.withType(Compile) {
-	options.compilerArgs << "-Xlint:unchecked"
+  options.compilerArgs << "-Xlint:unchecked"
 }
