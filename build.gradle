@@ -19,6 +19,8 @@ tasks.withType(Compile) {
 }
 
 test {
+	maxHeapSize '1024m'
+
 	useTestNG()
 
 	testLogging {

@@ -69,6 +69,15 @@ public class MemoizedDistanceFactoryTest {
 		return new TriangleInequalityDataIterator(factory, loremIpsum);
 	}
 
+	@DataProvider(name = "penaltyData")
+	public Object[][] penaltyData() {
+		return new Object[][] {
+			{Algorithm.STANDARD, factory.build(Algorithm.STANDARD), 2, 2, 2},
+			{Algorithm.TRANSPOSITION, factory.build(Algorithm.TRANSPOSITION), 1, 2, 2},
+			{Algorithm.MERGE_AND_SPLIT, factory.build(Algorithm.MERGE_AND_SPLIT), 2, 1, 1}
+		};
+	}
+
 	@Test(dataProvider = "equalSelfSimilarityData")
 	public void testEqualSelfSimilarity(
 			final Algorithm algorithm,
@@ -133,6 +142,28 @@ public class MemoizedDistanceFactoryTest {
 			System.err.printf("d_12=%d, d_13=%d, d_23=%d%n", d_12, d_13, d_23);
 			throw exception;
 		}
+	}
+
+	@Test(dataProvider = "penaltyData")
+	public void testPenalties(
+			final Algorithm algorithm,
+			final IDistance<String> distance,
+			final int transpositionPenalty,
+			final int mergePenalty,
+			final int splitPenalty) {
+		assertEquals(distance.between("foo", "foo"), 0);
+		assertEquals(distance.between("foo", "food"), 1);
+		assertEquals(distance.between("foo", "fodo"), 1);
+		assertEquals(distance.between("foo", "fdoo"), 1);
+		assertEquals(distance.between("foo", "dfoo"), 1);
+		assertEquals(distance.between("foo", "oo"), 1);
+		assertEquals(distance.between("foo", "fo"), 1);
+		assertEquals(distance.between("foo", "boo"), 1);
+		assertEquals(distance.between("foo", "fbo"), 1);
+		assertEquals(distance.between("foo", "fob"), 1);
+		assertEquals(distance.between("foo", "ofo"), transpositionPenalty);
+		assertEquals(distance.between("clog", "dog"), mergePenalty);
+		assertEquals(distance.between("dog", "clog"), splitPenalty);
 	}
 
 	private static abstract class AbstractDataIterator implements Iterator<Object[]> {
