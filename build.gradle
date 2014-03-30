@@ -6,8 +6,14 @@ repositories {
 
 dependencies {
   compile 'org.projectlombok:lombok:1.12.6'
+  compile 'org.apache.commons:commons-lang3:3.3.1'
+  compile 'fastutil:fastutil:5.0.9'
   //compile 'org.slf4j:slf4j-api:1.7.6'
   //runtime 'ch.qos.logback:logback-classic:1.1.1'
   //runtime 'org.codehaus.groovy:groovy-all:2.2.2'
   testCompile 'org.testng:testing:6.1.1'
+}
+
+tasks.withType(Compile) {
+	options.compilerArgs << "-Xlint:unchecked"
 }
