@@ -6,5 +6,5 @@ package com.github.dylon.liblevenshtein.levenshtein;
  */
 public interface IDistanceFactory<Term> {
 
-	IDistance<Term> build(Algorithm algorithm);
+  IDistance<Term> build(Algorithm algorithm);
 }
