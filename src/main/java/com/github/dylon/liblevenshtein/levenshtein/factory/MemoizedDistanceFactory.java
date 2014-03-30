@@ -10,11 +10,15 @@ import com.github.dylon.liblevenshtein.levenshtein.distance.MemoizedTranspositio
 import com.github.dylon.liblevenshtein.levenshtein.distance.MemoizedMergeAndSplit;
 
 /**
+ * Builds memoized instances of Levensthein distance metrics.
  * @author Dylon Edwards
  * @since 2.1.0
  */
 public class MemoizedDistanceFactory implements IDistanceFactory<String> {
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public IDistance<String> build(@NonNull final Algorithm algorithm) {
     switch (algorithm) {
