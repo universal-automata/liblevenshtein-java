@@ -31,7 +31,7 @@ public class MemoizedDistanceFactoryTest {
 			reader = new BufferedReader(
 					new InputStreamReader(
 						getClass().getResourceAsStream(
-							"/resources/top-10-most-common-english-words.txt")));
+							"/resources/top-20-most-common-english-words.txt")));
 
 			final List<String> terms = new ArrayList<String>();
 
