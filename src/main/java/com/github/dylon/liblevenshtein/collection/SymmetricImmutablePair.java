@@ -41,14 +41,14 @@ public class SymmetricImmutablePair<Type extends Comparable<Type>>
       @NonNull final Type first,
       @NonNull final Type second) {
 
-		if (first.compareTo(second) < 0) {
-			this.first = first;
-			this.second = second;
-		}
-		else {
-			this.first = second;
-			this.second = first;
-		}
+    if (first.compareTo(second) < 0) {
+      this.first = first;
+      this.second = second;
+    }
+    else {
+      this.first = second;
+      this.second = first;
+    }
 
     this.hashCode = new HashCodeBuilder(541, 7873)
       .append(this.first)
