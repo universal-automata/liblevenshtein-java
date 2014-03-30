@@ -20,7 +20,7 @@ import com.github.dylon.liblevenshtein.levenshtein.IDistance;
 import com.github.dylon.liblevenshtein.levenshtein.IDistanceFactory;
 
 public class MemoizedDistanceFactoryTest {
-	private List<String> loremIpsum;
+	private List<String> terms;
 	private IDistanceFactory<String> factory;
 
 	@BeforeClass
@@ -31,15 +31,15 @@ public class MemoizedDistanceFactoryTest {
 			reader = new BufferedReader(
 					new InputStreamReader(
 						getClass().getResourceAsStream(
-							"/resources/lorem-ipsum-terms.txt")));
+							"/resources/top-10-most-common-english-words.txt")));
 
-			final List<String> loremIpsum = new ArrayList<String>();
+			final List<String> terms = new ArrayList<String>();
 
 			String term;
 			while ((term = reader.readLine()) != null) {
-				loremIpsum.add(term); }
+				terms.add(term); }
 
-			this.loremIpsum = loremIpsum;
+			this.terms = terms;
 			this.factory = new MemoizedDistanceFactory();
 		}
 		catch (final IOException exception) {
@@ -51,22 +51,22 @@ public class MemoizedDistanceFactoryTest {
 
 	@DataProvider(name = "equalSelfSimilarityData")
 	public Iterator<Object[]> equalSelfSimilarityData() {
-		return new EqualSelfSimilarityDataIterator(factory, loremIpsum);
+		return new EqualSelfSimilarityDataIterator(factory, terms);
 	}
 
 	@DataProvider(name = "minimalityData")
 	public Iterator<Object[]> minimalityData() {
-		return new MinimalityDataIterator(factory, loremIpsum);
+		return new MinimalityDataIterator(factory, terms);
 	}
 
 	@DataProvider(name = "symmetryData")
 	public Iterator<Object[]> symmetryData() {
-		return new SymmetryDataIterator(factory, loremIpsum);
+		return new SymmetryDataIterator(factory, terms);
 	}
 
 	@DataProvider(name = "triangleInequalityData")
 	public Iterator<Object[]> triangleInequalityData() {
-		return new TriangleInequalityDataIterator(factory, loremIpsum);
+		return new TriangleInequalityDataIterator(factory, terms);
 	}
 
 	@DataProvider(name = "penaltyData")
