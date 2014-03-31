@@ -32,7 +32,8 @@ public class DawgTest {
       reader = new BufferedReader(
           new InputStreamReader(
             getClass().getResourceAsStream(
-              "/resources/top-20-most-common-english-words.txt")));
+              "/resources/top-10-most-common-english-words.txt")));
+              //"/resources/top-20-most-common-english-words.txt")));
 
       final List<String> terms = new ArrayList<String>();
 
@@ -46,10 +47,10 @@ public class DawgTest {
       this.terms = terms;
       this.dawgNodeFactory = new DawgNodeFactory();
       this.dawgFactory = new DawgFactory(dawgNodeFactory);
-      this.emptyDawg = dawgFactory.build(new ArrayList<String>(0).iterator());
-      this.fullDawg = dawgFactory.build(terms.iterator());
+      this.emptyDawg = dawgFactory.build(new ArrayList<String>(0));
+      this.fullDawg = dawgFactory.build(terms);
     }
-    catch (final IOException exception) {
+    catch (final Throwable exception) {
       System.err.println(exception.getMessage());
       exception.printStackTrace();
       System.exit(1);
@@ -89,7 +90,7 @@ public class DawgTest {
   public void dawgAcceptsEmptyStringIfInTerms() {
     final List<String> terms = new ArrayList<>(1);
     terms.add("");
-    final Dawg dawg = dawgFactory.build(terms.iterator());
+    final Dawg dawg = dawgFactory.build(terms);
     assertTrue(dawg.contains(""));
   }
 
@@ -99,7 +100,7 @@ public class DawgTest {
     terms.add("a");
     terms.add("c");
     terms.add("b");
-    dawgFactory.build(terms.iterator());
+    dawgFactory.build(terms);
   }
 
   @RequiredArgsConstructor

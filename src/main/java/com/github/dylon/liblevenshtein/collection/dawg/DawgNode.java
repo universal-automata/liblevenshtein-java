@@ -20,7 +20,6 @@ import com.github.dylon.liblevenshtein.collection.IDawgNode;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-//@EqualsAndHashCode
 @Accessors(fluent=true)
 @RequiredArgsConstructor
 public class DawgNode implements IDawgNode<DawgNode> {
@@ -55,6 +54,9 @@ public class DawgNode implements IDawgNode<DawgNode> {
    */
   @Override
   public DawgNode addEdge(final char label, final DawgNode target) {
+    if (target.id() == id) {
+      throw new IllegalStateException("Cycle detected");
+    }
     edges.put(label, target);
     return this;
   }
@@ -93,5 +95,30 @@ public class DawgNode implements IDawgNode<DawgNode> {
       builder.append(target.id());
     }
     return builder.toHashCode();
+  }
+
+  @Override
+  public String toString() {
+    final StringBuilder buffer = new StringBuilder();
+    buffer.append("DawgNode{");
+    buffer.append("id=");
+    buffer.append(id);
+    buffer.append(',');
+    buffer.append("final=");
+    buffer.append(isFinal);
+    buffer.append(',');
+    buffer.append("edges={");
+    boolean first = true;
+    for (val entry : edges.char2ObjectEntrySet()) {
+      final char label = entry.getCharKey();
+      final DawgNode target = entry.getValue();
+      if (!first) buffer.append(',');
+      else first = false;
+      buffer.append(label);
+      buffer.append("->");
+      buffer.append(target);
+    }
+    buffer.append("}}");
+    return buffer.toString();
   }
 }

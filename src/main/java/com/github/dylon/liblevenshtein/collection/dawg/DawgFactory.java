@@ -1,6 +1,6 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
-import java.util.Iterator;
+import java.util.Collection;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -24,7 +24,7 @@ public class DawgFactory implements IDawgFactory<DawgNode, Dawg> {
    * {@inheritDoc}
    */
   @Override
-  public Dawg build(@NonNull final Iterator<String> terms) {
+  public Dawg build(@NonNull final Collection<String> terms) {
     return new Dawg(factory, terms);
   }
 }
