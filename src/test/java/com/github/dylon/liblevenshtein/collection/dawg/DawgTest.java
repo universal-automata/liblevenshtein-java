@@ -85,6 +85,14 @@ public class DawgTest {
     assertEquals(fullDawg.size(), terms.size());
   }
 
+  @Test
+  public void dawgAcceptsEmptyStringIfInTerms() {
+    final List<String> terms = new ArrayList<>(1);
+    terms.add("");
+    final Dawg dawg = dawgFactory.build(terms.iterator());
+    assertTrue(dawg.contains(""));
+  }
+
   @RequiredArgsConstructor
   private static class TermIterator implements Iterator<Object[]> {
     private final Iterator<String> terms;

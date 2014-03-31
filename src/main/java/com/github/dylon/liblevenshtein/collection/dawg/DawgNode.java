@@ -25,13 +25,13 @@ import com.github.dylon.liblevenshtein.collection.IDawgNode;
 @RequiredArgsConstructor
 public class DawgNode implements IDawgNode<DawgNode> {
 
-	/** Uniquely-identifies this node within its context */
+  /** Uniquely-identifies this node within its context */
   @Getter private final long id;
 
   /** Outgoing edges of this node */
   @NonNull private final Char2ObjectMap<DawgNode> edges;
 
-	/** Whether this node represents the final character in a term */
+  /** Whether this node represents the final character in a term */
   @Getter @Setter private boolean isFinal = false;
 
   /**
@@ -61,37 +61,37 @@ public class DawgNode implements IDawgNode<DawgNode> {
 
   @Override
   public boolean equals(final Object o) {
-  	if (!(o instanceof DawgNode)) {
-  		return false;
-  	}
+    if (!(o instanceof DawgNode)) {
+      return false;
+    }
 
-		@SuppressWarnings("unchecked")
-  	final DawgNode other = (DawgNode) o;
-  	if (isFinal != other.isFinal) return false;
-  	if (edges.size() != other.edges.size()) return false;
-  	for (val entry : edges.char2ObjectEntrySet()) {
-  		final char label = entry.getCharKey();
-  		final DawgNode target = entry.getValue();
-  		final DawgNode otherTarget = other.transition(label);
-  		if (null == otherTarget) return false;
-  		if (target.id() != otherTarget.id()) return false;
-  	}
-  	return true;
+    @SuppressWarnings("unchecked")
+    final DawgNode other = (DawgNode) o;
+    if (isFinal != other.isFinal) return false;
+    if (edges.size() != other.edges.size()) return false;
+    for (val entry : edges.char2ObjectEntrySet()) {
+      final char label = entry.getCharKey();
+      final DawgNode target = entry.getValue();
+      final DawgNode otherTarget = other.transition(label);
+      if (null == otherTarget) return false;
+      if (target.id() != otherTarget.id()) return false;
+    }
+    return true;
   }
 
   @Override
   public int hashCode() {
-  	// NOTE: It looks like this gets called twice (consecutively) during
-  	// construction of the DAWG dictionary.
-  	// NOTE: An assumption is made that edges is sorted.
-  	final HashCodeBuilder builder = new HashCodeBuilder(8777, 4343);
-  	builder.append(isFinal);
-  	for (val entry : edges.char2ObjectEntrySet()) {
-  		final char label = entry.getCharKey();
-  		final DawgNode target = entry.getValue();
-  		builder.append(label);
-  		builder.append(target.id());
-  	}
-  	return builder.toHashCode();
+    // NOTE: It looks like this gets called twice (consecutively) during
+    // construction of the DAWG dictionary.
+    // NOTE: An assumption is made that edges is sorted.
+    final HashCodeBuilder builder = new HashCodeBuilder(8777, 4343);
+    builder.append(isFinal);
+    for (val entry : edges.char2ObjectEntrySet()) {
+      final char label = entry.getCharKey();
+      final DawgNode target = entry.getValue();
+      builder.append(label);
+      builder.append(target.id());
+    }
+    return builder.toHashCode();
   }
 }
