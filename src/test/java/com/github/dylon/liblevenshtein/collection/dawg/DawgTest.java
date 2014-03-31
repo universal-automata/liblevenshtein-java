@@ -4,8 +4,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -32,8 +35,7 @@ public class DawgTest {
       reader = new BufferedReader(
           new InputStreamReader(
             getClass().getResourceAsStream(
-              "/resources/top-10-most-common-english-words.txt")));
-              //"/resources/top-20-most-common-english-words.txt")));
+              "/resources/top-20-most-common-english-words.txt")));
 
       final List<String> terms = new ArrayList<String>();
 
@@ -42,7 +44,7 @@ public class DawgTest {
         terms.add(term);
       }
 
-      java.util.Collections.sort(terms);
+      Collections.sort(terms);
 
       this.terms = terms;
       this.dawgNodeFactory = new DawgNodeFactory();
@@ -92,6 +94,16 @@ public class DawgTest {
     terms.add("");
     final Dawg dawg = dawgFactory.build(terms);
     assertTrue(dawg.contains(""));
+  }
+
+  @Test
+  public void dawgShouldIterateOverAllTerms() {
+    final Set<String> terms = new HashSet<>(this.terms);
+    for (final String term : fullDawg) {
+      assertTrue(terms.contains(term));
+      terms.remove(term);
+    }
+    assertTrue(terms.isEmpty());
   }
 
   @Test(expectedExceptions=IllegalArgumentException.class)
