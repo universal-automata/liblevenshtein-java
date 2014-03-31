@@ -1,7 +1,7 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
-import java.util.AbstractCollection;
 import java.lang.reflect.Array;
+import java.util.AbstractSet;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Collection;
@@ -34,7 +34,7 @@ import com.github.dylon.liblevenshtein.collection.ITransitionFunction;
  */
 @Accessors(fluent=true)
 public class Dawg
-    extends AbstractCollection<String>
+    extends AbstractSet<String>
     implements IDawg<DawgNode>,
                IFinalFunction<DawgNode>,
                ITransitionFunction<DawgNode> {
