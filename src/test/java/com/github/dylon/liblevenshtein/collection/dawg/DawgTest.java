@@ -108,7 +108,7 @@ public class DawgTest {
 
   @Test(expectedExceptions=IllegalArgumentException.class)
   public void insertingTermsOutOfOrderShouldThrowAnException() {
-    final List<String> terms = new ArrayList<>(1);
+    final List<String> terms = new ArrayList<>(3);
     terms.add("a");
     terms.add("c");
     terms.add("b");
