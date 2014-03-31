@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import lombok.RequiredArgsConstructor;
-
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -99,15 +97,8 @@ public class MemoizedDistanceFactoryTest {
     final int d_11 = distance.between(term_1, term_1);
     final int d_12 = distance.between(term_1, term_2);
     final int d_21 = distance.between(term_2, term_1);
-
-    try {
-      assertTrue(d_12 > d_11);
-      assertTrue(d_21 > d_11);
-    }
-    catch (final AssertionError exception) {
-      System.err.printf("d_11=%d, d_12=%d, d_21=%d%n", d_11, d_12, d_21);
-      throw exception;
-    }
+    assertTrue(d_12 > d_11);
+    assertTrue(d_21 > d_11);
   }
 
   @Test(dataProvider = "symmetryData")
@@ -132,16 +123,9 @@ public class MemoizedDistanceFactoryTest {
     final int d_12 = distance.between(term_1, term_2);
     final int d_13 = distance.between(term_1, term_3);
     final int d_23 = distance.between(term_2, term_3);
-
-    try {
-      assertTrue(d_12 + d_13 >= d_23);
-      assertTrue(d_12 + d_23 >= d_13);
-      assertTrue(d_13 + d_23 >= d_12);
-    }
-    catch (final AssertionError exception) {
-      System.err.printf("d_12=%d, d_13=%d, d_23=%d%n", d_12, d_13, d_23);
-      throw exception;
-    }
+    assertTrue(d_12 + d_13 >= d_23);
+    assertTrue(d_12 + d_23 >= d_13);
+    assertTrue(d_13 + d_23 >= d_12);
   }
 
   @Test(dataProvider = "penaltyData")
@@ -167,6 +151,7 @@ public class MemoizedDistanceFactoryTest {
   }
 
   private static abstract class AbstractDataIterator implements Iterator<Object[]> {
+  	protected final Algorithm[] algorithms = Algorithm.values();
     protected Object[] params;
 
     @Override
@@ -204,7 +189,7 @@ public class MemoizedDistanceFactoryTest {
         final List<String> terms) {
       this.factory = factory;
       this.terms = terms;
-      final Algorithm algorithm = Algorithm.values()[k ++];
+      final Algorithm algorithm = algorithms[k ++];
       buffer[0] = algorithm;
       buffer[1] = factory.build(algorithm);
     }
@@ -223,11 +208,11 @@ public class MemoizedDistanceFactoryTest {
           j = 0;
           advance();
         }
-        else if (k + 1 < Algorithm.values().length) {
+        else if (k + 1 < algorithms.length) {
           i = 0;
           j = 0;
           k += 1;
-          final Algorithm algorithm = Algorithm.values()[k];
+          final Algorithm algorithm = algorithms[k];
           buffer[0] = algorithm;
           buffer[1] = factory.build(algorithm);
           advance();
@@ -249,7 +234,7 @@ public class MemoizedDistanceFactoryTest {
         final List<String> terms) {
       this.factory = factory;
       this.terms = terms;
-      final Algorithm algorithm = Algorithm.values()[k ++];
+      final Algorithm algorithm = algorithms[k ++];
       buffer[0] = algorithm;
       buffer[1] = factory.build(algorithm);
     }
@@ -272,11 +257,11 @@ public class MemoizedDistanceFactoryTest {
           j = 0;
           advance();
         }
-        else if (k + 1 < Algorithm.values().length) {
+        else if (k + 1 < algorithms.length) {
           i = 0;
           j = 0;
           k += 1;
-          final Algorithm algorithm = Algorithm.values()[k];
+          final Algorithm algorithm = algorithms[k];
           buffer[0] = algorithm;
           buffer[1] = factory.build(algorithm);
           advance();
@@ -289,16 +274,16 @@ public class MemoizedDistanceFactoryTest {
     private final IDistanceFactory<String> factory;
     private final List<String> terms;
     private Object[] buffer = new Object[4];
-    int i = 0;
-    int j = 0;
-    int k = 0;
+    private int i = 0;
+    private int j = 0;
+    private int k = 0;
 
     public SymmetryDataIterator(
         final IDistanceFactory<String> factory,
         final List<String> terms) {
       this.factory = factory;
       this.terms = terms;
-      final Algorithm algorithm = Algorithm.values()[k ++];
+      final Algorithm algorithm = algorithms[k ++];
       buffer[0] = algorithm;
       buffer[1] = factory.build(algorithm);
     }
@@ -317,11 +302,11 @@ public class MemoizedDistanceFactoryTest {
           j = 0;
           advance();
         }
-        else if (k + 1 < Algorithm.values().length) {
+        else if (k + 1 < algorithms.length) {
           i = 0;
           j = 0;
           k += 1;
-          final Algorithm algorithm = Algorithm.values()[k];
+          final Algorithm algorithm = algorithms[k];
           buffer[0] = algorithm;
           buffer[1] = factory.build(algorithm);
           advance();
@@ -334,17 +319,17 @@ public class MemoizedDistanceFactoryTest {
     private final IDistanceFactory<String> factory;
     private final List<String> terms;
     private Object[] buffer = new Object[5];
-    int i = 0;
-    int j = 0;
-    int k = 0;
-    int l = 0;
+    private int i = 0;
+    private int j = 0;
+    private int k = 0;
+    private int l = 0;
 
     public TriangleInequalityDataIterator(
         final IDistanceFactory<String> factory,
         final List<String> terms) {
       this.factory = factory;
       this.terms = terms;
-      final Algorithm algorithm = Algorithm.values()[l ++];
+      final Algorithm algorithm = algorithms[l ++];
       buffer[0] = algorithm;
       buffer[1] = factory.build(algorithm);
     }
@@ -370,12 +355,12 @@ public class MemoizedDistanceFactoryTest {
           k += 1;
           advance();
         }
-        else if (l + 1 < Algorithm.values().length) {
+        else if (l + 1 < algorithms.length) {
           i = 0;
           j = 0;
           k = 0;
           l += 1;
-          final Algorithm algorithm = Algorithm.values()[l];
+          final Algorithm algorithm = algorithms[l];
           buffer[0] = algorithm;
           buffer[1] = factory.build(algorithm);
           advance();

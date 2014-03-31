@@ -1,5 +1,11 @@
 apply plugin: 'java'
 
+archivesBaseName = 'liblevenshtein'
+version = '2.1.0'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
 repositories {
   mavenCentral()
 }
@@ -7,7 +13,8 @@ repositories {
 dependencies {
   compile 'org.projectlombok:lombok:1.12.6'
   compile 'org.apache.commons:commons-lang3:3.3.1'
-  compile 'fastutil:fastutil:5.0.9'
+  compile 'it.unimi.dsi:fastutil:6.5.13'
+  compile 'com.google.guava:guava:16.0.1'
   //compile 'org.slf4j:slf4j-api:1.7.6'
   //runtime 'ch.qos.logback:logback-classic:1.1.1'
   //runtime 'org.codehaus.groovy:groovy-all:2.2.2'
@@ -16,15 +23,50 @@ dependencies {
 
 tasks.withType(Compile) {
   options.compilerArgs << "-Xlint:unchecked"
+
+  // Source:
+  // http://docs.oracle.com/javase/7/docs/technotes/tools/solaris/javac.html#crosscomp-example
+  //
+  //Cross-Compilation Example
+  //The following example uses javac to compile code that will run on a 1.6 VM.
+  //
+  //% javac -source 1.6 -target 1.6 -bootclasspath jdk1.6.0/lib/rt.jar \
+  //          -extdirs "" OldCode.java
+  //The -source 1.6 option specifies that version 1.6 (or 6) of the Java
+  //programming language be used to compile OldCode.java. The option -target 1.6
+  //option ensures that the generated class files will be compatible with 1.6
+  //VMs. Note that in most cases, the value of the -target option is the value
+  //of the -source option; in this example, you can omit the -target option.
+  //
+  //You must specify the -bootclasspath option to specify the correct version of
+  //the bootstrap classes (the rt.jar library). If not, the compiler generates a
+  //warning:
+  //
+  //% javac -source 1.6 OldCode.java
+  //warning: [options] bootstrap class path not set in conjunction with -source 1.6
+  //
+  //If you do not specify the correct version of bootstrap classes, the compiler
+  //will use the old language rules (in this example, it will use version 1.6 of
+  //the Java programming language) combined with the new bootstrap classes,
+  //which can result in class files that do not work on the older platform (in
+  //this case, Java SE 6) because reference to non-existent methods can get
+  //included.
+  options.bootClasspath =
+    ['/opt/java7/jre/lib/rt.jar'                   // Arch Linux, jdk7-compat
+    , '/usr/lib/jvm/java-7-oracle/jre/lib/rt.jar'  // Travis CI
+    ].find {
+      def rt_jar = new File(it)
+      rt_jar.exists() && rt_jar.canRead()
+    }
 }
 
 test {
-	useTestNG()
+  useTestNG()
 
-	testLogging {
-		exceptionFormat "full"
-		showStandardStreams true
-		showExceptions true
-		showStackTraces true
-	}
+  testLogging {
+    exceptionFormat "full"
+    showStandardStreams true
+    showExceptions true
+    showStackTraces true
+  }
 }
