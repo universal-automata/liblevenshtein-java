@@ -93,10 +93,7 @@ public class DawgTest {
 
     @Override
     public boolean hasNext() {
-      if (null == params) {
-        advance();
-      }
-
+      advance();
       return null != params;
     }
 
