@@ -22,7 +22,7 @@ public class MemoizedDistanceFactoryTest {
   private IDistanceFactory<String> factory;
 
   @BeforeClass
-  public void readLoremIpsum() {
+  public void setUp() {
     BufferedReader reader = null;
 
     try {
@@ -35,7 +35,8 @@ public class MemoizedDistanceFactoryTest {
 
       String term;
       while ((term = reader.readLine()) != null) {
-        terms.add(term); }
+        terms.add(term);
+      }
 
       this.terms = terms;
       this.factory = new MemoizedDistanceFactory();

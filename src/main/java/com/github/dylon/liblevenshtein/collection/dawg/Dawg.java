@@ -19,6 +19,10 @@ import com.github.dylon.liblevenshtein.collection.IDawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.IFinalFunction;
 import com.github.dylon.liblevenshtein.collection.ITransitionFunction;
 
+/**
+ * @author Dylon Edwards
+ * @since 2.1.0
+ */
 @Accessors(fluent=true)
 public class Dawg
     implements IDawg<DawgNode,Dawg>,
@@ -27,11 +31,10 @@ public class Dawg
 
   private final IDawgNodeFactory<DawgNode> factory;
 
-  /** Maintains which nodes represent the final characters of terms */
-  private final Set<DawgNode> finalNodes = Sets.<DawgNode> newIdentityHashSet();
-
+  /** Nodes that have not been checked for redundancy */
   private Deque<Transition> uncheckedNodes = new ArrayDeque<>();
 
+  /** Nodes that have been checked for redundancy */
   private Map<DawgNode,DawgNode> minimizedNodes = new HashMap<>();
 
   @Getter(onMethod=@_({@Override}))
@@ -42,9 +45,13 @@ public class Dawg
 
   private String previousTerm = "";
 
-  public Dawg(@NonNull final IDawgNodeFactory<DawgNode> factory) {
+  public Dawg(
+      @NonNull final IDawgNodeFactory<DawgNode> factory,
+      @NonNull Iterator<String> terms) {
     this.factory = factory;
     this.root = factory.build();
+    insertAll(terms);
+    finish();
   }
 
   /**
@@ -52,7 +59,7 @@ public class Dawg
    */
   @Override
   public boolean isFinal(final DawgNode node) {
-    return finalNodes.contains(node);
+    return node.isFinal();
   }
 
   /**
@@ -96,13 +103,15 @@ public class Dawg
     while (i < term.length()) {
       final char label = term.charAt(i);
       final DawgNode nextNode = factory.build();
-      node = node.addEdge(label, nextNode);
+      // TODO: See if I can move "addEdge" explicitly to "minimize", as it may
+      // be redundant here ...
+      //node.addEdge(label, nextNode);
       uncheckedNodes.addFirst(new Transition(node, label, nextNode));
       node = nextNode;
       i += 1;
     }
 
-    finalNodes.add(node);
+    node.isFinal(true);
     previousTerm = term;
     size += 1;
     return this;
@@ -117,7 +126,7 @@ public class Dawg
 
   private void minimize(final int lowerBound) {
     // Proceed from the leaf up to a certain point
-    for (int j = 0; j > lowerBound; --j) {
+    for (int j = uncheckedNodes.size(); j > lowerBound; --j) {
       final Transition transition = uncheckedNodes.removeFirst();
       final DawgNode source = transition.source();
       final char label = transition.label();
@@ -125,9 +134,9 @@ public class Dawg
       if (minimizedNodes.containsKey(target)) {
         // Replace the target with the one already in the dictionary
         source.addEdge(label, minimizedNodes.get(target));
-        finalNodes.remove(target);
       }
       else {
+      	source.addEdge(label, target);
         minimizedNodes.put(target, target);
       }
     }
@@ -178,7 +187,7 @@ public class Dawg
       final char label = term.charAt(i);
       node = node.transition(label);
     }
-    return null != node;
+    return null != node && isFinal(node);
   }
 
   @Value

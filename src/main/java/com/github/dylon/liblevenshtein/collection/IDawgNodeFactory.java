@@ -16,12 +16,4 @@ public interface IDawgNodeFactory<NodeType extends IDawgNode<NodeType>> {
    * @throws NullPointerException When edges is null
    */
   NodeType build();
-
-  /**
-   * Builds a DAWG node with the provided, outgoing edges.
-   * @param edges Outgoing edges for the new DAWG node
-   * @return A DAWG node having the provided, outgoing edges
-   * @throws NullPointerException When edges is null
-   */
-  NodeType build(Char2ObjectMap<NodeType> edges);
 }
