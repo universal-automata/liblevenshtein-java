@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import com.github.dylon.liblevenshtein.collection.IDawgFactory;
 import com.github.dylon.liblevenshtein.collection.IDawgNodeFactory;

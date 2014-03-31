@@ -1,9 +1,7 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
-import java.lang.reflect.Array;
 import java.util.AbstractSet;
 import java.util.ArrayDeque;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;

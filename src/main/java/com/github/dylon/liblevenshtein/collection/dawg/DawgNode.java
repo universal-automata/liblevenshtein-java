@@ -1,6 +1,5 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -104,7 +103,7 @@ public class DawgNode implements IDawgNode<DawgNode> {
     buffer.append("id=");
     buffer.append(id);
     buffer.append(',');
-    buffer.append("final=");
+    buffer.append("isFinal=");
     buffer.append(isFinal);
     buffer.append(',');
     buffer.append("edges={");
