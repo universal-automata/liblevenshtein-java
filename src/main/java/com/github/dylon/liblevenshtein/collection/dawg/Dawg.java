@@ -34,7 +34,7 @@ import com.github.dylon.liblevenshtein.collection.ITransitionFunction;
  */
 @Accessors(fluent=true)
 public class Dawg
-		extends AbstractCollection<String>
+    extends AbstractCollection<String>
     implements IDawg<DawgNode>,
                IFinalFunction<DawgNode>,
                ITransitionFunction<DawgNode> {
@@ -61,7 +61,7 @@ public class Dawg
     this.factory = factory;
     this.root = factory.build();
     if (!addAll(terms)) {
-    	throw new IllegalStateException("Failed to add all terms");
+      throw new IllegalStateException("Failed to add all terms");
     }
     finish();
   }
@@ -93,9 +93,9 @@ public class Dawg
     }
 
     if (term.compareTo(previousTerm) < 0) {
-    	throw new IllegalArgumentException(
-    			"Due to caveats with the current DAWG implementation, terms must be "+
-    			"inserted in ascending order");
+      throw new IllegalArgumentException(
+          "Due to caveats with the current DAWG implementation, terms must be "+
+          "inserted in ascending order");
     }
 
     final int upperBound = (term.length() < previousTerm.length())
@@ -133,7 +133,7 @@ public class Dawg
   }
 
   private void finish() {
-		minimize(0);
+    minimize(0);
     factory = null;
     uncheckedTransitions = null;
     minimizedNodes = null;
@@ -175,9 +175,9 @@ public class Dawg
    */
   @Override
   public boolean contains(final Object o) {
-  	if (!(o instanceof String)) return false;
-  	@SuppressWarnings("unchecked")
-  	final String term = (String) o;
+    if (!(o instanceof String)) return false;
+    @SuppressWarnings("unchecked")
+    final String term = (String) o;
     DawgNode node = root;
     for (int i = 0; i < term.length() && null != node; ++i) {
       final char label = term.charAt(i);
@@ -191,30 +191,30 @@ public class Dawg
    */
   @Override
   public boolean equals(final Object o) {
-  	if (!(o instanceof Dawg)) return false;
-  	@SuppressWarnings("unchecked")
-  	final Dawg other = (Dawg) o;
-  	final Queue<Pair<DawgNode,DawgNode>> nodes = new ArrayDeque<>();
-  	nodes.offer(ImmutablePair.of(root, other.root));
-  	while (!nodes.isEmpty()) {
-			final Pair<DawgNode,DawgNode> pair = nodes.poll();
-			final DawgNode node = pair.getLeft();
-			final DawgNode otherNode = pair.getRight();
-			if (node.isFinal() != otherNode.isFinal()) return false;
-  		final CharSet labels = node.labels();
-  		final CharSet otherLabels = otherNode.labels();
-  		if (labels.size() != otherLabels.size()) return false;
-  		final CharIterator iter = labels.iterator();
-  		while (iter.hasNext()) {
-  			final char label = iter.nextChar();
-  			if (!otherLabels.contains(label)) return false;
-  			nodes.offer(
-  					ImmutablePair.of(
-  						node.transition(label),
-  						otherNode.transition(label)));
-  		}
-  	}
-  	return true;
+    if (!(o instanceof Dawg)) return false;
+    @SuppressWarnings("unchecked")
+    final Dawg other = (Dawg) o;
+    final Queue<Pair<DawgNode,DawgNode>> nodes = new ArrayDeque<>();
+    nodes.offer(ImmutablePair.of(root, other.root));
+    while (!nodes.isEmpty()) {
+      final Pair<DawgNode,DawgNode> pair = nodes.poll();
+      final DawgNode node = pair.getLeft();
+      final DawgNode otherNode = pair.getRight();
+      if (node.isFinal() != otherNode.isFinal()) return false;
+      final CharSet labels = node.labels();
+      final CharSet otherLabels = otherNode.labels();
+      if (labels.size() != otherLabels.size()) return false;
+      final CharIterator iter = labels.iterator();
+      while (iter.hasNext()) {
+        final char label = iter.nextChar();
+        if (!otherLabels.contains(label)) return false;
+        nodes.offer(
+            ImmutablePair.of(
+              node.transition(label),
+              otherNode.transition(label)));
+      }
+    }
+    return true;
   }
 
   /**
@@ -222,22 +222,22 @@ public class Dawg
    */
   @Override
   public int hashCode() {
-  	final HashCodeBuilder builder = new HashCodeBuilder(3013, 8225);
-  	builder.append(root.isFinal());
-  	final Queue<DawgNode> nodes = new ArrayDeque<>();
-  	nodes.offer(root);
-  	while (!nodes.isEmpty()) {
-  		final DawgNode node = nodes.poll();
-  		final CharIterator iter = node.labels().iterator();
-  		while (iter.hasNext()) {
-  			final char label = iter.nextChar();
-  			final DawgNode target = node.transition(label);
-  			builder.append(label);
-  			builder.append(target.isFinal());
-  			nodes.offer(target);
-  		}
-  	}
-  	return builder.toHashCode();
+    final HashCodeBuilder builder = new HashCodeBuilder(3013, 8225);
+    builder.append(root.isFinal());
+    final Queue<DawgNode> nodes = new ArrayDeque<>();
+    nodes.offer(root);
+    while (!nodes.isEmpty()) {
+      final DawgNode node = nodes.poll();
+      final CharIterator iter = node.labels().iterator();
+      while (iter.hasNext()) {
+        final char label = iter.nextChar();
+        final DawgNode target = node.transition(label);
+        builder.append(label);
+        builder.append(target.isFinal());
+        nodes.offer(target);
+      }
+    }
+    return builder.toHashCode();
   }
 
   /**
@@ -245,7 +245,7 @@ public class Dawg
    */
   @Override
   public Iterator<String> iterator() {
-  	return new DawgIterator(this);
+    return new DawgIterator(this);
   }
 
   /**

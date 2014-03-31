@@ -23,7 +23,7 @@ import com.github.dylon.liblevenshtein.collection.IFinalFunction;
  * @since 2.1.0
  */
 public class DawgNodeFactory implements IDawgNodeFactory<DawgNode> {
-	private final Queue<DawgNode> queue = new ArrayDeque<>();
+  private final Queue<DawgNode> queue = new ArrayDeque<>();
   private long id = 1;
 
   /**
@@ -31,23 +31,23 @@ public class DawgNodeFactory implements IDawgNodeFactory<DawgNode> {
    */
   @Override
   public DawgNode build() {
-  	DawgNode node = queue.poll();
-  	if (null == node) {
-    	final Char2ObjectMap<DawgNode> edges = new Char2ObjectRBTreeMap<>();
-    	node = new DawgNode(id, edges);
-    	this.id += 1;
-  	}
+    DawgNode node = queue.poll();
+    if (null == node) {
+      final Char2ObjectMap<DawgNode> edges = new Char2ObjectRBTreeMap<>();
+      node = new DawgNode(id, edges);
+      this.id += 1;
+    }
     return node;
   }
 
-	/**
-	 * {@inheritDoc}
-	 */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public DawgNodeFactory recycle(final DawgNode node) {
-  	node.edges.clear();
-  	node.isFinal(false);
-  	queue.offer(node);
-  	return this;
+    node.edges.clear();
+    node.isFinal(false);
+    queue.offer(node);
+    return this;
   }
 }
