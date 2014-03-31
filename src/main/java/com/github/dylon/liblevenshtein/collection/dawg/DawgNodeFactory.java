@@ -1,5 +1,8 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
+import java.util.Queue;
+import java.util.ArrayDeque;
+
 import lombok.NonNull;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectArrayMap;
@@ -20,6 +23,7 @@ import com.github.dylon.liblevenshtein.collection.IFinalFunction;
  * @since 2.1.0
  */
 public class DawgNodeFactory implements IDawgNodeFactory<DawgNode> {
+	private final Queue<DawgNode> queue = new ArrayDeque<>();
   private long id = 1;
 
   /**
@@ -27,9 +31,23 @@ public class DawgNodeFactory implements IDawgNodeFactory<DawgNode> {
    */
   @Override
   public DawgNode build() {
-    final Char2ObjectMap<DawgNode> edges = new Char2ObjectRBTreeMap<>();
-    final DawgNode node = new DawgNode(id, edges);
-    this.id += 1;
+  	DawgNode node = queue.poll();
+  	if (null == node) {
+    	final Char2ObjectMap<DawgNode> edges = new Char2ObjectRBTreeMap<>();
+    	node = new DawgNode(id, edges);
+    	this.id += 1;
+  	}
     return node;
+  }
+
+	/**
+	 * {@inheritDoc}
+	 */
+  @Override
+  public DawgNodeFactory recycle(final DawgNode node) {
+  	node.edges.clear();
+  	node.isFinal(false);
+  	queue.offer(node);
+  	return this;
   }
 }

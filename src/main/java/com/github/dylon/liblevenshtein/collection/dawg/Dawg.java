@@ -5,14 +5,11 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Value;
 import lombok.experimental.Accessors;
-
-import com.google.common.collect.Sets;
 
 import com.github.dylon.liblevenshtein.collection.IDawg;
 import com.github.dylon.liblevenshtein.collection.IDawgNodeFactory;
@@ -130,6 +127,7 @@ public class Dawg
       final DawgNode target = transition.target();
       if (minimizedNodes.containsKey(target)) {
         source.addEdge(label, minimizedNodes.get(target));
+        factory.recycle(target);
       }
       else {
         source.addEdge(label, target);

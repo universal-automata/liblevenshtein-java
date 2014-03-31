@@ -29,7 +29,7 @@ public class DawgNode implements IDawgNode<DawgNode> {
   @Getter private final long id;
 
   /** Outgoing edges of this node */
-  @NonNull private final Char2ObjectMap<DawgNode> edges;
+  @NonNull protected final Char2ObjectMap<DawgNode> edges;
 
   /** Whether this node represents the final character in a term */
   @Getter @Setter private boolean isFinal = false;
