@@ -83,6 +83,7 @@ public class DawgNode implements IDawgNode<DawgNode> {
   public int hashCode() {
   	// NOTE: It looks like this gets called twice (consecutively) during
   	// construction of the DAWG dictionary.
+  	// NOTE: An assumption is made that edges is sorted.
   	final HashCodeBuilder builder = new HashCodeBuilder(8777, 4343);
   	builder.append(isFinal);
   	for (val entry : edges.char2ObjectEntrySet()) {

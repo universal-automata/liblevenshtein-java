@@ -46,8 +46,8 @@ public class DawgTest {
       this.terms = terms;
       this.dawgNodeFactory = new DawgNodeFactory();
       this.dawgFactory = new DawgFactory(dawgNodeFactory);
-  		this.emptyDawg = dawgFactory.build(new ArrayList<String>(0).iterator());
-			this.fullDawg = dawgFactory.build(terms.iterator());
+      this.emptyDawg = dawgFactory.build(new ArrayList<String>(0).iterator());
+      this.fullDawg = dawgFactory.build(terms.iterator());
     }
     catch (final IOException exception) {
       System.err.println(exception.getMessage());
@@ -58,66 +58,66 @@ public class DawgTest {
 
   @DataProvider(name="terms")
   public Iterator<Object[]> terms() {
-  	return new TermIterator(terms.iterator());
+    return new TermIterator(terms.iterator());
   }
 
   @Test(dataProvider="terms")
   public void emptyDawgAcceptsNothing(final String term) {
-  	assertFalse(emptyDawg.contains(term));
+    assertFalse(emptyDawg.contains(term));
   }
 
   @Test(dataProvider="terms")
   public void dawgAcceptsAllItsTerms(final String term) {
-  	assertTrue(fullDawg.contains(term));
+    assertTrue(fullDawg.contains(term));
   }
 
   @Test
   public void dawgAcceptsNoTermsItDoesNotContain() {
-  	assertFalse(fullDawg.contains(""));
-  	assertFalse(fullDawg.contains("foobar"));
-  	assertFalse(fullDawg.contains("C+"));
-  	assertFalse(fullDawg.contains("java"));
+    assertFalse(fullDawg.contains(""));
+    assertFalse(fullDawg.contains("foobar"));
+    assertFalse(fullDawg.contains("C+"));
+    assertFalse(fullDawg.contains("java"));
   }
 
   @Test
   public void dawgSizeIsSameAsTerms() {
-  	assertEquals(emptyDawg.size(), 0);
-  	assertEquals(fullDawg.size(), terms.size());
+    assertEquals(emptyDawg.size(), 0);
+    assertEquals(fullDawg.size(), terms.size());
   }
 
-	@RequiredArgsConstructor
+  @RequiredArgsConstructor
   private static class TermIterator implements Iterator<Object[]> {
-  	private final Iterator<String> terms;
-  	private Object[] params = null;
-  	private Object[] buffer = new Object[1];
+    private final Iterator<String> terms;
+    private Object[] params = null;
+    private Object[] buffer = new Object[1];
 
-  	@Override
-  	public boolean hasNext() {
-  		if (null == params) {
-  			advance();
-  		}
+    @Override
+    public boolean hasNext() {
+      if (null == params) {
+        advance();
+      }
 
-  		return null != params;
-  	}
+      return null != params;
+    }
 
-  	@Override
-  	public Object[] next() {
-  		advance();
-  		final Object[] params = this.params;
-  		this.params = null;
-  		return params;
-  	}
+    @Override
+    public Object[] next() {
+      advance();
+      final Object[] params = this.params;
+      this.params = null;
+      return params;
+    }
 
-  	@Override
-  	public void remove() {
-  		throw new UnsupportedOperationException();
-  	}
+    @Override
+    public void remove() {
+      throw new UnsupportedOperationException();
+    }
 
-  	public void advance() {
-  		if (null == params && terms.hasNext()) {
-  			buffer[0] = terms.next();
-  			params = buffer;
-  		}
-  	}
+    public void advance() {
+      if (null == params && terms.hasNext()) {
+        buffer[0] = terms.next();
+        params = buffer;
+      }
+    }
   }
 }

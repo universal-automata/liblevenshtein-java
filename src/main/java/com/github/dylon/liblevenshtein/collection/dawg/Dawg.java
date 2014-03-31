@@ -103,9 +103,6 @@ public class Dawg
     while (i < term.length()) {
       final char label = term.charAt(i);
       final DawgNode nextNode = factory.build();
-      // TODO: See if I can move "addEdge" explicitly to "minimize", as it may
-      // be redundant here ...
-      //node.addEdge(label, nextNode);
       uncheckedNodes.addFirst(new Transition(node, label, nextNode));
       node = nextNode;
       i += 1;
@@ -132,11 +129,10 @@ public class Dawg
       final char label = transition.label();
       final DawgNode target = transition.target();
       if (minimizedNodes.containsKey(target)) {
-        // Replace the target with the one already in the dictionary
         source.addEdge(label, minimizedNodes.get(target));
       }
       else {
-      	source.addEdge(label, target);
+        source.addEdge(label, target);
         minimizedNodes.put(target, target);
       }
     }
