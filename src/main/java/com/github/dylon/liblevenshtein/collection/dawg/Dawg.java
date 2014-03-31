@@ -26,10 +26,10 @@ public class Dawg
                IFinalFunction<DawgNode>,
                ITransitionFunction<DawgNode> {
 
-  private final IDawgNodeFactory<DawgNode> factory;
+  private IDawgNodeFactory<DawgNode> factory;
 
-  /** Nodes that have not been checked for redundancy */
-  private Deque<Transition> uncheckedNodes = new ArrayDeque<>();
+  /** Transitions that have not been checked for redundancy */
+  private Deque<Transition> uncheckedTransitions = new ArrayDeque<>();
 
   /** Nodes that have been checked for redundancy */
   private Map<DawgNode,DawgNode> minimizedNodes = new HashMap<>();
@@ -77,6 +77,12 @@ public class Dawg
           "Cannot insert terms once this DAWG has been finalized");
     }
 
+    if (term.compareTo(previousTerm) < 0) {
+    	throw new IllegalArgumentException(
+    			"Due to caveats with the current DAWG implementation, terms must be "+
+    			"inserted in ascending order");
+    }
+
     int upperBound = (term.length() < previousTerm.length())
       ? term.length()
       : previousTerm.length();
@@ -93,14 +99,14 @@ public class Dawg
     minimize(i);
 
     // Add the suffix, starting from the correct node, mid-way through the graph
-    DawgNode node = uncheckedNodes.isEmpty()
+    DawgNode node = uncheckedTransitions.isEmpty()
       ? root
-      : uncheckedNodes.peekFirst().target();
+      : uncheckedTransitions.peekFirst().target();
 
     while (i < term.length()) {
       final char label = term.charAt(i);
       final DawgNode nextNode = factory.build();
-      uncheckedNodes.addFirst(new Transition(node, label, nextNode));
+      uncheckedTransitions.addFirst(new Transition(node, label, nextNode));
       node = nextNode;
       i += 1;
     }
@@ -113,15 +119,16 @@ public class Dawg
 
   private void finish() {
     minimize(0);
-    uncheckedNodes = null;
+    factory = null;
+    uncheckedTransitions = null;
     minimizedNodes = null;
     previousTerm = null;
   }
 
   private void minimize(final int lowerBound) {
     // Proceed from the leaf up to a certain point
-    for (int j = uncheckedNodes.size(); j > lowerBound; --j) {
-      final Transition transition = uncheckedNodes.removeFirst();
+    for (int j = uncheckedTransitions.size(); j > lowerBound; --j) {
+      final Transition transition = uncheckedTransitions.removeFirst();
       final DawgNode source = transition.source();
       final char label = transition.label();
       final DawgNode target = transition.target();

@@ -93,6 +93,15 @@ public class DawgTest {
     assertTrue(dawg.contains(""));
   }
 
+  @Test(expectedExceptions=IllegalArgumentException.class)
+  public void insertingTermsOutOfOrderShouldThrowAnException() {
+    final List<String> terms = new ArrayList<>(1);
+    terms.add("a");
+    terms.add("c");
+    terms.add("b");
+    dawgFactory.build(terms.iterator());
+  }
+
   @RequiredArgsConstructor
   private static class TermIterator implements Iterator<Object[]> {
     private final Iterator<String> terms;
