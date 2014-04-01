@@ -113,6 +113,13 @@ public class DawgTest {
     dawgFactory.build(terms);
   }
 
+  @Test
+  public void equivalentDawgsShouldBeEqual() {
+  	final Dawg other = dawgFactory.build(terms);
+  	assertEquals(fullDawg, other);
+  	assertEquals(fullDawg.hashCode(), other.hashCode());
+  }
+
   @RequiredArgsConstructor
   private static class TermIterator implements Iterator<Object[]> {
     private final Iterator<String> terms;
