@@ -21,10 +21,10 @@ public class DawgIterator extends AbstractIterator<String> {
   private final IPrefixFactory<DawgNode> prefixFactory;
 
   public DawgIterator(
-  		@NonNull final IPrefixFactory<DawgNode> prefixFactory,
-  		@NonNull final Dawg dawg) {
-  	this.isFinal = dawg;
-  	this.prefixFactory = prefixFactory;
+      @NonNull final IPrefixFactory<DawgNode> prefixFactory,
+      @NonNull final Dawg dawg) {
+    this.isFinal = dawg;
+    this.prefixFactory = prefixFactory;
     prefixes.offer(prefixFactory.build(dawg.root(), ""));
   }
 

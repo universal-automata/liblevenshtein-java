@@ -49,16 +49,16 @@ public class Dawg
   /** Nodes that have been checked for redundancy */
   private Map<DawgNode,DawgNode> minimizedNodes = new HashMap<>();
 
-	/**
-	 * Builds and recycles prefix objects, which are used to generate terms from
-	 * the dictionary's root.
-	 */
+  /**
+   * Builds and recycles prefix objects, which are used to generate terms from
+   * the dictionary's root.
+   */
   private final IPrefixFactory<DawgNode> prefixFactory;
 
-	/**
-	 * Maintains which nodes represent the final characters of strings in the
-	 * dictionary.
-	 */
+  /**
+   * Maintains which nodes represent the final characters of strings in the
+   * dictionary.
+   */
   private final Set<DawgNode> finalNodes = Sets.<DawgNode> newIdentityHashSet();
 
   @Getter(onMethod=@_({@Override}))
@@ -67,18 +67,18 @@ public class Dawg
   @Getter(onMethod=@_({@Override}))
   private int size = 0;
 
-	/** References the term that was last added */
+  /** References the term that was last added */
   private String previousTerm = "";
 
-	/**
-	 * Constructs a new Dawg instance.
-	 * @param factory Manages instances of DAWG nodes
-	 * @param terms Collection of terms to add to this dictionary. This is assumed
-	 * to be sorted ascendingly, because the behavior of the current DAWG
-	 * implementation is unstable if it is not.
-	 */
+  /**
+   * Constructs a new Dawg instance.
+   * @param factory Manages instances of DAWG nodes
+   * @param terms Collection of terms to add to this dictionary. This is assumed
+   * to be sorted ascendingly, because the behavior of the current DAWG
+   * implementation is unstable if it is not.
+   */
   public Dawg(
-  		@NonNull final IPrefixFactory<DawgNode> prefixFactory,
+      @NonNull final IPrefixFactory<DawgNode> prefixFactory,
       @NonNull final IDawgNodeFactory<DawgNode> factory,
       @NonNull Collection<String> terms) {
     this.prefixFactory = prefixFactory;
@@ -95,7 +95,7 @@ public class Dawg
    */
   @Override
   public boolean at(final DawgNode node) {
-  	return finalNodes.contains(node);
+    return finalNodes.contains(node);
   }
 
   /**
@@ -158,7 +158,7 @@ public class Dawg
       i += 1;
     }
 
-		finalNodes.add(node);
+    finalNodes.add(node);
     previousTerm = term;
     size += 1;
     return true;
@@ -236,7 +236,7 @@ public class Dawg
       final DawgNode otherNode = pair.getRight();
 
       if (finalNodes.contains(node) != other.finalNodes.contains(otherNode)) {
-      	return false;
+        return false;
       }
 
       final CharIterator labels = node.labels();
@@ -247,7 +247,7 @@ public class Dawg
         final char otherLabel = otherLabels.nextChar();
 
         if (label != otherLabel) {
-        	return false;
+          return false;
         }
 
         nodes.offer(
@@ -256,9 +256,9 @@ public class Dawg
               otherNode.transition(label)));
       }
 
-			if (labels.hasNext() || otherLabels.hasNext()) {
-				return false;
-			}
+      if (labels.hasNext() || otherLabels.hasNext()) {
+        return false;
+      }
     }
 
     return true;
