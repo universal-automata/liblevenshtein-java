@@ -7,6 +7,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.Queue;
 
 import lombok.Getter;
@@ -18,12 +19,14 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.google.common.collect.Sets;
+
 import it.unimi.dsi.fastutil.chars.CharIterator;
-import it.unimi.dsi.fastutil.chars.CharSet;
 
 import com.github.dylon.liblevenshtein.collection.IDawg;
 import com.github.dylon.liblevenshtein.collection.IDawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.IFinalFunction;
+import com.github.dylon.liblevenshtein.collection.IPrefixFactory;
 import com.github.dylon.liblevenshtein.collection.ITransitionFunction;
 
 /**
@@ -37,6 +40,7 @@ public class Dawg
                IFinalFunction<DawgNode>,
                ITransitionFunction<DawgNode> {
 
+  /** Manages instances of DAWG nodes */
   private IDawgNodeFactory<DawgNode> factory;
 
   /** Transitions that have not been checked for redundancy */
@@ -45,17 +49,39 @@ public class Dawg
   /** Nodes that have been checked for redundancy */
   private Map<DawgNode,DawgNode> minimizedNodes = new HashMap<>();
 
+	/**
+	 * Builds and recycles prefix objects, which are used to generate terms from
+	 * the dictionary's root.
+	 */
+  private final IPrefixFactory<DawgNode> prefixFactory;
+
+	/**
+	 * Maintains which nodes represent the final characters of strings in the
+	 * dictionary.
+	 */
+  private final Set<DawgNode> finalNodes = Sets.<DawgNode> newIdentityHashSet();
+
   @Getter(onMethod=@_({@Override}))
   private final DawgNode root;
 
   @Getter(onMethod=@_({@Override}))
   private int size = 0;
 
+	/** References the term that was last added */
   private String previousTerm = "";
 
+	/**
+	 * Constructs a new Dawg instance.
+	 * @param factory Manages instances of DAWG nodes
+	 * @param terms Collection of terms to add to this dictionary. This is assumed
+	 * to be sorted ascendingly, because the behavior of the current DAWG
+	 * implementation is unstable if it is not.
+	 */
   public Dawg(
+  		@NonNull final IPrefixFactory<DawgNode> prefixFactory,
       @NonNull final IDawgNodeFactory<DawgNode> factory,
       @NonNull Collection<String> terms) {
+    this.prefixFactory = prefixFactory;
     this.factory = factory;
     this.root = factory.build();
     if (!addAll(terms)) {
@@ -68,16 +94,24 @@ public class Dawg
    * {@inheritDoc}
    */
   @Override
-  public boolean isFinal(final DawgNode node) {
-    return node.isFinal();
+  public boolean at(final DawgNode node) {
+  	return finalNodes.contains(node);
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public DawgNode transition(final DawgNode node, final char label) {
+  public DawgNode of(final DawgNode node, final char label) {
     return node.transition(label);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public CharIterator of(final DawgNode node) {
+    return node.labels();
   }
 
   /**
@@ -124,7 +158,7 @@ public class Dawg
       i += 1;
     }
 
-    node.isFinal(true);
+		finalNodes.add(node);
     previousTerm = term;
     size += 1;
     return true;
@@ -148,6 +182,7 @@ public class Dawg
       final DawgNode existing = minimizedNodes.get(target);
       if (null != existing) {
         source.addEdge(label, existing);
+        finalNodes.remove(target);
         factory.recycle(target);
       }
       else {
@@ -181,7 +216,7 @@ public class Dawg
       final char label = term.charAt(i);
       node = node.transition(label);
     }
-    return null != node && isFinal(node);
+    return null != node && finalNodes.contains(node);
   }
 
   /**
@@ -194,24 +229,38 @@ public class Dawg
     final Dawg other = (Dawg) o;
     final Queue<Pair<DawgNode,DawgNode>> nodes = new ArrayDeque<>();
     nodes.offer(ImmutablePair.of(root, other.root));
+
     while (!nodes.isEmpty()) {
       final Pair<DawgNode,DawgNode> pair = nodes.poll();
       final DawgNode node = pair.getLeft();
       final DawgNode otherNode = pair.getRight();
-      if (node.isFinal() != otherNode.isFinal()) return false;
-      final CharSet labels = node.labels();
-      final CharSet otherLabels = otherNode.labels();
-      if (labels.size() != otherLabels.size()) return false;
-      final CharIterator iter = labels.iterator();
-      while (iter.hasNext()) {
-        final char label = iter.nextChar();
-        if (!otherLabels.contains(label)) return false;
+
+      if (finalNodes.contains(node) != other.finalNodes.contains(otherNode)) {
+      	return false;
+      }
+
+      final CharIterator labels = node.labels();
+      final CharIterator otherLabels = otherNode.labels();
+
+      while (labels.hasNext() && otherLabels.hasNext()) {
+        final char label = labels.nextChar();
+        final char otherLabel = otherLabels.nextChar();
+
+        if (label != otherLabel) {
+        	return false;
+        }
+
         nodes.offer(
             ImmutablePair.of(
               node.transition(label),
               otherNode.transition(label)));
       }
+
+			if (labels.hasNext() || otherLabels.hasNext()) {
+				return false;
+			}
     }
+
     return true;
   }
 
@@ -221,17 +270,17 @@ public class Dawg
   @Override
   public int hashCode() {
     final HashCodeBuilder builder = new HashCodeBuilder(3013, 8225);
-    builder.append(root.isFinal());
+    builder.append(finalNodes.contains(root));
     final Queue<DawgNode> nodes = new ArrayDeque<>();
     nodes.offer(root);
     while (!nodes.isEmpty()) {
       final DawgNode node = nodes.poll();
-      final CharIterator iter = node.labels().iterator();
+      final CharIterator iter = node.labels();
       while (iter.hasNext()) {
         final char label = iter.nextChar();
         final DawgNode target = node.transition(label);
         builder.append(label);
-        builder.append(target.isFinal());
+        builder.append(finalNodes.contains(target));
         nodes.offer(target);
       }
     }
@@ -243,7 +292,7 @@ public class Dawg
    */
   @Override
   public Iterator<String> iterator() {
-    return new DawgIterator(this);
+    return new DawgIterator(prefixFactory, this);
   }
 
   /**

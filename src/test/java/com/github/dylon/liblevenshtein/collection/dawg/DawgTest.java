@@ -18,9 +18,12 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import com.github.dylon.liblevenshtein.collection.PrefixFactory;
+
 public class DawgTest {
   private List<String> terms;
   private DawgNodeFactory dawgNodeFactory;
+  private PrefixFactory<DawgNode> prefixFactory;
   private DawgFactory dawgFactory;
   private Dawg emptyDawg;
   private Dawg fullDawg;
@@ -46,7 +49,8 @@ public class DawgTest {
 
       this.terms = terms;
       this.dawgNodeFactory = new DawgNodeFactory();
-      this.dawgFactory = new DawgFactory(dawgNodeFactory);
+      this.prefixFactory = new PrefixFactory<DawgNode>();
+      this.dawgFactory = new DawgFactory(dawgNodeFactory, prefixFactory);
       this.emptyDawg = dawgFactory.build(new ArrayList<String>(0));
       this.fullDawg = dawgFactory.build(terms);
     }
@@ -98,7 +102,13 @@ public class DawgTest {
   public void dawgShouldIterateOverAllTerms() {
     final Set<String> terms = new HashSet<>(this.terms);
     for (final String term : fullDawg) {
-      assertTrue(terms.contains(term));
+    	try {
+      	assertTrue(terms.contains(term));
+    	}
+    	catch (final AssertionError exception) {
+    		System.err.println("Expected terms to contain: \"" + term + "\"");
+    		throw exception;
+    	}
       terms.remove(term);
     }
     assertTrue(terms.isEmpty());

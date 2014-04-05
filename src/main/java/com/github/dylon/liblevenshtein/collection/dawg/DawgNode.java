@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 import lombok.val;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
-import it.unimi.dsi.fastutil.chars.CharSet;
+import it.unimi.dsi.fastutil.chars.CharIterator;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -23,21 +23,15 @@ import com.github.dylon.liblevenshtein.collection.IDawgNode;
 @RequiredArgsConstructor
 public class DawgNode implements IDawgNode<DawgNode> {
 
-  /** Uniquely-identifies this node within its context */
-  @Getter private final long id;
-
   /** Outgoing edges of this node */
-  @NonNull protected final Char2ObjectMap<DawgNode> edges;
-
-  /** Whether this node represents the final character in a term */
-  @Getter @Setter private boolean isFinal = false;
+  @NonNull final Char2ObjectMap<DawgNode> edges;
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public CharSet labels() {
-    return edges.keySet();
+  public CharIterator labels() {
+    return edges.keySet().iterator();
   }
 
   /**
@@ -53,9 +47,6 @@ public class DawgNode implements IDawgNode<DawgNode> {
    */
   @Override
   public DawgNode addEdge(final char label, final DawgNode target) {
-    if (target.id() == id) {
-      throw new IllegalStateException("Cycle detected");
-    }
     edges.put(label, target);
     return this;
   }
@@ -68,14 +59,13 @@ public class DawgNode implements IDawgNode<DawgNode> {
 
     @SuppressWarnings("unchecked")
     final DawgNode other = (DawgNode) o;
-    if (isFinal != other.isFinal) return false;
     if (edges.size() != other.edges.size()) return false;
     for (val entry : edges.char2ObjectEntrySet()) {
       final char label = entry.getCharKey();
       final DawgNode target = entry.getValue();
       final DawgNode otherTarget = other.transition(label);
       if (null == otherTarget) return false;
-      if (target.id() != otherTarget.id()) return false;
+      if (target != otherTarget) return false;
     }
     return true;
   }
@@ -86,12 +76,10 @@ public class DawgNode implements IDawgNode<DawgNode> {
     // construction of the DAWG dictionary.
     // NOTE: An assumption is made that edges is sorted.
     final HashCodeBuilder builder = new HashCodeBuilder(8777, 4343);
-    builder.append(isFinal);
     for (val entry : edges.char2ObjectEntrySet()) {
       final char label = entry.getCharKey();
       final DawgNode target = entry.getValue();
       builder.append(label);
-      builder.append(target.id());
     }
     return builder.toHashCode();
   }
@@ -100,13 +88,6 @@ public class DawgNode implements IDawgNode<DawgNode> {
   public String toString() {
     final StringBuilder buffer = new StringBuilder();
     buffer.append("DawgNode{");
-    buffer.append("id=");
-    buffer.append(id);
-    buffer.append(',');
-    buffer.append("isFinal=");
-    buffer.append(isFinal);
-    buffer.append(',');
-    buffer.append("edges={");
     boolean first = true;
     for (val entry : edges.char2ObjectEntrySet()) {
       final char label = entry.getCharKey();
@@ -117,7 +98,7 @@ public class DawgNode implements IDawgNode<DawgNode> {
       buffer.append("->");
       buffer.append(target);
     }
-    buffer.append("}}");
+    buffer.append("}");
     return buffer.toString();
   }
 }

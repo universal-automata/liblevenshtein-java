@@ -70,3 +70,37 @@ test {
     showStackTraces true
   }
 }
+
+// create syntastic classpath files
+task syntastic << {
+  def classpathFiles = new HashSet<String>()
+  def addJars = { proj ->
+    proj.configurations.each { conf ->
+      conf.each { jar ->
+        classpathFiles.add(jar)
+      }
+    }
+    proj.sourceSets.each { srcSet ->
+      srcSet.java.srcDirs.each { dir ->
+        println dir.absolutePath
+        classpathFiles.add(dir.absolutePath)
+      }
+    }
+  }
+  getChildProjects().each { proj ->
+    addJars(proj.value)
+  }
+  addJars(rootProject)
+
+  // create .vimrc.local
+  def vimrc = new File(rootProject.projectDir.absolutePath + "/.vimrc.local")
+
+  classpathFiles << rootProject.projectDir.absolutePath + "/build/classes/main"
+  classpathFiles << rootProject.projectDir.absolutePath + "/build/classes/test"
+
+  vimrc.text = """\
+let g:syntastic_java_javac_classpath = '${classpathFiles.collect().join(":")}'
+"""
+
+  println "Created .vimrc.local, don't forget to source this in your vim config"
+}

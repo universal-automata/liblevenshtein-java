@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import com.github.dylon.liblevenshtein.collection.IDawgFactory;
 import com.github.dylon.liblevenshtein.collection.IDawgNodeFactory;
+import com.github.dylon.liblevenshtein.collection.IPrefixFactory;
 
 /**
  * @author Dylon Edwards
@@ -19,11 +20,17 @@ import com.github.dylon.liblevenshtein.collection.IDawgNodeFactory;
 public class DawgFactory implements IDawgFactory<DawgNode, Dawg> {
   @Setter private IDawgNodeFactory<DawgNode> factory;
 
+	/**
+	 * Builds and recycles prefix objects, which are used to generate terms from
+	 * the dictionary's root.
+	 */
+  @Setter private IPrefixFactory<DawgNode> prefixFactory;
+
   /**
    * {@inheritDoc}
    */
   @Override
   public Dawg build(@NonNull final Collection<String> terms) {
-    return new Dawg(factory, terms);
+    return new Dawg(prefixFactory, factory, terms);
   }
 }

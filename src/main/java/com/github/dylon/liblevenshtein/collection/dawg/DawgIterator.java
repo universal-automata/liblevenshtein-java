@@ -5,18 +5,27 @@ import java.util.Queue;
 import java.util.ArrayDeque;
 
 import lombok.NonNull;
-import lombok.Value;
-import lombok.experimental.Accessors;
 
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
 import com.github.dylon.liblevenshtein.collection.AbstractIterator;
+import com.github.dylon.liblevenshtein.collection.IFinalFunction;
+import com.github.dylon.liblevenshtein.collection.IPrefixFactory;
+import com.github.dylon.liblevenshtein.collection.Prefix;
 
 public class DawgIterator extends AbstractIterator<String> {
-  private final Queue<Prefix> prefixes = new ArrayDeque<>();
+  private final Queue<Prefix<DawgNode>> prefixes = new ArrayDeque<>();
 
-  public DawgIterator(@NonNull final Dawg dawg) {
-    prefixes.offer(Prefix.of(dawg.root(), ""));
+  private final IFinalFunction<DawgNode> isFinal;
+
+  private final IPrefixFactory<DawgNode> prefixFactory;
+
+  public DawgIterator(
+  		@NonNull final IPrefixFactory<DawgNode> prefixFactory,
+  		@NonNull final Dawg dawg) {
+  	this.isFinal = dawg;
+  	this.prefixFactory = prefixFactory;
+    prefixes.offer(prefixFactory.build(dawg.root(), ""));
   }
 
   /**
@@ -29,29 +38,23 @@ public class DawgIterator extends AbstractIterator<String> {
       String value = null;
 
       do {
-        final Prefix prefix = prefixes.poll();
+        final Prefix<DawgNode> prefix = prefixes.poll();
         node = prefix.node();
         value = prefix.value();
-        final CharIterator iter = node.labels().iterator();
+        final CharIterator iter = node.labels();
         while (iter.hasNext()) {
           final char label = iter.nextChar();
           final DawgNode nextNode = node.transition(label);
           final String nextValue = value + label;
-          if (!prefixes.offer(Prefix.of(nextNode, nextValue))) {
+          if (!prefixes.offer(prefixFactory.build(nextNode, nextValue))) {
             throw new IllegalStateException(
                 "Failed to enqueue prefix value: " + nextValue);
           }
         }
+        prefixFactory.recycle(prefix);
       }
-      while (!node.isFinal());
+      while (!isFinal.at(node));
       this.next = value;
     }
-  }
-
-  @Accessors(fluent=true)
-  @Value(staticConstructor="of")
-  private static final class Prefix {
-    DawgNode node;
-    String value;
   }
 }

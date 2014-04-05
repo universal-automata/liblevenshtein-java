@@ -13,5 +13,5 @@ public interface IFinalFunction<State> {
    * @param current State to check for finality.
    * @return Whether this node represents the last character of some term.
    */
-  boolean isFinal(State current);
+  boolean at(State current);
 }

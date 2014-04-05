@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.collection;
 
+import it.unimi.dsi.fastutil.chars.CharIterator;
+
 /**
  * Deterministically-transitions between states according to some input.
  * @author Dylon Edwards
@@ -13,5 +15,12 @@ public interface ITransitionFunction<State> {
    * @param label Input used to determine the next state
    * @return The next state of the automaton
    */
-  State transition(State current, char label);
+  State of(State current, char label);
+
+	/**
+	 * Returns the labels of the outgoing edges from the node.
+   * @param current The active state of an automaton
+   * @return The labels of the outgoing edges from the node.
+	 */
+  CharIterator of(State current);
 }

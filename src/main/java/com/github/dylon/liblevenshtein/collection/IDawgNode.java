@@ -1,6 +1,6 @@
 package com.github.dylon.liblevenshtein.collection;
 
-import it.unimi.dsi.fastutil.chars.CharSet;
+import it.unimi.dsi.fastutil.chars.CharIterator;
 
 /**
  * Element of a DAWG structure (Directed Acyclic Word Graph)
@@ -13,7 +13,7 @@ public interface IDawgNode<Node extends IDawgNode<Node>> {
    * Returns the labels of the outgoing edges of this node
    * @return Labels of the outgoing edges of this node.
    */
-  CharSet labels();
+  CharIterator labels();
 
   /**
    * Accepts a label and returns the outgoing transition corresponding to it.
