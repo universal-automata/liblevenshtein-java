@@ -58,7 +58,7 @@ import com.github.dylon.liblevenshtein.collection.IFinalFunction;
 @FieldDefaults(level=AccessLevel.PROTECTED)
 public abstract class AbstractTransducer<DictionaryNode>
   implements ITransducer<DictionaryNode>,
-  				   ICharacteristicVectorFunction {
+             ICharacteristicVectorFunction {
 
   /**
    * Default, maximum number of spelling errors candidates may have from the
@@ -106,10 +106,10 @@ public abstract class AbstractTransducer<DictionaryNode>
    */
   ITransitionFunction<DictionaryNode> dictionaryTransition;
 
-	/**
-	 * Returns a bit-vector of 1's and 0's. See the documentation in the
-	 * corresponding interface for more details.
-	 */
+  /**
+   * Returns a bit-vector of 1's and 0's. See the documentation in the
+   * corresponding interface for more details.
+   */
   ICharacteristicVectorFunction characteristicVector = this;
 
   /**
@@ -123,16 +123,16 @@ public abstract class AbstractTransducer<DictionaryNode>
    */
   DictionaryNode dictionaryRoot;
 
-	/**
-	 * {@inheritDoc}
-	 */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public int[] of(final char x, final String term, final int k, final int i) {
-  	final int[] characteristicVector = new int[k];
-  	for (int j = 0; j < k; ++j) {
-  		characteristicVector[j] = (x == term.charAt(i + j)) ? 1 : 0;
-  	}
-  	return characteristicVector;
+    final int[] characteristicVector = new int[k];
+    for (int j = 0; j < k; ++j) {
+      characteristicVector[j] = (x == term.charAt(i + j)) ? 1 : 0;
+    }
+    return characteristicVector;
   }
 
   /**
@@ -154,7 +154,7 @@ public abstract class AbstractTransducer<DictionaryNode>
    */
   @Override
   public ICandidateCollection<DictionaryNode> transduce(
-  		@NonNull final String term) {
+      @NonNull final String term) {
     return transduce(term, defaultMaxDistance);
   }
 
@@ -167,15 +167,15 @@ public abstract class AbstractTransducer<DictionaryNode>
       final int maxDistance) {
 
     if (maxDistance < 0) {
-    	throw new IllegalArgumentException(
-    			"maxDistance must be non-negative: " + maxDistance);
+      throw new IllegalArgumentException(
+          "maxDistance must be non-negative: " + maxDistance);
     }
 
     final int termLength = term.length();
     final ILevenshteinTransitionFunction stateTransition =
       stateTransitionFactory.build(maxDistance);
     final ICandidateCollection<DictionaryNode> candidates =
-    	candidatesFactory.build();
+      candidatesFactory.build();
 
     // so results can be ranked by similarity to the query term, etc.
     final PriorityQueue<Intersection<DictionaryNode>> nearestCandidates =
@@ -192,56 +192,56 @@ public abstract class AbstractTransducer<DictionaryNode>
     Intersection<DictionaryNode> intersection = null;
 
     try {
-    	while (!nearestCandidates.isEmpty()) {
-      	intersection = nearestCandidates.dequeue();
-      	final String candidate = intersection.candidate();
-      	final DictionaryNode dictionaryNode = intersection.dictionaryNode();
-      	final int[][] levenshteinState = intersection.levenshteinState();
-      	final int i = levenshteinState[0][0];
-      	final int b = termLength - i;
-      	final int k = (a < b) ? a : b;
-      	final CharIterator labels = dictionaryTransition.of(dictionaryNode);
-      	while (labels.hasNext()) {
-        	final char label = labels.nextChar();
-        	final DictionaryNode nextDictionaryNode =
-          	dictionaryTransition.of(dictionaryNode, label);
-        	final int[] characteristicVector =
-          	this.characteristicVector.of(label, term, k, i);
-        	final int[][] nextLevenshteinState =
-          	stateTransition.of(levenshteinState, /*given*/ characteristicVector);
-        	if (null != nextLevenshteinState) {
-          	final String nextCandidate = candidate + label;
-          	final int distance =
-            	minDistance.at(nextLevenshteinState, termLength);
+      while (!nearestCandidates.isEmpty()) {
+        intersection = nearestCandidates.dequeue();
+        final String candidate = intersection.candidate();
+        final DictionaryNode dictionaryNode = intersection.dictionaryNode();
+        final int[][] levenshteinState = intersection.levenshteinState();
+        final int i = levenshteinState[0][0];
+        final int b = termLength - i;
+        final int k = (a < b) ? a : b;
+        final CharIterator labels = dictionaryTransition.of(dictionaryNode);
+        while (labels.hasNext()) {
+          final char label = labels.nextChar();
+          final DictionaryNode nextDictionaryNode =
+            dictionaryTransition.of(dictionaryNode, label);
+          final int[] characteristicVector =
+            this.characteristicVector.of(label, term, k, i);
+          final int[][] nextLevenshteinState =
+            stateTransition.of(levenshteinState, /*given*/ characteristicVector);
+          if (null != nextLevenshteinState) {
+            final String nextCandidate = candidate + label;
+            final int distance =
+              minDistance.at(nextLevenshteinState, termLength);
             enqueueAll(
-            		nearestCandidates,
+                nearestCandidates,
                 candidates,
                 nextCandidate,
                 nextDictionaryNode,
                 nextLevenshteinState,
                 distance,
                 maxDistance);
-        	}
-      	}
-    	}
+          }
+        }
+      }
     }
     catch (final QueueFullException exception) {
-    	// Nothing to do, this was expected (early termination) ...
+      // Nothing to do, this was expected (early termination) ...
     }
     finally {
-    	if (null != intersection) {
-      	intersectionFactory.recycle(intersection);
-    	}
-    	nearestCandidatesFactory.recycle(nearestCandidates);
-    	stateTransitionFactory.recycle(stateTransition);
+      if (null != intersection) {
+        intersectionFactory.recycle(intersection);
+      }
+      nearestCandidatesFactory.recycle(nearestCandidates);
+      stateTransitionFactory.recycle(stateTransition);
     }
 
     return candidates;
   }
 
-	/**
-	 * Enqueues into the results collection, candidates, all of the spelling
-	 * candidates corresponding to the dictionary node.
+  /**
+   * Enqueues into the results collection, candidates, all of the spelling
+   * candidates corresponding to the dictionary node.
    * @param nearestCandidates Maintains which nodes to explore next
    * @param candidates Collection of spelling candidates
    * @param candidate Prefix (maybe whole term) of some spelling candidate
@@ -249,10 +249,10 @@ public abstract class AbstractTransducer<DictionaryNode>
    * @param levenshteinState Current state in the Levenshtein automaton
    * @param distance Minimum distance corresponding to levenshteinState
    * @param maxDistance Maximum number of spelling errors candidates may have
-	 * @throws QueueFullException When the results queue can no longer accept
-	 * spelling candidates. This signifies that the transducer should return
-	 * immediately.
-	 */
+   * @throws QueueFullException When the results queue can no longer accept
+   * spelling candidates. This signifies that the transducer should return
+   * immediately.
+   */
   protected abstract void enqueueAll(
       PriorityQueue<Intersection<DictionaryNode>> nearestCandidates,
       ICandidateCollection<DictionaryNode> candidates,
@@ -262,12 +262,12 @@ public abstract class AbstractTransducer<DictionaryNode>
       int distance,
       int maxDistance);
 
-	/**
-	 * Specifies when transduce(...) should return early.  This is thrown
-	 * (optionally) from enqueueAll(...) when not all the candidate terms where
-	 * queued into the results.
-	 */
+  /**
+   * Specifies when transduce(...) should return early.  This is thrown
+   * (optionally) from enqueueAll(...) when not all the candidate terms where
+   * queued into the results.
+   */
   protected static class QueueFullException extends RuntimeException {
-  	static final long serialVersionUID = 1L;
+    static final long serialVersionUID = 1L;
   }
 }

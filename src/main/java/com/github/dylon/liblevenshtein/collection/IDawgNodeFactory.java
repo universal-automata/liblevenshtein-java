@@ -17,12 +17,12 @@ public interface IDawgNodeFactory<NodeType extends IDawgNode<NodeType>> {
    */
   NodeType build();
 
-	/**
-	 * [Green Operation] In an effort to fight global warming and environmental
-	 * polution, you may invoke this method when you no longer have need of a node
-	 * so it may be recycled for future use.
-	 * @param node Node to recycle
-	 * @return This factory, for chaining method calls.
-	 */
+  /**
+   * [Green Operation] In an effort to fight global warming and environmental
+   * polution, you may invoke this method when you no longer have need of a node
+   * so it may be recycled for future use.
+   * @param node Node to recycle
+   * @return This factory, for chaining method calls.
+   */
   IDawgNodeFactory<NodeType> recycle(NodeType node);
 }

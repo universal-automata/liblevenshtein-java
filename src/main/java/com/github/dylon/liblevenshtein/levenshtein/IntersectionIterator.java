@@ -21,14 +21,14 @@ import com.github.dylon.liblevenshtein.collection.Prefix;
  */
 @FieldDefaults(level=AccessLevel.PRIVATE, makeFinal=true)
 public class IntersectionIterator<DictionaryNode>
-	extends AbstractIterator<Intersection<DictionaryNode>> {
+  extends AbstractIterator<Intersection<DictionaryNode>> {
 
   Queue<Prefix<DictionaryNode>> prefixes = new ArrayDeque<>();
 
-	/**
-	 * Builds and recycles prefix objects, which are used to generate spelling
-	 * candidates from the relative root.
-	 */
+  /**
+   * Builds and recycles prefix objects, which are used to generate spelling
+   * candidates from the relative root.
+   */
   IPrefixFactory<DictionaryNode> prefixFactory;
 
   /**
@@ -48,34 +48,34 @@ public class IntersectionIterator<DictionaryNode>
    */
   IIntersectionFactory<DictionaryNode> intersectionFactory;
 
-	/**
-	 * Distance corresponding to the root prefix, which should be returned for all
-	 * generated strings.
-	 */
+  /**
+   * Distance corresponding to the root prefix, which should be returned for all
+   * generated strings.
+   */
   int distance;
 
-	/**
-	 * Accepting state of the corresponding Levenshtein automaton, of the prefix
-	 * denoted by the relative root.
-	 */
+  /**
+   * Accepting state of the corresponding Levenshtein automaton, of the prefix
+   * denoted by the relative root.
+   */
   int[][] levenshteinState;
 
   public IntersectionIterator(
-  		final IPrefixFactory<DictionaryNode> prefixFactory,
-  		final ITransitionFunction<DictionaryNode> dictionaryTransition,
-  		final IFinalFunction<DictionaryNode> isFinal,
-  		final IIntersectionFactory<DictionaryNode> intersectionFactory,
-  		final DictionaryNode relativeRoot,
-  		final String prefix,
-  		final int distance,
-  		final int[][] levenshteinState) {
-  	this.prefixFactory = prefixFactory;
-  	this.dictionaryTransition = dictionaryTransition;
-  	this.isFinal = isFinal;
-  	this.intersectionFactory = intersectionFactory;
-  	this.distance = distance;
-  	this.levenshteinState = levenshteinState;
-  	prefixes.offer(prefixFactory.build(relativeRoot, prefix));
+      final IPrefixFactory<DictionaryNode> prefixFactory,
+      final ITransitionFunction<DictionaryNode> dictionaryTransition,
+      final IFinalFunction<DictionaryNode> isFinal,
+      final IIntersectionFactory<DictionaryNode> intersectionFactory,
+      final DictionaryNode relativeRoot,
+      final String prefix,
+      final int distance,
+      final int[][] levenshteinState) {
+    this.prefixFactory = prefixFactory;
+    this.dictionaryTransition = dictionaryTransition;
+    this.isFinal = isFinal;
+    this.intersectionFactory = intersectionFactory;
+    this.distance = distance;
+    this.levenshteinState = levenshteinState;
+    prefixes.offer(prefixFactory.build(relativeRoot, prefix));
   }
 
   @Override
@@ -103,11 +103,11 @@ public class IntersectionIterator<DictionaryNode>
       while (!isFinal.at(node));
 
       this.next =
-      	intersectionFactory.build(
-      			candidate,
-      			node,
-      			levenshteinState,
-      			distance);
+        intersectionFactory.build(
+            candidate,
+            node,
+            levenshteinState,
+            distance);
     }
   }
 }

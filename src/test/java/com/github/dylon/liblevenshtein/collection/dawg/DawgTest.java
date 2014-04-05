@@ -102,13 +102,13 @@ public class DawgTest {
   public void dawgShouldIterateOverAllTerms() {
     final Set<String> terms = new HashSet<>(this.terms);
     for (final String term : fullDawg) {
-    	try {
-      	assertTrue(terms.contains(term));
-    	}
-    	catch (final AssertionError exception) {
-    		System.err.println("Expected terms to contain: \"" + term + "\"");
-    		throw exception;
-    	}
+      try {
+        assertTrue(terms.contains(term));
+      }
+      catch (final AssertionError exception) {
+        System.err.println("Expected terms to contain: \"" + term + "\"");
+        throw exception;
+      }
       terms.remove(term);
     }
     assertTrue(terms.isEmpty());
@@ -125,9 +125,9 @@ public class DawgTest {
 
   @Test
   public void equivalentDawgsShouldBeEqual() {
-  	final Dawg other = dawgFactory.build(terms);
-  	assertEquals(fullDawg, other);
-  	assertEquals(fullDawg.hashCode(), other.hashCode());
+    final Dawg other = dawgFactory.build(terms);
+    assertEquals(fullDawg, other);
+    assertEquals(fullDawg.hashCode(), other.hashCode());
   }
 
   @RequiredArgsConstructor

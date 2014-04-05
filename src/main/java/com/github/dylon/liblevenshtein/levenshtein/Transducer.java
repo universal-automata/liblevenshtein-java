@@ -37,7 +37,7 @@ public class Transducer<DictionaryNode>
 
     if (isFinal.at(dictionaryNode) && distance <= maxDistance) {
       if (!candidates.offer(candidate, distance)) {
-      	throw new QueueFullException();
+        throw new QueueFullException();
       }
     }
   }

@@ -17,10 +17,10 @@ public interface ITransitionFunction<State> {
    */
   State of(State current, char label);
 
-	/**
-	 * Returns the labels of the outgoing edges from the node.
+  /**
+   * Returns the labels of the outgoing edges from the node.
    * @param current The active state of an automaton
    * @return The labels of the outgoing edges from the node.
-	 */
+   */
   CharIterator of(State current);
 }

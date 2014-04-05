@@ -15,9 +15,9 @@ import lombok.experimental.FieldDefaults;
 public class LevenshteinTransitionFunctionFactory
   implements ILevenshteinTransitionFunctionFactory {
 
-	/**
-	 * Recycled transition functions
-	 */
+  /**
+   * Recycled transition functions
+   */
   Queue<LevenshteinTransitionFunction> transitions = new ArrayDeque<>();
 
   /**

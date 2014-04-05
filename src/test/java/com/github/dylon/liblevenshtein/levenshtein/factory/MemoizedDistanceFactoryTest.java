@@ -152,7 +152,7 @@ public class MemoizedDistanceFactoryTest {
   }
 
   private static abstract class AbstractDataIterator implements Iterator<Object[]> {
-  	protected final Algorithm[] algorithms = Algorithm.values();
+    protected final Algorithm[] algorithms = Algorithm.values();
     protected Object[] params;
 
     @Override

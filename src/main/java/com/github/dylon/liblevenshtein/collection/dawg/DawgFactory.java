@@ -20,10 +20,10 @@ import com.github.dylon.liblevenshtein.collection.IPrefixFactory;
 public class DawgFactory implements IDawgFactory<DawgNode, Dawg> {
   @Setter private IDawgNodeFactory<DawgNode> factory;
 
-	/**
-	 * Builds and recycles prefix objects, which are used to generate terms from
-	 * the dictionary's root.
-	 */
+  /**
+   * Builds and recycles prefix objects, which are used to generate terms from
+   * the dictionary's root.
+   */
   @Setter private IPrefixFactory<DawgNode> prefixFactory;
 
   /**

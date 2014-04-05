@@ -12,24 +12,24 @@ import lombok.experimental.FieldDefaults;
  */
 @FieldDefaults(level=AccessLevel.PRIVATE, makeFinal=true)
 public class PrefixFactory<DictionaryNode>
-	implements IPrefixFactory<DictionaryNode> {
+  implements IPrefixFactory<DictionaryNode> {
 
-	Queue<Prefix<DictionaryNode>> prefixes = new ArrayDeque<>();
+  Queue<Prefix<DictionaryNode>> prefixes = new ArrayDeque<>();
 
-	@Override
+  @Override
   public Prefix<DictionaryNode> build(DictionaryNode node, String value) {
-  	Prefix<DictionaryNode> prefix = prefixes.poll();
+    Prefix<DictionaryNode> prefix = prefixes.poll();
 
-  	if (null == prefix) {
-  		prefix = new Prefix<DictionaryNode>();
-  	}
+    if (null == prefix) {
+      prefix = new Prefix<DictionaryNode>();
+    }
 
-  	return prefix.node(node).value(value);
+    return prefix.node(node).value(value);
   }
 
-	@Override
+  @Override
   public void recycle(Prefix<DictionaryNode> prefix) {
-  	prefix.node(null).value(null);
-  	prefixes.offer(prefix);
+    prefix.node(null).value(null);
+    prefixes.offer(prefix);
   }
 }

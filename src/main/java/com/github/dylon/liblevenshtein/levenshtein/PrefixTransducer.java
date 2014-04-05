@@ -21,10 +21,10 @@ import com.github.dylon.liblevenshtein.collection.IPrefixFactory;
 public class PrefixTransducer<DictionaryNode>
   extends AbstractTransducer<DictionaryNode> {
 
-	/**
-	 * Builds and recycles prefix objects, which are used to generate spelling
-	 * candidates from some relative root of the dictionary automaton.
-	 */
+  /**
+   * Builds and recycles prefix objects, which are used to generate spelling
+   * candidates from some relative root of the dictionary automaton.
+   */
   IPrefixFactory<DictionaryNode> prefixFactory;
 
   /**
@@ -41,37 +41,37 @@ public class PrefixTransducer<DictionaryNode>
       final int maxDistance) {
 
     if (distance <= maxDistance) {
-    	if (isFinal.at(dictionaryNode)) {
-    		if (!candidates.offer(candidate, distance)) {
-      		throw new QueueFullException();
-    		}
-    	}
-    	else {
-    		val intersections = new IntersectionIterator<DictionaryNode>(
-  					prefixFactory,
-  					dictionaryTransition,
-  					isFinal,
-  					intersectionFactory,
-  					dictionaryNode,
-  					candidate,
-  					distance,
-  					levenshteinState);
+      if (isFinal.at(dictionaryNode)) {
+        if (!candidates.offer(candidate, distance)) {
+          throw new QueueFullException();
+        }
+      }
+      else {
+        val intersections = new IntersectionIterator<DictionaryNode>(
+            prefixFactory,
+            dictionaryTransition,
+            isFinal,
+            intersectionFactory,
+            dictionaryNode,
+            candidate,
+            distance,
+            levenshteinState);
 
-  			while (intersections.hasNext()) {
-  				// Enqueue all the generated, spelling candiates so they may be ranked
-  				// according to nearestCandidates' comparator before adding them to
-  				// the collection of spelling candidates.
-  				nearestCandidates.enqueue(intersections.next());
-  			}
-    	}
+        while (intersections.hasNext()) {
+          // Enqueue all the generated, spelling candiates so they may be ranked
+          // according to nearestCandidates' comparator before adding them to
+          // the collection of spelling candidates.
+          nearestCandidates.enqueue(intersections.next());
+        }
+      }
     }
     else {
-    	nearestCandidates.enqueue(
-        	intersectionFactory.build(
-          	candidate,
-          	dictionaryNode,
-          	levenshteinState,
-          	distance));
+      nearestCandidates.enqueue(
+          intersectionFactory.build(
+            candidate,
+            dictionaryNode,
+            levenshteinState,
+            distance));
     }
   }
 }

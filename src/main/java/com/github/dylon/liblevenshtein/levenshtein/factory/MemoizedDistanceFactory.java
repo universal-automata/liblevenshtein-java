@@ -15,9 +15,9 @@ import com.github.dylon.liblevenshtein.levenshtein.distance.MemoizedMergeAndSpli
  * @since 2.1.0
  */
 public class MemoizedDistanceFactory implements IDistanceFactory<String> {
-	private IDistance<String> standard = null;
-	private IDistance<String> transposition = null;
-	private IDistance<String> mergeAndSplit = null;
+  private IDistance<String> standard = null;
+  private IDistance<String> transposition = null;
+  private IDistance<String> mergeAndSplit = null;
 
   /**
    * {@inheritDoc}
@@ -26,14 +26,14 @@ public class MemoizedDistanceFactory implements IDistanceFactory<String> {
   public IDistance<String> build(@NonNull final Algorithm algorithm) {
     switch (algorithm) {
       case STANDARD:
-      	if (null == standard) standard = new MemoizedStandard();
-      	return standard;
+        if (null == standard) standard = new MemoizedStandard();
+        return standard;
       case TRANSPOSITION:
-      	if (null == transposition) transposition = new MemoizedTransposition();
-      	return transposition;
+        if (null == transposition) transposition = new MemoizedTransposition();
+        return transposition;
       case MERGE_AND_SPLIT:
-      	if (null == mergeAndSplit) mergeAndSplit = new MemoizedMergeAndSplit();
-      	return mergeAndSplit;
+        if (null == mergeAndSplit) mergeAndSplit = new MemoizedMergeAndSplit();
+        return mergeAndSplit;
       default:
         throw new IllegalArgumentException("Unrecognized algorithm: " + algorithm);
     }
