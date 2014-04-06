@@ -145,8 +145,8 @@ public abstract class AbstractTransducer<DictionaryNode>
 
       final boolean[][] characteristicVectors = new boolean[n][];
 
-      for (int i_2 = 0; i_2 < this.characteristicVectors.length; ++i_2) {
-        characteristicVectors[i_2] = this.characteristicVectors[i_2];
+      for (int j = 0; j < this.characteristicVectors.length; ++j) {
+        characteristicVectors[j] = this.characteristicVectors[j];
       }
 
       characteristicVector = new boolean[k];
