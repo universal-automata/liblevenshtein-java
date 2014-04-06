@@ -105,7 +105,7 @@ public abstract class AbstractDawg
    */
   @Override
   public boolean add(final String term) {
-  	throw new UnsupportedOperationException("not yet implemented");
+    throw new UnsupportedOperationException("not yet implemented");
   }
 
   /**

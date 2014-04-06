@@ -9,7 +9,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.Transition;
  */
 public interface ITransitionFactory<NodeType extends IDawgNode<NodeType>> {
 
-	Transition<NodeType> build(NodeType source, char label, NodeType target);
+  Transition<NodeType> build(NodeType source, char label, NodeType target);
 
-	void recycle(Transition<NodeType> transition);
+  void recycle(Transition<NodeType> transition);
 }

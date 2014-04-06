@@ -54,7 +54,7 @@ public class DawgNode implements IDawgNode<DawgNode> {
    */
   @Override
   public void clear() {
-  	edges.clear();
+    edges.clear();
   }
 
   @Override

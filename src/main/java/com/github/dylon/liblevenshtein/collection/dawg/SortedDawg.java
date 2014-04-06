@@ -47,7 +47,7 @@ public class SortedDawg extends AbstractDawg {
   /** References the term that was last added */
   String previousTerm = "";
 
-	/** Builds (and recycles for memory efficiency) Transition objects */
+  /** Builds (and recycles for memory efficiency) Transition objects */
   ITransitionFactory<DawgNode> transitionFactory;
 
   /**
@@ -138,10 +138,10 @@ public class SortedDawg extends AbstractDawg {
       final DawgNode target = transition.target();
       final DawgNode existing = minimizedNodes.get(target);
       if (null != existing) {
-      	if (finalNodes.contains(target)) {
-      		finalNodes.add(existing);
-        	finalNodes.remove(target);
-      	}
+        if (finalNodes.contains(target)) {
+          finalNodes.add(existing);
+          finalNodes.remove(target);
+        }
         source.addEdge(label, existing);
         factory.recycle(target);
       }

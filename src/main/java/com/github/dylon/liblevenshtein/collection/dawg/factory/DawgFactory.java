@@ -25,9 +25,9 @@ public class DawgFactory implements IDawgFactory<DawgNode, SortedDawg> {
    */
   @Setter private IPrefixFactory<DawgNode> prefixFactory;
 
-	/**
-	 * Builds (and recycles for memory efficiency) Transition objects
-	 */
+  /**
+   * Builds (and recycles for memory efficiency) Transition objects
+   */
   @Setter private ITransitionFactory<DawgNode> transitionFactory;
 
   /**

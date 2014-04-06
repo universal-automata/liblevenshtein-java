@@ -30,8 +30,8 @@ public interface IDawgNode<Node extends IDawgNode<Node>> {
    */
   Node addEdge(char label, Node target);
 
-	/**
-	 * Removes all outoing-edges
-	 */
+  /**
+   * Removes all outoing-edges
+   */
   void clear();
 }

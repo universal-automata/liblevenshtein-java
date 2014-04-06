@@ -116,49 +116,49 @@ public abstract class AbstractTransducer<DictionaryNode>
    */
   DictionaryNode dictionaryRoot;
 
-	/** Pools instances of characteristic vectors */
+  /** Pools instances of characteristic vectors */
   private boolean[][] characteristicVectors = new boolean[32][];
 
-	/**
-	 * Returns the characteristic vector of the term, from its characters between
-	 * index i and index k. The characteristic vector contains true at each index
-	 * where the corresponding character of the term is the value of x, and false
-	 * elsewhere.
-	 * @param x
-	 * @param term
-	 * @param k
-	 * @param i
-	 */
+  /**
+   * Returns the characteristic vector of the term, from its characters between
+   * index i and index k. The characteristic vector contains true at each index
+   * where the corresponding character of the term is the value of x, and false
+   * elsewhere.
+   * @param x
+   * @param term
+   * @param k
+   * @param i
+   */
   private boolean[] characteristicVector(
-  		final char x,
-  		final String term,
-  		final int k,
-  		final int i) {
+      final char x,
+      final String term,
+      final int k,
+      final int i) {
 
-  	boolean[] characteristicVector;
+    boolean[] characteristicVector;
 
-  	if (k >= characteristicVectors.length) {
-  		final int m = characteristicVectors.length << 1;
-  		final int n = (m > k) ? m : (k << 1);
+    if (k >= characteristicVectors.length) {
+      final int m = characteristicVectors.length << 1;
+      final int n = (m > k) ? m : (k << 1);
 
-  		final boolean[][] characteristicVectors = new boolean[n][];
+      final boolean[][] characteristicVectors = new boolean[n][];
 
-  		for (int i_2 = 0; i_2 < this.characteristicVectors.length; ++i_2) {
-  			characteristicVectors[i_2] = this.characteristicVectors[i_2];
-  		}
+      for (int i_2 = 0; i_2 < this.characteristicVectors.length; ++i_2) {
+        characteristicVectors[i_2] = this.characteristicVectors[i_2];
+      }
 
-  		characteristicVector = new boolean[k];
-  		characteristicVectors[k] = characteristicVector;
-  		this.characteristicVectors = characteristicVectors;
-  	}
-  	else {
-  		characteristicVector = characteristicVectors[k];
+      characteristicVector = new boolean[k];
+      characteristicVectors[k] = characteristicVector;
+      this.characteristicVectors = characteristicVectors;
+    }
+    else {
+      characteristicVector = characteristicVectors[k];
 
-  		if (null == characteristicVector) {
-  			characteristicVector = new boolean[k];
-  			characteristicVectors[k] = characteristicVector;
-  		}
-  	}
+      if (null == characteristicVector) {
+        characteristicVector = new boolean[k];
+        characteristicVectors[k] = characteristicVector;
+      }
+    }
 
     for (int j = 0; j < k; ++j) {
       characteristicVector[j] = (x == term.charAt(i + j));

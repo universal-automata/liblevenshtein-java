@@ -15,38 +15,38 @@ import com.github.dylon.liblevenshtein.collection.dawg.Transition;
  */
 @FieldDefaults(level=AccessLevel.PRIVATE, makeFinal=true)
 public class TransitionFactory<NodeType extends IDawgNode<NodeType>>
-	implements ITransitionFactory<NodeType> {
+  implements ITransitionFactory<NodeType> {
 
-	Queue<Transition<NodeType>> transitions = new ArrayDeque<>();
+  Queue<Transition<NodeType>> transitions = new ArrayDeque<>();
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Transition<NodeType> build(
-			final NodeType source,
-			final char label,
-			final NodeType target) {
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Transition<NodeType> build(
+      final NodeType source,
+      final char label,
+      final NodeType target) {
 
-		Transition<NodeType> transition = transitions.poll();
+    Transition<NodeType> transition = transitions.poll();
 
-		if (null == transition) {
-			transition = new Transition<NodeType>();
-		}
+    if (null == transition) {
+      transition = new Transition<NodeType>();
+    }
 
-		return transition
-			.source(source)
-			.label(label)
-			.target(target);
-	}
+    return transition
+      .source(source)
+      .label(label)
+      .target(target);
+  }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void recycle(final Transition<NodeType> transition) {
-		transition.source(null);
-		transition.target(null);
-		transitions.offer(transition);
-	}
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void recycle(final Transition<NodeType> transition) {
+    transition.source(null);
+    transition.target(null);
+    transitions.offer(transition);
+  }
 }
