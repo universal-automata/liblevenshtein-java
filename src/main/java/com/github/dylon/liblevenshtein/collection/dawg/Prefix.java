@@ -1,4 +1,4 @@
-package com.github.dylon.liblevenshtein.collection;
+package com.github.dylon.liblevenshtein.collection.dawg;
 
 import lombok.AccessLevel;
 import lombok.Data;

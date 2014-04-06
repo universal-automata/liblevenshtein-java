@@ -10,10 +10,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Queue;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Value;
 import lombok.experimental.Accessors;
+import lombok.experimental.FieldDefaults;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -23,71 +25,55 @@ import com.google.common.collect.Sets;
 
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
-import com.github.dylon.liblevenshtein.collection.IDawg;
-import com.github.dylon.liblevenshtein.collection.IDawgNodeFactory;
-import com.github.dylon.liblevenshtein.collection.IFinalFunction;
-import com.github.dylon.liblevenshtein.collection.IPrefixFactory;
-import com.github.dylon.liblevenshtein.collection.ITransitionFunction;
+import com.github.dylon.liblevenshtein.collection.dawg.factory.IDawgNodeFactory;
+import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
 
 /**
  * @author Dylon Edwards
  * @since 2.1.0
  */
 @Accessors(fluent=true)
-public class Dawg
+@FieldDefaults(level=AccessLevel.PROTECTED)
+public abstract class AbstractDawg
     extends AbstractSet<String>
     implements IDawg<DawgNode>,
                IFinalFunction<DawgNode>,
                ITransitionFunction<DawgNode> {
 
   /** Manages instances of DAWG nodes */
-  private IDawgNodeFactory<DawgNode> factory;
-
-  /** Transitions that have not been checked for redundancy */
-  private Deque<Transition> uncheckedTransitions = new ArrayDeque<>();
-
-  /** Nodes that have been checked for redundancy */
-  private Map<DawgNode,DawgNode> minimizedNodes = new HashMap<>();
+  IDawgNodeFactory<DawgNode> factory;
 
   /**
    * Builds and recycles prefix objects, which are used to generate terms from
    * the dictionary's root.
    */
-  private final IPrefixFactory<DawgNode> prefixFactory;
+  final IPrefixFactory<DawgNode> prefixFactory;
 
   /**
    * Maintains which nodes represent the final characters of strings in the
    * dictionary.
    */
-  private final Set<DawgNode> finalNodes = Sets.<DawgNode> newIdentityHashSet();
+  final Set<DawgNode> finalNodes = Sets.<DawgNode> newIdentityHashSet();
 
   @Getter(onMethod=@_({@Override}))
-  private final DawgNode root;
+  final DawgNode root;
 
   @Getter(onMethod=@_({@Override}))
-  private int size = 0;
-
-  /** References the term that was last added */
-  private String previousTerm = "";
+  int size = 0;
 
   /**
-   * Constructs a new Dawg instance.
+   * Constructs a new AbstractDawg instance.
    * @param factory Manages instances of DAWG nodes
    * @param terms Collection of terms to add to this dictionary. This is assumed
    * to be sorted ascendingly, because the behavior of the current DAWG
    * implementation is unstable if it is not.
    */
-  public Dawg(
+  public AbstractDawg(
       @NonNull final IPrefixFactory<DawgNode> prefixFactory,
-      @NonNull final IDawgNodeFactory<DawgNode> factory,
-      @NonNull Collection<String> terms) {
+      @NonNull final IDawgNodeFactory<DawgNode> factory) {
     this.prefixFactory = prefixFactory;
     this.factory = factory;
     this.root = factory.build();
-    if (!addAll(terms)) {
-      throw new IllegalStateException("Failed to add all terms");
-    }
-    finish();
   }
 
   /**
@@ -119,77 +105,7 @@ public class Dawg
    */
   @Override
   public boolean add(final String term) {
-    if (null == minimizedNodes) {
-      throw new IllegalStateException(
-          "Cannot insert terms once this DAWG has been finalized");
-    }
-
-    if (term.compareTo(previousTerm) < 0) {
-      throw new IllegalArgumentException(
-          "Due to caveats with the current DAWG implementation, terms must be "+
-          "inserted in ascending order");
-    }
-
-    final int upperBound = (term.length() < previousTerm.length())
-      ? term.length()
-      : previousTerm.length();
-
-    // Find the length of the longest, common prefix between term and
-    // previousTerm
-    int i = 0;
-    while (i < upperBound && term.charAt(i) == previousTerm.charAt(i)) {
-      i += 1;
-    }
-
-    // Check the unchecked nodes for redundancy, proceeding from the last one
-    // down to the common prefix size. Then, truncate the list at that point.
-    minimize(i);
-
-    // Add the suffix, starting from the correct node, mid-way through the graph
-    DawgNode node = uncheckedTransitions.isEmpty()
-      ? root
-      : uncheckedTransitions.peek().target();
-
-    while (i < term.length()) {
-      final char label = term.charAt(i);
-      final DawgNode nextNode = factory.build();
-      uncheckedTransitions.push(new Transition(node, label, nextNode));
-      node = nextNode;
-      i += 1;
-    }
-
-    finalNodes.add(node);
-    previousTerm = term;
-    size += 1;
-    return true;
-  }
-
-  private void finish() {
-    minimize(0);
-    factory = null;
-    uncheckedTransitions = null;
-    minimizedNodes = null;
-    previousTerm = null;
-  }
-
-  private void minimize(final int lowerBound) {
-    // Proceed from the leaf up to a certain point
-    for (int j = uncheckedTransitions.size(); j > lowerBound; --j) {
-      final Transition transition = uncheckedTransitions.pop();
-      final DawgNode source = transition.source();
-      final char label = transition.label();
-      final DawgNode target = transition.target();
-      final DawgNode existing = minimizedNodes.get(target);
-      if (null != existing) {
-        source.addEdge(label, existing);
-        finalNodes.remove(target);
-        factory.recycle(target);
-      }
-      else {
-        source.addEdge(label, target);
-        minimizedNodes.put(target, target);
-      }
-    }
+  	throw new UnsupportedOperationException("not yet implemented");
   }
 
   /**
@@ -224,9 +140,9 @@ public class Dawg
    */
   @Override
   public boolean equals(final Object o) {
-    if (!(o instanceof Dawg)) return false;
+    if (!(o instanceof AbstractDawg)) return false;
     @SuppressWarnings("unchecked")
-    final Dawg other = (Dawg) o;
+    final AbstractDawg other = (AbstractDawg) o;
     final Queue<Pair<DawgNode,DawgNode>> nodes = new ArrayDeque<>();
     nodes.offer(ImmutablePair.of(root, other.root));
 
@@ -309,13 +225,5 @@ public class Dawg
   @Override
   public boolean replaceAll(Collection<? extends Map.Entry<String,String>> c) {
     throw new UnsupportedOperationException("replaceAll is not supported");
-  }
-
-  @Value
-  @Accessors(fluent=true)
-  private static class Transition {
-    DawgNode source;
-    char label;
-    DawgNode target;
   }
 }

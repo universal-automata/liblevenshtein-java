@@ -8,10 +8,8 @@ import lombok.NonNull;
 
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
-import com.github.dylon.liblevenshtein.collection.AbstractIterator;
-import com.github.dylon.liblevenshtein.collection.IFinalFunction;
-import com.github.dylon.liblevenshtein.collection.IPrefixFactory;
-import com.github.dylon.liblevenshtein.collection.Prefix;
+import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
+import com.github.dylon.liblevenshtein.util.AbstractIterator;
 
 public class DawgIterator extends AbstractIterator<String> {
   private final Queue<Prefix<DawgNode>> prefixes = new ArrayDeque<>();
@@ -22,7 +20,7 @@ public class DawgIterator extends AbstractIterator<String> {
 
   public DawgIterator(
       @NonNull final IPrefixFactory<DawgNode> prefixFactory,
-      @NonNull final Dawg dawg) {
+      @NonNull final AbstractDawg dawg) {
     this.isFinal = dawg;
     this.prefixFactory = prefixFactory;
     prefixes.offer(prefixFactory.build(dawg.root(), ""));

@@ -9,11 +9,11 @@ import lombok.experimental.FieldDefaults;
 
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
-import com.github.dylon.liblevenshtein.collection.AbstractIterator;
-import com.github.dylon.liblevenshtein.collection.IFinalFunction;
-import com.github.dylon.liblevenshtein.collection.IPrefixFactory;
-import com.github.dylon.liblevenshtein.collection.ITransitionFunction;
-import com.github.dylon.liblevenshtein.collection.Prefix;
+import com.github.dylon.liblevenshtein.collection.dawg.IFinalFunction;
+import com.github.dylon.liblevenshtein.collection.dawg.ITransitionFunction;
+import com.github.dylon.liblevenshtein.collection.dawg.Prefix;
+import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
+import com.github.dylon.liblevenshtein.util.AbstractIterator;
 
 /**
  * @author Dylon Edwards

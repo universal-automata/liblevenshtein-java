@@ -1,4 +1,4 @@
-package com.github.dylon.liblevenshtein.collection;
+package com.github.dylon.liblevenshtein.collection.dawg;
 
 /**
  * Specifies the necessary methods for functors that return whether nodes of

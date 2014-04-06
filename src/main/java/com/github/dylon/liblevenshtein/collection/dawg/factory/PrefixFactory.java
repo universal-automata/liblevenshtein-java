@@ -1,10 +1,12 @@
-package com.github.dylon.liblevenshtein.collection;
+package com.github.dylon.liblevenshtein.collection.dawg.factory;
 
 import java.util.Queue;
 import java.util.ArrayDeque;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+
+import com.github.dylon.liblevenshtein.collection.dawg.Prefix;
 
 /**
  * @author Dylon Edwards

@@ -1,4 +1,6 @@
-package com.github.dylon.liblevenshtein.collection;
+package com.github.dylon.liblevenshtein.collection.dawg.factory;
+
+import com.github.dylon.liblevenshtein.collection.dawg.Prefix;
 
 /**
  * @author Dylon Edwards

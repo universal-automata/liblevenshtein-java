@@ -18,15 +18,19 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
-import com.github.dylon.liblevenshtein.collection.PrefixFactory;
+import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgFactory;
+import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
+import com.github.dylon.liblevenshtein.collection.dawg.factory.PrefixFactory;
+import com.github.dylon.liblevenshtein.collection.dawg.factory.TransitionFactory;
 
 public class DawgTest {
   private List<String> terms;
   private DawgNodeFactory dawgNodeFactory;
   private PrefixFactory<DawgNode> prefixFactory;
+  private TransitionFactory<DawgNode> transitionFactory;
   private DawgFactory dawgFactory;
-  private Dawg emptyDawg;
-  private Dawg fullDawg;
+  private SortedDawg emptyDawg;
+  private SortedDawg fullDawg;
 
   @BeforeClass
   public void setUp() {
@@ -50,7 +54,8 @@ public class DawgTest {
       this.terms = terms;
       this.dawgNodeFactory = new DawgNodeFactory();
       this.prefixFactory = new PrefixFactory<DawgNode>();
-      this.dawgFactory = new DawgFactory(dawgNodeFactory, prefixFactory);
+      this.transitionFactory = new TransitionFactory<DawgNode>();
+      this.dawgFactory = new DawgFactory(dawgNodeFactory, prefixFactory, transitionFactory);
       this.emptyDawg = dawgFactory.build(new ArrayList<String>(0));
       this.fullDawg = dawgFactory.build(terms);
     }
@@ -94,7 +99,7 @@ public class DawgTest {
   public void dawgAcceptsEmptyStringIfInTerms() {
     final List<String> terms = new ArrayList<>(1);
     terms.add("");
-    final Dawg dawg = dawgFactory.build(terms);
+    final SortedDawg dawg = dawgFactory.build(terms);
     assertTrue(dawg.contains(""));
   }
 
@@ -125,7 +130,7 @@ public class DawgTest {
 
   @Test
   public void equivalentDawgsShouldBeEqual() {
-    final Dawg other = dawgFactory.build(terms);
+    final SortedDawg other = dawgFactory.build(terms);
     assertEquals(fullDawg, other);
     assertEquals(fullDawg.hashCode(), other.hashCode());
   }

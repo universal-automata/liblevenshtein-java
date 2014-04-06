@@ -12,8 +12,6 @@ import it.unimi.dsi.fastutil.chars.CharIterator;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.github.dylon.liblevenshtein.collection.IDawgNode;
-
 /**
  * Element of a DAWG structure (Directed Acyclic Word Graph)
  * @author Dylon Edwards
@@ -24,7 +22,7 @@ import com.github.dylon.liblevenshtein.collection.IDawgNode;
 public class DawgNode implements IDawgNode<DawgNode> {
 
   /** Outgoing edges of this node */
-  @NonNull final Char2ObjectMap<DawgNode> edges;
+  @NonNull private final Char2ObjectMap<DawgNode> edges;
 
   /**
    * {@inheritDoc}
@@ -49,6 +47,14 @@ public class DawgNode implements IDawgNode<DawgNode> {
   public DawgNode addEdge(final char label, final DawgNode target) {
     edges.put(label, target);
     return this;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void clear() {
+  	edges.clear();
   }
 
   @Override
@@ -80,6 +86,7 @@ public class DawgNode implements IDawgNode<DawgNode> {
       final char label = entry.getCharKey();
       final DawgNode target = entry.getValue();
       builder.append(label);
+      builder.append(target);
     }
     return builder.toHashCode();
   }

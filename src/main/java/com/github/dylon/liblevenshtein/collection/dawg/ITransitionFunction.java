@@ -1,4 +1,4 @@
-package com.github.dylon.liblevenshtein.collection;
+package com.github.dylon.liblevenshtein.collection.dawg;
 
 import it.unimi.dsi.fastutil.chars.CharIterator;
 

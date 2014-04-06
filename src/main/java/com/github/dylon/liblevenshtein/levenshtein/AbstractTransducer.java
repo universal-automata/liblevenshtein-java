@@ -9,8 +9,8 @@ import lombok.experimental.FieldDefaults;
 import it.unimi.dsi.fastutil.PriorityQueue;
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
-import com.github.dylon.liblevenshtein.collection.ITransitionFunction;
-import com.github.dylon.liblevenshtein.collection.IFinalFunction;
+import com.github.dylon.liblevenshtein.collection.dawg.ITransitionFunction;
+import com.github.dylon.liblevenshtein.collection.dawg.IFinalFunction;
 
 /**
  * The algorithm for imitating Levenshtein automata was taken from the

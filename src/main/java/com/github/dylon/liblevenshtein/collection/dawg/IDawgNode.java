@@ -1,4 +1,4 @@
-package com.github.dylon.liblevenshtein.collection;
+package com.github.dylon.liblevenshtein.collection.dawg;
 
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
@@ -29,4 +29,9 @@ public interface IDawgNode<Node extends IDawgNode<Node>> {
    * @return A DAWG node having the new edge
    */
   Node addEdge(char label, Node target);
+
+	/**
+	 * Removes all outoing-edges
+	 */
+  void clear();
 }

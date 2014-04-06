@@ -1,4 +1,4 @@
-package com.github.dylon.liblevenshtein.collection.dawg;
+package com.github.dylon.liblevenshtein.collection.dawg.factory;
 
 import java.util.Queue;
 import java.util.ArrayDeque;
@@ -10,8 +10,7 @@ import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 import it.unimi.dsi.fastutil.chars.Char2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.chars.Char2ObjectRBTreeMap;
 
-import com.github.dylon.liblevenshtein.collection.IDawgNodeFactory;
-import com.github.dylon.liblevenshtein.collection.IFinalFunction;
+import com.github.dylon.liblevenshtein.collection.dawg.DawgNode;
 
 /**
  * Builds nodes for use in DAWG structures. This implementation uses an object
@@ -43,7 +42,7 @@ public class DawgNodeFactory implements IDawgNodeFactory<DawgNode> {
    */
   @Override
   public DawgNodeFactory recycle(final DawgNode node) {
-    node.edges.clear();
+    node.clear();
     queue.offer(node);
     return this;
   }

@@ -9,7 +9,7 @@ import lombok.val;
 
 import it.unimi.dsi.fastutil.PriorityQueue;
 
-import com.github.dylon.liblevenshtein.collection.IPrefixFactory;
+import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
 
 /**
  * Transduces on prefixes of dictionary terms.

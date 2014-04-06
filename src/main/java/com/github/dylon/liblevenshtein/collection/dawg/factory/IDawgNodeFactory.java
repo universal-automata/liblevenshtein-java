@@ -1,6 +1,8 @@
-package com.github.dylon.liblevenshtein.collection;
+package com.github.dylon.liblevenshtein.collection.dawg.factory;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
+
+import com.github.dylon.liblevenshtein.collection.dawg.IDawgNode;
 
 /**
  * Builds nodes for use in DAWG structures. Implementations may do such things

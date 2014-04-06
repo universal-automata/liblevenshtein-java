@@ -26,6 +26,7 @@ dependencies {
 
 tasks.withType(Compile) {
   options.compilerArgs << "-Xlint:unchecked"
+  options.compilerArgs << "-Werror"
 
   // Source:
   // http://docs.oracle.com/javase/7/docs/technotes/tools/solaris/javac.html#crosscomp-example
