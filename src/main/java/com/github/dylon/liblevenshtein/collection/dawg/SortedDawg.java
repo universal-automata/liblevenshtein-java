@@ -75,11 +75,6 @@ public class SortedDawg extends AbstractDawg {
    */
   @Override
   public boolean add(final String term) {
-    if (null == minimizedNodes) {
-      throw new IllegalStateException(
-          "Cannot insert terms once this DAWG has been finalized");
-    }
-
     if (term.compareTo(previousTerm) < 0) {
       throw new IllegalArgumentException(
           "Due to caveats with the current DAWG implementation, terms must be "+
@@ -122,11 +117,6 @@ public class SortedDawg extends AbstractDawg {
 
   private void finish() {
     minimize(0);
-    factory = null;
-    uncheckedTransitions = null;
-    minimizedNodes = null;
-    previousTerm = null;
-    transitionFactory = null;
   }
 
   private void minimize(final int lowerBound) {
