@@ -124,10 +124,12 @@ public abstract class AbstractTransducer<DictionaryNode>
    * index i and index k. The characteristic vector contains true at each index
    * where the corresponding character of the term is the value of x, and false
    * elsewhere.
-   * @param x
-   * @param term
-   * @param k
-   * @param i
+   * @param x char to find all occurrences of in the relevant substring of term
+   * @param term Term in which to find all occurrences of the character, x
+   * @param k Length of the substring of term to examine
+   * @param i Base-index of the substring of term to examine
+   * @return Characteristic vector marking where x appears in the relevant
+   * substring of term.
    */
   private boolean[] characteristicVector(
       final char x,
