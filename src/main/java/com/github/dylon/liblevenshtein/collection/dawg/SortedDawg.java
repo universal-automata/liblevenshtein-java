@@ -74,7 +74,7 @@ public class SortedDawg extends AbstractDawg {
    * {@inheritDoc}
    */
   @Override
-  public boolean add(final String term) {
+  public boolean add(@NonNull final String term) {
     if (term.compareTo(previousTerm) < 0) {
       throw new IllegalArgumentException(
           "Due to caveats with the current DAWG implementation, terms must be "+
@@ -147,10 +147,8 @@ public class SortedDawg extends AbstractDawg {
    * {@inheritDoc}
    */
   @Override
-  public boolean addAll(final Collection<? extends String> terms) {
-    for (final String term : terms) {
-      if (!add(term)) return false;
-    }
-    return true;
+  public boolean remove(final Object object) {
+    throw new UnsupportedOperationException(
+        "SortedDawg does not support removing terms");
   }
 }

@@ -41,4 +41,22 @@ public class UnsortedDawg extends AbstractDawg {
       @NonNull final IDawgNodeFactory<DawgNode> factory) {
     super(prefixFactory, factory);
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean add(@NonNull final String term) {
+    throw new UnsupportedOperationException(
+        "add(String) is not currently supported");
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean remove(final Object object) {
+    throw new UnsupportedOperationException(
+        "remove(Object) is not currently supported");
+  }
 }

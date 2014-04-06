@@ -104,9 +104,7 @@ public abstract class AbstractDawg
    * {@inheritDoc}
    */
   @Override
-  public boolean add(final String term) {
-    throw new UnsupportedOperationException("not yet implemented");
-  }
+  public abstract boolean add(final String term);
 
   /**
    * {@inheritDoc}
@@ -118,6 +116,12 @@ public abstract class AbstractDawg
     }
     return true;
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public abstract boolean remove(final Object term);
 
   /**
    * {@inheritDoc}
