@@ -19,7 +19,7 @@ public class LevenshteinTransitionFunction
   @Override
   public int[][] of(
       final int[][] levenshteinState,
-      final int[] characteristicVector) {
+      final boolean[] characteristicVector) {
     throw new RuntimeException("not yet implemented");
   }
 }

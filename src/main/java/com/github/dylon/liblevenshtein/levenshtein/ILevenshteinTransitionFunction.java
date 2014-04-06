@@ -6,5 +6,5 @@ package com.github.dylon.liblevenshtein.levenshtein;
  */
 public interface ILevenshteinTransitionFunction {
 
-  int[][] of(int[][] levenshteinState, int[] characteristicVector);
+  int[][] of(int[][] levenshteinState, boolean[] characteristicVector);
 }

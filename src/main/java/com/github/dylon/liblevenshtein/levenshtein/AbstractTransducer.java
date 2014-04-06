@@ -57,8 +57,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.IFinalFunction;
 @Accessors(fluent=true)
 @FieldDefaults(level=AccessLevel.PROTECTED)
 public abstract class AbstractTransducer<DictionaryNode>
-  implements ITransducer<DictionaryNode>,
-             ICharacteristicVectorFunction {
+  implements ITransducer<DictionaryNode> {
 
   /**
    * Default, maximum number of spelling errors candidates may have from the
@@ -107,12 +106,6 @@ public abstract class AbstractTransducer<DictionaryNode>
   ITransitionFunction<DictionaryNode> dictionaryTransition;
 
   /**
-   * Returns a bit-vector of 1's and 0's. See the documentation in the
-   * corresponding interface for more details.
-   */
-  ICharacteristicVectorFunction characteristicVector = this;
-
-  /**
    * State at which to begin traversing the Levenshtein automaton.
    */
   int[][] initialState;
@@ -123,15 +116,54 @@ public abstract class AbstractTransducer<DictionaryNode>
    */
   DictionaryNode dictionaryRoot;
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public int[] of(final char x, final String term, final int k, final int i) {
-    final int[] characteristicVector = new int[k];
+	/** Pools instances of characteristic vectors */
+  private boolean[][] characteristicVectors = new boolean[32][];
+
+	/**
+	 * Returns the characteristic vector of the term, from its characters between
+	 * index i and index k. The characteristic vector contains true at each index
+	 * where the corresponding character of the term is the value of x, and false
+	 * elsewhere.
+	 * @param x
+	 * @param term
+	 * @param k
+	 * @param i
+	 */
+  private boolean[] characteristicVector(
+  		final char x,
+  		final String term,
+  		final int k,
+  		final int i) {
+
+  	boolean[] characteristicVector;
+
+  	if (k >= characteristicVectors.length) {
+  		final int m = characteristicVectors.length << 1;
+  		final int n = (m > k) ? m : (k << 1);
+
+  		final boolean[][] characteristicVectors = new boolean[n][];
+
+  		for (int i_2 = 0; i_2 < this.characteristicVectors.length; ++i_2) {
+  			characteristicVectors[i_2] = this.characteristicVectors[i_2];
+  		}
+
+  		characteristicVector = new boolean[k];
+  		characteristicVectors[k] = characteristicVector;
+  		this.characteristicVectors = characteristicVectors;
+  	}
+  	else {
+  		characteristicVector = characteristicVectors[k];
+
+  		if (null == characteristicVector) {
+  			characteristicVector = new boolean[k];
+  			characteristicVectors[k] = characteristicVector;
+  		}
+  	}
+
     for (int j = 0; j < k; ++j) {
-      characteristicVector[j] = (x == term.charAt(i + j)) ? 1 : 0;
+      characteristicVector[j] = (x == term.charAt(i + j));
     }
+
     return characteristicVector;
   }
 
@@ -205,8 +237,8 @@ public abstract class AbstractTransducer<DictionaryNode>
           final char label = labels.nextChar();
           final DictionaryNode nextDictionaryNode =
             dictionaryTransition.of(dictionaryNode, label);
-          final int[] characteristicVector =
-            this.characteristicVector.of(label, term, k, i);
+          final boolean[] characteristicVector =
+            characteristicVector(label, term, k, i);
           final int[][] nextLevenshteinState =
             stateTransition.of(levenshteinState, /*given*/ characteristicVector);
           if (null != nextLevenshteinState) {
