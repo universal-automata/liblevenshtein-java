@@ -98,7 +98,13 @@ public class State implements IState {
 
 	@Override
 	public int[] removeInner() {
+		if (innerIndex >= size) {
+			throw new ArrayIndexOutOfBoundsException(
+					"No elements at index: " + innerIndex);
+		}
+
 		final Element<int[]> inner = this.inner;
+		this.inner = inner.next();
 
 		if (null != inner.prev()) {
 			inner.prev().next(inner.next());
