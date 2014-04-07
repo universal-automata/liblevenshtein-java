@@ -14,7 +14,7 @@ public class CaseInsensitiveDistanceAndTermComparator
 	public int compare(final Candidate a, final Candidate b) {
 		int c = a.distance() - b.distance();
 		if (0 != c) return c;
-		c = a.lowerTerm().compareTo(lowerTerm) - b.lowerTerm().compareTo(lowerTerm);
+		c = Math.abs(a.lowerTerm().compareTo(lowerTerm)) - Math.abs(b.lowerTerm().compareTo(lowerTerm));
 		if (0 != c) return c;
 		return a.lowerTerm().compareTo(b.lowerTerm());
 	}
