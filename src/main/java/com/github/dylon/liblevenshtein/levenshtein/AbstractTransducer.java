@@ -56,8 +56,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.IFinalFunction;
 @Setter
 @Accessors(fluent=true)
 @FieldDefaults(level=AccessLevel.PROTECTED)
-public abstract class AbstractTransducer<DictionaryNode>
-  implements ITransducer<DictionaryNode> {
+public abstract class AbstractTransducer<DictionaryNode> implements ITransducer {
 
   /**
    * Default, maximum number of spelling errors candidates may have from the
@@ -74,7 +73,7 @@ public abstract class AbstractTransducer<DictionaryNode>
    * Returns instances of some, generic collection that is used to store
    * spelling candidates for the query term.
    */
-  ICandidateCollectionFactory<DictionaryNode> candidatesFactory;
+  ICandidateCollectionFactory candidatesFactory;
 
   /**
    * Returns instances of priority queues used for tracking the dictionary,
@@ -187,7 +186,7 @@ public abstract class AbstractTransducer<DictionaryNode>
    * {@inheritDoc}
    */
   @Override
-  public ICandidateCollection<DictionaryNode> transduce(
+  public ICandidateCollection transduce(
       @NonNull final String term) {
     return transduce(term, defaultMaxDistance);
   }
@@ -196,7 +195,7 @@ public abstract class AbstractTransducer<DictionaryNode>
    * {@inheritDoc}
    */
   @Override
-  public ICandidateCollection<DictionaryNode> transduce(
+  public ICandidateCollection transduce(
       @NonNull final String term,
       final int maxDistance) {
 
@@ -208,8 +207,7 @@ public abstract class AbstractTransducer<DictionaryNode>
     final int termLength = term.length();
     final ILevenshteinTransitionFunction stateTransition =
       stateTransitionFactory.build(maxDistance);
-    final ICandidateCollection<DictionaryNode> candidates =
-      candidatesFactory.build();
+    final ICandidateCollection candidates = candidatesFactory.build();
 
     // so results can be ranked by similarity to the query term, etc.
     final PriorityQueue<Intersection<DictionaryNode>> nearestCandidates =
@@ -289,7 +287,7 @@ public abstract class AbstractTransducer<DictionaryNode>
    */
   protected abstract void enqueueAll(
       PriorityQueue<Intersection<DictionaryNode>> nearestCandidates,
-      ICandidateCollection<DictionaryNode> candidates,
+      ICandidateCollection candidates,
       String candidate,
       DictionaryNode dictionaryNode,
       int[][] levenshteinState,

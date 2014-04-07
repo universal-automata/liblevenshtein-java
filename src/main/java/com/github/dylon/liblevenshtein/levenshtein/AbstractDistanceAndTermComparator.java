@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
  */
 @FieldDefaults(level=AccessLevel.PROTECTED)
 public abstract class AbstractDistanceAndTermComparator
-  implements Comparator<Candidate> {
+  implements Comparator<Intersection> {
 
   /** Query term to consider while sorting correction candidates */
   String term;

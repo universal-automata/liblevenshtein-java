@@ -4,7 +4,7 @@ package com.github.dylon.liblevenshtein.levenshtein;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface ITransducer<DictionaryNode> {
+public interface ITransducer {
 
   /**
    * Finds all terms in the dictionary that are fewer than n units of spelling
@@ -13,7 +13,7 @@ public interface ITransducer<DictionaryNode> {
    * @return A data structure consisting of all the spelling candidates for the
    * query term.
    */
-  ICandidateCollection<DictionaryNode> transduce(String term);
+  ICandidateCollection transduce(String term);
 
   /**
    * Finds all terms in the dictionary that are fewer than n units of spelling
@@ -24,5 +24,5 @@ public interface ITransducer<DictionaryNode> {
    * @return A data structure consisting of all the spelling candidates for the
    * query term.
    */
-  ICandidateCollection<DictionaryNode> transduce(String term, int maxDistance);
+  ICandidateCollection transduce(String term, int maxDistance);
 }

@@ -33,7 +33,7 @@ public class PrefixTransducer<DictionaryNode>
   @Override
   protected void enqueueAll(
       final PriorityQueue<Intersection<DictionaryNode>> nearestCandidates,
-      final ICandidateCollection<DictionaryNode> candidates,
+      final ICandidateCollection candidates,
       final String candidate,
       final DictionaryNode dictionaryNode,
       final int[][] levenshteinState,

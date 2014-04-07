@@ -11,11 +11,12 @@ public class CaseInsensitiveDistanceAndTermComparator
    * {@inheritDoc}
    */
   @Override
-  public int compare(final Candidate a, final Candidate b) {
+  public int compare(final Intersection a, final Intersection b) {
     int c = a.distance() - b.distance();
     if (0 != c) return c;
-    c = Math.abs(a.lowerTerm().compareTo(lowerTerm)) - Math.abs(b.lowerTerm().compareTo(lowerTerm));
+    c = Math.abs(a.candidate().compareToIgnoreCase(term))
+    	- Math.abs(b.candidate().compareToIgnoreCase(term));
     if (0 != c) return c;
-    return a.lowerTerm().compareTo(b.lowerTerm());
+    return a.candidate().compareToIgnoreCase(b.candidate());
   }
 }

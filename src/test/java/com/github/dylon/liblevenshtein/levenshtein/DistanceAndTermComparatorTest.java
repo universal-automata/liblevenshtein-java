@@ -13,7 +13,7 @@ import org.testng.annotations.BeforeClass;
 import static org.testng.Assert.assertEquals;
 
 public class DistanceAndTermComparatorTest {
-  private List<Candidate> candidates;
+  private List<Intersection> intersections;
   private Random random;
   private String term;
   private String[] rankings;
@@ -28,7 +28,7 @@ public class DistanceAndTermComparatorTest {
 
   @BeforeClass
   public void setUpClass() {
-    this.candidates = new ArrayList<Candidate>(7);
+    this.intersections = new ArrayList<Intersection>(7);
     this.random = new Random(8513);
     this.term = "c++";
 
@@ -42,38 +42,38 @@ public class DistanceAndTermComparatorTest {
       "csh"
     };
 
-    final Candidate[] candidates = {
-      candidate("A++", 1),
-      candidate("C++", 1),
-      candidate("J++", 1),
-      candidate("R++", 1),
-      candidate("X++", 1),
-      candidate("A+", 2),
-      candidate("csh", 2)
+    final Intersection[] intersections = {
+      intersection("A++", 1),
+      intersection("C++", 1),
+      intersection("J++", 1),
+      intersection("R++", 1),
+      intersection("X++", 1),
+      intersection("A+", 2),
+      intersection("csh", 2)
     };
 
-    for (final Candidate candidate : candidates) {
-      this.candidates.add(candidate);
+    for (final Intersection intersection : intersections) {
+      this.intersections.add(intersection);
     }
   }
 
   @BeforeMethod
   public void setUpTest() {
-    Collections.shuffle(candidates, random);
+    Collections.shuffle(intersections, random);
   }
 
   @Test(dataProvider="comparators")
-  public void validateTermRanking(final Comparator<Candidate> comparator) {
-    Collections.sort(candidates, comparator);
+  public void validateTermRanking(final Comparator<Intersection> comparator) {
+    Collections.sort(intersections, comparator);
     for (int i = 0; i < rankings.length; ++i) {
-      assertEquals(candidates.get(i).term(), rankings[i]);
+      assertEquals(intersections.get(i).candidate(), rankings[i]);
     }
   }
 
-  private Candidate candidate(final String term, final int distance) {
-    final Candidate candidate = new Candidate();
-    candidate.term(term);
-    candidate.distance(distance);
-    return candidate;
+  private Intersection intersection(final String candidate, final int distance) {
+    final Intersection intersection = new Intersection();
+    intersection.candidate(candidate);
+    intersection.distance(distance);
+    return intersection;
   }
 }
