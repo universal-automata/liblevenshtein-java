@@ -1,7 +1,10 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.util.Comparator;
+
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
@@ -14,7 +17,7 @@ public class State implements IState {
   @Getter(onMethod=@_({@Override}))
   int size = 0;
 
-  IElementFactory<int[]> factory;
+  final IElementFactory<int[]> factory;
 
   int outerIndex = 0;
   Element<int[]> outer = null;
@@ -177,5 +180,30 @@ public class State implements IState {
     this.inner = null;
     this.head = null;
     this.tail = null;
+  }
+
+  private void swapValues(final Element<int[]> lhs, final Element<int[]> rhs) {
+    final int[] value = lhs.value();
+    lhs.value(rhs.value());
+    rhs.value(value);
+  }
+
+  @Override
+  public void sort(final Comparator<int[]> comparator) {
+    // bubble sort, sorry ...
+    Element<int[]> outer = tail;
+    for (int m = 0; m < size; ++m) {
+      Element<int[]> inner = tail;
+
+      for (int n = m + 1; n < size; ++n) {
+        if (comparator.compare(outer.value(), inner.value()) > 0) {
+          swapValues(outer, inner);
+        }
+
+        inner = inner.next();
+      }
+
+      outer = outer.next();
+    }
   }
 }

@@ -17,8 +17,6 @@ public abstract class AbstractPositionTransitionFunction
 
   @Setter IPositionFactory positionFactory;
 
-  @Setter int maxEditDistance;
-
   /**
    * Returns the first index of the characteristic vector between indices, i and
    * k, that is true.  This corresponds to the first index of the relevant

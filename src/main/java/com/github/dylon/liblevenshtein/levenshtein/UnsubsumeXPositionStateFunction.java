@@ -29,6 +29,7 @@ public class UnsubsumeXPositionStateFunction
 
         if (subsumes.at(i,e,s, j,f,t, n)) {
           state.removeInner();
+          positionFactory.recycle(inner);
         }
         else {
           n += 1;

@@ -25,5 +25,5 @@ public interface IDistanceFunction {
    * determined.
    * @param w Length of the query term.
    */
-  int at(int[][] state, int w);
+  int at(IState state, int w);
 }

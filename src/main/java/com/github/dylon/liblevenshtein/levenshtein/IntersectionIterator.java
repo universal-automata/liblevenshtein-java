@@ -58,7 +58,7 @@ public class IntersectionIterator<DictionaryNode>
    * Accepting state of the corresponding Levenshtein automaton, of the prefix
    * denoted by the relative root.
    */
-  int[][] levenshteinState;
+  IState levenshteinState;
 
   public IntersectionIterator(
       final IPrefixFactory<DictionaryNode> prefixFactory,
@@ -68,7 +68,7 @@ public class IntersectionIterator<DictionaryNode>
       final DictionaryNode relativeRoot,
       final String prefix,
       final int distance,
-      final int[][] levenshteinState) {
+      final IState levenshteinState) {
     this.prefixFactory = prefixFactory;
     this.dictionaryTransition = dictionaryTransition;
     this.isFinal = isFinal;

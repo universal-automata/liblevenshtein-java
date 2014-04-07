@@ -36,7 +36,7 @@ public class PrefixTransducer<DictionaryNode>
       final ICandidateCollection candidates,
       final String candidate,
       final DictionaryNode dictionaryNode,
-      final int[][] levenshteinState,
+      final IState levenshteinState,
       final int distance,
       final int maxDistance) {
 

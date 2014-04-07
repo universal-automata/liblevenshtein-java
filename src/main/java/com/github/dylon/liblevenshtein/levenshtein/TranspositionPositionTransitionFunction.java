@@ -5,6 +5,7 @@ public class TranspositionPositionTransitionFunction
 
   @Override
   public IState of(
+      final int n,
       final int[] position,
       final boolean[] characteristicVector,
       final int offset) {
@@ -14,7 +15,6 @@ public class TranspositionPositionTransitionFunction
     final int t = position[2];
     final int h = i - offset;
     final int w = characteristicVector.length;
-    final int n = maxEditDistance;
 
     if (e == 0 && 0 < n) {
       if (h <= w - 2) {

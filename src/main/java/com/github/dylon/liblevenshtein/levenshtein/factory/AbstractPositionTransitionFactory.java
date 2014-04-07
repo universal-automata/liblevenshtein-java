@@ -15,16 +15,17 @@ public abstract class AbstractPositionTransitionFactory
   Queue<IPositionTransitionFunction> transitions = new ArrayDeque<>();
 
   @Override
-  public IPositionTransitionFunction build(final int n) {
+  public IPositionTransitionFunction build() {
     IPositionTransitionFunction transition = transitions.poll();
 
     if (null == transition) {
-      transition = build();
+      transition = create();
     }
 
-    transition.maxEditDistance(n);
     return transition;
   }
+
+  protected abstract IPositionTransitionFunction create();
 
   @Override
   public void recycle(final IPositionTransitionFunction transition) {

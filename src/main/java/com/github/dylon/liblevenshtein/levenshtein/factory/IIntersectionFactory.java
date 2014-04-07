@@ -21,7 +21,7 @@ public interface IIntersectionFactory<DictionaryNode> {
   Intersection<DictionaryNode> build(
       String candidate,
       DictionaryNode dictionaryNode,
-      int[][] levenshteinState,
+      IState levenshteinState,
       int distance);
 
   /**

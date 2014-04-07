@@ -67,7 +67,7 @@ public abstract class AbstractTransducer<DictionaryNode> implements ITransducer 
   /**
    * Returns state-transition functions for specific, max edit distances
    */
-  ILevenshteinTransitionFunctionFactory stateTransitionFactory;
+  IStateTransitionFunctionFactory stateTransitionFactory;
 
   /**
    * Returns instances of some, generic collection that is used to store
@@ -107,7 +107,7 @@ public abstract class AbstractTransducer<DictionaryNode> implements ITransducer 
   /**
    * State at which to begin traversing the Levenshtein automaton.
    */
-  int[][] initialState;
+  IState initialState;
 
   /**
    * Root node of the dictionary, at which to begin searching for spelling
@@ -205,7 +205,7 @@ public abstract class AbstractTransducer<DictionaryNode> implements ITransducer 
     }
 
     final int termLength = term.length();
-    final ILevenshteinTransitionFunction stateTransition =
+    final IStateTransitionFunction stateTransition =
       stateTransitionFactory.build(maxDistance);
     final ICandidateCollection candidates = candidatesFactory.build();
 
@@ -228,8 +228,8 @@ public abstract class AbstractTransducer<DictionaryNode> implements ITransducer 
         intersection = nearestCandidates.dequeue();
         final String candidate = intersection.candidate();
         final DictionaryNode dictionaryNode = intersection.dictionaryNode();
-        final int[][] levenshteinState = intersection.levenshteinState();
-        final int i = levenshteinState[0][0];
+        final IState levenshteinState = intersection.levenshteinState();
+        final int i = levenshteinState.getOuter(0)[0];
         final int b = termLength - i;
         final int k = (a < b) ? a : b;
         final CharIterator labels = dictionaryTransition.of(dictionaryNode);
@@ -239,7 +239,7 @@ public abstract class AbstractTransducer<DictionaryNode> implements ITransducer 
             dictionaryTransition.of(dictionaryNode, label);
           final boolean[] characteristicVector =
             characteristicVector(label, term, k, i);
-          final int[][] nextLevenshteinState =
+          final IState nextLevenshteinState =
             stateTransition.of(levenshteinState, /*given*/ characteristicVector);
           if (null != nextLevenshteinState) {
             final String nextCandidate = candidate + label;
@@ -290,7 +290,7 @@ public abstract class AbstractTransducer<DictionaryNode> implements ITransducer 
       ICandidateCollection candidates,
       String candidate,
       DictionaryNode dictionaryNode,
-      int[][] levenshteinState,
+      IState levenshteinState,
       int distance,
       int maxDistance);
 

@@ -4,15 +4,15 @@ package com.github.dylon.liblevenshtein.levenshtein;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface ILevenshteinTransitionFunctionFactory {
+public interface IStateTransitionFunctionFactory {
 
   /**
    * @param maxDistance
    */
-  ILevenshteinTransitionFunction build(int maxDistance);
+  IStateTransitionFunction build(int maxDistance);
 
   /**
    * @param transition
    */
-  void recycle(ILevenshteinTransitionFunction transition);
+  void recycle(IStateTransitionFunction transition);
 }

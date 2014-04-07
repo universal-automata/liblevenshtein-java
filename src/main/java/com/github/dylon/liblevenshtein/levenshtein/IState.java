@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.util.Comparator;
+
 public interface IState {
 
   int size();
@@ -15,4 +17,6 @@ public interface IState {
   int[] removeInner();
 
   void clear();
+
+  void sort(Comparator<int[]> comparator);
 }

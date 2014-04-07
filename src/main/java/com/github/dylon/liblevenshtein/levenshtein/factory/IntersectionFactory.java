@@ -20,7 +20,7 @@ public class IntersectionFactory<DictionaryNode>
   public Intersection<DictionaryNode> build(
       final String candidate,
       final DictionaryNode dictionaryNode,
-      final int[][] levenshteinState,
+      final IState levenshteinState,
       final int distance) {
 
     Intersection<DictionaryNode> intersection = intersections.poll();

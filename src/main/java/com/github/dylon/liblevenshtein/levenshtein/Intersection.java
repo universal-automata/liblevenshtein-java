@@ -12,6 +12,6 @@ import lombok.experimental.Accessors;
 public class Intersection<DictionaryNode> {
   String candidate;
   DictionaryNode dictionaryNode;
-  int[][] levenshteinState;
+  IState levenshteinState;
   int distance;
 }

@@ -7,7 +7,7 @@ public class StandardPositionTransitionFactory
   extends AbstractPositionTransitionFactory {
 
   @Override
-  public IPositionTransitionFunction build() {
+  protected IPositionTransitionFunction create() {
     return new StandardPositionTransitionFunction();
   }
 }

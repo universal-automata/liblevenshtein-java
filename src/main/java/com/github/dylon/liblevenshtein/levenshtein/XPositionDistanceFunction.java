@@ -15,14 +15,17 @@ public class XPositionDistanceFunction implements IDistanceFunction {
    * {@inheritDoc}
    */
   @Override
-  public int at(final int[][] state, final int w) {
+  public int at(final IState state, final int w) {
     int minimumDistance = Integer.MAX_VALUE;
 
-    for (final int[] position : state) {
+    for (int m = 0; m < state.size(); ++m) {
+      final int[] position = state.getOuter(m);
+
       // (1 == x) -> t-position or s-position
       // (0 == x) -> standard position
       // only calculate the distance for standard positions.
       final int x = position[2];
+
       if (0 == x) {
         final int i = position[0];
         final int e = position[1];

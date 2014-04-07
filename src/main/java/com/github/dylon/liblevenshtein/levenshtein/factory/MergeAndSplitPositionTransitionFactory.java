@@ -7,7 +7,7 @@ public class MergeAndSplitPositionTransitionFactory
   extends AbstractPositionTransitionFactory {
 
   @Override
-  public IPositionTransitionFunction build() {
+  protected IPositionTransitionFunction create() {
     return new MergeAndSplitPositionTransitionFunction();
   }
 }
