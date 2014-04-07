@@ -48,31 +48,33 @@ public class State implements IState {
 
   @Override
   public void insert(final int index, final int[] position) {
-  	if (index < 0 || index >= size) {
-  		throw new ArrayIndexOutOfBoundsException(
-  				"Expected 0 <= index < size, but received: " + index);
-  	}
+    if (index < 0 || index > size) {
+      throw new ArrayIndexOutOfBoundsException(
+          "Expected 0 <= index <= size, but received: " + index);
+    }
 
-  	Element<int[]> curr = tail;
-  	for (int i = 0; i < index; ++i) {
-  		curr = curr.next();
-  	}
+    Element<int[]> curr = tail;
+    for (int i = 0; i < index && i < size; ++i) {
+      curr = curr.next();
+    }
 
-  	Element<int[]> next = factory.build(position);
+    Element<int[]> next = factory.build(position);
 
-  	if (null != curr.next()) {
-  		curr.next().prev(next);
-  	}
+    if (null != curr.next()) {
+      curr.next().prev(next);
+    }
 
-  	curr.next(next);
+    curr.next(next);
 
-  	if (index < innerIndex) {
-  		innerIndex += 1;
-  	}
+    if (index < innerIndex) {
+      innerIndex += 1;
+    }
 
-  	if (index < outerIndex) {
-  		outerIndex += 1;
-  	}
+    if (index < outerIndex) {
+      outerIndex += 1;
+    }
+
+    size += 1;
   }
 
   @Override

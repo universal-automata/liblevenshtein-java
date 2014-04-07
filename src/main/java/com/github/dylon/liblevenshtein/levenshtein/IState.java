@@ -6,7 +6,7 @@ public interface IState {
 
   void add(int[] position);
 
-	void insert(int index, int[] position);
+  void insert(int index, int[] position);
 
   int[] getOuter(int index);
 
