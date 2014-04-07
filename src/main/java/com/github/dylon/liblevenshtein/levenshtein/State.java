@@ -47,6 +47,35 @@ public class State implements IState {
   }
 
   @Override
+  public void insert(final int index, final int[] position) {
+  	if (index < 0 || index >= size) {
+  		throw new ArrayIndexOutOfBoundsException(
+  				"Expected 0 <= index < size, but received: " + index);
+  	}
+
+  	Element<int[]> curr = tail;
+  	for (int i = 0; i < index; ++i) {
+  		curr = curr.next();
+  	}
+
+  	Element<int[]> next = factory.build(position);
+
+  	if (null != curr.next()) {
+  		curr.next().prev(next);
+  	}
+
+  	curr.next(next);
+
+  	if (index < innerIndex) {
+  		innerIndex += 1;
+  	}
+
+  	if (index < outerIndex) {
+  		outerIndex += 1;
+  	}
+  }
+
+  @Override
   public int[] getOuter(final int index) {
     if (index < 0 || index >= size) {
       throw new ArrayIndexOutOfBoundsException(
@@ -133,15 +162,10 @@ public class State implements IState {
   public void clear() {
     Element<int[]> head = this.head;
 
-    while (null != head && null != head.prev()) {
+    while (null != head) {
       final Element<int[]> prev = head.prev();
-      prev.next(null);
       factory.recycle(head);
       head = prev;
-    }
-
-    if (null != head) {
-      factory.recycle(head);
     }
 
     this.size = 0;
