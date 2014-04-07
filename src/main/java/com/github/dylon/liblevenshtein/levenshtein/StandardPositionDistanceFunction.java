@@ -12,17 +12,17 @@ public class StandardPositionDistanceFunction implements IDistanceFunction {
    */
   @Override
   public int at(final int[][] state, final int w) {
-  	int minimumDistance = Integer.MAX_VALUE;
+    int minimumDistance = Integer.MAX_VALUE;
 
-  	for (final int[] position : state) {
-  		final int i = position[0];
-  		final int e = position[1];
-  		final int distance = w - i + e;
-  		if (distance < minimumDistance) {
-  			minimumDistance = distance;
-  		}
-  	}
+    for (final int[] position : state) {
+      final int i = position[0];
+      final int e = position[1];
+      final int distance = w - i + e;
+      if (distance < minimumDistance) {
+        minimumDistance = distance;
+      }
+    }
 
-  	return minimumDistance;
+    return minimumDistance;
   }
 }

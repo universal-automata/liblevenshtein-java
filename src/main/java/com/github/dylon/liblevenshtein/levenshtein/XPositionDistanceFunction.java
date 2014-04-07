@@ -16,23 +16,23 @@ public class XPositionDistanceFunction implements IDistanceFunction {
    */
   @Override
   public int at(final int[][] state, final int w) {
-  	int minimumDistance = Integer.MAX_VALUE;
+    int minimumDistance = Integer.MAX_VALUE;
 
-  	for (final int[] position : state) {
-  		// (1 == x) -> t-position or s-position
-  		// (0 == x) -> standard position
-  		// only calculate the distance for standard positions.
-  		final int x = position[2];
-  		if (0 == x) {
-  			final int i = position[0];
-  			final int e = position[1];
-  			final int distance = w - i + e;
-  			if (distance < minimumDistance) {
-  				minimumDistance = distance;
-  			}
-  		}
-  	}
+    for (final int[] position : state) {
+      // (1 == x) -> t-position or s-position
+      // (0 == x) -> standard position
+      // only calculate the distance for standard positions.
+      final int x = position[2];
+      if (0 == x) {
+        final int i = position[0];
+        final int e = position[1];
+        final int distance = w - i + e;
+        if (distance < minimumDistance) {
+          minimumDistance = distance;
+        }
+      }
+    }
 
-  	return minimumDistance;
+    return minimumDistance;
   }
 }
