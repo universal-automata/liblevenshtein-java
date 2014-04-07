@@ -1,4 +1,4 @@
-package com.github.dylon.liblevenshtein.levenshtein;
+package com.github.dylon.liblevenshtein.levenshtein.factory;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

@@ -1,10 +1,12 @@
-package com.github.dylon.liblevenshtein.levenshtein;
+package com.github.dylon.liblevenshtein.levenshtein.factory;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+
+import com.github.dylon.liblevenshtein.levenshtein.IPositionTransitionFunction;
 
 @FieldDefaults(level=AccessLevel.PRIVATE, makeFinal=true)
 public abstract class AbstractPositionTransitionFactory
@@ -26,6 +28,6 @@ public abstract class AbstractPositionTransitionFactory
 
 	@Override
 	public void recycle(final IPositionTransitionFunction transition) {
-		transitions.offer((StandardPositionTransitionFunction) transition);
+		transitions.offer(transition);
 	}
 }

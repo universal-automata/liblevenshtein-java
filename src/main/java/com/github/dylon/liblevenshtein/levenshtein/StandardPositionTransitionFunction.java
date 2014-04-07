@@ -1,12 +1,10 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
-import java.util.List;
-
 public class StandardPositionTransitionFunction
 	extends AbstractPositionTransitionFunction {
 
 	@Override
-	public List<int[]> of(
+	public IState of(
 			final int[] position,
 			final boolean[] characteristicVector,
 			final int offset) {

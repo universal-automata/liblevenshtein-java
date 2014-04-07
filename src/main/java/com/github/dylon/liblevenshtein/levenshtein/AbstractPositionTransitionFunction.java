@@ -5,6 +5,9 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
+import com.github.dylon.liblevenshtein.levenshtein.factory.IPositionFactory;
+import com.github.dylon.liblevenshtein.levenshtein.factory.IStateFactory;
+
 @Accessors(fluent=true)
 @FieldDefaults(level=AccessLevel.PROTECTED)
 public abstract class AbstractPositionTransitionFunction
