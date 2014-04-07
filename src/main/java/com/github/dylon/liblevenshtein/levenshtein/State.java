@@ -25,27 +25,27 @@ public class State implements IState {
   int innerIndex = 0;
   Element<int[]> inner = null;
 
-  Element<int[]> tail;
   Element<int[]> head;
+  Element<int[]> tail;
 
   public State(final IElementFactory<int[]> factory) {
     this.factory = factory;
-    this.tail = factory.build(null);
-    this.head = tail;
+    this.head = factory.build(null);
+    this.tail = head;
   }
 
   @Override
   public void add(final int[] position) {
     final Element<int[]> next = factory.build(position);
 
-    if (null == tail) {
-      tail = next;
+    if (null == head) {
+      head = next;
     }
     else {
-      head.next(next);
+      tail.next(next);
     }
 
-    head = next;
+    tail = next;
     size += 1;
   }
 
@@ -56,7 +56,7 @@ public class State implements IState {
           "Expected 0 <= index <= size, but received: " + index);
     }
 
-    Element<int[]> curr = tail;
+    Element<int[]> curr = head;
     for (int i = 0; i < index && i < size; ++i) {
       curr = curr.next();
     }
@@ -89,7 +89,7 @@ public class State implements IState {
 
     if (0 == index) {
       outerIndex = 0;
-      outer = tail;
+      outer = head;
     }
 
     while (outerIndex > index) {
@@ -114,7 +114,7 @@ public class State implements IState {
 
     if (0 == index) {
       innerIndex = 0;
-      inner = tail;
+      inner = head;
     }
 
     while (innerIndex > index) {
@@ -148,12 +148,12 @@ public class State implements IState {
       inner.next().prev(inner.prev());
     }
 
-    if (tail == inner) {
-      tail = null;
+    if (head == inner) {
+      head = null;
     }
 
-    if (head == inner) {
-      head = head.prev();
+    if (tail == inner) {
+      tail = tail.prev();
     }
 
     final int[] position = inner.value();
@@ -165,12 +165,12 @@ public class State implements IState {
 
   @Override
   public void clear() {
-    Element<int[]> head = this.head;
+    Element<int[]> tail = this.tail;
 
-    while (null != head) {
-      final Element<int[]> prev = head.prev();
-      factory.recycle(head);
-      head = prev;
+    while (null != tail) {
+      final Element<int[]> prev = tail.prev();
+      factory.recycle(tail);
+      tail = prev;
     }
 
     this.size = 0;
@@ -178,32 +178,59 @@ public class State implements IState {
     this.outer = null;
     this.innerIndex = 0;
     this.inner = null;
-    this.head = null;
     this.tail = null;
+    this.head = null;
   }
 
-  private void swapValues(final Element<int[]> lhs, final Element<int[]> rhs) {
-    final int[] value = lhs.value();
-    lhs.value(rhs.value());
-    rhs.value(value);
+  private Element<int[]> mergeSort(
+      final Comparator<int[]> comparator,
+      final Element<int[]> head) {
+    if (null == head || null == head.next()) return head;
+    final Element<int[]> middle = middle(head);
+    final Element<int[]> tail = middle.next();
+    middle.next(null);
+    return merge(comparator,
+        mergeSort(comparator, head),
+        mergeSort(comparator, tail));
+  }
+
+  private Element<int[]> merge(
+      final Comparator<int[]> comparator,
+      Element<int[]> head,
+      Element<int[]> tail) {
+
+    Element<int[]> next = factory.build(null);
+    Element<int[]> curr = next;
+    while (null != head && null != tail) {
+      if (comparator.compare(head.value(), tail.value()) <= 0) {
+        curr.next(head);
+        head = head.next();
+      }
+      else {
+        curr.next(tail);
+        tail = tail.next();
+      }
+      curr = curr.next();
+    }
+    curr.next((null == head) ? tail : head);
+    curr = next.next();
+    factory.recycle(next);
+    return curr;
+  }
+
+  private Element<int[]> middle(final Element<int[]> head) {
+    if (null == head) return null;
+    Element<int[]> slow = head;
+    Element<int[]> fast = head;
+    while (null != fast.next() && null != fast.next().next()) {
+      slow = slow.next();
+      fast = fast.next().next();
+    }
+    return slow;
   }
 
   @Override
   public void sort(final Comparator<int[]> comparator) {
-    // bubble sort, sorry ...
-    Element<int[]> outer = tail;
-    for (int m = 0; m < size; ++m) {
-      Element<int[]> inner = tail;
-
-      for (int n = m + 1; n < size; ++n) {
-        if (comparator.compare(outer.value(), inner.value()) > 0) {
-          swapValues(outer, inner);
-        }
-
-        inner = inner.next();
-      }
-
-      outer = outer.next();
-    }
+    mergeSort(comparator, head);
   }
 }
