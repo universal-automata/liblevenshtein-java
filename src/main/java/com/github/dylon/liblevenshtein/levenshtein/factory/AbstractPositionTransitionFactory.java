@@ -10,24 +10,24 @@ import com.github.dylon.liblevenshtein.levenshtein.IPositionTransitionFunction;
 
 @FieldDefaults(level=AccessLevel.PRIVATE, makeFinal=true)
 public abstract class AbstractPositionTransitionFactory
-	implements IPositionTransitionFactory {
+  implements IPositionTransitionFactory {
 
-	Queue<IPositionTransitionFunction> transitions = new ArrayDeque<>();
+  Queue<IPositionTransitionFunction> transitions = new ArrayDeque<>();
 
-	@Override
-	public IPositionTransitionFunction build(final int n) {
-		IPositionTransitionFunction transition = transitions.poll();
+  @Override
+  public IPositionTransitionFunction build(final int n) {
+    IPositionTransitionFunction transition = transitions.poll();
 
-		if (null == transition) {
-			transition = build();
-		}
+    if (null == transition) {
+      transition = build();
+    }
 
-		transition.maxEditDistance(n);
-		return transition;
-	}
+    transition.maxEditDistance(n);
+    return transition;
+  }
 
-	@Override
-	public void recycle(final IPositionTransitionFunction transition) {
-		transitions.offer(transition);
-	}
+  @Override
+  public void recycle(final IPositionTransitionFunction transition) {
+    transitions.offer(transition);
+  }
 }

@@ -5,8 +5,8 @@ import lombok.experimental.Accessors;
 
 @Accessors(fluent=true)
 public abstract class AbstractUnsubsumeFunction
-	implements IUnsubsumeFunction {
+  implements IUnsubsumeFunction {
 
-	@Setter
-	protected ISubsumesFunction subsumes;
+  @Setter
+  protected ISubsumesFunction subsumes;
 }

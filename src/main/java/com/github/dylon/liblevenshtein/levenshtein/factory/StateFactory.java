@@ -11,29 +11,29 @@ import com.github.dylon.liblevenshtein.levenshtein.State;
 
 @Accessors(fluent=true)
 public class StateFactory implements IStateFactory {
-	private final Queue<IState> states = new ArrayDeque<>();
+  private final Queue<IState> states = new ArrayDeque<>();
 
-	@Setter
-	private IElementFactory<int[]> elementFactory;
+  @Setter
+  private IElementFactory<int[]> elementFactory;
 
-	@Override
-	public IState build(final int[]... positions) {
-		IState state = states.poll();
+  @Override
+  public IState build(final int[]... positions) {
+    IState state = states.poll();
 
-		if (null == state) {
-			state = new State(elementFactory);
-		}
+    if (null == state) {
+      state = new State(elementFactory);
+    }
 
-		for (final int[] position : positions) {
-			state.add(position);
-		}
+    for (final int[] position : positions) {
+      state.add(position);
+    }
 
-		return state;
-	}
+    return state;
+  }
 
-	@Override
-	public void recycle(final IState state) {
-		state.clear();
-		states.offer(state);
-	}
+  @Override
+  public void recycle(final IState state) {
+    state.clear();
+    states.offer(state);
+  }
 }

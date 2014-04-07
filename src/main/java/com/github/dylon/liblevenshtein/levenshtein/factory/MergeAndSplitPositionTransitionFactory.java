@@ -4,10 +4,10 @@ import com.github.dylon.liblevenshtein.levenshtein.IPositionTransitionFunction;
 import com.github.dylon.liblevenshtein.levenshtein.MergeAndSplitPositionTransitionFunction;
 
 public class MergeAndSplitPositionTransitionFactory
-	extends AbstractPositionTransitionFactory {
+  extends AbstractPositionTransitionFactory {
 
-	@Override
-	public IPositionTransitionFunction build() {
-		return new MergeAndSplitPositionTransitionFunction();
-	}
+  @Override
+  public IPositionTransitionFunction build() {
+    return new MergeAndSplitPositionTransitionFunction();
+  }
 }

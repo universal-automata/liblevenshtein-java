@@ -4,7 +4,7 @@ import com.github.dylon.liblevenshtein.levenshtein.IState;
 
 public interface IStateFactory {
 
-	IState build(int[]... positions);
+  IState build(int[]... positions);
 
-	void recycle(IState state);
+  void recycle(IState state);
 }

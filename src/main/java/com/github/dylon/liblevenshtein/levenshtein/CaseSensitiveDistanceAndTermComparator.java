@@ -15,10 +15,10 @@ public class CaseSensitiveDistanceAndTermComparator
     int c = a.distance() - b.distance();
     if (0 != c) return c;
     c = Math.abs(a.candidate().compareToIgnoreCase(term))
-    	- Math.abs(b.candidate().compareToIgnoreCase(term));
+      - Math.abs(b.candidate().compareToIgnoreCase(term));
     if (0 != c) return c;
     c = Math.abs(a.candidate().compareTo(term))
-    	- Math.abs(b.candidate().compareTo(term));
+      - Math.abs(b.candidate().compareTo(term));
     if (0 != c) return c;
     c = a.candidate().compareToIgnoreCase(b.candidate());
     if (0 != c) return c;

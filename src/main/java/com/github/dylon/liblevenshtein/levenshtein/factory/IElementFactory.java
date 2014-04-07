@@ -4,7 +4,7 @@ import com.github.dylon.liblevenshtein.levenshtein.Element;
 
 public interface IElementFactory<Type> {
 
-	Element<Type> build(Type value);
+  Element<Type> build(Type value);
 
-	void recycle(Element<Type> element);
+  void recycle(Element<Type> element);
 }

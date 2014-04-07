@@ -4,9 +4,9 @@ import com.github.dylon.liblevenshtein.levenshtein.IPositionTransitionFunction;
 
 public interface IPositionTransitionFactory {
 
-	IPositionTransitionFunction build(int n);
+  IPositionTransitionFunction build(int n);
 
-	IPositionTransitionFunction build();
+  IPositionTransitionFunction build();
 
-	void recycle(IPositionTransitionFunction transition);
+  void recycle(IPositionTransitionFunction transition);
 }

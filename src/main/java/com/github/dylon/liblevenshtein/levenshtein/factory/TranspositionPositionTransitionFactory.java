@@ -4,10 +4,10 @@ import com.github.dylon.liblevenshtein.levenshtein.IPositionTransitionFunction;
 import com.github.dylon.liblevenshtein.levenshtein.TranspositionPositionTransitionFunction;
 
 public class TranspositionPositionTransitionFactory
-	extends AbstractPositionTransitionFactory {
+  extends AbstractPositionTransitionFactory {
 
-	@Override
-	public IPositionTransitionFunction build() {
-		return new TranspositionPositionTransitionFunction();
-	}
+  @Override
+  public IPositionTransitionFunction build() {
+    return new TranspositionPositionTransitionFunction();
+  }
 }
