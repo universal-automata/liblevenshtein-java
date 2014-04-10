@@ -1,3 +1,4 @@
 *.sw?
 /.gradle
 /build
+.vimrc.local

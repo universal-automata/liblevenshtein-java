@@ -29,8 +29,8 @@ public class DawgTest {
   private PrefixFactory<DawgNode> prefixFactory;
   private TransitionFactory<DawgNode> transitionFactory;
   private DawgFactory dawgFactory;
-  private SortedDawg emptyDawg;
-  private SortedDawg fullDawg;
+  private AbstractDawg emptyDawg;
+  private AbstractDawg fullDawg;
 
   @BeforeClass
   public void setUp() {
@@ -99,7 +99,7 @@ public class DawgTest {
   public void dawgAcceptsEmptyStringIfInTerms() {
     final List<String> terms = new ArrayList<>(1);
     terms.add("");
-    final SortedDawg dawg = dawgFactory.build(terms);
+    final AbstractDawg dawg = dawgFactory.build(terms);
     assertTrue(dawg.contains(""));
   }
 
@@ -125,12 +125,12 @@ public class DawgTest {
     terms.add("a");
     terms.add("c");
     terms.add("b");
-    dawgFactory.build(terms);
+    dawgFactory.build(terms, true);
   }
 
   @Test
   public void equivalentDawgsShouldBeEqual() {
-    final SortedDawg other = dawgFactory.build(terms);
+    final AbstractDawg other = dawgFactory.build(terms);
     assertEquals(fullDawg, other);
     assertEquals(fullDawg.hashCode(), other.hashCode());
   }

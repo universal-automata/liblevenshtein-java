@@ -1,4 +1,7 @@
-package com.github.dylon.liblevenshtein.levenshtein;
+package com.github.dylon.liblevenshtein.levenshtein.factory;
+
+import com.github.dylon.liblevenshtein.levenshtein.Intersection;
+import com.github.dylon.liblevenshtein.levenshtein.IState;
 
 /**
  * @author Dylon Edwards

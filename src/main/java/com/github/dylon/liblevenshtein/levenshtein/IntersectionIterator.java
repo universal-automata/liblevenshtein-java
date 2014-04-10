@@ -13,6 +13,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.IFinalFunction;
 import com.github.dylon.liblevenshtein.collection.dawg.ITransitionFunction;
 import com.github.dylon.liblevenshtein.collection.dawg.Prefix;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
+import com.github.dylon.liblevenshtein.levenshtein.factory.IIntersectionFactory;
 import com.github.dylon.liblevenshtein.util.AbstractIterator;
 
 /**

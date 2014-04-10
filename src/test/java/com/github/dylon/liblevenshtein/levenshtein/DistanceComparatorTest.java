@@ -12,7 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeClass;
 import static org.testng.Assert.assertEquals;
 
-public class DistanceAndTermComparatorTest {
+public class DistanceComparatorTest {
   private List<Intersection> intersections;
   private Random random;
   private String term;
@@ -21,8 +21,8 @@ public class DistanceAndTermComparatorTest {
   @DataProvider(name="comparators")
   public Object[][] comparators() {
     return new Object[][] {
-      {new CaseSensitiveDistanceAndTermComparator().term(term)},
-      {new CaseInsensitiveDistanceAndTermComparator().term(term)}
+      {new DistanceComparator.WithCaseSensitiveSort().term(term)},
+      {new DistanceComparator.WithCaseInsensitiveSort().term(term)}
     };
   }
 

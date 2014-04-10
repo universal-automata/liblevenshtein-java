@@ -1,6 +1,8 @@
-package com.github.dylon.liblevenshtein.levenshtein;
+package com.github.dylon.liblevenshtein.levenshtein.factory;
 
 import it.unimi.dsi.fastutil.PriorityQueue;
+
+import com.github.dylon.liblevenshtein.levenshtein.Intersection;
 
 /**
  * @author Dylon Edwards

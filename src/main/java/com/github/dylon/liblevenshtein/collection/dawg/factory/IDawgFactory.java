@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import com.github.dylon.liblevenshtein.collection.dawg.IDawg;
 import com.github.dylon.liblevenshtein.collection.dawg.IDawgNode;
+import com.github.dylon.liblevenshtein.collection.dawg.IFinalFunction;
+import com.github.dylon.liblevenshtein.collection.dawg.ITransitionFunction;
 import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
 
 /**
@@ -11,12 +13,34 @@ import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
  * @since 2.1.0
  */
 public interface IDawgFactory
-  <Node extends IDawgNode<Node>, SortedDawg extends IDawg<Node>> {
+  <Node extends IDawgNode<Node>, Dawg extends IDawg<Node>> {
 
   /**
    * Returns a new DAWG.
    * @param terms Terms to insert into the DAWG
    * @return A new DAWG, containing the terms.
    */
-  SortedDawg build(Collection<String> terms);
+  Dawg build(Collection<String> terms);
+
+  /**
+   * Returns a new DAWG.
+   * @param terms Terms to insert into the DAWG
+   * @param isSorted Whether terms has been sorted
+   * @return A new DAWG, containing the terms.
+   */
+  Dawg build(Collection<String> terms, boolean isSorted);
+
+  /**
+   * Returns the final function of the dictionary.
+   * @param dictionary Dawg whose final function should be returned
+   * @return The final function of the dictionary
+   */
+  IFinalFunction<Node> isFinal(Dawg dictionary);
+
+  /**
+   * Returns the transition function of the dictionary.
+   * @param dictionary Dawg whose transition function should be returned
+   * @return The transition function of the dictionary
+   */
+  ITransitionFunction<Node> transition(Dawg dictionary);
 }
