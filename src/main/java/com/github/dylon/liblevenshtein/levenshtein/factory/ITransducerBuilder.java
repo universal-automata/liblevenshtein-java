@@ -30,5 +30,5 @@ public interface ITransducerBuilder {
 
   ITransducerBuilder includeDistance(boolean includeDistance);
 
-  ITransducer build();
+  <CandidateType> ITransducer<?> build();
 }

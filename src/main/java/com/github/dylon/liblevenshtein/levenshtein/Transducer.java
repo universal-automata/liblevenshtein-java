@@ -62,7 +62,8 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IStateTransitionFacto
 @Setter
 @Accessors(fluent=true)
 @FieldDefaults(level=AccessLevel.PROTECTED)
-public abstract class Transducer<DictionaryNode> implements ITransducer {
+public abstract class Transducer<DictionaryNode, CandidateType>
+  implements ITransducer<CandidateType> {
 
   /**
    * Default, maximum number of spelling errors candidates may have from the
@@ -79,7 +80,7 @@ public abstract class Transducer<DictionaryNode> implements ITransducer {
    * Returns instances of some, generic collection that is used to store
    * spelling candidates for the query term.
    */
-  @NonNull ICandidateCollectionBuilder candidatesBuilder;
+  @NonNull ICandidateCollectionBuilder<CandidateType> candidatesBuilder;
 
   /**
    * Returns instances of priority queues used for tracking the dictionary,
@@ -193,7 +194,7 @@ public abstract class Transducer<DictionaryNode> implements ITransducer {
    * {@inheritDoc}
    */
   @Override
-  public ICandidateCollection transduce(
+  public ICandidateCollection<CandidateType> transduce(
       @NonNull final String term) {
     return transduce(term, defaultMaxDistance);
   }
@@ -202,7 +203,7 @@ public abstract class Transducer<DictionaryNode> implements ITransducer {
    * {@inheritDoc}
    */
   @Override
-  public ICandidateCollection transduce(
+  public ICandidateCollection<CandidateType> transduce(
       @NonNull final String term,
       final int maxDistance) {
 
@@ -214,7 +215,7 @@ public abstract class Transducer<DictionaryNode> implements ITransducer {
     final int termLength = term.length();
     final IStateTransitionFunction stateTransition =
       stateTransitionFactory.build(maxDistance);
-    final ICandidateCollection candidates = candidatesBuilder.build();
+    final ICandidateCollection<CandidateType> candidates = candidatesBuilder.build();
 
     // so results can be ranked by similarity to the query term, etc.
     final PriorityQueue<Intersection<DictionaryNode>> nearestCandidates =
@@ -294,7 +295,7 @@ public abstract class Transducer<DictionaryNode> implements ITransducer {
    */
   protected abstract void enqueueAll(
       PriorityQueue<Intersection<DictionaryNode>> nearestCandidates,
-      ICandidateCollection candidates,
+      ICandidateCollection<CandidateType> candidates,
       String candidate,
       DictionaryNode dictionaryNode,
       IState levenshteinState,
@@ -315,7 +316,8 @@ public abstract class Transducer<DictionaryNode> implements ITransducer {
     * @author Dylon Edwards
     * @since 2.1.0
     */
-  public static class OnTerms<DictionaryNode> extends Transducer<DictionaryNode> {
+  public static class OnTerms<DictionaryNode, CandidateType>
+      extends Transducer<DictionaryNode, CandidateType> {
 
     /**
       * {@inheritDoc}
@@ -323,7 +325,7 @@ public abstract class Transducer<DictionaryNode> implements ITransducer {
     @Override
     protected void enqueueAll(
         final PriorityQueue<Intersection<DictionaryNode>> nearestCandidates,
-        final ICandidateCollection candidates,
+        final ICandidateCollection<CandidateType> candidates,
         final String candidate,
         final DictionaryNode dictionaryNode,
         final IState levenshteinState,
@@ -352,7 +354,8 @@ public abstract class Transducer<DictionaryNode> implements ITransducer {
     */
   @Accessors(fluent=true)
   @FieldDefaults(level=AccessLevel.PRIVATE)
-  public static class OnPrefixes<DictionaryNode> extends Transducer<DictionaryNode> {
+  public static class OnPrefixes<DictionaryNode, CandidateType>
+    extends Transducer<DictionaryNode, CandidateType> {
 
     /**
       * Builds and recycles prefix objects, which are used to generate spelling
@@ -366,7 +369,7 @@ public abstract class Transducer<DictionaryNode> implements ITransducer {
     @Override
     protected void enqueueAll(
         final PriorityQueue<Intersection<DictionaryNode>> nearestCandidates,
-        final ICandidateCollection candidates,
+        final ICandidateCollection<CandidateType> candidates,
         final String candidate,
         final DictionaryNode dictionaryNode,
         final IState levenshteinState,

@@ -19,6 +19,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.IDawgFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.PrefixFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.TransitionFactory;
 import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
+import com.github.dylon.liblevenshtein.levenshtein.Candidate;
 import com.github.dylon.liblevenshtein.levenshtein.DistanceComparator;
 import com.github.dylon.liblevenshtein.levenshtein.IDistanceFunction;
 import com.github.dylon.liblevenshtein.levenshtein.IState;
@@ -94,23 +95,25 @@ public class TransducerBuilder implements ITransducerBuilder {
    */
   @Override
   @SuppressWarnings("unchecked")
-  public ITransducer build() {
+  public ITransducer<?> build() {
     final IStateFactory stateFactory =
       new StateFactory().elementFactory(new ElementFactory<int[]>());
 
     return buildTransducer()
-      .defaultMaxDistance(defaultMaxDistance)
-      .stateTransitionFactory(buildStateTransitionFactory(stateFactory))
-      .candidatesBuilder(buildCandidatesBuilder())
-      .nearestCandidatesFactory(
-          new NearestCandidatesFactory<DawgNode>()
-            .comparator(buildNearestCandidatesComparator()))
-      .intersectionFactory(new IntersectionFactory<DawgNode>())
-      .minDistance(buildMinDistance())
-      .isFinal(dawgFactory.isFinal(dictionary))
-      .dictionaryTransition(dawgFactory.transition(dictionary))
-      .initialState(buildInitialState(stateFactory))
-      .dictionaryRoot(dictionary.root());
+        .defaultMaxDistance(defaultMaxDistance)
+        .stateTransitionFactory(buildStateTransitionFactory(stateFactory))
+        .candidatesBuilder(includeDistance
+            ? new CandidateCollectionBuilder.WithDistance()
+            : new CandidateCollectionBuilder.WithoutDistance())
+        .nearestCandidatesFactory(
+            new NearestCandidatesFactory<DawgNode>()
+              .comparator(buildNearestCandidatesComparator()))
+        .intersectionFactory(new IntersectionFactory<DawgNode>())
+        .minDistance(buildMinDistance())
+        .isFinal(dawgFactory.isFinal(dictionary))
+        .dictionaryTransition(dawgFactory.transition(dictionary))
+        .initialState(buildInitialState(stateFactory))
+        .dictionaryRoot(dictionary.root());
   }
 
   protected IDistanceFunction buildMinDistance() {
@@ -137,12 +140,12 @@ public class TransducerBuilder implements ITransducerBuilder {
     }
   }
 
-  protected Transducer<DawgNode> buildTransducer() {
+  protected <CandidateType> Transducer<DawgNode, CandidateType> buildTransducer() {
     switch (strategy) {
       case TERM:
-        return new Transducer.OnTerms<DawgNode>();
+        return new Transducer.OnTerms<DawgNode, CandidateType>();
       case PREFIX:
-        return new Transducer.OnPrefixes<DawgNode>();
+        return new Transducer.OnPrefixes<DawgNode, CandidateType>();
       default:
         throw new IllegalArgumentException("Unsupported Match strategy: " + strategy);
     }
@@ -210,21 +213,5 @@ public class TransducerBuilder implements ITransducerBuilder {
     }
 
     return new DistanceComparator.WithCaseSensitiveSort();
-  }
-
-  protected ICandidateCollectionBuilder buildCandidatesBuilder() {
-    if (includeDistance) {
-      return buildCandidatesWithDistanceBuilder();
-    }
-
-    return buildCandidatesWithoutDistanceBuilder();
-  }
-
-  protected ICandidateCollectionBuilder buildCandidatesWithDistanceBuilder() {
-    return new CandidateCollectionBuilder.WithDistance();
-  }
-
-  protected ICandidateCollectionBuilder buildCandidatesWithoutDistanceBuilder() {
-    return new CandidateCollectionBuilder.WithoutDistance();
   }
 }
