@@ -1,4 +1,4 @@
-package com.github.dylon.liblevenshtein.levenshtein;
+package com.github.dylon.liblevenshtein.levenshtein.factory;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -18,16 +18,20 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IDawgFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.PrefixFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.TransitionFactory;
-import com.github.dylon.liblevenshtein.levenshtein.factory.ElementFactory;
-import com.github.dylon.liblevenshtein.levenshtein.factory.IPositionFactory;
-import com.github.dylon.liblevenshtein.levenshtein.factory.IStateFactory;
-import com.github.dylon.liblevenshtein.levenshtein.factory.IStateTransitionFactory;
-import com.github.dylon.liblevenshtein.levenshtein.factory.IntersectionFactory;
-import com.github.dylon.liblevenshtein.levenshtein.factory.NearestCandidatesFactory;
-import com.github.dylon.liblevenshtein.levenshtein.factory.PositionFactory;
-import com.github.dylon.liblevenshtein.levenshtein.factory.PositionTransitionFactory;
-import com.github.dylon.liblevenshtein.levenshtein.factory.StateFactory;
-import com.github.dylon.liblevenshtein.levenshtein.factory.StateTransitionFactory;
+import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
+import com.github.dylon.liblevenshtein.levenshtein.DistanceComparator;
+import com.github.dylon.liblevenshtein.levenshtein.IDistanceFunction;
+import com.github.dylon.liblevenshtein.levenshtein.IState;
+import com.github.dylon.liblevenshtein.levenshtein.ITransducer;
+import com.github.dylon.liblevenshtein.levenshtein.Match;
+import com.github.dylon.liblevenshtein.levenshtein.MergeFunction;
+import com.github.dylon.liblevenshtein.levenshtein.StandardPositionComparator;
+import com.github.dylon.liblevenshtein.levenshtein.StandardPositionDistanceFunction;
+import com.github.dylon.liblevenshtein.levenshtein.SubsumesFunction;
+import com.github.dylon.liblevenshtein.levenshtein.Transducer;
+import com.github.dylon.liblevenshtein.levenshtein.UnsubsumeFunction;
+import com.github.dylon.liblevenshtein.levenshtein.XPositionComparator;
+import com.github.dylon.liblevenshtein.levenshtein.XPositionDistanceFunction;
 
 /**
  * @author Dylon Edwards
@@ -35,7 +39,7 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.StateTransitionFactor
  */
 @Accessors(fluent=true)
 @FieldDefaults(level=AccessLevel.PRIVATE)
-public class Builder implements IBuilder {
+public class TransducerBuilder implements ITransducerBuilder {
 
   final IDawgFactory<DawgNode, AbstractDawg> dawgFactory = new DawgFactory()
     .dawgNodeFactory(new DawgNodeFactory())
@@ -66,7 +70,7 @@ public class Builder implements IBuilder {
    * {@inheritDoc}
    */
   @Override
-  public IBuilder dictionary(Collection<String> dictionary) {
+  public ITransducerBuilder dictionary(Collection<String> dictionary) {
     return dictionary(dictionary, false);
   }
 
@@ -74,7 +78,7 @@ public class Builder implements IBuilder {
    * {@inheritDoc}
    */
   @Override
-  public IBuilder dictionary(Collection<String> dictionary, boolean isSorted) {
+  public ITransducerBuilder dictionary(Collection<String> dictionary, boolean isSorted) {
     if (dictionary instanceof AbstractDawg) {
       this.dictionary = (AbstractDawg) dictionary;
     }

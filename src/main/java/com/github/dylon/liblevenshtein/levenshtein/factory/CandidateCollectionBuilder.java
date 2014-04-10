@@ -1,9 +1,13 @@
-package com.github.dylon.liblevenshtein.levenshtein;
+package com.github.dylon.liblevenshtein.levenshtein.factory;
 
 import lombok.AccessLevel;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
+
+import com.github.dylon.liblevenshtein.levenshtein.Candidate;
+import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
+import com.github.dylon.liblevenshtein.levenshtein.ICandidateCollection;
 
 /**
  * @author Dylon Edwards
