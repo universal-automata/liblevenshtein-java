@@ -361,7 +361,7 @@ public abstract class Transducer<DictionaryNode, CandidateType>
       * Builds and recycles prefix objects, which are used to generate spelling
       * candidates from some relative root of the dictionary automaton.
       */
-    IPrefixFactory<DictionaryNode> prefixFactory;
+    @Setter @NonNull IPrefixFactory<DictionaryNode> prefixFactory;
 
     /**
       * {@inheritDoc}

@@ -16,6 +16,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.IDawg;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IDawgFactory;
+import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.PrefixFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.TransitionFactory;
 import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
@@ -42,9 +43,11 @@ import com.github.dylon.liblevenshtein.levenshtein.XPositionDistanceFunction;
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class TransducerBuilder implements ITransducerBuilder {
 
+  final IPrefixFactory<DawgNode> prefixFactory = new PrefixFactory<>();
+
   final IDawgFactory<DawgNode, AbstractDawg> dawgFactory = new DawgFactory()
     .dawgNodeFactory(new DawgNodeFactory())
-    .prefixFactory(new PrefixFactory<DawgNode>())
+    .prefixFactory(prefixFactory)
     .transitionFactory(new TransitionFactory<DawgNode>());
 
   AbstractDawg dictionary;
@@ -145,7 +148,9 @@ public class TransducerBuilder implements ITransducerBuilder {
       case TERM:
         return new Transducer.OnTerms<DawgNode, CandidateType>();
       case PREFIX:
-        return new Transducer.OnPrefixes<DawgNode, CandidateType>();
+        return new Transducer
+          .OnPrefixes<DawgNode, CandidateType>()
+            .prefixFactory(prefixFactory);
       default:
         throw new IllegalArgumentException("Unsupported Match strategy: " + strategy);
     }
