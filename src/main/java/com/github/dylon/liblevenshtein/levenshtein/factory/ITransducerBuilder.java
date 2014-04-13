@@ -30,5 +30,7 @@ public interface ITransducerBuilder {
 
   ITransducerBuilder includeDistance(boolean includeDistance);
 
+  ITransducerBuilder maxCandidates(int includeDistance);
+
   <CandidateType> ITransducer<?> build();
 }

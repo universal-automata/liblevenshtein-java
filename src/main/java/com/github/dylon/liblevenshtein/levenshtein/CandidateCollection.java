@@ -7,6 +7,9 @@ import java.util.Iterator;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @author Dylon Edwards
  * @since 2.1.0
@@ -47,6 +50,14 @@ public abstract class CandidateCollection<Type>
   @Override
   public Iterator<Type> iterator() {
     return candidates.iterator();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
   }
 
   /**

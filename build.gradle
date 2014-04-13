@@ -13,15 +13,24 @@ repositories {
   mavenCentral()
 }
 
+configurations {
+  shell
+}
+
 dependencies {
-  compile 'org.projectlombok:lombok:1.12.6'
-  compile 'org.apache.commons:commons-lang3:3.3.1'
-  compile 'it.unimi.dsi:fastutil:6.5.13'
-  compile 'com.google.guava:guava:16.0.1'
-  //compile 'org.slf4j:slf4j-api:1.7.6'
-  //runtime 'ch.qos.logback:logback-classic:1.1.1'
-  //runtime 'org.codehaus.groovy:groovy-all:2.2.2'
-  testCompile 'org.testng:testng:6.1.1'
+  compile 'org.projectlombok:lombok:1.+'
+  compile 'org.apache.commons:commons-lang3:3.+'
+  compile 'it.unimi.dsi:fastutil:6.+'
+  compile 'com.google.guava:guava:16.+'
+  //compile 'org.slf4j:slf4j-api:1.+'
+  //runtime 'ch.qos.logback:logback-classic:1.+'
+  //runtime 'org.codehaus.groovy:groovy-all:2.+'
+  testCompile 'org.testng:testng:6.+'
+  shell 'commons-cli:commons-cli:1.2'
+  shell('jline:jline:2.11') {
+    exclude(group: 'junit', module: 'junit')
+  }
+  shell 'org.codehaus.groovy:groovy-groovysh:2.2.+'
 }
 
 tasks.withType(Compile) {
@@ -76,6 +85,7 @@ test {
 
 // create syntastic classpath files
 task syntastic << {
+  description = 'Dumps the classpaths a file that can be read by Syntastic.vim'
   def classpathFiles = new HashSet<String>()
   def addJars = { proj ->
     proj.configurations.each { conf ->
@@ -106,4 +116,23 @@ let g:syntastic_java_javac_classpath = '${classpathFiles.collect().join(":")}'
 """
 
   println "Created .vimrc.local, don't forget to source this in your vim config"
+}
+
+task(shell, dependsOn: 'classes') << {
+  def classpath = sourceSets.main.runtimeClasspath + configurations.shell
+
+  def command = [
+    'java',
+    '-cp', classpath.collect().join(System.getProperty('path.separator')),
+    'org.codehaus.groovy.tools.shell.Main',
+    '--color'
+  ]
+
+  def proc = new ProcessBuilder(command)
+    .redirectOutput(ProcessBuilder.Redirect.INHERIT)
+    .redirectInput(ProcessBuilder.Redirect.INHERIT)
+    .redirectError(ProcessBuilder.Redirect.INHERIT)
+    .start()
+
+  proc.waitFor()
 }

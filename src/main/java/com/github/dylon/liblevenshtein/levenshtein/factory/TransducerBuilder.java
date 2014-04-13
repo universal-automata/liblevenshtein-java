@@ -52,8 +52,9 @@ public class TransducerBuilder implements ITransducerBuilder {
 
   AbstractDawg dictionary;
 
+  @NonNull
   @Setter(onMethod=@_({@Override}))
-  Algorithm algorithm;
+  Algorithm algorithm = Algorithm.STANDARD;
 
   @Setter(onMethod=@_({@Override}))
   DistanceComparator nearestCandidatesComparator = null;
@@ -64,17 +65,21 @@ public class TransducerBuilder implements ITransducerBuilder {
   @Setter(onMethod=@_({@Override}))
   int defaultMaxDistance = Integer.MAX_VALUE;
 
+  @NonNull
   @Setter(onMethod=@_({@Override}))
   Match strategy = Match.TERM;
 
   @Setter(onMethod=@_({@Override}))
   boolean includeDistance = true;
 
+  @Setter(onMethod=@_({@Override}))
+  int maxCandidates = Integer.MAX_VALUE;
+
   /**
    * {@inheritDoc}
    */
   @Override
-  public ITransducerBuilder dictionary(Collection<String> dictionary) {
+  public ITransducerBuilder dictionary(@NonNull final Collection<String> dictionary) {
     return dictionary(dictionary, false);
   }
 
@@ -82,7 +87,10 @@ public class TransducerBuilder implements ITransducerBuilder {
    * {@inheritDoc}
    */
   @Override
-  public ITransducerBuilder dictionary(Collection<String> dictionary, boolean isSorted) {
+  public ITransducerBuilder dictionary(
+      @NonNull final Collection<String> dictionary,
+      final boolean isSorted) {
+
     if (dictionary instanceof AbstractDawg) {
       this.dictionary = (AbstractDawg) dictionary;
     }
@@ -106,8 +114,12 @@ public class TransducerBuilder implements ITransducerBuilder {
         .defaultMaxDistance(defaultMaxDistance)
         .stateTransitionFactory(buildStateTransitionFactory(stateFactory))
         .candidatesBuilder(includeDistance
-            ? new CandidateCollectionBuilder.WithDistance()
-            : new CandidateCollectionBuilder.WithoutDistance())
+            ? new CandidateCollectionBuilder
+              .WithDistance()
+                .maxCandidates(maxCandidates)
+            : new CandidateCollectionBuilder
+              .WithoutDistance()
+                .maxCandidates(maxCandidates))
         .nearestCandidatesFactory(
             new NearestCandidatesFactory<DawgNode>()
               .comparator(buildNearestCandidatesComparator()))
@@ -162,15 +174,17 @@ public class TransducerBuilder implements ITransducerBuilder {
     final StateTransitionFactory stateTransitionFactory =
       new StateTransitionFactory().stateFactory(stateFactory);
 
+    final PositionTransitionFactory positionTransitionFactory;
     final IPositionFactory positionFactory;
 
     switch (algorithm) {
       case STANDARD:
+        positionTransitionFactory =
+          new PositionTransitionFactory.ForStandardPositions();
         positionFactory = new PositionFactory.ForStandardPositions();
         stateTransitionFactory
           .comparator(new StandardPositionComparator())
-          .positionTransitionFactory(
-              new PositionTransitionFactory.ForStandardPositions())
+          .positionTransitionFactory(positionTransitionFactory)
           .merge(new MergeFunction.ForStandardPositions()
               .positionFactory(positionFactory))
           .unsubsume(new UnsubsumeFunction.ForStandardPositions()
@@ -178,11 +192,12 @@ public class TransducerBuilder implements ITransducerBuilder {
               .positionFactory(positionFactory));
         break;
       case TRANSPOSITION:
+        positionTransitionFactory =
+          new PositionTransitionFactory.ForTranspositionPositions();
         positionFactory = new PositionFactory.ForXPositions();
         stateTransitionFactory
           .comparator(new XPositionComparator())
-          .positionTransitionFactory(
-              new PositionTransitionFactory.ForTranspositionPositions())
+          .positionTransitionFactory(positionTransitionFactory)
           .merge(new MergeFunction.ForXPositions()
               .positionFactory(positionFactory))
           .unsubsume(new UnsubsumeFunction.ForXPositions()
@@ -190,11 +205,12 @@ public class TransducerBuilder implements ITransducerBuilder {
               .positionFactory(positionFactory));
         break;
       case MERGE_AND_SPLIT:
+        positionTransitionFactory =
+          new PositionTransitionFactory.ForMergeAndSplitPositions();
         positionFactory = new PositionFactory.ForXPositions();
         stateTransitionFactory
           .comparator(new XPositionComparator())
-          .positionTransitionFactory(
-              new PositionTransitionFactory.ForMergeAndSplitPositions())
+          .positionTransitionFactory(positionTransitionFactory)
           .merge(new MergeFunction.ForXPositions()
               .positionFactory(positionFactory))
           .unsubsume(new UnsubsumeFunction.ForXPositions()
@@ -204,6 +220,10 @@ public class TransducerBuilder implements ITransducerBuilder {
       default:
         throw new IllegalArgumentException("Unsupported Algorithm: " + algorithm);
     }
+
+    positionTransitionFactory
+      .stateFactory(stateFactory)
+      .positionFactory(positionFactory);
 
     return stateTransitionFactory;
   }

@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
@@ -11,6 +12,7 @@ import lombok.experimental.FieldDefaults;
 import com.github.dylon.liblevenshtein.levenshtein.factory.IElementFactory;
 
 @Accessors(fluent=true)
+@RequiredArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class State implements IState {
 
@@ -25,14 +27,8 @@ public class State implements IState {
   int innerIndex = 0;
   Element<int[]> inner = null;
 
-  Element<int[]> head;
-  Element<int[]> tail;
-
-  public State(final IElementFactory<int[]> factory) {
-    this.factory = factory;
-    this.head = factory.build(null);
-    this.tail = head;
-  }
+  Element<int[]> head = null;
+  Element<int[]> tail = null;
 
   @Override
   public void add(final int[] position) {
@@ -42,6 +38,7 @@ public class State implements IState {
       head = next;
     }
     else {
+      next.prev(tail);
       tail.next(next);
     }
 
@@ -61,13 +58,15 @@ public class State implements IState {
       curr = curr.next();
     }
 
-    Element<int[]> next = factory.build(position);
+    final Element<int[]> next = factory.build(position);
 
-    if (null != curr.next()) {
-      curr.next().prev(next);
+    if (null != curr.prev()) {
+      curr.prev().next(next);
     }
 
-    curr.next(next);
+    next.prev(curr.prev());
+    next.next(curr);
+    curr.prev(next);
 
     if (index < innerIndex) {
       innerIndex += 1;
@@ -75,6 +74,13 @@ public class State implements IState {
 
     if (index < outerIndex) {
       outerIndex += 1;
+    }
+
+    if (0 == index) {
+      head = next;
+    }
+    else if (size == index) {
+      tail = next;
     }
 
     size += 1;
@@ -87,7 +93,7 @@ public class State implements IState {
           "Expected 0 <= index < size, but received: " + index);
     }
 
-    if (0 == index) {
+    if (0 == index || null == outer) {
       outerIndex = 0;
       outer = head;
     }
@@ -112,7 +118,7 @@ public class State implements IState {
           "Expected 0 <= index < size, but received: " + index);
     }
 
-    if (0 == index) {
+    if (0 == index || null == inner) {
       innerIndex = 0;
       inner = head;
     }
@@ -149,7 +155,7 @@ public class State implements IState {
     }
 
     if (head == inner) {
-      head = null;
+      head = head.next();
     }
 
     if (tail == inner) {
@@ -231,6 +237,11 @@ public class State implements IState {
 
   @Override
   public void sort(final Comparator<int[]> comparator) {
-    mergeSort(comparator, head);
+    this.head = mergeSort(comparator, head);
+    Element<int[]> curr = head;
+    while (null != curr.next()) {
+      curr = curr.next();
+    }
+    this.tail = curr;
   }
 }

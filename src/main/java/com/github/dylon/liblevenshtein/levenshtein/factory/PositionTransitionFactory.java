@@ -4,6 +4,8 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 import lombok.AccessLevel;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.levenshtein.IPositionTransitionFunction;
@@ -11,10 +13,15 @@ import com.github.dylon.liblevenshtein.levenshtein.MergeAndSplitPositionTransiti
 import com.github.dylon.liblevenshtein.levenshtein.StandardPositionTransitionFunction;
 import com.github.dylon.liblevenshtein.levenshtein.TranspositionPositionTransitionFunction;
 
-@FieldDefaults(level=AccessLevel.PRIVATE, makeFinal=true)
+@Accessors(fluent=true)
+@FieldDefaults(level=AccessLevel.PROTECTED)
 public abstract class PositionTransitionFactory implements IPositionTransitionFactory {
 
-  Queue<IPositionTransitionFunction> transitions = new ArrayDeque<>();
+  final Queue<IPositionTransitionFunction> transitions = new ArrayDeque<>();
+
+  @Setter IStateFactory stateFactory;
+
+  @Setter IPositionFactory positionFactory;
 
   @Override
   public IPositionTransitionFunction build() {
@@ -38,7 +45,9 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
 
     @Override
     protected IPositionTransitionFunction create() {
-      return new StandardPositionTransitionFunction();
+      return new StandardPositionTransitionFunction()
+        .stateFactory(stateFactory)
+        .positionFactory(positionFactory);
     }
   }
 
@@ -46,7 +55,9 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
 
     @Override
     protected IPositionTransitionFunction create() {
-      return new TranspositionPositionTransitionFunction();
+      return new TranspositionPositionTransitionFunction()
+        .stateFactory(stateFactory)
+        .positionFactory(positionFactory);
     }
   }
 
@@ -54,7 +65,9 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
 
     @Override
     protected IPositionTransitionFunction create() {
-      return new MergeAndSplitPositionTransitionFunction();
+      return new MergeAndSplitPositionTransitionFunction()
+        .stateFactory(stateFactory)
+        .positionFactory(positionFactory);
     }
   }
 }

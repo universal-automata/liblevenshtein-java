@@ -10,7 +10,7 @@ public class ElementFactory<Type> implements IElementFactory<Type> {
 
   @Override
   public Element<Type> build(final Type value) {
-    Element<Type> element = elements.poll();
+    Element<Type> element = null; //elements.poll();
 
     if (null == element) {
       element = new Element<Type>();

@@ -228,7 +228,10 @@ public abstract class Transducer<DictionaryNode, CandidateType>
           initialState,
           minDistance.at(initialState, termLength)));
 
-    final int a = (maxDistance << 1) + 1;
+    final int a = maxDistance < Integer.MAX_VALUE
+      ? (maxDistance << 1) + 1
+      : maxDistance;
+
     Intersection<DictionaryNode> intersection = null;
 
     try {
@@ -383,6 +386,10 @@ public abstract class Transducer<DictionaryNode, CandidateType>
           }
         }
         else {
+          // TODO: Remove the notion of IntersectionIterator, here, because it
+          // tightly-couples the Transducer with Dawg implementations, which is
+          // not what should be done.  It should be agnostic to the type of the
+          // dictionary automaton.
           val intersections = new IntersectionIterator<DictionaryNode>(
               prefixFactory,
               dictionaryTransition,

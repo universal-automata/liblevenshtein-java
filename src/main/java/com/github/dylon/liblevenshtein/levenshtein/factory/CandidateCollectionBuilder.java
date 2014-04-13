@@ -19,7 +19,7 @@ public abstract class CandidateCollectionBuilder<Type>
   implements ICandidateCollectionBuilder<Type> {
 
   @Setter(onMethod=@_({@Override}))
-  int maxCandidates;
+  int maxCandidates = Integer.MAX_VALUE;
 
   /**
     * @author Dylon Edwards
