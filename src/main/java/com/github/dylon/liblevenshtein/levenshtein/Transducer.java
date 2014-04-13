@@ -231,8 +231,14 @@ public abstract class Transducer<DictionaryNode, CandidateType>
     // f(x) := x * 2 + 1
     // a := (n - 1) / 2
     // f(a) = (n - 1) / 2 * 2 + 1 = n - 1 + 1 = n
+    //
     // We want to cap the value of "a" at "n = max integer" so "f(a)" does not
-    // overflow, which it would if "a > (n - 1) / 2":
+    // overflow, which it would if "a > (n - 1) / 2".  In other words, define:
+    // g(x) := { x * 2 + 1  , if a < (n - 1) / 2
+    //         { n          , otherwise
+    //
+    // If there was no upper bound for integer values, this would be equivalent:
+    // h(x) := min {f(x), n}
     final int a = (maxDistance < (Integer.MAX_VALUE - 1) >> 1)
       ? (maxDistance << 1) + 1
       : Integer.MAX_VALUE;
