@@ -228,9 +228,9 @@ public abstract class Transducer<DictionaryNode, CandidateType>
           initialState,
           minDistance.at(initialState, termLength)));
 
-    final int a = maxDistance < Integer.MAX_VALUE
+    final int a = (maxDistance < (Integer.MAX_VALUE >> 1) - 1)
       ? (maxDistance << 1) + 1
-      : maxDistance;
+      : Integer.MAX_VALUE;
 
     Intersection<DictionaryNode> intersection = null;
 

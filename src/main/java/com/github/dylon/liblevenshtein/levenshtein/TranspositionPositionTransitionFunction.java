@@ -18,7 +18,9 @@ public class TranspositionPositionTransitionFunction
 
     if (e == 0 && 0 < n) {
       if (h <= w - 2) {
-        final int a = n - e + 1;
+        final int a = (n - e < Integer.MAX_VALUE)
+          ? n - e + 1
+          : Integer.MAX_VALUE;
         final int b = w - h;
         final int k = (a < b) ? a : b;
         final int j = indexOf(characteristicVector, k, h);
@@ -64,7 +66,9 @@ public class TranspositionPositionTransitionFunction
     if (1 <= e && e < n) {
       if (h <= w - 2) {
         if (t == 0) {
-          final int a = n - e + 1;
+          final int a = (n - e < Integer.MAX_VALUE)
+            ? n - e + 1
+            : Integer.MAX_VALUE;
           final int b = w - h;
           final int k = (a < b) ? a : b;
           final int j = indexOf(characteristicVector, k, h);
