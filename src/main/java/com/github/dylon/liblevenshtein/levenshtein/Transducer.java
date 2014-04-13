@@ -228,7 +228,12 @@ public abstract class Transducer<DictionaryNode, CandidateType>
           initialState,
           minDistance.at(initialState, termLength)));
 
-    final int a = (maxDistance < (Integer.MAX_VALUE >> 1) - 1)
+    // f(x) := x * 2 + 1
+    // a := (n - 1) / 2
+    // f(a) = (n - 1) / 2 * 2 + 1 = n - 1 + 1 = n
+    // We want to cap the value of "a" at "n = max integer" so "f(a)" does not
+    // overflow, which it would if "a > (n - 1) / 2":
+    final int a = (maxDistance < (Integer.MAX_VALUE - 1) >> 1)
       ? (maxDistance << 1) + 1
       : Integer.MAX_VALUE;
 
