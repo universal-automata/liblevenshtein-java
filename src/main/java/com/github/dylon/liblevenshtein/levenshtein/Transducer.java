@@ -397,10 +397,13 @@ public abstract class Transducer<DictionaryNode, CandidateType>
           }
         }
         else {
-          // TODO: Remove the notion of IntersectionIterator, here, because it
+          // TODO: Remove the notion of prefixFactory, here, because it
           // tightly-couples the Transducer with Dawg implementations, which is
           // not what should be done.  It should be agnostic to the type of the
           // dictionary automaton.
+          //
+          // TODO: Move IFinalFunction and ITransitionFunction out of the dawg
+          // package -- they shouldn't be coupled with one dictionary type.
           val intersections = new IntersectionIterator<DictionaryNode>(
               prefixFactory,
               dictionaryTransition,
