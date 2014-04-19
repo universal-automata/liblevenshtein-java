@@ -4,7 +4,7 @@
 
 ### A library for generating Finite State Transducers based on Levenshtein Automata.
 
-[![Build Status](https://travis-ci.org/dylon/liblevenshtein-java.svg?branch=master)](https://travis-ci.org/dylon/liblevenshtein-java)
+[![Build Status](https://travis-ci.org/universal-automata/liblevenshtein-java.svg?branch=master)](https://travis-ci.org/universal-automata/liblevenshtein-java)
 
 Levenshtein transducers accept a query term and return all terms in a
 dictionary that are within n spelling errors away from it. They constitute a
