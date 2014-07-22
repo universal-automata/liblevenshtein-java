@@ -33,8 +33,10 @@ dependencies {
   shell 'org.codehaus.groovy:groovy-groovysh:2.2.+'
 }
 
-tasks.withType(Compile) {
+tasks.withType(JavaCompile) {
   options.compilerArgs << "-Xlint:unchecked"
+  //options.compilerArgs << "-processor"
+  //options.compilerArgs << "com.github.dylon.liblevenshtein.annotation.processor.ExperimentalProcessor"
 
   // Source:
   // http://docs.oracle.com/javase/7/docs/technotes/tools/solaris/javac.html#crosscomp-example
@@ -135,4 +137,8 @@ task(shell, dependsOn: 'classes') << {
     .start()
 
   proc.waitFor()
+
+  if (0 != proc.exitValue()) {
+    throw new RuntimeException("shell exited with status: ${proc.exitValue()}")
+  }
 }

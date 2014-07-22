@@ -1,4 +1,4 @@
-package com.github.dylon.liblevenshtein.util;
+package com.github.dylon.liblevenshtein.collection;
 
 import java.util.Iterator;
 

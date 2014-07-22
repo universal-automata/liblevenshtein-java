@@ -9,7 +9,7 @@ import lombok.NonNull;
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
-import com.github.dylon.liblevenshtein.util.AbstractIterator;
+import com.github.dylon.liblevenshtein.collection.AbstractIterator;
 
 public class DawgIterator extends AbstractIterator<String> {
   private final Queue<Prefix<DawgNode>> prefixes = new ArrayDeque<>();

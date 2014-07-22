@@ -10,6 +10,7 @@ import lombok.val;
 import it.unimi.dsi.fastutil.PriorityQueue;
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
+import com.github.dylon.liblevenshtein.annotation.Experimental;
 import com.github.dylon.liblevenshtein.collection.dawg.IFinalFunction;
 import com.github.dylon.liblevenshtein.collection.dawg.ITransitionFunction;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
@@ -243,14 +244,15 @@ public abstract class Transducer<DictionaryNode, CandidateType>
       ? (maxDistance << 1) + 1
       : Integer.MAX_VALUE;
 
-    Intersection<DictionaryNode> intersection = null;
-
     try {
       while (!nearestCandidates.isEmpty()) {
-        intersection = nearestCandidates.dequeue();
+        Intersection<DictionaryNode> intersection = nearestCandidates.dequeue();
         final String candidate = intersection.candidate();
         final DictionaryNode dictionaryNode = intersection.dictionaryNode();
         final IState levenshteinState = intersection.levenshteinState();
+        intersectionFactory.recycle(intersection);
+        intersection = null;
+
         final int i = levenshteinState.getOuter(0)[0];
         final int b = termLength - i;
         final int k = (a < b) ? a : b;
@@ -283,9 +285,6 @@ public abstract class Transducer<DictionaryNode, CandidateType>
       // Nothing to do, this was expected (early termination) ...
     }
     finally {
-      if (null != intersection) {
-        intersectionFactory.recycle(intersection);
-      }
       nearestCandidatesFactory.recycle(nearestCandidates);
       stateTransitionFactory.recycle(stateTransition);
     }
@@ -366,6 +365,7 @@ public abstract class Transducer<DictionaryNode, CandidateType>
     * @author Dylon Edwards
     * @since 2.1.0
     */
+  @Experimental
   @Accessors(fluent=true)
   @FieldDefaults(level=AccessLevel.PRIVATE)
   public static class OnPrefixes<DictionaryNode, CandidateType>
