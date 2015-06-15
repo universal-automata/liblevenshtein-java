@@ -2,7 +2,6 @@ package com.github.dylon.liblevenshtein.collection;
 
 import lombok.NonNull;
 import lombok.Value;
-import lombok.experimental.Accessors;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -13,7 +12,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * @since 2.1.0
  */
 @Value
-@Accessors(fluent = true)
 public class SymmetricImmutablePair<Type extends Comparable<Type>>
     implements Comparable<SymmetricImmutablePair<Type>> {
 

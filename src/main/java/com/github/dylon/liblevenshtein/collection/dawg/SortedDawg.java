@@ -15,7 +15,6 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
-import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -34,7 +33,6 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.ITransitionFactor
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@Accessors(fluent=true)
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class SortedDawg extends AbstractDawg {
 

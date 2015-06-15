@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import com.github.dylon.liblevenshtein.collection.dawg.AbstractDawg;
 import com.github.dylon.liblevenshtein.collection.dawg.DawgNode;
@@ -23,7 +22,6 @@ import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
  */
 @NoArgsConstructor
 @AllArgsConstructor
-@Accessors(fluent=true)
 public class DawgFactory implements IDawgFactory<DawgNode, AbstractDawg> {
 
   /**

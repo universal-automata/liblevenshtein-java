@@ -5,7 +5,6 @@ import java.util.Queue;
 
 import lombok.AccessLevel;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.levenshtein.IPositionTransitionFunction;
@@ -13,7 +12,6 @@ import com.github.dylon.liblevenshtein.levenshtein.MergeAndSplitPositionTransiti
 import com.github.dylon.liblevenshtein.levenshtein.StandardPositionTransitionFunction;
 import com.github.dylon.liblevenshtein.levenshtein.TranspositionPositionTransitionFunction;
 
-@Accessors(fluent=true)
 @FieldDefaults(level=AccessLevel.PROTECTED)
 public abstract class PositionTransitionFactory implements IPositionTransitionFactory {
 

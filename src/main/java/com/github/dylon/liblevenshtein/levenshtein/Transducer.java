@@ -3,14 +3,12 @@ package com.github.dylon.liblevenshtein.levenshtein;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
 
 import it.unimi.dsi.fastutil.PriorityQueue;
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
-import com.github.dylon.liblevenshtein.annotation.Experimental;
 import com.github.dylon.liblevenshtein.collection.dawg.IFinalFunction;
 import com.github.dylon.liblevenshtein.collection.dawg.ITransitionFunction;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
@@ -61,10 +59,11 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IStateTransitionFacto
  * @since 2.1.0
  */
 @Setter
-@Accessors(fluent=true)
 @FieldDefaults(level=AccessLevel.PROTECTED)
 public abstract class Transducer<DictionaryNode, CandidateType>
   implements ITransducer<CandidateType> {
+
+  private static final QueueFullException queueIsFull = new QueueFullException();
 
   /**
    * Default, maximum number of spelling errors candidates may have from the
@@ -250,6 +249,7 @@ public abstract class Transducer<DictionaryNode, CandidateType>
         final String candidate = intersection.candidate();
         final DictionaryNode dictionaryNode = intersection.dictionaryNode();
         final IState levenshteinState = intersection.levenshteinState();
+
         intersectionFactory.recycle(intersection);
         intersection = null;
 
@@ -354,7 +354,7 @@ public abstract class Transducer<DictionaryNode, CandidateType>
 
       if (isFinal.at(dictionaryNode) && distance <= maxDistance) {
         if (!candidates.offer(candidate, distance)) {
-          throw new QueueFullException();
+          throw queueIsFull;
         }
       }
     }
@@ -365,8 +365,6 @@ public abstract class Transducer<DictionaryNode, CandidateType>
     * @author Dylon Edwards
     * @since 2.1.0
     */
-  @Experimental
-  @Accessors(fluent=true)
   @FieldDefaults(level=AccessLevel.PRIVATE)
   public static class OnPrefixes<DictionaryNode, CandidateType>
     extends Transducer<DictionaryNode, CandidateType> {
@@ -393,7 +391,7 @@ public abstract class Transducer<DictionaryNode, CandidateType>
       if (distance <= maxDistance) {
         if (isFinal.at(dictionaryNode)) {
           if (!candidates.offer(candidate, distance)) {
-            throw new QueueFullException();
+            throw queueIsFull;
           }
         }
         else {
@@ -415,9 +413,9 @@ public abstract class Transducer<DictionaryNode, CandidateType>
               levenshteinState);
 
           while (intersections.hasNext()) {
-            // Enqueue all the generated, spelling candiates so they may be ranked
-            // according to nearestCandidates' comparator before adding them to
-            // the collection of spelling candidates.
+            // Enqueue all the generated, spelling candiates so they may be
+            // ranked according to nearestCandidates' comparator before adding
+            // them to the collection of spelling candidates.
             nearestCandidates.enqueue(intersections.next());
           }
         }

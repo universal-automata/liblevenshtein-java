@@ -2,7 +2,6 @@ package com.github.dylon.liblevenshtein.levenshtein.factory;
 
 import lombok.AccessLevel;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.levenshtein.Candidate;
@@ -13,7 +12,6 @@ import com.github.dylon.liblevenshtein.levenshtein.ICandidateCollection;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@Accessors(fluent=true)
 @FieldDefaults(level=AccessLevel.PROTECTED)
 public abstract class CandidateCollectionBuilder<Type>
   implements ICandidateCollectionBuilder<Type> {

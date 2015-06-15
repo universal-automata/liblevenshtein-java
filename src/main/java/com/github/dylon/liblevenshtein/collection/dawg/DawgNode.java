@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import lombok.val;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
@@ -17,7 +16,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@Accessors(fluent=true)
 @RequiredArgsConstructor
 public class DawgNode implements IDawgNode<DawgNode> {
 

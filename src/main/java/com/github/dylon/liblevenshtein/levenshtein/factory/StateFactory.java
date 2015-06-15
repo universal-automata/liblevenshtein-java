@@ -4,12 +4,10 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import com.github.dylon.liblevenshtein.levenshtein.IState;
 import com.github.dylon.liblevenshtein.levenshtein.State;
 
-@Accessors(fluent=true)
 public class StateFactory implements IStateFactory {
   private final Queue<IState> states = new ArrayDeque<>();
 

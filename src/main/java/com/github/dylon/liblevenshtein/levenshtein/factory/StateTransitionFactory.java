@@ -7,7 +7,6 @@ import java.util.Queue;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.levenshtein.IMergeFunction;
@@ -20,7 +19,6 @@ import com.github.dylon.liblevenshtein.levenshtein.StateTransitionFunction;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@Accessors(fluent=true)
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class StateTransitionFactory implements IStateTransitionFactory {
 

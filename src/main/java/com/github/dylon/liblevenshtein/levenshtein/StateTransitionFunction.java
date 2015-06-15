@@ -3,7 +3,6 @@ package com.github.dylon.liblevenshtein.levenshtein;
 import java.util.Comparator;
 
 import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.IPositionTransitionFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.IStateFactory;
@@ -12,7 +11,6 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IStateFactory;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@Accessors(fluent=true)
 public class StateTransitionFunction implements IStateTransitionFunction {
 
   @Setter private Comparator<int[]> comparator;

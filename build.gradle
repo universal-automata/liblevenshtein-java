@@ -1,42 +1,40 @@
 apply plugin: 'java'
-
-// FindBugs will not be compatible with Java 8 until version 2.1.0
-//apply plugin: 'findbugs'
-
-archivesBaseName = 'liblevenshtein'
-version = '2.1.0'
-
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+apply plugin: 'findbugs'
 
 repositories {
   mavenCentral()
 }
+
+archivesBaseName = 'liblevenshtein'
+version = '2.1.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 configurations {
   shell
 }
 
 dependencies {
+	compile 'com.google.code.findbugs:annotations:3.+'
   compile 'org.projectlombok:lombok:1.+'
   compile 'org.apache.commons:commons-lang3:3.+'
   compile 'it.unimi.dsi:fastutil:6.+'
-  compile 'com.google.guava:guava:16.+'
+  compile 'com.google.guava:guava:18.+'
+  //compile 'org.apache.commons:commons-lang3:3.+'
   //compile 'org.slf4j:slf4j-api:1.+'
   //runtime 'ch.qos.logback:logback-classic:1.+'
   //runtime 'org.codehaus.groovy:groovy-all:2.+'
   testCompile 'org.testng:testng:6.+'
-  shell 'commons-cli:commons-cli:1.2'
-  shell('jline:jline:2.11') {
+  shell 'commons-cli:commons-cli:1.+'
+  shell('jline:jline:2.+') {
     exclude(group: 'junit', module: 'junit')
   }
-  shell 'org.codehaus.groovy:groovy-groovysh:2.2.+'
+  shell 'org.codehaus.groovy:groovy-groovysh:2.+'
 }
 
 tasks.withType(JavaCompile) {
   options.compilerArgs << "-Xlint:unchecked"
-  //options.compilerArgs << "-processor"
-  //options.compilerArgs << "com.github.dylon.liblevenshtein.annotation.processor.ExperimentalProcessor"
 
   // Source:
   // http://docs.oracle.com/javase/7/docs/technotes/tools/solaris/javac.html#crosscomp-example
@@ -66,7 +64,7 @@ tasks.withType(JavaCompile) {
   //this case, Java SE 6) because reference to non-existent methods can get
   //included.
   options.bootClasspath =
-    ['/opt/java7/jre/lib/rt.jar'                   // Arch Linux, jdk7-compat
+    [ '/usr/lib/jvm/default/jre/lib/rt.jar'        // Arch Linux
     , '/usr/lib/jvm/java-7-oracle/jre/lib/rt.jar'  // Travis CI
     ].find {
       def rt_jar = new File(it)

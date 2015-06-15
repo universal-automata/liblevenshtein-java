@@ -14,7 +14,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Value;
-import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -32,7 +31,6 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@Accessors(fluent=true)
 @FieldDefaults(level=AccessLevel.PROTECTED)
 public abstract class AbstractDawg
     extends AbstractSet<String>

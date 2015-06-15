@@ -6,12 +6,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.IElementFactory;
 
-@Accessors(fluent=true)
 @RequiredArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class State implements IState {

@@ -2,7 +2,6 @@ package com.github.dylon.liblevenshtein.collection.dawg;
 
 import lombok.AccessLevel;
 import lombok.Data;
-import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
 /**
@@ -10,7 +9,6 @@ import lombok.experimental.FieldDefaults;
  * @since 2.1.0
  */
 @Data
-@Accessors(fluent=true)
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class Prefix<DictionaryNode> {
   DictionaryNode node;

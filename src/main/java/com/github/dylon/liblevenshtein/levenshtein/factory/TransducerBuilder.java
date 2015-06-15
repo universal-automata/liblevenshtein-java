@@ -7,7 +7,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.collection.dawg.AbstractDawg;
@@ -39,7 +38,6 @@ import com.github.dylon.liblevenshtein.levenshtein.XPositionDistanceFunction;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@Accessors(fluent=true)
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class TransducerBuilder implements ITransducerBuilder {
 

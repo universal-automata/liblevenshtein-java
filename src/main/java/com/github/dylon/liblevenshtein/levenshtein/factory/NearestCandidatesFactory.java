@@ -9,7 +9,6 @@ import it.unimi.dsi.fastutil.objects.ObjectHeapPriorityQueue;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.levenshtein.DistanceComparator;
@@ -20,7 +19,6 @@ import com.github.dylon.liblevenshtein.levenshtein.Intersection;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@Accessors(fluent=true)
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class NearestCandidatesFactory<DictionaryNode>
   implements INearestCandidatesFactory<DictionaryNode> {
@@ -34,7 +32,7 @@ public class NearestCandidatesFactory<DictionaryNode>
   /**
    * Ranks intersection nodes corresponding to correction candidates.
    */
-  Queue<PriorityQueue<Intersection<DictionaryNode>>>
+  final Queue<PriorityQueue<Intersection<DictionaryNode>>>
     nearestCandidates = new ArrayDeque<>();
 
   /**
