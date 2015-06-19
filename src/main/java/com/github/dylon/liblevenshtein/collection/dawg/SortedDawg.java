@@ -8,6 +8,7 @@ import java.util.Map;
 
 import lombok.AccessLevel;
 import lombok.NonNull;
+import lombok.Value;
 import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IDawgNodeFactory;
@@ -25,7 +26,7 @@ public class SortedDawg extends AbstractDawg {
   Deque<Transition<DawgNode>> uncheckedTransitions = new ArrayDeque<>();
 
   /** Nodes that have been checked for redundancy */
-  Map<DawgNode,DawgNode> minimizedNodes = new HashMap<>();
+  Map<NodeFinalization,DawgNode> minimizedNodes = new HashMap<>();
 
   /** References the term that was last added */
   String previousTerm = "";
@@ -109,16 +110,20 @@ public class SortedDawg extends AbstractDawg {
       final DawgNode source = transition.source();
       final char label = transition.label();
       final DawgNode target = transition.target();
-      final DawgNode existing = minimizedNodes.get(target);
-      if (null != existing &&
-      		finalNodes.contains(existing) == finalNodes.contains(target)) {
+
+			final NodeFinalization targetKey =
+				new NodeFinalization(target, finalNodes.contains(target));
+
+      final DawgNode existing = minimizedNodes.get(targetKey);
+
+      if (null != existing) {
         finalNodes.remove(target);
         source.addEdge(label, existing);
         factory.recycle(target);
       }
       else {
         source.addEdge(label, target);
-        minimizedNodes.put(target, target);
+        minimizedNodes.put(targetKey, target);
       }
       transitionFactory.recycle(transition);
     }
@@ -131,5 +136,11 @@ public class SortedDawg extends AbstractDawg {
   public boolean remove(final Object object) {
     throw new UnsupportedOperationException(
         "SortedDawg does not support removing terms");
+  }
+
+	@Value
+  private static class NodeFinalization {
+  	DawgNode node;
+  	boolean isFinal;
   }
 }
