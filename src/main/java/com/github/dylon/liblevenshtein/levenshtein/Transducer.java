@@ -261,18 +261,18 @@ public class Transducer<DictionaryNode, CandidateType>
           if (null != nextLevenshteinState) {
             final String nextCandidate = candidate + label;
 
-      			pendingQueue.addLast(
-          			intersectionFactory.build(
-            			nextCandidate,
-            			nextDictionaryNode,
-            			nextLevenshteinState));
+            pendingQueue.addLast(
+                intersectionFactory.build(
+                  nextCandidate,
+                  nextDictionaryNode,
+                  nextLevenshteinState));
 
-						if (isFinal.at(nextDictionaryNode)) {
-							final int distance = minDistance.at(nextLevenshteinState, termLength);
-							if (distance <= maxDistance && !candidates.offer(nextCandidate, distance)) {
-								throw queueIsFull;
-							}
-						}
+            if (isFinal.at(nextDictionaryNode)) {
+              final int distance = minDistance.at(nextLevenshteinState, termLength);
+              if (distance <= maxDistance && !candidates.offer(nextCandidate, distance)) {
+                throw queueIsFull;
+              }
+            }
           }
         }
       }

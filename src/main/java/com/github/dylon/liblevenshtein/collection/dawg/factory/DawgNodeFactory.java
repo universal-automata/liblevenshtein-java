@@ -29,12 +29,12 @@ public class DawgNodeFactory implements IDawgNodeFactory<DawgNode> {
    */
   @Override
   public DawgNode build() {
-		DawgNode node = queue.poll();
-		if (null == node) {
+    DawgNode node = queue.poll();
+    if (null == node) {
       final Char2ObjectMap<DawgNode> edges = new Char2ObjectRBTreeMap<>();
-			node = new DawgNode(edges);
-		}
-		return node;
+      node = new DawgNode(edges);
+    }
+    return node;
   }
 
   /**
@@ -42,8 +42,8 @@ public class DawgNodeFactory implements IDawgNodeFactory<DawgNode> {
    */
   @Override
   public DawgNodeFactory recycle(final DawgNode node) {
-		node.clear();
-		queue.offer(node);
+    node.clear();
+    queue.offer(node);
     return this;
   }
 }

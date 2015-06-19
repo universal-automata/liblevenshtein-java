@@ -148,22 +148,22 @@ public class State implements IState {
     final Element<int[]> inner = this.inner;
 
     if (null != inner.next()) {
-    	this.inner = inner.next();
+      this.inner = inner.next();
 
-    	if (null != inner.prev()) {
-      	inner.prev().next(inner.next());
-    	}
+      if (null != inner.prev()) {
+        inner.prev().next(inner.next());
+      }
 
       this.inner.prev(inner.prev());
     }
     else {
-    	this.inner = inner.prev();
+      this.inner = inner.prev();
 
-    	if (null != this.inner) {
-    		this.inner.next(null);
-    	}
+      if (null != this.inner) {
+        this.inner.next(null);
+      }
 
-    	innerIndex -= 1;
+      innerIndex -= 1;
     }
 
     if (head == inner) {
@@ -235,17 +235,17 @@ public class State implements IState {
     }
 
     if (null != tail) {
-    	curr.next(tail);
-    	tail.prev(curr);
+      curr.next(tail);
+      tail.prev(curr);
     }
     else if (null != head) {
-    	curr.next(head);
-    	head.prev(curr);
+      curr.next(head);
+      head.prev(curr);
     }
 
     curr = next.next();
     if (null != curr) {
-    	curr.prev(null);
+      curr.prev(null);
     }
 
     factory.recycle(next);

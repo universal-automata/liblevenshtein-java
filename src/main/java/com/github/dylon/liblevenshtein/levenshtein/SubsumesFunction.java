@@ -66,7 +66,7 @@ public abstract class SubsumesFunction implements ISubsumesFunction {
         // adding 1 to the difference will only strengthen its non-negativity.
         //
         //return Math.abs(j - (i - 1)) <= (f - e);
-      	return ((j < i) ? (i - j - 1) : (j - i + 1)) <= (f - e);
+        return ((j < i) ? (i - j - 1) : (j - i + 1)) <= (f - e);
       }
 
       return ((i < j) ? (j - i) : (i - j)) <= (f - e);

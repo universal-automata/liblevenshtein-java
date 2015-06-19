@@ -93,7 +93,7 @@ public class SortedDawg extends AbstractDawg {
       i += 1;
     }
 
-		finalNodes.add(node);
+    finalNodes.add(node);
     previousTerm = term;
     size += 1;
     return true;
@@ -111,8 +111,8 @@ public class SortedDawg extends AbstractDawg {
       final char label = transition.label();
       final DawgNode target = transition.target();
 
-			final NodeFinalization targetKey =
-				new NodeFinalization(target, finalNodes.contains(target));
+      final NodeFinalization targetKey =
+        new NodeFinalization(target, finalNodes.contains(target));
 
       final DawgNode existing = minimizedNodes.get(targetKey);
 
@@ -138,9 +138,9 @@ public class SortedDawg extends AbstractDawg {
         "SortedDawg does not support removing terms");
   }
 
-	@Value
+  @Value
   private static class NodeFinalization {
-  	DawgNode node;
-  	boolean isFinal;
+    DawgNode node;
+    boolean isFinal;
   }
 }

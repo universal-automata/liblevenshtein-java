@@ -31,7 +31,7 @@ public class PrefixFactory<DictionaryNode>
 
   @Override
   public void recycle(Prefix<DictionaryNode> prefix) {
-		prefix.node(null).value(null);
-		prefixes.offer(prefix);
+    prefix.node(null).value(null);
+    prefixes.offer(prefix);
   }
 }

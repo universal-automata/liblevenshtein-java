@@ -14,27 +14,27 @@ import static org.testng.Assert.assertTrue;
 import com.github.dylon.liblevenshtein.levenshtein.factory.TransducerBuilder;
 
 public class MergeAndSplitTransducerTest extends AbstractTransducerTest {
-	private static final int MAX_DISTANCE = 3;
-	private static final String QUERY_TERM = "Jvaa";
+  private static final int MAX_DISTANCE = 3;
+  private static final String QUERY_TERM = "Jvaa";
 
-	private ITransducer<Candidate> transducer;
-	private Set<Candidate> expectedCandidates;
+  private ITransducer<Candidate> transducer;
+  private Set<Candidate> expectedCandidates;
 
-	@BeforeTest
-	public void setUp() throws IOException {
-		try (final InputStream istream =
-				getClass().getResourceAsStream("/resources/programming-languages.txt")) {
+  @BeforeTest
+  public void setUp() throws IOException {
+    try (final InputStream istream =
+        getClass().getResourceAsStream("/resources/programming-languages.txt")) {
 
-			final Collection<String> dictionary = readLines(istream);
+      final Collection<String> dictionary = readLines(istream);
 
-			this.transducer = new TransducerBuilder()
-				.algorithm(Algorithm.MERGE_AND_SPLIT)
-				.defaultMaxDistance(MAX_DISTANCE)
-				.dictionary(dictionary, true)
-				.build();
-		}
+      this.transducer = new TransducerBuilder()
+        .algorithm(Algorithm.MERGE_AND_SPLIT)
+        .defaultMaxDistance(MAX_DISTANCE)
+        .dictionary(dictionary, true)
+        .build();
+    }
 
-		this.expectedCandidates = new HashSet<Candidate>();
+    this.expectedCandidates = new HashSet<Candidate>();
     expectedCandidates.add(new Candidate("A#", 2));
     expectedCandidates.add(new Candidate("A+", 2));
     expectedCandidates.add(new Candidate("Ada", 2));
@@ -434,20 +434,20 @@ public class MergeAndSplitTransducerTest extends AbstractTransducerTest {
     expectedCandidates.add(new Candidate("Zeno", 3));
     expectedCandidates.add(new Candidate("ZOPL", 3));
     expectedCandidates.add(new Candidate("ZPL", 3));
-	}
+  }
 
-	@Test
-	public void testTransduce() {
-		final ICandidateCollection<Candidate> actualCandidates = transducer.transduce(QUERY_TERM);
-		final Iterator<Candidate> actualIter = actualCandidates.iterator();
+  @Test
+  public void testTransduce() {
+    final ICandidateCollection<Candidate> actualCandidates = transducer.transduce(QUERY_TERM);
+    final Iterator<Candidate> actualIter = actualCandidates.iterator();
 
-		while (actualIter.hasNext()) {
-			final Candidate actualCandidate = actualIter.next();
-			assertTrue(expectedCandidates.contains(actualCandidate),
-					"expectedCandidates does not contain ["+actualCandidate+"]");
-			expectedCandidates.remove(actualCandidate);
-		}
+    while (actualIter.hasNext()) {
+      final Candidate actualCandidate = actualIter.next();
+      assertTrue(expectedCandidates.contains(actualCandidate),
+          "expectedCandidates does not contain ["+actualCandidate+"]");
+      expectedCandidates.remove(actualCandidate);
+    }
 
-		assertTrue(expectedCandidates.isEmpty());
-	}
+    assertTrue(expectedCandidates.isEmpty());
+  }
 }

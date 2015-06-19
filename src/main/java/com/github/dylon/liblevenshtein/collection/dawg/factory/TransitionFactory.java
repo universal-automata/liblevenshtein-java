@@ -45,8 +45,8 @@ public class TransitionFactory<NodeType extends IDawgNode<NodeType>>
    */
   @Override
   public void recycle(final Transition<NodeType> transition) {
-		transition.source(null);
-		transition.target(null);
-		transitions.offer(transition);
+    transition.source(null);
+    transition.target(null);
+    transitions.offer(transition);
   }
 }
