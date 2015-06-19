@@ -3,6 +3,7 @@ package com.github.dylon.liblevenshtein.levenshtein.factory;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -22,14 +23,12 @@ public class MemoizedDistanceFactoryTest {
   private IDistanceFactory<String> factory;
 
   @BeforeClass
-  public void setUp() {
-    BufferedReader reader = null;
-
-    try {
-      reader = new BufferedReader(
+  public void setUp() throws IOException {
+    try (final BufferedReader reader = new BufferedReader(
           new InputStreamReader(
             getClass().getResourceAsStream(
-              "/resources/top-20-most-common-english-words.txt")));
+              "/resources/top-20-most-common-english-words.txt"),
+            StandardCharsets.UTF_8))) {
 
       final List<String> terms = new ArrayList<String>();
 
@@ -40,11 +39,6 @@ public class MemoizedDistanceFactoryTest {
 
       this.terms = terms;
       this.factory = new MemoizedDistanceFactory();
-    }
-    catch (final IOException exception) {
-      System.err.println(exception.getMessage());
-      exception.printStackTrace();
-      System.exit(1);
     }
   }
 

@@ -1,27 +1,19 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
 import java.io.IOException;
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.TransducerBuilder;
 
-public class TranspositionTransducerTest {
+public class TranspositionTransducerTest extends AbstractTransducerTest {
 	private static final int MAX_DISTANCE = 3;
 	private static final String QUERY_TERM = "Jvaa";
 
@@ -30,14 +22,17 @@ public class TranspositionTransducerTest {
 
 	@BeforeTest
 	public void setUp() throws IOException {
-		final Collection<String> dictionary =
-			readLines("/resources/programming-languages.txt");
+		try (final InputStream istream =
+				getClass().getResourceAsStream("/resources/programming-languages.txt")) {
 
-		this.transducer = new TransducerBuilder()
-			.algorithm(Algorithm.TRANSPOSITION)
-			.defaultMaxDistance(MAX_DISTANCE)
-			.dictionary(dictionary, true)
-			.build();
+			final Collection<String> dictionary = readLines(istream);
+
+			this.transducer = new TransducerBuilder()
+				.algorithm(Algorithm.TRANSPOSITION)
+				.defaultMaxDistance(MAX_DISTANCE)
+				.dictionary(dictionary, true)
+				.build();
+		}
 
 		this.expectedCandidates = new HashSet<Candidate>();
     expectedCandidates.add(new Candidate("Java", 1));
@@ -90,20 +85,5 @@ public class TranspositionTransducerTest {
 		}
 
 		assertTrue(expectedCandidates.isEmpty());
-	}
-
-	private Collection<String> readLines(final String resourcePath) throws IOException {
-		try (final InputStream istream = getClass().getResourceAsStream(resourcePath)) {
-			final Reader istreamReader = new InputStreamReader(istream, StandardCharsets.UTF_8);
-			final BufferedReader reader = new BufferedReader(istreamReader);
-			final List<String> lines = new LinkedList<>();
-
-			String line;
-			while (null != (line = reader.readLine())) {
-				lines.add(line);
-			}
-
-			return lines;
-		}
 	}
 }

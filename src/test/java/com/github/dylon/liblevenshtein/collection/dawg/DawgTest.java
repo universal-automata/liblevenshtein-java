@@ -1,7 +1,9 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
+import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -33,14 +35,12 @@ public class DawgTest {
   private AbstractDawg fullDawg;
 
   @BeforeClass
-  public void setUp() {
-    BufferedReader reader = null;
-
-    try {
-      reader = new BufferedReader(
+  public void setUp() throws IOException {
+    try (final BufferedReader reader = new BufferedReader(
           new InputStreamReader(
             getClass().getResourceAsStream(
-              "/resources/top-20-most-common-english-words.txt")));
+              "/resources/top-20-most-common-english-words.txt"),
+            StandardCharsets.UTF_8))) {
 
       final List<String> terms = new ArrayList<String>();
 
@@ -58,11 +58,6 @@ public class DawgTest {
       this.dawgFactory = new DawgFactory(dawgNodeFactory, prefixFactory, transitionFactory);
       this.emptyDawg = dawgFactory.build(new ArrayList<String>(0));
       this.fullDawg = dawgFactory.build(terms);
-    }
-    catch (final Throwable exception) {
-      System.err.println(exception.getMessage());
-      exception.printStackTrace();
-      System.exit(1);
     }
   }
 

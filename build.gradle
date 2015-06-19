@@ -140,3 +140,10 @@ task(shell, dependsOn: 'classes') << {
     throw new RuntimeException("shell exited with status: ${proc.exitValue()}")
   }
 }
+
+tasks.withType(FindBugs) {
+	reports {
+		xml.enabled = false
+		html.enabled = true
+	}
+}
