@@ -65,7 +65,7 @@ tasks.withType(JavaCompile) {
   //included.
   options.bootClasspath =
     [ '/usr/lib/jvm/default/jre/lib/rt.jar'        // Arch Linux
-    , '/usr/lib/jvm/java-7-oracle/jre/lib/rt.jar'  // Travis CI
+    , '/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar'  // Travis CI
     ].find {
       def rt_jar = new File(it)
       rt_jar.exists() && rt_jar.canRead()
