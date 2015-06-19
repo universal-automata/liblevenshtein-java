@@ -20,11 +20,9 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.PrefixFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.TransitionFactory;
 import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
 import com.github.dylon.liblevenshtein.levenshtein.Candidate;
-import com.github.dylon.liblevenshtein.levenshtein.DistanceComparator;
 import com.github.dylon.liblevenshtein.levenshtein.IDistanceFunction;
 import com.github.dylon.liblevenshtein.levenshtein.IState;
 import com.github.dylon.liblevenshtein.levenshtein.ITransducer;
-import com.github.dylon.liblevenshtein.levenshtein.Match;
 import com.github.dylon.liblevenshtein.levenshtein.MergeFunction;
 import com.github.dylon.liblevenshtein.levenshtein.StandardPositionComparator;
 import com.github.dylon.liblevenshtein.levenshtein.StandardPositionDistanceFunction;
@@ -55,17 +53,7 @@ public class TransducerBuilder implements ITransducerBuilder {
   Algorithm algorithm = Algorithm.STANDARD;
 
   @Setter(onMethod=@_({@Override}))
-  DistanceComparator nearestCandidatesComparator = null;
-
-  @Setter(onMethod=@_({@Override}))
-  boolean caseInsensitiveSort = true;
-
-  @Setter(onMethod=@_({@Override}))
   int defaultMaxDistance = Integer.MAX_VALUE;
-
-  @NonNull
-  @Setter(onMethod=@_({@Override}))
-  Match strategy = Match.TERM;
 
   @Setter(onMethod=@_({@Override}))
   boolean includeDistance = true;
@@ -104,7 +92,7 @@ public class TransducerBuilder implements ITransducerBuilder {
    */
   @Override
   @SuppressWarnings("unchecked")
-  public ITransducer<?> build() {
+  public <CandidateType> ITransducer<CandidateType> build() {
     final IStateFactory stateFactory =
       new StateFactory().elementFactory(new ElementFactory<int[]>());
 
@@ -118,9 +106,6 @@ public class TransducerBuilder implements ITransducerBuilder {
             : new CandidateCollectionBuilder
               .WithoutDistance()
                 .maxCandidates(maxCandidates))
-        .nearestCandidatesFactory(
-            new NearestCandidatesFactory<DawgNode>()
-              .comparator(buildNearestCandidatesComparator()))
         .intersectionFactory(new IntersectionFactory<DawgNode>())
         .minDistance(buildMinDistance())
         .isFinal(dawgFactory.isFinal(dictionary))
@@ -154,16 +139,7 @@ public class TransducerBuilder implements ITransducerBuilder {
   }
 
   protected <CandidateType> Transducer<DawgNode, CandidateType> buildTransducer() {
-    switch (strategy) {
-      case TERM:
-        return new Transducer.OnTerms<DawgNode, CandidateType>();
-      case PREFIX:
-        return new Transducer
-          .OnPrefixes<DawgNode, CandidateType>()
-            .prefixFactory(prefixFactory);
-      default:
-        throw new IllegalArgumentException("Unsupported Match strategy: " + strategy);
-    }
+    return new Transducer<DawgNode, CandidateType>();
   }
 
   protected IStateTransitionFactory buildStateTransitionFactory(
@@ -224,17 +200,5 @@ public class TransducerBuilder implements ITransducerBuilder {
       .positionFactory(positionFactory);
 
     return stateTransitionFactory;
-  }
-
-  protected DistanceComparator buildNearestCandidatesComparator() {
-    if (null != nearestCandidatesComparator) {
-      return nearestCandidatesComparator;
-    }
-
-    if (caseInsensitiveSort) {
-      return new DistanceComparator.WithCaseInsensitiveSort();
-    }
-
-    return new DistanceComparator.WithCaseSensitiveSort();
   }
 }

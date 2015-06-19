@@ -129,8 +129,12 @@ public class TranspositionPositionTransitionFunction
     }
 
     if ((h <= w - 2) && (t == 1)) {
-      return stateFactory.build(
-          positionFactory.build((i + 2), n, 0));
+    	if (characteristicVector[h]) {
+      	return stateFactory.build(
+          	positionFactory.build((i + 2), n, 0));
+    	}
+
+    	return null;
     }
 
     // else, h == w

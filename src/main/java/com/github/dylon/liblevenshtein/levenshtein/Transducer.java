@@ -1,12 +1,14 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
 
-import it.unimi.dsi.fastutil.PriorityQueue;
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
 import com.github.dylon.liblevenshtein.collection.dawg.IFinalFunction;
@@ -14,7 +16,6 @@ import com.github.dylon.liblevenshtein.collection.dawg.ITransitionFunction;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.ICandidateCollectionBuilder;
 import com.github.dylon.liblevenshtein.levenshtein.factory.IIntersectionFactory;
-import com.github.dylon.liblevenshtein.levenshtein.factory.INearestCandidatesFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.IStateTransitionFactory;
 
 /**
@@ -60,7 +61,7 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IStateTransitionFacto
  */
 @Setter
 @FieldDefaults(level=AccessLevel.PROTECTED)
-public abstract class Transducer<DictionaryNode, CandidateType>
+public class Transducer<DictionaryNode, CandidateType>
   implements ITransducer<CandidateType> {
 
   private static final QueueFullException queueIsFull = new QueueFullException();
@@ -81,12 +82,6 @@ public abstract class Transducer<DictionaryNode, CandidateType>
    * spelling candidates for the query term.
    */
   @NonNull ICandidateCollectionBuilder<CandidateType> candidatesBuilder;
-
-  /**
-   * Returns instances of priority queues used for tracking the dictionary,
-   * spelling candidates most-similar to the query term.
-   */
-  @NonNull INearestCandidatesFactory<DictionaryNode> nearestCandidatesFactory;
 
   /**
    * Returns instances of a data structure used for maintaining information
@@ -218,15 +213,13 @@ public abstract class Transducer<DictionaryNode, CandidateType>
     final ICandidateCollection<CandidateType> candidates = candidatesBuilder.build();
 
     // so results can be ranked by similarity to the query term, etc.
-    final PriorityQueue<Intersection<DictionaryNode>> nearestCandidates =
-      nearestCandidatesFactory.build(term);
+    final Deque<Intersection<DictionaryNode>> pendingQueue = new ArrayDeque<>();
 
-    nearestCandidates.enqueue(
+    pendingQueue.addLast(
         intersectionFactory.build(
           "",
           dictionaryRoot,
-          initialState,
-          minDistance.at(initialState, termLength)));
+          initialState));
 
     // f(x) := x * 2 + 1
     // a := (n - 1) / 2
@@ -244,8 +237,8 @@ public abstract class Transducer<DictionaryNode, CandidateType>
       : Integer.MAX_VALUE;
 
     try {
-      while (!nearestCandidates.isEmpty()) {
-        Intersection<DictionaryNode> intersection = nearestCandidates.dequeue();
+      while (!pendingQueue.isEmpty()) {
+        Intersection<DictionaryNode> intersection = pendingQueue.removeFirst();
         final String candidate = intersection.candidate();
         final DictionaryNode dictionaryNode = intersection.dictionaryNode();
         final IState levenshteinState = intersection.levenshteinState();
@@ -267,16 +260,19 @@ public abstract class Transducer<DictionaryNode, CandidateType>
             stateTransition.of(levenshteinState, /*given*/ characteristicVector);
           if (null != nextLevenshteinState) {
             final String nextCandidate = candidate + label;
-            final int distance =
-              minDistance.at(nextLevenshteinState, termLength);
-            enqueueAll(
-                nearestCandidates,
-                candidates,
-                nextCandidate,
-                nextDictionaryNode,
-                nextLevenshteinState,
-                distance,
-                maxDistance);
+
+      			pendingQueue.addLast(
+          			intersectionFactory.build(
+            			nextCandidate,
+            			nextDictionaryNode,
+            			nextLevenshteinState));
+
+						if (isFinal.at(nextDictionaryNode)) {
+							final int distance = minDistance.at(nextLevenshteinState, termLength);
+							if (distance <= maxDistance && !candidates.offer(nextCandidate, distance)) {
+								throw queueIsFull;
+							}
+						}
           }
         }
       }
@@ -285,7 +281,6 @@ public abstract class Transducer<DictionaryNode, CandidateType>
       // Nothing to do, this was expected (early termination) ...
     }
     finally {
-      nearestCandidatesFactory.recycle(nearestCandidates);
       stateTransitionFactory.recycle(stateTransition);
     }
 
@@ -293,141 +288,11 @@ public abstract class Transducer<DictionaryNode, CandidateType>
   }
 
   /**
-   * Enqueues into the results collection, candidates, all of the spelling
-   * candidates corresponding to the dictionary node.
-   * @param nearestCandidates Maintains which nodes to explore next
-   * @param candidates Collection of spelling candidates
-   * @param candidate Prefix (maybe whole term) of some spelling candidate
-   * @param dictionaryNode Current node in the dictionary automaton
-   * @param levenshteinState Current state in the Levenshtein automaton
-   * @param distance Minimum distance corresponding to levenshteinState
-   * @param maxDistance Maximum number of spelling errors candidates may have
-   * @throws QueueFullException When the results queue can no longer accept
-   * spelling candidates. This signifies that the transducer should return
-   * immediately.
-   */
-  protected abstract void enqueueAll(
-      PriorityQueue<Intersection<DictionaryNode>> nearestCandidates,
-      ICandidateCollection<CandidateType> candidates,
-      String candidate,
-      DictionaryNode dictionaryNode,
-      IState levenshteinState,
-      int distance,
-      int maxDistance);
-
-  /**
    * Specifies when transduce(...) should return early.  This is thrown
-   * (optionally) from enqueueAll(...) when not all the candidate terms where
-   * queued into the results.
+   * (optionally) when not all the candidate terms where queued into the
+   * results.
    */
   protected static class QueueFullException extends RuntimeException {
     static final long serialVersionUID = 1L;
-  }
-
-  /**
-    * Transduces on whole, dictionary terms (as compared to prefixes or substrings)
-    * @author Dylon Edwards
-    * @since 2.1.0
-    */
-  public static class OnTerms<DictionaryNode, CandidateType>
-      extends Transducer<DictionaryNode, CandidateType> {
-
-    /**
-      * {@inheritDoc}
-      */
-    @Override
-    protected void enqueueAll(
-        final PriorityQueue<Intersection<DictionaryNode>> nearestCandidates,
-        final ICandidateCollection<CandidateType> candidates,
-        final String candidate,
-        final DictionaryNode dictionaryNode,
-        final IState levenshteinState,
-        final int distance,
-        final int maxDistance) {
-
-      nearestCandidates.enqueue(
-          intersectionFactory.build(
-            candidate,
-            dictionaryNode,
-            levenshteinState,
-            distance));
-
-      if (isFinal.at(dictionaryNode) && distance <= maxDistance) {
-        if (!candidates.offer(candidate, distance)) {
-          throw queueIsFull;
-        }
-      }
-    }
-  }
-
-  /**
-    * Transduces on prefixes of dictionary terms.
-    * @author Dylon Edwards
-    * @since 2.1.0
-    */
-  @FieldDefaults(level=AccessLevel.PRIVATE)
-  public static class OnPrefixes<DictionaryNode, CandidateType>
-    extends Transducer<DictionaryNode, CandidateType> {
-
-    /**
-      * Builds and recycles prefix objects, which are used to generate spelling
-      * candidates from some relative root of the dictionary automaton.
-      */
-    @Setter @NonNull IPrefixFactory<DictionaryNode> prefixFactory;
-
-    /**
-      * {@inheritDoc}
-      */
-    @Override
-    protected void enqueueAll(
-        final PriorityQueue<Intersection<DictionaryNode>> nearestCandidates,
-        final ICandidateCollection<CandidateType> candidates,
-        final String candidate,
-        final DictionaryNode dictionaryNode,
-        final IState levenshteinState,
-        final int distance,
-        final int maxDistance) {
-
-      if (distance <= maxDistance) {
-        if (isFinal.at(dictionaryNode)) {
-          if (!candidates.offer(candidate, distance)) {
-            throw queueIsFull;
-          }
-        }
-        else {
-          // TODO: Remove the notion of prefixFactory, here, because it
-          // tightly-couples the Transducer with Dawg implementations, which is
-          // not what should be done.  It should be agnostic to the type of the
-          // dictionary automaton.
-          //
-          // TODO: Move IFinalFunction and ITransitionFunction out of the dawg
-          // package -- they shouldn't be coupled with one dictionary type.
-          val intersections = new IntersectionIterator<DictionaryNode>(
-              prefixFactory,
-              dictionaryTransition,
-              isFinal,
-              intersectionFactory,
-              dictionaryNode,
-              candidate,
-              distance,
-              levenshteinState);
-
-          while (intersections.hasNext()) {
-            // Enqueue all the generated, spelling candiates so they may be
-            // ranked according to nearestCandidates' comparator before adding
-            // them to the collection of spelling candidates.
-            nearestCandidates.enqueue(intersections.next());
-          }
-        }
-      }
-      else {
-        nearestCandidates.enqueue(
-            intersectionFactory.build(
-              candidate,
-              dictionaryNode,
-              levenshteinState,
-              distance));
-      }
-    }
   }
 }

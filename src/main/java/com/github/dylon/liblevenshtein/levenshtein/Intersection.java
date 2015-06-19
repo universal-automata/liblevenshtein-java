@@ -11,5 +11,4 @@ public class Intersection<DictionaryNode> {
   String candidate;
   DictionaryNode dictionaryNode;
   IState levenshteinState;
-  int distance;
 }

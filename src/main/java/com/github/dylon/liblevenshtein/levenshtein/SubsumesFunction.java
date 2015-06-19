@@ -48,7 +48,25 @@ public abstract class SubsumesFunction implements ISubsumesFunction {
       }
 
       if (t == 1) {
-        return ((i < j) ? (j - i) : (i - j)) + 1 <= (f - e);
+        // We have two cases:
+        //
+        // Case 1: (j < i) => (j - i) = - (i - j)
+        //                 => |j - (i - 1)| = |j - i + 1|
+        //                                  = |-(i - j) + 1|
+        //                                  = |-(i - j - 1)|
+        //                                  = i - j - 1
+        //
+        // Case 1 holds, because i and j are integers, and j < i implies i is at
+        // least 1 unit greater than j, further implying that i - j - 1 is
+        // non-negative.
+        //
+        // Case 2: (j >= i) => |j - (i - 1)| = |j - i + 1| = j - i + 1
+        //
+        // Case 2 holds for the same reason case 1 does, in that j - i >= 0, and
+        // adding 1 to the difference will only strengthen its non-negativity.
+        //
+        //return Math.abs(j - (i - 1)) <= (f - e);
+      	return ((j < i) ? (i - j - 1) : (j - i + 1)) <= (f - e);
       }
 
       return ((i < j) ? (j - i) : (i - j)) <= (f - e);

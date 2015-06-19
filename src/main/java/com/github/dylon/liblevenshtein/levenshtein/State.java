@@ -3,14 +3,18 @@ package com.github.dylon.liblevenshtein.levenshtein;
 import java.util.Comparator;
 
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.IElementFactory;
 
 @RequiredArgsConstructor
+@ToString(of={"size", "head", "tail"})
+@EqualsAndHashCode(of={"size", "head", "tail"})
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class State implements IState {
 
@@ -142,14 +146,24 @@ public class State implements IState {
     }
 
     final Element<int[]> inner = this.inner;
-    this.inner = inner.next();
-
-    if (null != inner.prev()) {
-      inner.prev().next(inner.next());
-    }
 
     if (null != inner.next()) {
-      inner.next().prev(inner.prev());
+    	this.inner = inner.next();
+
+    	if (null != inner.prev()) {
+      	inner.prev().next(inner.next());
+    	}
+
+      this.inner.prev(inner.prev());
+    }
+    else {
+    	this.inner = inner.prev();
+
+    	if (null != this.inner) {
+    		this.inner.next(null);
+    	}
+
+    	innerIndex -= 1;
     }
 
     if (head == inner) {
@@ -205,19 +219,35 @@ public class State implements IState {
 
     Element<int[]> next = factory.build(null);
     Element<int[]> curr = next;
+
     while (null != head && null != tail) {
       if (comparator.compare(head.value(), tail.value()) <= 0) {
         curr.next(head);
+        head.prev(curr);
         head = head.next();
       }
       else {
         curr.next(tail);
+        tail.prev(curr);
         tail = tail.next();
       }
       curr = curr.next();
     }
-    curr.next((null == head) ? tail : head);
+
+    if (null != tail) {
+    	curr.next(tail);
+    	tail.prev(curr);
+    }
+    else if (null != head) {
+    	curr.next(head);
+    	head.prev(curr);
+    }
+
     curr = next.next();
+    if (null != curr) {
+    	curr.prev(null);
+    }
+
     factory.recycle(next);
     return curr;
   }

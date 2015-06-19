@@ -18,14 +18,11 @@ public interface IIntersectionFactory<DictionaryNode> {
    * the candidate term.
    * @param levenshteinState Location within the Levenshtein automaton of this
    * intersection.
-   * @param distance Minimum distance between the query term and the candidate
-   * substring.
    */
   Intersection<DictionaryNode> build(
       String candidate,
       DictionaryNode dictionaryNode,
-      IState levenshteinState,
-      int distance);
+      IState levenshteinState);
 
   /**
    * [Optional Operation] Instructs this factory that the intersection will no

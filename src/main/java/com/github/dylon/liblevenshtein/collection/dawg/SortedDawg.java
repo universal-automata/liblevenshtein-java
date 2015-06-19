@@ -1,29 +1,14 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
-import java.util.AbstractSet;
 import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
-import java.util.Queue;
 
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import lombok.experimental.FieldDefaults;
-
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
-
-import com.google.common.collect.Sets;
-
-import it.unimi.dsi.fastutil.chars.CharIterator;
 
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IDawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
@@ -97,17 +82,17 @@ public class SortedDawg extends AbstractDawg {
     // Add the suffix, starting from the correct node, mid-way through the graph
     DawgNode node = uncheckedTransitions.isEmpty()
       ? root
-      : uncheckedTransitions.peek().target();
+      : uncheckedTransitions.peekFirst().target();
 
     while (i < term.length()) {
       final char label = term.charAt(i);
       final DawgNode nextNode = factory.build();
-      uncheckedTransitions.push(transitionFactory.build(node, label, nextNode));
+      uncheckedTransitions.addFirst(transitionFactory.build(node, label, nextNode));
       node = nextNode;
       i += 1;
     }
 
-    finalNodes.add(node);
+		finalNodes.add(node);
     previousTerm = term;
     size += 1;
     return true;
@@ -120,16 +105,14 @@ public class SortedDawg extends AbstractDawg {
   private void minimize(final int lowerBound) {
     // Proceed from the leaf up to a certain point
     for (int j = uncheckedTransitions.size(); j > lowerBound; --j) {
-      final Transition<DawgNode> transition = uncheckedTransitions.pop();
+      final Transition<DawgNode> transition = uncheckedTransitions.removeFirst();
       final DawgNode source = transition.source();
       final char label = transition.label();
       final DawgNode target = transition.target();
       final DawgNode existing = minimizedNodes.get(target);
-      if (null != existing) {
-        if (finalNodes.contains(target)) {
-          finalNodes.add(existing);
-          finalNodes.remove(target);
-        }
+      if (null != existing &&
+      		finalNodes.contains(existing) == finalNodes.contains(target)) {
+        finalNodes.remove(target);
         source.addEdge(label, existing);
         factory.recycle(target);
       }

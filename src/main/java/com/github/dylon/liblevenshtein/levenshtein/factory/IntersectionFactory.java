@@ -23,8 +23,7 @@ public class IntersectionFactory<DictionaryNode>
   public Intersection<DictionaryNode> build(
       final String candidate,
       final DictionaryNode dictionaryNode,
-      final IState levenshteinState,
-      final int distance) {
+      final IState levenshteinState) {
 
     Intersection<DictionaryNode> intersection = intersections.poll();
 
@@ -35,7 +34,6 @@ public class IntersectionFactory<DictionaryNode>
     intersection.candidate(candidate);
     intersection.dictionaryNode(dictionaryNode);
     intersection.levenshteinState(levenshteinState);
-    intersection.distance(distance);
     return intersection;
   }
 
@@ -47,7 +45,6 @@ public class IntersectionFactory<DictionaryNode>
     intersection.candidate(null);
     intersection.dictionaryNode(null);
     intersection.levenshteinState(null);
-    //intersection.distance(0); // primitive type: leave alone
     intersections.offer(intersection);
   }
 }

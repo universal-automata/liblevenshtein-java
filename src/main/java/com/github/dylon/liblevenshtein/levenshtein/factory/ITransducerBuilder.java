@@ -5,8 +5,6 @@ import java.util.Comparator;
 
 import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
 import com.github.dylon.liblevenshtein.levenshtein.ITransducer;
-import com.github.dylon.liblevenshtein.levenshtein.Match;
-import com.github.dylon.liblevenshtein.levenshtein.DistanceComparator;
 
 /**
  * @author Dylon Edwards
@@ -20,17 +18,11 @@ public interface ITransducerBuilder {
 
   ITransducerBuilder algorithm(Algorithm algorithm);
 
-  ITransducerBuilder nearestCandidatesComparator(DistanceComparator nearestCandidatesComparator);
-
-  ITransducerBuilder caseInsensitiveSort(boolean caseInsensitiveSort);
-
   ITransducerBuilder defaultMaxDistance(int defaultMaxDistance);
-
-  ITransducerBuilder strategy(Match strategy);
 
   ITransducerBuilder includeDistance(boolean includeDistance);
 
   ITransducerBuilder maxCandidates(int includeDistance);
 
-  <CandidateType> ITransducer<?> build();
+  <CandidateType> ITransducer<CandidateType> build();
 }

@@ -56,21 +56,23 @@ public class DawgNode implements IDawgNode<DawgNode> {
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public boolean equals(final Object o) {
-    if (!(o instanceof DawgNode)) {
-      return false;
-    }
+  	if (this == o) return true;
+    if (!(o instanceof DawgNode)) return false;
 
-    @SuppressWarnings("unchecked")
     final DawgNode other = (DawgNode) o;
+
     if (edges.size() != other.edges.size()) return false;
+
     for (val entry : edges.char2ObjectEntrySet()) {
       final char label = entry.getCharKey();
       final DawgNode target = entry.getValue();
       final DawgNode otherTarget = other.transition(label);
       if (null == otherTarget) return false;
-      if (target != otherTarget) return false;
+      if (!target.equals(otherTarget)) return false;
     }
+
     return true;
   }
 
