@@ -17,16 +17,15 @@ targetCompatibility = 1.8
 
 def srcJava = "$projectDir/src/main/java"
 def srcDelomboked = "$buildDir/src-delomboked/main/java"
-def localRepo = "$buildDir/repo"
 
 ext {
-	def groupPart = group.replaceAll('\\.', '/')
-	def pomFileName = "${name}-${version}.pom"
-	localRepo = file("$buildDir/repo")
-	localRepoArtifactDir = file("${localRepo}/${groupPart}/${name}/${version}")
-	pomFile = file("${localRepoArtifactDir}/${pomFileName}")
-	sonatypeUsername = ""
-	sonatypePassword = ""
+  def groupPart = group.replaceAll('\\.', '/')
+  def pomFileName = "${name}-${version}.pom"
+  localRepo = file("$buildDir/repo")
+  localRepoArtifactDir = file("${localRepo}/${groupPart}/${name}/${version}")
+  pomFile = file("${localRepoArtifactDir}/${pomFileName}")
+  sonatypeUsername = ""
+  sonatypePassword = ""
 }
 
 configurations {
@@ -66,66 +65,66 @@ test {
 // create syntastic classpath files
 task syntastic {
   description = 'Dumps the classpaths a file that can be read by Syntastic.vim'
-	doLast {
-  	def classpathFiles = new HashSet<String>()
-  	def addJars = { proj ->
-    	proj.configurations.each { conf ->
-      	conf.each { jar ->
-        	classpathFiles.add(jar)
-      	}
-    	}
-    	proj.sourceSets.each { srcSet ->
-      	srcSet.java.srcDirs.each { dir ->
-        	println dir.absolutePath
-        	classpathFiles.add(dir.absolutePath)
-      	}
-    	}
-  	}
-  	getChildProjects().each { proj ->
-    	addJars(proj.value)
-  	}
-  	addJars(rootProject)
+  doLast {
+    def classpathFiles = new HashSet<String>()
+    def addJars = { proj ->
+      proj.configurations.each { conf ->
+        conf.each { jar ->
+          classpathFiles.add(jar)
+        }
+      }
+      proj.sourceSets.each { srcSet ->
+        srcSet.java.srcDirs.each { dir ->
+          println dir.absolutePath
+          classpathFiles.add(dir.absolutePath)
+        }
+      }
+    }
+    getChildProjects().each { proj ->
+      addJars(proj.value)
+    }
+    addJars(rootProject)
 
-  	// create .vimrc.local
-  	def vimrc = new File(rootProject.projectDir.absolutePath + "/.vimrc.local")
+    // create .vimrc.local
+    def vimrc = new File(rootProject.projectDir.absolutePath + "/.vimrc.local")
 
-  	classpathFiles << rootProject.projectDir.absolutePath + "/build/classes/main"
-  	classpathFiles << rootProject.projectDir.absolutePath + "/build/classes/test"
+    classpathFiles << rootProject.projectDir.absolutePath + "/build/classes/main"
+    classpathFiles << rootProject.projectDir.absolutePath + "/build/classes/test"
 
-  	vimrc.text = """\
-	let g:syntastic_java_javac_classpath = '${classpathFiles.collect().join(":")}'
-	"""
+    vimrc.text = """\
+  let g:syntastic_java_javac_classpath = '${classpathFiles.collect().join(":")}'
+  """
 
-  	println "Created .vimrc.local, don't forget to source this in your vim config"
-	}
+    println "Created .vimrc.local, don't forget to source this in your vim config"
+  }
 }
 
 task(shell, dependsOn: 'classes') {
-	description =
-		'Groovy repl with this project and all its dependencies on the $CLASSPATH'
+  description =
+    'Groovy repl with this project and all its dependencies on the $CLASSPATH'
 
-	doLast {
-  	def classpath = sourceSets.main.runtimeClasspath + configurations.shell
+  doLast {
+    def classpath = sourceSets.main.runtimeClasspath + configurations.shell
 
-  	def command = [
-    	'java',
-    	'-cp', classpath.collect().join(System.getProperty('path.separator')),
-    	'org.codehaus.groovy.tools.shell.Main',
-    	'--color'
-  	]
+    def command = [
+      'java',
+      '-cp', classpath.collect().join(System.getProperty('path.separator')),
+      'org.codehaus.groovy.tools.shell.Main',
+      '--color'
+    ]
 
-  	def proc = new ProcessBuilder(command)
-    	.redirectOutput(ProcessBuilder.Redirect.INHERIT)
-    	.redirectInput(ProcessBuilder.Redirect.INHERIT)
-    	.redirectError(ProcessBuilder.Redirect.INHERIT)
-    	.start()
+    def proc = new ProcessBuilder(command)
+      .redirectOutput(ProcessBuilder.Redirect.INHERIT)
+      .redirectInput(ProcessBuilder.Redirect.INHERIT)
+      .redirectError(ProcessBuilder.Redirect.INHERIT)
+      .start()
 
-  	proc.waitFor()
+    proc.waitFor()
 
-  	if (0 != proc.exitValue()) {
-    	throw new RuntimeException("shell exited with status: ${proc.exitValue()}")
-  	}
-	}
+    if (0 != proc.exitValue()) {
+      throw new RuntimeException("shell exited with status: ${proc.exitValue()}")
+    }
+  }
 }
 
 tasks.withType(FindBugs) {
@@ -136,219 +135,219 @@ tasks.withType(FindBugs) {
 }
 
 task sourceJar(type: Jar) {
-	classifier = 'sources'
-	from file(srcDelomboked)
+  classifier = 'sources'
+  from file(srcDelomboked)
 }
 
 task javadocJar(type: Jar, dependsOn: [javadoc, classes]) {
-	classifier = 'javadoc'
-	from javadoc.destinationDir
+  classifier = 'javadoc'
+  from javadoc.destinationDir
 }
 
 artifacts {
-	archives sourceJar
-	archives javadocJar
-	if (pomFile.exists()) {
-		pom pomFile
-	}
+  archives sourceJar
+  archives javadocJar
+  if (pomFile.exists()) {
+    pom pomFile
+  }
 }
 
 def getPomSignature() {
-	return configurations.pom.allArtifacts
-		.collect{ file("${it.file.path}.asc") }[0]
+  return configurations.pom.allArtifacts
+    .collect{ file("${it.file.path}.asc") }[0]
 }
 
 def getSignatureFiles() {
-	def allFiles = configurations.archives.allArtifacts
-		.collect { file("${it.file.path}.asc") }
-		.findAll { it.exists() }
+  def allFiles = configurations.archives.allArtifacts
+    .collect { file("${it.file.path}.asc") }
+    .findAll { it.exists() }
 
-	def retval = []
+  def retval = []
 
-	def signedSources = allFiles.find { it.name.contains("-sources") }
-	if (null != signedSources) {
-		retval << [archive: signedSources, classifier: 'sources', extension: 'jar.asc']
-	}
+  def signedSources = allFiles.find { it.name.contains("-sources") }
+  if (null != signedSources) {
+    retval << [archive: signedSources, classifier: 'sources', extension: 'jar.asc']
+  }
 
-	def signedJavadoc = allFiles.find { it.name.contains('-javadoc') }
-	if (null != signedJavadoc) {
-		retval << [archive: signedJavadoc, classifier: 'javadoc', extension: 'jar.asc']
-	}
+  def signedJavadoc = allFiles.find { it.name.contains('-javadoc') }
+  if (null != signedJavadoc) {
+    retval << [archive: signedJavadoc, classifier: 'javadoc', extension: 'jar.asc']
+  }
 
-	def signedJars = (allFiles - [signedSources, signedJavadoc])
-	if ( ! signedJars.isEmpty()) {
-		retval << [archive: signedJars[0], classifier: null, extension: 'jar.asc']
-	}
+  def signedJars = (allFiles - [signedSources, signedJavadoc])
+  if ( ! signedJars.isEmpty()) {
+    retval << [archive: signedJars[0], classifier: null, extension: 'jar.asc']
+  }
 
-	return retval
+  return retval
 }
 
 def artifactTaskName(artifact) {
-	return "sign:${artifact.file}"
+  return "sign:${artifact.file}"
 }
 
 def signArtifact(artifact) {
-	def taskName = artifactTaskName(artifact)
-	task "$taskName" (type: Exec) {
-		commandLine 'gpg2', '--batch', '--yes', '-ab', artifact.file
-		doFirst { println commandLine }
-		doLast {
-			def signature = file("${artifact.file}.asc")
-			if (localRepoArtifactDir.exists() && signature.exists()) {
-				ant.copy(
-					file: signature,
-					todir: localRepoArtifactDir)
-			}
-		}
-	}
+  def taskName = artifactTaskName(artifact)
+  task "$taskName" (type: Exec) {
+    commandLine 'gpg2', '--batch', '--yes', '-ab', artifact.file
+    doFirst { println commandLine }
+    doLast {
+      def signature = file("${artifact.file}.asc")
+      if (localRepoArtifactDir.exists() && signature.exists()) {
+        ant.copy(
+          file: signature,
+          todir: localRepoArtifactDir)
+      }
+    }
+  }
 }
 
 def jarFilter = {it.file.name =~ /\.jar$/}
 
 configurations.archives.allArtifacts
-	.findAll(jarFilter)
-	.each(this.&signArtifact)
+  .findAll(jarFilter)
+  .each(this.&signArtifact)
 
 configurations.pom.allArtifacts.each(this.&signArtifact)
 
 task signPom << {
-	configurations.pom.allArtifacts
-		.collect(this.&artifactTaskName)
-		.each { tasks."$it".execute() }
+  configurations.pom.allArtifacts
+    .collect(this.&artifactTaskName)
+    .each { tasks."$it".execute() }
 }
 
 task signJars(dependsOn: [jar, javadocJar, sourceJar]) << {
-	configurations.archives.allArtifacts
-		.findAll(jarFilter)
-		.collect(this.&artifactTaskName)
-		.each { tasks."$it".execute() }
+  configurations.archives.allArtifacts
+    .findAll(jarFilter)
+    .collect(this.&artifactTaskName)
+    .each { tasks."$it".execute() }
 }
 
 if (project.ext.pomFile.exists()) {
-	tasks.publish.dependsOn signJars
-	tasks.publish.dependsOn signPom
+  tasks.publish.dependsOn signJars
+  tasks.publish.dependsOn signPom
 }
 else {
-	tasks.publish.dependsOn signJars
+  tasks.publish.dependsOn signJars
 }
 
 def pomSignature = getPomSignature()
 
 //if (project.gradle.startParameter.taskNames.contains('publish')
-		//&& pomFile.exists()
-		//&& pomSignature.exists()) {
-	//def console = System.console()
-	//console.printf("\nSonatype OSSRH Credentials:\n")
-	//sonatypeUsername = console.readLine("Username: ")
-	//sonatypePassword = console.readPassword("Password: ")
+    //&& pomFile.exists()
+    //&& pomSignature.exists()) {
+  //def console = System.console()
+  //console.printf("\nSonatype OSSRH Credentials:\n")
+  //sonatypeUsername = console.readLine("Username: ")
+  //sonatypePassword = console.readPassword("Password: ")
 //}
 
 publishing {
-	repositories {
-		maven {
-			//if (pomFile.exists() && pomSignature.exists()) {
-				//def sonatypeUrl = "https://oss.sonatype.org/content/repositories/snapshots"
-				//def sonatypeUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+  repositories {
+    maven {
+      //if (pomFile.exists() && pomSignature.exists()) {
+        //def sonatypeUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+        //def sonatypeUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
 
-				//println("Uploading to $sonatypeUrl")
-				//url sonatypeUrl
-				//credentials {
-					//username = sonatypeUsername
-					//password = sonatypePassword
-				//}
-			//}
-			//else {
-				url localRepo
-			//}
-		}
-	}
-	publications {
-		gpgJars (MavenPublication) {
-			getSignatureFiles().each { signature ->
-				artifact (signature.archive) {
-					classifier = signature.classifier
-					extension  = signature.extension
-				}
-			}
-		}
-		if (pomFile.exists() && pomSignature.exists()) {
-			gpgPom (MavenPublication) {
-				artifact (pomSignature) {
-					classifier = null
-					extension = 'pom.asc'
-				}
-			}
-		}
-		jar (MavenPublication) {
-			from components.java
-			artifact (javadocJar) {
-				classifier = 'javadoc'
-			}
-			artifact (sourceJar) {
-				classifier = 'sources'
-			}
-			pom.withXml {
-				asNode().children().last() + {
-					resolveStrategy = Closure.DELEGATE_FIRST
-					name rootProject.name
-					inceptionYear '2014'
-					description rootProject.description
-					url 'https://github.com/universal-automata/liblevenshtein-java/'
-					packaging 'jar'
-					licenses {
-						license {
-							name 'MIT License'
-							url 'http://www.opensource.org/licenses/mit-license.php'
-							distribution 'repo'
-						}
-					}
-					developers {
-						developer {
-							id 'dylon'
-							name 'Dylon Edwards'
-							email 'dylon.edwards@gmail.com'
-							url 'https://github.com/dylon'
-						}
-					}
-					issueManagement {
-						system 'GitHub Issues'
-						url 'https://github.com/universal-automata/liblevenshtein-java/issues'
-					}
-					scm {
-						url 'https://github.com/universal-automata/liblevenshtein-java'
-						connection 'scm:git:https://github.com/universal-automata/liblevenshtein-java.git'
-						developerConnection 'scm:git:git@github.com:universal-automata/liblevenshtein-java.git'
-					}
-				}
-			}
-		}
-	}
+        //println("Uploading to $sonatypeUrl")
+        //url sonatypeUrl
+        //credentials {
+          //username = sonatypeUsername
+          //password = sonatypePassword
+        //}
+      //}
+      //else {
+        url localRepo
+      //}
+    }
+  }
+  publications {
+    gpgJars (MavenPublication) {
+      getSignatureFiles().each { signature ->
+        artifact (signature.archive) {
+          classifier = signature.classifier
+          extension  = signature.extension
+        }
+      }
+    }
+    if (pomFile.exists() && pomSignature.exists()) {
+      gpgPom (MavenPublication) {
+        artifact (pomSignature) {
+          classifier = null
+          extension = 'pom.asc'
+        }
+      }
+    }
+    jar (MavenPublication) {
+      from components.java
+      artifact (javadocJar) {
+        classifier = 'javadoc'
+      }
+      artifact (sourceJar) {
+        classifier = 'sources'
+      }
+      pom.withXml {
+        asNode().children().last() + {
+          resolveStrategy = Closure.DELEGATE_FIRST
+          name rootProject.name
+          inceptionYear '2014'
+          description rootProject.description
+          url 'https://github.com/universal-automata/liblevenshtein-java/'
+          packaging 'jar'
+          licenses {
+            license {
+              name 'MIT License'
+              url 'http://www.opensource.org/licenses/mit-license.php'
+              distribution 'repo'
+            }
+          }
+          developers {
+            developer {
+              id 'dylon'
+              name 'Dylon Edwards'
+              email 'dylon.edwards@gmail.com'
+              url 'https://github.com/dylon'
+            }
+          }
+          issueManagement {
+            system 'GitHub Issues'
+            url 'https://github.com/universal-automata/liblevenshtein-java/issues'
+          }
+          scm {
+            url 'https://github.com/universal-automata/liblevenshtein-java'
+            connection 'scm:git:https://github.com/universal-automata/liblevenshtein-java.git'
+            developerConnection 'scm:git:git@github.com:universal-automata/liblevenshtein-java.git'
+          }
+        }
+      }
+    }
+  }
 }
 
 task delombok {
-	dependsOn configurations.compile.getTaskDependencyFromProjectDependency(true, "compileJava")
+  dependsOn configurations.compile.getTaskDependencyFromProjectDependency(true, "compileJava")
 
-	// Make sure the delombok directory exists ...
-	file(srcDelomboked).mkdirs()
+  // Make sure the delombok directory exists ...
+  file(srcDelomboked).mkdirs()
 
-	inputs.files file(srcJava)
-	outputs.dir file(srcDelomboked)
+  inputs.files file(srcJava)
+  outputs.dir file(srcDelomboked)
 
-	doLast {
-		ant.taskdef(
-			name: 'delombok',
-			classname: 'lombok.delombok.ant.Tasks$Delombok',
-			classpath: configurations.compile.asPath)
-		ant.delombok(
-			from: srcJava,
-			to: srcDelomboked,
-			classpath: configurations.compile.asPath)
-	}
+  doLast {
+    ant.taskdef(
+      name: 'delombok',
+      classname: 'lombok.delombok.ant.Tasks$Delombok',
+      classpath: configurations.compile.asPath)
+    ant.delombok(
+      from: srcJava,
+      to: srcDelomboked,
+      classpath: configurations.compile.asPath)
+  }
 }
 
 tasks.javadoc {
-	dependsOn delombok
-	source = new FileNameFinder().getFileNames(srcDelomboked, '**/*.java')
-	// Links Oracle Java references to Oracle's javadoc
-	options.addStringOption('link', 'https://docs.oracle.com/javase/8/docs/api/')
+  dependsOn delombok
+  source = new FileNameFinder().getFileNames(srcDelomboked, '**/*.java')
+  // Links Oracle Java references to Oracle's javadoc
+  options.addStringOption('link', 'https://docs.oracle.com/javase/8/docs/api/')
 }
