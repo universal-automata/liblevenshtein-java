@@ -348,6 +348,5 @@ task delombok {
 tasks.javadoc {
   dependsOn delombok
   source = new FileNameFinder().getFileNames(srcDelomboked, '**/*.java')
-  // Links Oracle Java references to Oracle's javadoc
-  options.addStringOption('link', 'https://docs.oracle.com/javase/8/docs/api/')
+  options.optionFiles << file('javadoc.options')
 }
