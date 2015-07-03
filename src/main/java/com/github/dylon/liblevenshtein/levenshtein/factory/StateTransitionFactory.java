@@ -29,15 +29,48 @@ public class StateTransitionFactory implements IStateTransitionFactory {
 
   /**
    * Compares Levenshtein-state positions
+   * -- SETTER --
+   * Compares Levenshtein-state positions
+   * @param comparator Compares Levenshtein-state positions
+   * @return This {@link StateTransitionFactory} for fluency.
    */
   @Setter Comparator<int[]> comparator;
 
+  /**
+   * Builds and recycles Levenshtein states.
+   * -- SETTER --
+   * Builds and recycles Levenshtein states.
+   * @param stateFactory Builds and recycles Levenshtein states.
+   * @return This {@link StateTransitionFactory} for fluency.
+   */
   @Setter private IStateFactory stateFactory;
 
+  /**
+   * Builds and recycles position-transition functions.
+   * -- SETTER --
+   * Builds and recycles position-transition functions.
+   * @param positionTransitionFactory Builds and recycles position-transition
+   * functions.
+   * @return This {@link StateTransitionFactory} for fluency.
+   */
   @Setter private IPositionTransitionFactory positionTransitionFactory;
 
+  /**
+   * Merges Levenshtein states together.
+   * -- SETTER --
+   * Merges Levenshtein states together.
+   * @param merge Merges Levenshtein states together.
+   * @return This {@link StateTransitionFactory} for fluency.
+   */
   @Setter private IMergeFunction merge;
 
+  /**
+   * Removes subsumed positions from Levenshtein states.
+   * -- SETTER --
+   * Removes subsumed positions from Levenshtein states.
+   * @param unsubsume Removes subsumed positions from Levenshtein states.
+   * @return This {@link StateTransitionFactory} for fluency.
+   */
   @Setter private IUnsubsumeFunction unsubsume;
 
   /**

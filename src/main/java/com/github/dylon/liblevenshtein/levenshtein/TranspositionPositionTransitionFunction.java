@@ -1,8 +1,17 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+/**
+ * Transitions a transposition, Levenshtein position to all possible positions,
+ * given a set of parameters.
+ * @author Dylon Edwards
+ * @since 2.1.0
+ */
 public class TranspositionPositionTransitionFunction
   extends AbstractPositionTransitionFunction {
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public IState of(
       final int n,

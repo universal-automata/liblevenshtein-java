@@ -8,12 +8,32 @@ import lombok.Setter;
 import com.github.dylon.liblevenshtein.levenshtein.IState;
 import com.github.dylon.liblevenshtein.levenshtein.State;
 
+/**
+ * Builds Levenshtein states.
+ * @author Dylon Edwards
+ * @since 2.1.0
+ */
 public class StateFactory implements IStateFactory {
+
+  /**
+   * Object pool for recycled states.
+   */
   private final Queue<IState> states = new ArrayDeque<>();
 
+  /**
+   * Builds and recycles linked-list nodes for state positions.
+   * -- SETTER --
+   * Builds and recycles linked-list nodes for state positions.
+   * @param elementFactory Builds and recycles linked-list nodes for state
+   * positions.
+   * @return This {@link StateFactory} for fluency.
+   */
   @Setter
   private IElementFactory<int[]> elementFactory;
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public IState build(final int[]... positions) {
     IState state = states.poll();
@@ -29,6 +49,9 @@ public class StateFactory implements IStateFactory {
     return state;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void recycle(final IState state) {
     state.clear();

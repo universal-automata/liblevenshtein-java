@@ -7,12 +7,19 @@ import com.github.dylon.liblevenshtein.levenshtein.Intersection;
 import com.github.dylon.liblevenshtein.levenshtein.IState;
 
 /**
+ * Builds intersections between a dictionary automaton and a Levenshtein
+ * automaton.
+ * @param <DictionaryNode> Kind of nodes in the dictionary automaton.
  * @author Dylon Edwards
  * @since 2.1.0
  */
 public class IntersectionFactory<DictionaryNode>
   implements IIntersectionFactory<DictionaryNode> {
 
+  /**
+   * Object pool for recycled {@link Intersection}s, to be returned from
+   * {@link #build(String,Object,IState) build}.
+   */
   private final Queue<Intersection<DictionaryNode>>
     intersections = new ArrayDeque<>();
 

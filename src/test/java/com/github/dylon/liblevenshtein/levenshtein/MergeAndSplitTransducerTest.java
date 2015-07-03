@@ -9,8 +9,12 @@ import java.util.HashSet;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+import lombok.val;
+
+import com.github.dylon.liblevenshtein.levenshtein.distance.MemoizedMergeAndSplit;
 import com.github.dylon.liblevenshtein.levenshtein.factory.TransducerBuilder;
 
 public class MergeAndSplitTransducerTest extends AbstractTransducerTest {
@@ -441,8 +445,16 @@ public class MergeAndSplitTransducerTest extends AbstractTransducerTest {
     final ICandidateCollection<Candidate> actualCandidates = transducer.transduce(QUERY_TERM);
     final Iterator<Candidate> actualIter = actualCandidates.iterator();
 
+    val distance = new MemoizedMergeAndSplit();
+
     while (actualIter.hasNext()) {
       final Candidate actualCandidate = actualIter.next();
+      final String actualTerm = actualCandidate.term();
+      final int actualDistance = actualCandidate.distance();
+      final int expectedDistance = distance.between(actualTerm, QUERY_TERM);
+      assertEquals(actualDistance, expectedDistance,
+      	String.format("Expected d(%s, %s) = %d, but was %d",
+      		actualTerm, QUERY_TERM, expectedDistance, actualDistance));
       assertTrue(expectedCandidates.contains(actualCandidate),
           "expectedCandidates does not contain ["+actualCandidate+"]");
       expectedCandidates.remove(actualCandidate);

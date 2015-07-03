@@ -4,6 +4,9 @@ import com.github.dylon.liblevenshtein.levenshtein.Intersection;
 import com.github.dylon.liblevenshtein.levenshtein.IState;
 
 /**
+ * Builds nodes that help intersect a dictionary automaton with a Levenshtein
+ * automaton.
+ * @param <DictionaryNode> Kind of the nodes in the dictionary automaton.
  * @author Dylon Edwards
  * @since 2.1.0
  */
@@ -18,6 +21,8 @@ public interface IIntersectionFactory<DictionaryNode> {
    * the candidate term.
    * @param levenshteinState Location within the Levenshtein automaton of this
    * intersection.
+   * @return New intersection node between {@code dictionaryNode} and
+   * {@code levenshteinState}, having the term-prefix, {@code candidate}.
    */
   Intersection<DictionaryNode> build(
       String candidate,

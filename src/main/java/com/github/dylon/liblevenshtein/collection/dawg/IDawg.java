@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * Describes the contract accepted by all DAWG implementations.
+ * @param <Node> Kind of {@link IDawgNode} to build this trie with.
  * @author Dylon Edwards
  * @since 2.1.0
  */
@@ -14,13 +16,15 @@ public interface IDawg <Node extends IDawgNode<Node>> extends Set<String> {
    * [Optional Operation] Replaces the String, current, with another.
    * @param current String in this DAWG to replace
    * @param replacement String to replace the current one with
+   * @return Whether the replacement was successful.
    */
   boolean replace(String current, String replacement);
 
   /**
-   * [Optional Operation] Replaces the String, current, with another.
-   * @param current String in this DAWG to replace
-   * @param replacement String to replace the current one with
+   * [Optional Operation] Replaces all instances of the term keys with their
+   * values.
+   * @param c Replacment mappings.
+   * @return Whether all replacements were successful.
    */
   boolean replaceAll(Collection<? extends Map.Entry<String,String>> c);
 

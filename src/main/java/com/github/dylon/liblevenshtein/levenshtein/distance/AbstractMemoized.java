@@ -30,13 +30,14 @@ public abstract class AbstractMemoized implements IDistance<String> {
   }
 
   /**
-   * If t is less than the length of u, then return the substring of u beginning
-   * at 1+t; Otherwise, return an empty string. It is assumed that u and v are
-   * not null.
+   * If {@code t} is less than the length of {@code u}, then return the
+   * substring of {@code u} beginning at {@code 1 + t}; Otherwise, return an
+   * empty string. It is assumed that {@code u} and {@code v} are not null.
    * @param u String to slice
-   * @param t Lower bound of the index at which to slice u
-   * @return The substring of u beginning at index, 1+t, if t is less than the
-   * length of u, or an empty string otherwise.
+   * @param t Lower bound of the index at which to slice {@code u}
+   * @return The substring of {@code u} beginning at index, {@code 1 + t}, if
+   * {@code t} is less than the length of {@code u}, or an empty string
+   * otherwise.
    */
   public String f(final String u, final int t) {
     if (t < u.length()) {
@@ -56,10 +57,11 @@ public abstract class AbstractMemoized implements IDistance<String> {
   }
 
   /**
-   * Memoizes the distance between terms, v and w, and returns it.
-   * @param v Term to compare with w
-   * @param w Term to compare with v
-   * @return Distance between v and w
+   * Memoizes the distance between terms, {@code v} and {@code w}, and returns
+   * it.
+   * @param v Term to compare with {@code w}
+   * @param w Term to compare with {@code v}
+   * @return Distance between {@code v} and {@code w}
    */
   public abstract int memoizedDistance(String v, String w);
 }

@@ -1,6 +1,9 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
 /**
+ * Returns a collection of spelling candidates for the given query term.
+ * @param <CandidateType> Kind of spelling candidate returned (e.g.
+ * {@link Candidate} or {@link java.lang.String}).
  * @author Dylon Edwards
  * @since 2.1.0
  */

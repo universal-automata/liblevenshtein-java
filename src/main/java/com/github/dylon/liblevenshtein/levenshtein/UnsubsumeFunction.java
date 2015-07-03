@@ -4,16 +4,44 @@ import lombok.Setter;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.IPositionFactory;
 
+/**
+ * Defines methods to remove positions from a Levenshtein state that are
+ * subsumed by other positions in that state.
+ * @author Dylon Edwards
+ * @since 2.1.0
+ */
 public abstract class UnsubsumeFunction implements IUnsubsumeFunction {
 
+  /**
+   * Determines whether one position subsumes another.
+   * -- SETTER --
+   * Determines whether one position subsumes another.
+   * @param subsumes Whether one position subsumes another.
+   * @return This {@link UnsubsumeFunction} for fluency.
+   */
   @Setter
   protected ISubsumesFunction subsumes;
 
+  /**
+   * Builds and recycles position vectors.
+   * -- SETTER --
+   * Builds and recycles position vectors.
+   * @param positionFactory Builds and recycles position vectors.
+   * @return This {@link UnsubsumeFunction} for fluency.
+   */
   @Setter
   protected IPositionFactory positionFactory;
 
+  /**
+   * Removes subsumed positions for standard, Levenshtein states.
+   * @author Dylon Edwards
+   * @since 2.1.0
+   */
   public static class ForStandardPositions extends UnsubsumeFunction {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void at(final IState state) {
       for (int m = 0; m < state.size(); ++m) {
@@ -48,8 +76,17 @@ public abstract class UnsubsumeFunction implements IUnsubsumeFunction {
     }
   }
 
+  /**
+   * Removes subsumed positions for transposition and merge-and-split,
+   * Levenshtein states.
+   * @author Dylon Edwards
+   * @since 2.1.0
+   */
   public static class ForXPositions extends UnsubsumeFunction {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void at(final IState state) {
       for (int m = 0; m < state.size(); ++m) {

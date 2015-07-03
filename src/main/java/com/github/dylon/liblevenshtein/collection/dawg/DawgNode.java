@@ -1,9 +1,7 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.val;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
@@ -12,7 +10,8 @@ import it.unimi.dsi.fastutil.chars.CharIterator;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
- * Element of a DAWG structure (Directed Acyclic Word Graph)
+ * Element of a DAWG structure (Directed Acyclic Word Graph).  Currently, this
+ * is tightly-coupled with character-node types.
  * @author Dylon Edwards
  * @since 2.1.0
  */
@@ -55,6 +54,9 @@ public class DawgNode implements IDawgNode<DawgNode> {
     edges.clear();
   }
 
+	/**
+	 * {@inheritDoc}
+	 */
   @Override
   @SuppressWarnings("unchecked")
   public boolean equals(final Object o) {
@@ -76,6 +78,9 @@ public class DawgNode implements IDawgNode<DawgNode> {
     return true;
   }
 
+	/**
+	 * {@inheritDoc}
+	 */
   @Override
   public int hashCode() {
     // NOTE: It looks like this gets called twice (consecutively) during
@@ -91,6 +96,9 @@ public class DawgNode implements IDawgNode<DawgNode> {
     return builder.toHashCode();
   }
 
+	/**
+	 * {@inheritDoc}
+	 */
   @Override
   public String toString() {
     final StringBuilder buffer = new StringBuilder();

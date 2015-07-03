@@ -4,13 +4,33 @@ import lombok.Setter;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.IPositionFactory;
 
+/**
+ * Merges one state into another, according to rules specific to the Levenshtein
+ * algorithm.
+ * @author Dylon Edwards
+ * @since 2.1.0
+ */
 public abstract class MergeFunction implements IMergeFunction {
 
+  /**
+   * -- Setter --
+   * Builds and recycles position vectors.
+   * @param positionFactory Builds and recycles position vectors.
+   * @return This {@link MergeFunction} for fluency.
+   */
   @Setter
   protected IPositionFactory positionFactory;
 
+  /**
+   * {@link MergeFunction} specific to the standard, Levenshtein algorithm.
+   * @author Dylon Edwards
+   * @since 2.1.0
+   */
   public static class ForStandardPositions extends MergeFunction {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void into(final IState state, final IState positions) {
       for (int m = 0; m < positions.size(); ++m) {
@@ -51,8 +71,17 @@ public abstract class MergeFunction implements IMergeFunction {
     }
   }
 
+  /**
+   * {@link MergeFunction} specific to the transposition and merge-and-split,
+   * Levenshtein algorithm.
+   * @author Dylon Edwards
+   * @since 2.1.0
+   */
   public static class ForXPositions extends MergeFunction {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void into(final IState state, final IState positions) {
       for (int m = 0; m < positions.size(); ++m) {

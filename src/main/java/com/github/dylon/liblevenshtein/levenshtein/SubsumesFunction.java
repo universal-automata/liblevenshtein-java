@@ -1,7 +1,15 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+/**
+ * Routines for determining whether one position subsumes another.
+ * @author Dylon Edwards
+ * @since 2.1.0
+ */
 public abstract class SubsumesFunction implements ISubsumesFunction {
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean at(
       final int i, final int e,
@@ -10,6 +18,9 @@ public abstract class SubsumesFunction implements ISubsumesFunction {
     throw new UnsupportedOperationException("at(i,e, j,f) is not supported");
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean at(
       final int i, final int e, final int s,
@@ -20,8 +31,16 @@ public abstract class SubsumesFunction implements ISubsumesFunction {
         "at(i,e,s, j,f,t, n) is not supported");
   }
 
+  /**
+   * Routines for determining whether a standard position subsumes another.
+   * @author Dylon Edwards
+   * @since 2.1.0
+   */
   public static class ForStandardAlgorithm extends SubsumesFunction {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean at(
         final int i, final int e,
@@ -31,8 +50,16 @@ public abstract class SubsumesFunction implements ISubsumesFunction {
     }
   }
 
+  /**
+   * Routines for determining whether a transposition position subsumes another.
+   * @author Dylon Edwards
+   * @since 2.1.0
+   */
   public static class ForTransposition extends SubsumesFunction {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean at(
         final int i, final int e, final int s,
@@ -73,8 +100,16 @@ public abstract class SubsumesFunction implements ISubsumesFunction {
     }
   }
 
+  /**
+   * Routines for determining whether a merge-and-split position subsumes another.
+   * @author Dylon Edwards
+   * @since 2.1.0
+   */
   public static class ForMergeAndSplit extends SubsumesFunction {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean at(
         final int i, final int e, final int s,

@@ -3,7 +3,10 @@ package com.github.dylon.liblevenshtein.collection.dawg;
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
 /**
- * Element of a DAWG structure (Directed Acyclic Word Graph)
+ * Element of a DAWG structure (Directed Acyclic Word Graph).
+ * @param <Node> The kind of this {@link IDawgNode}, which is useful for the
+ * methods that return an instance of this kind, or for those which accept nodes
+ * of the same kind.
  * @author Dylon Edwards
  * @since 2.1.0
  */

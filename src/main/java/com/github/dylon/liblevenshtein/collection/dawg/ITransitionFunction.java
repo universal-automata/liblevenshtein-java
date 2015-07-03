@@ -4,6 +4,7 @@ import it.unimi.dsi.fastutil.chars.CharIterator;
 
 /**
  * Deterministically-transitions between states according to some input.
+ * @param <State> Kind of state this transition function accepts.
  * @author Dylon Edwards
  * @since 2.1.0
  */

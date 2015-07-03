@@ -19,10 +19,13 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IIntersectionFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.IStateTransitionFactory;
 
 /**
+ * <p>
  * The algorithm for imitating Levenshtein automata was taken from the
  * following journal article:
- *
- * @ARTICLE{Schulz02faststring,
+ * </p>
+ * <pre>
+ * <code>
+ * {@literal @}ARTICLE {Schulz02faststring,
  *   author = {Klaus Schulz and Stoyan Mihov},
  *   title = {Fast String Correction with Levenshtein-Automata},
  *   journal = {INTERNATIONAL JOURNAL OF DOCUMENT ANALYSIS AND RECOGNITION},
@@ -30,31 +33,18 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IStateTransitionFacto
  *   volume = {5},
  *   pages = {67--85}
  * }
- *
+ * </code>
+ * </pre>
+ * <p>
  * As well, this Master Thesis helped me understand its concepts:
- *
- *   www.fmi.uni-sofia.bg/fmi/logic/theses/mitankin-en.pdf
- *
+ * </p>
+ * <ul>
+ *   <li>www.fmi.uni-sofia.bg/fmi/logic/theses/mitankin-en.pdf</li>
+ * </ul>
+ * <p>
  * The supervisor of the student who submitted the thesis was one of the authors
  * of the journal article, above.
- *
- * The algorithm for constructing a DAWG (Direct Acyclic Word Graph) from the
- * input dictionary of words (DAWGs are otherwise known as an MA-FSA, or Minimal
- * Acyclic Finite-State Automata), was taken and modified from the following
- * blog from Steve Hanov:
- *
- *   http://stevehanov.ca/blog/index.php?id=115
- *
- * The algorithm therein was taken from the following paper:
- *
- * @MISC{Daciuk00incrementalconstruction,
- *   author = {Jan Daciuk and
- *     Bruce W. Watson and
- *     Richard E. Watson and
- *     Stoyan Mihov},
- *   title = {Incremental Construction of Minimal Acyclic Finite-State Automata},
- *   year = {2000}
- * }
+ * </p>
  *
  * @author Dylon Edwards
  * @since 2.1.0
@@ -74,12 +64,23 @@ public class Transducer<DictionaryNode, CandidateType>
 
   /**
    * Returns state-transition functions for specific, max edit distances
+   * -- SETTER --
+   * Returns state-transition functions for specific, max edit distances
+   * @param stateTransitionFactory Returns state-transition functions for
+   * specific, max edit distances
+   * @return This {@link Transducer} for fluency.
    */
   @NonNull IStateTransitionFactory stateTransitionFactory;
 
   /**
    * Returns instances of some, generic collection that is used to store
    * spelling candidates for the query term.
+   * -- SETTER --
+   * Returns instances of some, generic collection that is used to store
+   * spelling candidates for the query term.
+   * @param candidatesBuilder Returns instances of some, generic collection that
+   * is used to store spelling candidates for the query term.
+   * @return This {@link Transducer} for fluency.
    */
   @NonNull ICandidateCollectionBuilder<CandidateType> candidatesBuilder;
 
@@ -87,37 +88,77 @@ public class Transducer<DictionaryNode, CandidateType>
    * Returns instances of a data structure used for maintaining information
    * regarding each step in intersecting the dictionary automaton with the
    * Levenshtein automaton.
+   * -- SETTER --
+   * Returns instances of a data structure used for maintaining information
+   * regarding each step in intersecting the dictionary automaton with the
+   * Levenshtein automaton.
+   * @param intersectionFactory Returns instances of a data structure used for
+   * maintaining information regarding each step in intersecting the dictionary
+   * automaton with the Levenshtein automaton.
+   * @return This {@link Transducer} for fluency.
    */
   @NonNull IIntersectionFactory<DictionaryNode> intersectionFactory;
 
   /**
    * Determines the minimum distance at which a Levenshtein state may be
    * considered from the query term, based on its length.
+   * -- SETTER --
+   * Determines the minimum distance at which a Levenshtein state may be
+   * considered from the query term, based on its length.
+   * @param minDistance Determines the minimum distance at which a Levenshtein
+   * state may be considered from the query term, based on its length.
+   * @return This {@link Transducer} for fluency.
    */
   @NonNull IDistanceFunction minDistance;
 
   /**
    * Returns whether a dictionary node is the final character in some term.
+   * -- SETTER --
+   * Returns whether a dictionary node is the final character in some term.
+   * @param isFinal Returns whether a dictionary node is the final character in
+   * some term.
+   * @return This {@link Transducer} for fluency.
    */
   @NonNull IFinalFunction<DictionaryNode> isFinal;
 
   /**
    * Transition function for dictionary nodes.
+   * -- SETTER --
+   * Transition function for dictionary nodes.
+   * @param dictionaryTransition Transition function for dictionary nodes.
+   * @return This {@link Transducer} for fluency.
    */
   @NonNull ITransitionFunction<DictionaryNode> dictionaryTransition;
 
   /**
    * State at which to begin traversing the Levenshtein automaton.
+   * -- SETTER --
+   * State at which to begin traversing the Levenshtein automaton.
+   * @param initialState State at which to begin traversing the Levenshtein
+   * automaton.
+   * @return This {@link Transducer} for fluency.
    */
   @NonNull IState initialState;
 
   /**
    * Root node of the dictionary, at which to begin searching for spelling
    * candidates.
+   * -- SETTER --
+   * Root node of the dictionary, at which to begin searching for spelling
+   * candidates.
+   * @param dictionaryRoot Root node of the dictionary, at which to begin
+   * searching for spelling candidates.
+   * @return This {@link Transducer} for fluency.
    */
   @NonNull DictionaryNode dictionaryRoot;
 
-  /** Pools instances of characteristic vectors */
+  /**
+   * Pools instances of characteristic vectors
+   * -- SETTER --
+   * Pools instances of characteristic vectors
+   * @param characteristicVectors Pools instances of characteristic vectors
+   * @return This {@link Transducer} for fluency.
+   */
   private boolean[][] characteristicVectors = new boolean[32][];
 
   /**
@@ -175,6 +216,7 @@ public class Transducer<DictionaryNode, CandidateType>
    * from the query term.
    * @param defaultMaxDistance Default, maximum number of spelling errors
    * candidates may have from the query term.
+   * @return This {@link Transducer} for fluent setters.
    */
   public Transducer defaultMaxDistance(final int defaultMaxDistance) {
     if (defaultMaxDistance < 0) {
@@ -291,6 +333,8 @@ public class Transducer<DictionaryNode, CandidateType>
    * Specifies when transduce(...) should return early.  This is thrown
    * (optionally) when not all the candidate terms where queued into the
    * results.
+   * @author Dylon Edwards
+   * @since 2.1.0
    */
   protected static class QueueFullException extends RuntimeException {
     static final long serialVersionUID = 1L;

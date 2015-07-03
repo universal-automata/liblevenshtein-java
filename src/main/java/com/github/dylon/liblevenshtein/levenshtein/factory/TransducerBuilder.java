@@ -1,17 +1,14 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
 import java.util.Collection;
-import java.util.Comparator;
 
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.collection.dawg.AbstractDawg;
 import com.github.dylon.liblevenshtein.collection.dawg.DawgNode;
-import com.github.dylon.liblevenshtein.collection.dawg.IDawg;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IDawgFactory;
@@ -33,31 +30,79 @@ import com.github.dylon.liblevenshtein.levenshtein.XPositionComparator;
 import com.github.dylon.liblevenshtein.levenshtein.XPositionDistanceFunction;
 
 /**
+ * Fluently-builds Levenshtein transducers.
  * @author Dylon Edwards
  * @since 2.1.0
  */
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class TransducerBuilder implements ITransducerBuilder {
 
+  /**
+   * Builds and recycles {@link DawgNode} {@link Prefix}es.
+   */
   final IPrefixFactory<DawgNode> prefixFactory = new PrefixFactory<>();
 
+  /**
+   * Builds DAWG collections from dictionaries.
+   */
   final IDawgFactory<DawgNode, AbstractDawg> dawgFactory = new DawgFactory()
     .dawgNodeFactory(new DawgNodeFactory())
     .prefixFactory(prefixFactory)
     .transitionFactory(new TransitionFactory<DawgNode>());
 
+  /**
+   * Dictionary automaton for seeking spelling candidates.
+   */
   AbstractDawg dictionary;
 
+  /**
+   * Desired Levenshtein algorithm for searching.
+   * -- SETTER --
+   * Desired Levenshtein algorithm for searching.
+   * @param algorithm Desired Levenshtein algorithm for searching.
+   * @return This {@link TransducerBuilder} for fluency.
+   */
   @NonNull
   @Setter(onMethod=@_({@Override}))
   Algorithm algorithm = Algorithm.STANDARD;
 
+  /**
+   * Default maximum number of errors tolerated between each spelling candidate
+   * and the query term.
+   * -- SETTER --
+   * Default maximum number of errors tolerated between each spelling candidate
+   * and the query term.
+   * @param defaultMaxDistance Default maximum number of errors tolerated
+   * between each spelling candidate and the query term.
+   * @return This {@link TransducerBuilder} for fluency.
+   */
   @Setter(onMethod=@_({@Override}))
   int defaultMaxDistance = Integer.MAX_VALUE;
 
+  /**
+   * Whether the distances between each spelling candidate and the query term
+   * should be included in the collections of spelling candidates.
+   * -- SETTER --
+   * Whether the distances between each spelling candidate and the query term
+   * should be included in the collections of spelling candidates.
+   * @param includeDistance Whether the distances between each spelling
+   * candidate and the query term should be included in the collections of
+   * spelling candidates.
+   * @return This {@link TransducerBuilder} for fluency.
+   */
   @Setter(onMethod=@_({@Override}))
   boolean includeDistance = true;
 
+  /**
+   * If desired, the maximum number of elements in the collections of spelling
+   * candidates.
+   * -- SETTER --
+   * If desired, the maximum number of elements in the collections of spelling
+   * candidates.
+   * @param maxCandidates If desired, the maximum number of elements in the
+   * collections of spelling candidates.
+   * @return This {@link TransducerBuilder} for fluency.
+   */
   @Setter(onMethod=@_({@Override}))
   int maxCandidates = Integer.MAX_VALUE;
 
@@ -114,6 +159,11 @@ public class TransducerBuilder implements ITransducerBuilder {
         .dictionaryRoot(dictionary.root());
   }
 
+  /**
+   * Builds the function that finds the distance between spelling candidates and
+   * the query term.
+   * @return Levenshtein algorithm-specific, distance function.
+   */
   protected IDistanceFunction buildMinDistance() {
     switch (algorithm) {
       case STANDARD:
@@ -126,6 +176,12 @@ public class TransducerBuilder implements ITransducerBuilder {
     }
   }
 
+  /**
+   * Builds the initial state from which to begin searching the dictionary
+   * automaton for spelling candidates.
+   * @param stateFactory Builds and recycles Levenshtein states.
+   * @return Start state for traversing the dictionary automaton.
+   */
   protected IState buildInitialState(@NonNull final IStateFactory stateFactory) {
     switch (algorithm) {
       case STANDARD:
@@ -138,10 +194,22 @@ public class TransducerBuilder implements ITransducerBuilder {
     }
   }
 
+  /**
+   * Builds a new of the requested type.
+   * @param <CandidateType> Kind of the spelling candidates (e.g.
+   * {@link Candidate} or {@link String}).
+   * @return New {@link Transducer} of the requested kind.
+   */
   protected <CandidateType> Transducer<DawgNode, CandidateType> buildTransducer() {
     return new Transducer<DawgNode, CandidateType>();
   }
 
+  /**
+   * Builds a state-transition factory from the parameters specified at the time
+   * {@link #build()} was called.
+   * @param stateFactory Builds Levenshtein states.
+   * @return New state-transition factory.
+   */
   protected IStateTransitionFactory buildStateTransitionFactory(
       @NonNull final IStateFactory stateFactory) {
 

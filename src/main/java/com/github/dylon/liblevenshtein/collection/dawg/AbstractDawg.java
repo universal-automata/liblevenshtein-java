@@ -28,6 +28,8 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.IDawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
 
 /**
+ * Provides common logic for all my Dawg implementations.  Currently, there is
+ * only the {@link SortedDawg} implementation, but I have plans for other kinds.
  * @author Dylon Edwards
  * @since 2.1.0
  */
@@ -53,18 +55,24 @@ public abstract class AbstractDawg
    */
   final Set<DawgNode> finalNodes = Sets.<DawgNode> newIdentityHashSet();
 
+  /**
+   * Root node of this trie.
+   * @return Root node of this trie.
+   */
   @Getter(onMethod=@_({@Override}))
   final DawgNode root;
 
+	/**
+	 * Number of terms in this trie.
+	 * @return Number of terms in this trie.
+	 */
   @Getter(onMethod=@_({@Override}))
   int size = 0;
 
   /**
-   * Constructs a new AbstractDawg instance.
-   * @param factory Manages instances of DAWG nodes
-   * @param terms Collection of terms to add to this dictionary. This is assumed
-   * to be sorted ascendingly, because the behavior of the current DAWG
-   * implementation is unstable if it is not.
+   * Initializes an {@link AbstractDawg}.
+   * @param prefixFactory Builds/Caches instances of {@link DawgNode} paths.
+   * @param factory Builds/Caches {@link DawgNode} nodes.
    */
   public AbstractDawg(
       @NonNull final IPrefixFactory<DawgNode> prefixFactory,

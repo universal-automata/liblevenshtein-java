@@ -10,13 +10,28 @@ import com.github.dylon.liblevenshtein.levenshtein.distance.MemoizedTranspositio
 import com.github.dylon.liblevenshtein.levenshtein.distance.MemoizedMergeAndSplit;
 
 /**
- * Builds memoized instances of Levensthein distance metrics.
+ * Builds memoized instances of Levenshtein distance metrics.
  * @author Dylon Edwards
  * @since 2.1.0
  */
 public class MemoizedDistanceFactory implements IDistanceFactory<String> {
+
+  /**
+   * Computes the distance between two terms using the standard, Levenshtein
+   * distance algorithm.
+   */
   private IDistance<String> standard = null;
+
+  /**
+   * Computes the distance between two terms using the standard, Levenshtein
+   * distance algorithm extended with transpositions.
+   */
   private IDistance<String> transposition = null;
+
+  /**
+   * Computes the distance between two terms using the standard, Levenshtein
+   * distance algorithm extended with merges and splits.
+   */
   private IDistance<String> mergeAndSplit = null;
 
   /**

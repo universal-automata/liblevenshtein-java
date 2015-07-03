@@ -3,6 +3,7 @@ package com.github.dylon.liblevenshtein.collection.dawg;
 /**
  * Specifies the necessary methods for functors that return whether nodes of
  * some type represent the final states of an automaton.
+ * @param <State> Kind of the state this function accepts.
  * @author Dylon Edwards
  * @since 2.1.0
  */

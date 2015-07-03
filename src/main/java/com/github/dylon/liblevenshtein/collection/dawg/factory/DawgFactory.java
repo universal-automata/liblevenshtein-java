@@ -17,6 +17,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.ITransitionFunction;
 import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
 
 /**
+ * Constructs DAWG instances.
  * @author Dylon Edwards
  * @since 2.1.0
  */
@@ -26,17 +27,32 @@ public class DawgFactory implements IDawgFactory<DawgNode, AbstractDawg> {
 
   /**
    * Builds and recycles Dawg nodes
+   * -- SETTER --
+   * Builds and recycles Dawg nodes
+   * @param dawgNodeFactory Builds and recycles Dawg nodes
+   * @return This {@link DawgFactory} for fluency.
    */
   @Setter private IDawgNodeFactory<DawgNode> dawgNodeFactory;
 
   /**
    * Builds and recycles prefix objects, which are used to generate terms from
    * the dictionary's root.
+   * -- SETTER --
+   * Builds and recycles prefix objects, which are used to generate terms from
+   * the dictionary's root.
+   * @param prefixFactory Builds and recycles prefix objects, which are used to
+   * generate terms from the dictionary's root.
+   * @return This {@link DawgFactory} for fluency.
    */
   @Setter private IPrefixFactory<DawgNode> prefixFactory;
 
   /**
    * Builds (and recycles for memory efficiency) Transition objects
+   * -- SETTER --
+   * Builds (and recycles for memory efficiency) Transition objects
+   * @param transitionFactory Builds (and recycles for memory efficiency)
+   * Transition objects
+   * @return This {@link DawgFactory} for fluency.
    */
   @Setter private ITransitionFactory<DawgNode> transitionFactory;
 

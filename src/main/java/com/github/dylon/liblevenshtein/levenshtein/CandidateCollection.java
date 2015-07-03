@@ -11,6 +11,8 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
+ * Collection of all candidates from the dictionary that are no further than the
+ * specified distance from the query term.
  * @author Dylon Edwards
  * @since 2.1.0
  */
@@ -61,24 +63,26 @@ public abstract class CandidateCollection<Type>
   }
 
   /**
-    * @author Dylon Edwards
-    * @since 2.1.0
-    */
+   * Implementation of {@link CandidateCollection} that includes the distances
+   * with the spelling candidates, packaged in {@link Candidate}s.
+   * @author Dylon Edwards
+   * @since 2.1.0
+   */
   public static class WithDistance extends CandidateCollection<Candidate> {
 
     /**
-      * Constructs a new instance of ICandidateCollection, with a maximum
-      * threshold for the number of correction candidates it will accept.
-      * @param maxCandidates Maximum number of correction candidates that may be
-      * added to this collection.
-      */
+     * Constructs a new instance of ICandidateCollection, with a maximum
+     * threshold for the number of correction candidates it will accept.
+     * @param maxCandidates Maximum number of correction candidates that may be
+     * added to this collection.
+     */
     public WithDistance(final int maxCandidates) {
       super(maxCandidates);
     }
 
     /**
-      * {@inheritDoc}
-      */
+     * {@inheritDoc}
+     */
     @Override
     public boolean offer(String term, int distance) {
       if (candidates.size() == maxCandidates) {
@@ -91,24 +95,26 @@ public abstract class CandidateCollection<Type>
   }
 
   /**
-    * @author Dylon Edwards
-    * @since 2.1.0
-    */
+   * Implementation of {@link CandidateCollection} that returns only the raw,
+   * spelling candidates.
+   * @author Dylon Edwards
+   * @since 2.1.0
+   */
   public static class WithoutDistance extends CandidateCollection<String> {
 
     /**
-      * Constructs a new instance of ICandidateCollection, with a maximum
-      * threshold for the number of correction candidates it will accept.
-      * @param maxCandidates Maximum number of correction candidates that may be
-      * added to this collection.
-      */
+     * Constructs a new instance of ICandidateCollection, with a maximum
+     * threshold for the number of correction candidates it will accept.
+     * @param maxCandidates Maximum number of correction candidates that may be
+     * added to this collection.
+     */
     public WithoutDistance(final int maxCandidates) {
       super(maxCandidates);
     }
 
     /**
-      * {@inheritDoc}
-      */
+     * {@inheritDoc}
+     */
     @Override
     public boolean offer(String term, int distance) {
       if (candidates.size() == maxCandidates) {

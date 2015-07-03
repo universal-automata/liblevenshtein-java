@@ -1,5 +1,10 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+/**
+ * Defines operations for merging states together.
+ * @author Dylon Edwards
+ * @since 2.1.0
+ */
 public interface IMergeFunction {
 
   /**

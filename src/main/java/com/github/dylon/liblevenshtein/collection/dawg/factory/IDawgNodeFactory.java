@@ -7,6 +7,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.IDawgNode;
 /**
  * Builds nodes for use in DAWG structures. Implementations may do such things
  * as manage object pools, etc.
+ * @param <NodeType> Kind of node built in this factory.
  * @author Dylon Edwards
  * @since 2.1.0
  */

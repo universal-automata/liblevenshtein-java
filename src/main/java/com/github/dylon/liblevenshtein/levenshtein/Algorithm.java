@@ -1,7 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
 /**
- * Enumerates the variants of Levenshtein distance supported by this library.
+ * Variants of Levenshtein distance supported by this library.
  * @author Dylon Edwards
  * @since 2.1.0
  */

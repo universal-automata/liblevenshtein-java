@@ -16,6 +16,35 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.ITransitionFactory;
 
 /**
+ * <p>
+ * Node reference-based DAWG implementation that requires the input collection
+ * to be sorted before it can be built.  The sortation is required for space and
+ * time efficiency.
+ * </p>
+ * <p>
+ * The algorithm for constructing the DAWG (Direct Acyclic Word Graph) from the
+ * input dictionary of words (DAWGs are otherwise known as an MA-FSA, or Minimal
+ * Acyclic Finite-State Automata), was taken and modified from the following
+ * blog from Steve Hanov:
+ * </p>
+ * <ul>
+ *   <li>http://stevehanov.ca/blog/index.php?id=115</li>
+ * </ul>
+ * <p>
+ * The algorithm therein was taken from the following paper:
+ * </p>
+ * <pre>
+ * <code>
+ * {@literal @}MISC {Daciuk00incrementalconstruction,
+ *   author = {Jan Daciuk and
+ *     Bruce W. Watson and
+ *     Richard E. Watson and
+ *     Stoyan Mihov},
+ *   title = {Incremental Construction of Minimal Acyclic Finite-State Automata},
+ *   year = {2000}
+ * }
+ * </code>
+ * </pre>
  * @author Dylon Edwards
  * @since 2.1.0
  */
@@ -36,10 +65,15 @@ public class SortedDawg extends AbstractDawg {
 
   /**
    * Constructs a new SortedDawg instance.
+   * @param prefixFactory Builds {@link DawgNode} prefixes for traversing the
+   * trie.
    * @param factory Manages instances of DAWG nodes
+   * @param transitionFactory Builds transitions that link {@link DawgNode}s
+   * together.
    * @param terms Collection of terms to add to this dictionary. This is assumed
-   * to be sorted ascendingly, because the behavior of the current DAWG
-   * implementation is unstable if it is not.
+   * to be sorted ascendingly, in lexicographical order (case-sensitive),
+   * because the behavior of the current DAWG implementation is unstable if it
+   * is not.
    */
   public SortedDawg(
       @NonNull final IPrefixFactory<DawgNode> prefixFactory,
@@ -99,10 +133,18 @@ public class SortedDawg extends AbstractDawg {
     return true;
   }
 
+  /**
+   * Finishes processing the pending transitions.
+   */
   private void finish() {
     minimize(0);
   }
 
+	/**
+	 * Builds this DAWG in such a way that it remains a minimal trie.
+	 * @param lowerBound Number of pending transitions to leave for the next
+	 * round (they will be the most-recent transitions).
+	 */
   private void minimize(final int lowerBound) {
     // Proceed from the leaf up to a certain point
     for (int j = uncheckedTransitions.size(); j > lowerBound; --j) {
@@ -138,9 +180,22 @@ public class SortedDawg extends AbstractDawg {
         "SortedDawg does not support removing terms");
   }
 
+	/**
+	 * Maintains whether a node among the pending transitions is final.
+	 */
   @Value
   private static class NodeFinalization {
+
+  	/**
+  	 * {@link DawgNode} represented by this {@link NodeFinalization}
+  	 * @return {@link DawgNode} represented by this {@link NodeFinalization}
+  	 */
     DawgNode node;
+
+    /**
+     * Whether {@link #node} is final.
+     * @return Whether {@link #node} is final.
+     */
     boolean isFinal;
   }
 }

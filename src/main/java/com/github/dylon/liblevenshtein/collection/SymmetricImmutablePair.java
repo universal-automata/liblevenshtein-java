@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 /**
  * Symmetric, immutable pairs are equivalent if they contain equivalent
  * elements, regardless the order of the elements.
+ * @param <Type> Kind of the elements stored in this pair.
  * @author Dylon Edwards
  * @since 2.1.0
  */
@@ -15,13 +16,22 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public class SymmetricImmutablePair<Type extends Comparable<Type>>
     implements Comparable<SymmetricImmutablePair<Type>> {
 
-  /** First element of this pair */
+  /**
+   * First element of this pair
+   * @return First element of this pair
+   */
   private final Type first;
 
-  /** Second element of this pair */
+  /**
+   * Second element of this pair
+   * @return Second element of this pair
+   */
   private final Type second;
 
-  /** Returned from {@link hashCode()} */
+  /**
+   * Returned from {@link #hashCode()}
+   * @return Returned from {@link #hashCode()}
+   */
   private final int hashCode;
 
   /**
@@ -56,7 +66,6 @@ public class SymmetricImmutablePair<Type extends Comparable<Type>>
 
   /**
    * {@inheritDoc}
-   * Warning: You will be a NullPointerException if you pass null into here.
    */
   @Override
   public int compareTo(final SymmetricImmutablePair<Type> other) {

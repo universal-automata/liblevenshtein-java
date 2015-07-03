@@ -10,6 +10,8 @@ import com.github.dylon.liblevenshtein.collection.dawg.IDawgNode;
 import com.github.dylon.liblevenshtein.collection.dawg.Transition;
 
 /**
+ * Builds {@link Transition}s that link nodes together, under character labels.
+ * @param <NodeType> Kind of nodes linked by the tranistions.
  * @author Dylon Edwards
  * @since 2.1.0
  */
@@ -17,6 +19,9 @@ import com.github.dylon.liblevenshtein.collection.dawg.Transition;
 public class TransitionFactory<NodeType extends IDawgNode<NodeType>>
   implements ITransitionFactory<NodeType> {
 
+	/**
+	 * Object pool for recycled {@link Transition}s.
+	 */
   Queue<Transition<NodeType>> transitions = new ArrayDeque<>();
 
   /**

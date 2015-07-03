@@ -9,6 +9,9 @@ import com.github.dylon.liblevenshtein.collection.dawg.ITransitionFunction;
 import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
 
 /**
+ * Constructs instances of {@link IDawgNode}, optionally using an object pool.
+ * @param <Node> Kind of nodes that the DAWG requires.
+ * @param <Dawg> Kind of DAWG that is built in this factory.
  * @author Dylon Edwards
  * @since 2.1.0
  */
