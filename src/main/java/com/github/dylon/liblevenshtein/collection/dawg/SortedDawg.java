@@ -140,11 +140,11 @@ public class SortedDawg extends AbstractDawg {
     minimize(0);
   }
 
-	/**
-	 * Builds this DAWG in such a way that it remains a minimal trie.
-	 * @param lowerBound Number of pending transitions to leave for the next
-	 * round (they will be the most-recent transitions).
-	 */
+  /**
+   * Builds this DAWG in such a way that it remains a minimal trie.
+   * @param lowerBound Number of pending transitions to leave for the next
+   * round (they will be the most-recent transitions).
+   */
   private void minimize(final int lowerBound) {
     // Proceed from the leaf up to a certain point
     for (int j = uncheckedTransitions.size(); j > lowerBound; --j) {
@@ -180,16 +180,16 @@ public class SortedDawg extends AbstractDawg {
         "SortedDawg does not support removing terms");
   }
 
-	/**
-	 * Maintains whether a node among the pending transitions is final.
-	 */
+  /**
+   * Maintains whether a node among the pending transitions is final.
+   */
   @Value
   private static class NodeFinalization {
 
-  	/**
-  	 * {@link DawgNode} represented by this {@link NodeFinalization}
-  	 * @return {@link DawgNode} represented by this {@link NodeFinalization}
-  	 */
+    /**
+     * {@link DawgNode} represented by this {@link NodeFinalization}
+     * @return {@link DawgNode} represented by this {@link NodeFinalization}
+     */
     DawgNode node;
 
     /**

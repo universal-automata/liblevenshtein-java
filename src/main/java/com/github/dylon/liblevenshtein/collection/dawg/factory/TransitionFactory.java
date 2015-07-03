@@ -19,9 +19,9 @@ import com.github.dylon.liblevenshtein.collection.dawg.Transition;
 public class TransitionFactory<NodeType extends IDawgNode<NodeType>>
   implements ITransitionFactory<NodeType> {
 
-	/**
-	 * Object pool for recycled {@link Transition}s.
-	 */
+  /**
+   * Object pool for recycled {@link Transition}s.
+   */
   Queue<Transition<NodeType>> transitions = new ArrayDeque<>();
 
   /**

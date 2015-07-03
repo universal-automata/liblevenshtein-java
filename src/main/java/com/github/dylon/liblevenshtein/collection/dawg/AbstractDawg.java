@@ -62,10 +62,10 @@ public abstract class AbstractDawg
   @Getter(onMethod=@_({@Override}))
   final DawgNode root;
 
-	/**
-	 * Number of terms in this trie.
-	 * @return Number of terms in this trie.
-	 */
+  /**
+   * Number of terms in this trie.
+   * @return Number of terms in this trie.
+   */
   @Getter(onMethod=@_({@Override}))
   int size = 0;
 

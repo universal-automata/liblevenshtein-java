@@ -17,10 +17,10 @@ import com.github.dylon.liblevenshtein.collection.AbstractIterator;
  */
 public class DawgIterator extends AbstractIterator<String> {
 
-	/**
-	 * Queue for traversing the terms in the {@link AbstractDawg} in a
-	 * depth-first search manner.
-	 */
+  /**
+   * Queue for traversing the terms in the {@link AbstractDawg} in a
+   * depth-first search manner.
+   */
   private final Queue<Prefix<DawgNode>> prefixes = new ArrayDeque<>();
 
   /**

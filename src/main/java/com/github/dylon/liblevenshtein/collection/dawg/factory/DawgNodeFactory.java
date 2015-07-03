@@ -19,9 +19,9 @@ import com.github.dylon.liblevenshtein.collection.dawg.DawgNode;
  */
 public class DawgNodeFactory implements IDawgNodeFactory<DawgNode> {
 
-	/**
-	 * Caches {@link DawgNode} instances to recycle from {@link #build()}.
-	 */
+  /**
+   * Caches {@link DawgNode} instances to recycle from {@link #build()}.
+   */
   private final Queue<DawgNode> queue = new ArrayDeque<>();
 
   /**

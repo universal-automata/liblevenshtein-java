@@ -17,14 +17,14 @@ import com.github.dylon.liblevenshtein.collection.dawg.Prefix;
 @FieldDefaults(level=AccessLevel.PRIVATE, makeFinal=true)
 public class PrefixFactory<DictionaryNode> implements IPrefixFactory<DictionaryNode> {
 
-	/**
-	 * Object pool of recycled {@link Prefix}es.
-	 */
+  /**
+   * Object pool of recycled {@link Prefix}es.
+   */
   Queue<Prefix<DictionaryNode>> prefixes = new ArrayDeque<>();
 
-	/**
-	 * {@inheritDoc}
-	 */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Prefix<DictionaryNode> build(DictionaryNode node, String value) {
     Prefix<DictionaryNode> prefix = prefixes.poll();
@@ -36,9 +36,9 @@ public class PrefixFactory<DictionaryNode> implements IPrefixFactory<DictionaryN
     return prefix.node(node).value(value);
   }
 
-	/**
-	 * {@inheritDoc}
-	 */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void recycle(Prefix<DictionaryNode> prefix) {
     prefix.node(null).value(null);

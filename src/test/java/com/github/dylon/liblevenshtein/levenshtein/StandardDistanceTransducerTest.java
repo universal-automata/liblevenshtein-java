@@ -88,8 +88,8 @@ public class StandardDistanceTransducerTest extends AbstractTransducerTest {
       final int actualDistance = actualCandidate.distance();
       final int expectedDistance = distance.between(actualTerm, QUERY_TERM);
       assertEquals(actualDistance, expectedDistance,
-      	String.format("Expected d(%s, %s) = %d, but was %d",
-      		actualTerm, QUERY_TERM, expectedDistance, actualDistance));
+        String.format("Expected d(%s, %s) = %d, but was %d",
+          actualTerm, QUERY_TERM, expectedDistance, actualDistance));
       assertTrue(expectedCandidates.contains(actualCandidate),
           "expectedCandidates does not contain ["+actualCandidate+"]");
       expectedCandidates.remove(actualCandidate);

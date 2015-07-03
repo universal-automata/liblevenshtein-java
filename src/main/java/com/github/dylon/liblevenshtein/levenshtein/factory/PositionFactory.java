@@ -10,9 +10,9 @@ import java.util.Queue;
  */
 public abstract class PositionFactory implements IPositionFactory {
 
-	/**
-	 * Object pool for recycled positions.
-	 */
+  /**
+   * Object pool for recycled positions.
+   */
   protected final Queue<int[]> positions = new ArrayDeque<>();
 
   /**

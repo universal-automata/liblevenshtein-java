@@ -15,34 +15,34 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class Prefix<DictionaryNode> {
 
-	/**
-	 * Current node in the trie.
-	 * -- GETTER --
-	 * Current node in the trie.
-	 * @return Current node in the trie.
-	 * -- SETTER --
-	 * Current node in the trie.
-	 * @param node Current node in the trie.
-	 * @return This {@link Prefix} for fluency.
-	 */
+  /**
+   * Current node in the trie.
+   * -- GETTER --
+   * Current node in the trie.
+   * @return Current node in the trie.
+   * -- SETTER --
+   * Current node in the trie.
+   * @param node Current node in the trie.
+   * @return This {@link Prefix} for fluency.
+   */
   DictionaryNode node;
 
-	/**
-	 * Value of the string built by traversing the DAWG from its root node to this
-	 * one, and accumulating the character values of the nodes along the way.
-	 * -- GETTER --
-	 * Value of the string built by traversing the DAWG from its root node to this
-	 * one, and accumulating the character values of the nodes along the way.
-	 * @return Value of the string built by traversing the DAWG from its root node
-	 * to this one, and accumulating the character values of the nodes along the
-	 * way.
-	 * -- SETTER --
-	 * Value of the string built by traversing the DAWG from its root node to this
-	 * one, and accumulating the character values of the nodes along the way.
-	 * @param value Value of the string built by traversing the DAWG from its root
-	 * node to this one, and accumulating the character values of the nodes along
-	 * the way.
-	 * @return This {@link Prefix} for fluency.
-	 */
+  /**
+   * Value of the string built by traversing the DAWG from its root node to this
+   * one, and accumulating the character values of the nodes along the way.
+   * -- GETTER --
+   * Value of the string built by traversing the DAWG from its root node to this
+   * one, and accumulating the character values of the nodes along the way.
+   * @return Value of the string built by traversing the DAWG from its root node
+   * to this one, and accumulating the character values of the nodes along the
+   * way.
+   * -- SETTER --
+   * Value of the string built by traversing the DAWG from its root node to this
+   * one, and accumulating the character values of the nodes along the way.
+   * @param value Value of the string built by traversing the DAWG from its root
+   * node to this one, and accumulating the character values of the nodes along
+   * the way.
+   * @return This {@link Prefix} for fluency.
+   */
   String value;
 }

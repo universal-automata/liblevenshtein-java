@@ -54,9 +54,9 @@ public class DawgNode implements IDawgNode<DawgNode> {
     edges.clear();
   }
 
-	/**
-	 * {@inheritDoc}
-	 */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   @SuppressWarnings("unchecked")
   public boolean equals(final Object o) {
@@ -78,9 +78,9 @@ public class DawgNode implements IDawgNode<DawgNode> {
     return true;
   }
 
-	/**
-	 * {@inheritDoc}
-	 */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public int hashCode() {
     // NOTE: It looks like this gets called twice (consecutively) during
@@ -96,9 +96,9 @@ public class DawgNode implements IDawgNode<DawgNode> {
     return builder.toHashCode();
   }
 
-	/**
-	 * {@inheritDoc}
-	 */
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public String toString() {
     final StringBuilder buffer = new StringBuilder();

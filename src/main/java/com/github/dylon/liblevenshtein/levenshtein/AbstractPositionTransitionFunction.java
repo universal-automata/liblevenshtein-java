@@ -19,22 +19,22 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IStateFactory;
 public abstract class AbstractPositionTransitionFunction
   implements IPositionTransitionFunction {
 
-	/**
-	 * Builds and caches states for the transducer.
-	 * -- SETTER --
-	 * Builds and caches states for the transducer.
-	 * @param stateFactory Builds and caches states for the transducer.
-	 * @return This {@link AbstractPositionTransitionFunction} for fluency.
-	 */
+  /**
+   * Builds and caches states for the transducer.
+   * -- SETTER --
+   * Builds and caches states for the transducer.
+   * @param stateFactory Builds and caches states for the transducer.
+   * @return This {@link AbstractPositionTransitionFunction} for fluency.
+   */
   @Setter IStateFactory stateFactory;
 
-	/**
-	 * Builds and caches positions for states in the transducer.
-	 * -- SETTER --
-	 * Builds and caches positions for states in the transducer.
-	 * @param positionFactory Builds and caches positions for states in the transducer.
-	 * @return This {@link AbstractPositionTransitionFunction} for fluency.
-	 */
+  /**
+   * Builds and caches positions for states in the transducer.
+   * -- SETTER --
+   * Builds and caches positions for states in the transducer.
+   * @param positionFactory Builds and caches positions for states in the transducer.
+   * @return This {@link AbstractPositionTransitionFunction} for fluency.
+   */
   @Setter IPositionFactory positionFactory;
 
   /**

@@ -11,15 +11,15 @@ import com.github.dylon.liblevenshtein.collection.dawg.Transition;
  */
 public interface ITransitionFactory<NodeType extends IDawgNode<NodeType>> {
 
-	/**
-	 * Builds or recycles a {@link Transition} object representing an edge from
-	 * {@code source} to {@code target}, annotated with {@code label}.
-	 * @param source Node from which the transition is leaving.
-	 * @param label Label that joins {@code source} and {@code target} together.
-	 * @param target Node to which the transition is going.
-	 * @return A {@link Transition} linking {@code source} to {@code target},
-	 * under {@code label}.
-	 */
+  /**
+   * Builds or recycles a {@link Transition} object representing an edge from
+   * {@code source} to {@code target}, annotated with {@code label}.
+   * @param source Node from which the transition is leaving.
+   * @param label Label that joins {@code source} and {@code target} together.
+   * @param target Node to which the transition is going.
+   * @return A {@link Transition} linking {@code source} to {@code target},
+   * under {@code label}.
+   */
   Transition<NodeType> build(NodeType source, char label, NodeType target);
 
   /**

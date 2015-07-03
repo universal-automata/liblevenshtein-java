@@ -11,15 +11,15 @@ import lombok.Value;
 @Value
 public class Candidate {
 
-	/**
-	 * Candidate term from the dictionary automaton.
-	 * @return Candidate term from the dictionary automaton.
-	 */
+  /**
+   * Candidate term from the dictionary automaton.
+   * @return Candidate term from the dictionary automaton.
+   */
   String term;
 
-	/**
-	 * Distance between the candidate term and the query term.
-	 * @return Distance between the candidate term and the query term.
-	 */
+  /**
+   * Distance between the candidate term and the query term.
+   * @return Distance between the candidate term and the query term.
+   */
   int distance;
 }

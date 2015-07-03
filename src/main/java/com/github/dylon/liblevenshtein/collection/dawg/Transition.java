@@ -13,39 +13,39 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Transition<NodeType extends IDawgNode<NodeType>> {
 
-	/**
-	 * Node from which the transition is leaving.
-	 * -- GETTER --
-	 * Node from which the transition is leaving.
-	 * @return Node from which the transition is leaving.
-	 * -- SETTER --
-	 * Node from which the transition is leaving.
-	 * @param source Node from which the transition is leaving.
-	 * @return This {@link Transition} for fluency.
-	 */
+  /**
+   * Node from which the transition is leaving.
+   * -- GETTER --
+   * Node from which the transition is leaving.
+   * @return Node from which the transition is leaving.
+   * -- SETTER --
+   * Node from which the transition is leaving.
+   * @param source Node from which the transition is leaving.
+   * @return This {@link Transition} for fluency.
+   */
   NodeType source;
 
-	/**
-	 * Label mapping {@link #source} to {@link #target}
-	 * -- GETTER --
-	 * Label mapping {@link #source} to {@link #target}
-	 * @return Label mapping {@link #source} to {@link #target}
-	 * -- SETTER --
-	 * Label mapping {@link #source} to {@link #target}
-	 * @param label Label mapping {@link #source} to {@link #target}
-	 * @return This {@link Transition} for fluency.
-	 */
+  /**
+   * Label mapping {@link #source} to {@link #target}
+   * -- GETTER --
+   * Label mapping {@link #source} to {@link #target}
+   * @return Label mapping {@link #source} to {@link #target}
+   * -- SETTER --
+   * Label mapping {@link #source} to {@link #target}
+   * @param label Label mapping {@link #source} to {@link #target}
+   * @return This {@link Transition} for fluency.
+   */
   char label;
 
-	/**
-	 * Node to which the transition is going.
-	 * -- GETTER --
-	 * Node to which the transition is going.
-	 * @return This {@link Transition} for fluency.
-	 * -- SETTER --
-	 * Node to which the transition is going.
-	 * @param target Node to which the transition is going.
-	 * @return Node to which the transition is going.
-	 */
+  /**
+   * Node to which the transition is going.
+   * -- GETTER --
+   * Node to which the transition is going.
+   * @return This {@link Transition} for fluency.
+   * -- SETTER --
+   * Node to which the transition is going.
+   * @param target Node to which the transition is going.
+   * @return Node to which the transition is going.
+   */
   NodeType target;
 }
