@@ -66,7 +66,6 @@ public abstract class UnsubsumeFunction implements IUnsubsumeFunction {
 
           if (subsumes.at(i,e, j,f)) {
             state.removeInner();
-            positionFactory.recycle(inner);
           }
           else {
             n += 1;
@@ -113,7 +112,6 @@ public abstract class UnsubsumeFunction implements IUnsubsumeFunction {
 
           if (subsumes.at(i,e,s, j,f,t, n)) {
             state.removeInner();
-            positionFactory.recycle(inner);
           }
           else {
             n += 1;

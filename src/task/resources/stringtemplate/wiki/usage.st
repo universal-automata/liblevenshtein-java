@@ -18,6 +18,7 @@ The easiest way to use the library is through the [`TransducerBuilder`](https://
   - If this is `false` then your queries will just return a collection of `String` objects, which are the spelling candidates.
   - By default, this is `true`.
 4. `TransducerBuilder.maxCandidates(maxCandidates : int) : TransducerBuilder`
+  - NOTE: This option has been deprecated, and will be removed in the next, major version.  Candidate collections are now lazy, so this method is no longer needed.
   - If you want to limit the number of candidates returned, then you may specify this parameter.  No more candidates then what you specify will be returned from any given query.  Keep in mind that at the moment, there is no ordering on the candidates returned so you are not guaranteed to get the nearest candidates, first.  I'm working on an admissible heuristic that will let me return the candidates in an ordered fashion, customizable upon construction.
   - By default this is set to `Integer.MAX_VALUE`.
 5. `TransducerBuilder.dictionary(dictionary : Collection<String>) : ITransducerBuilder`
@@ -103,6 +104,21 @@ public class GetSpellingCandidates {
 # maximum distance of 2, and the following terms to find spelling candidates
 # for: foo; bar; baz
 java pkg.of.awesomeness.GetSpellingCandidates /path/to/dictionary.txt 2 foo bar baz
+```
+
+### Traditional Levenshtein Metrics
+
+There are some traditional metrics, that measure the Levenshtein distances between two terms.  They are included mainly for validating the correctness of the Levenshtein automata, but there may be other uses for them.  The implementations memoize distances between terms to make them more performance, so keep in mind that repeated use may cause their memory consumptions to keep growing.
+
+- `MemoizedTransposition.between(String,String):int`
+- `MemoizedStandard.between(String,String):int`
+- `MemoizedMergeAndSplit.between(String,String):int`
+
+The algorithms are the same as those described above, but the metrics measure the distance between two, and exactly two terms.
+
+```java
+final IDistance<String> distance = new MemoizedTransposition();
+System.out.println(distance.between("foo", "ofo")); //-> 1
 ```
 
 [liblevenshtein](https://github.com/universal-automata/liblevenshtein) is maintained by [@dylon](https://github.com/dylon)

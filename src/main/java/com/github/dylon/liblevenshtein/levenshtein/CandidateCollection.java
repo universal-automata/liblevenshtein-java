@@ -11,11 +11,26 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
+ * <p>
+ * <b>WARNING</b> This class is deprecated and will be removed in the next major
+ * release.  Please migrate your code to use
+ * {@link com.github.dylon.liblevenshtein.levenshtein.factory.ICandidateFactory}
+ * and an instance of
+ * {@link com.github.dylon.liblevenshtein.levenshtein.ICandidateCollection}
+ * that can make use of it.
+ * </p>
+ *
+ * <p>
  * Collection of all candidates from the dictionary that are no further than the
  * specified distance from the query term.
+ * </p>
+ *
+ * @param <Type> Kind of the spelling candidates returned from the dictionary.
+ *
  * @author Dylon Edwards
  * @since 2.1.0
  */
+@Deprecated
 @FieldDefaults(level=AccessLevel.PROTECTED, makeFinal=true)
 public abstract class CandidateCollection<Type>
   implements ICandidateCollection<Type> {

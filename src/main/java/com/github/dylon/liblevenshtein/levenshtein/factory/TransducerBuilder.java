@@ -1,12 +1,16 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import lombok.AccessLevel;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import lombok.val;
 
+import com.github.dylon.liblevenshtein.collection.TakeIterator;
 import com.github.dylon.liblevenshtein.collection.dawg.AbstractDawg;
 import com.github.dylon.liblevenshtein.collection.dawg.DawgNode;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgFactory;
@@ -14,9 +18,11 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IDawgFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.PrefixFactory;
+import com.github.dylon.liblevenshtein.collection.dawg.factory.PrefixFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.TransitionFactory;
 import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
 import com.github.dylon.liblevenshtein.levenshtein.Candidate;
+import com.github.dylon.liblevenshtein.levenshtein.ICandidateCollection;
 import com.github.dylon.liblevenshtein.levenshtein.IDistanceFunction;
 import com.github.dylon.liblevenshtein.levenshtein.IState;
 import com.github.dylon.liblevenshtein.levenshtein.ITransducer;
@@ -25,6 +31,7 @@ import com.github.dylon.liblevenshtein.levenshtein.StandardPositionComparator;
 import com.github.dylon.liblevenshtein.levenshtein.StandardPositionDistanceFunction;
 import com.github.dylon.liblevenshtein.levenshtein.SubsumesFunction;
 import com.github.dylon.liblevenshtein.levenshtein.Transducer;
+import com.github.dylon.liblevenshtein.levenshtein.TransducerAttributes;
 import com.github.dylon.liblevenshtein.levenshtein.UnsubsumeFunction;
 import com.github.dylon.liblevenshtein.levenshtein.XPositionComparator;
 import com.github.dylon.liblevenshtein.levenshtein.XPositionDistanceFunction;
@@ -97,13 +104,23 @@ public class TransducerBuilder implements ITransducerBuilder {
    * If desired, the maximum number of elements in the collections of spelling
    * candidates.
    * -- SETTER --
+   * <p>
+   * <b>WARNING</b> This parameter has been deprecated and is schemduled for
+   * removal in the next major release.  Rather than specifying it here, take
+   * {@link #maxCandidates} number of elements from the {@link ICandidateCollection}
+   * returned from the transducer.
+   * </p>
+   *
+   * <p>
    * If desired, the maximum number of elements in the collections of spelling
    * candidates.
+   * </p>
+   *
    * @param maxCandidates If desired, the maximum number of elements in the
    * collections of spelling candidates.
    * @return This {@link TransducerBuilder} for fluency.
    */
-  @Setter(onMethod=@_({@Override}))
+  @Setter(onMethod=@_({@Override, @Deprecated}))
   int maxCandidates = Integer.MAX_VALUE;
 
   /**
@@ -141,22 +158,26 @@ public class TransducerBuilder implements ITransducerBuilder {
     final IStateFactory stateFactory =
       new StateFactory().elementFactory(new ElementFactory<int[]>());
 
-    return buildTransducer()
-        .defaultMaxDistance(defaultMaxDistance)
-        .stateTransitionFactory(buildStateTransitionFactory(stateFactory))
-        .candidatesBuilder(includeDistance
-            ? new CandidateCollectionBuilder
-              .WithDistance()
-                .maxCandidates(maxCandidates)
-            : new CandidateCollectionBuilder
-              .WithoutDistance()
-                .maxCandidates(maxCandidates))
-        .intersectionFactory(new IntersectionFactory<DawgNode>())
-        .minDistance(buildMinDistance())
-        .isFinal(dawgFactory.isFinal(dictionary))
-        .dictionaryTransition(dawgFactory.transition(dictionary))
-        .initialState(buildInitialState(stateFactory))
-        .dictionaryRoot(dictionary.root());
+    final TransducerAttributes attributes = new TransducerAttributes()
+      .maxDistance(defaultMaxDistance)
+      .stateTransitionFactory(buildStateTransitionFactory(stateFactory))
+      .candidateFactory(includeDistance
+          ? new CandidateFactory.WithDistance()
+          : new CandidateFactory.WithoutDistance())
+      .intersectionFactory(new IntersectionFactory<DawgNode>())
+      .minDistance(buildMinDistance())
+      .isFinal(dawgFactory.isFinal(dictionary))
+      .dictionaryTransition(dawgFactory.transition(dictionary))
+      .initialState(buildInitialState(stateFactory))
+      .dictionaryRoot(dictionary.root());
+
+    val transducer = new Transducer<DawgNode, CandidateType>(attributes);
+
+    if (maxCandidates == Integer.MAX_VALUE) {
+      return transducer;
+    }
+
+    return new DeprecatedTransducerForLimitingNumberOfCandidates(maxCandidates, transducer);
   }
 
   /**
@@ -192,16 +213,6 @@ public class TransducerBuilder implements ITransducerBuilder {
       default:
         throw new IllegalArgumentException("Unsupported Algorithm: " + algorithm);
     }
-  }
-
-  /**
-   * Builds a new of the requested type.
-   * @param <CandidateType> Kind of the spelling candidates (e.g.
-   * {@link Candidate} or {@link String}).
-   * @return New {@link Transducer} of the requested kind.
-   */
-  protected <CandidateType> Transducer<DawgNode, CandidateType> buildTransducer() {
-    return new Transducer<DawgNode, CandidateType>();
   }
 
   /**
@@ -268,5 +279,63 @@ public class TransducerBuilder implements ITransducerBuilder {
       .positionFactory(positionFactory);
 
     return stateTransitionFactory;
+  }
+
+  /**
+   * Restricts the number of spelling candidates for a query.  This class is
+   * only intended as a temporary shim until I remove
+   * {@link TransducerBuilder#maxCandidates} from the next API.
+   * @param <CandidateType> Kind of spelling candidates returned.
+   * @author Dylon Edwards
+   * @since 2.1.2
+   */
+  @Deprecated
+  @RequiredArgsConstructor
+  private static class DeprecatedTransducerForLimitingNumberOfCandidates<CandidateType>
+      implements ITransducer<CandidateType> {
+
+    /**
+     * Number of elements to take from the spelling candidates.
+     */
+    private final int elementsToTake;
+
+    /**
+     * Searches the dictionary automaton for spelling candidates.
+     */
+    @NonNull private final ITransducer<CandidateType> transducer;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ICandidateCollection<CandidateType> transduce(final String term) {
+      return limit(transducer.transduce(term));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ICandidateCollection<CandidateType> transduce(
+        final String term,
+        final int maxCandidates) {
+      return limit(transducer.transduce(term, maxCandidates));
+    }
+
+    /**
+     * Returns an {@link ICandidateCollection} that only returns the first
+     * {@link #elementsToTake} elements from {@code candidates}.
+     * @param candidates Spelling candidates for some query.
+     * @return {@link ICandidateCollection} that only returns the first
+     * {@link #elementsToTake} candidates.
+     */
+    private ICandidateCollection<CandidateType> limit(
+        final ICandidateCollection<CandidateType> candidates) {
+      return new ICandidateCollection<CandidateType>() {
+        @Override public Iterator<CandidateType> iterator() {
+          return new TakeIterator<CandidateType>(elementsToTake, candidates.iterator());
+        }
+      };
+    }
   }
 }

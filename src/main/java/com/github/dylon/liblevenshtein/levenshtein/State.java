@@ -231,7 +231,6 @@ public class State implements IState {
     }
 
     final int[] position = inner.value();
-    factory.recycle(inner);
     size -= 1;
 
     return position;
@@ -246,7 +245,6 @@ public class State implements IState {
 
     while (null != tail) {
       final Element<int[]> prev = tail.prev();
-      factory.recycle(tail);
       tail = prev;
     }
 
@@ -323,7 +321,6 @@ public class State implements IState {
       curr.prev(null);
     }
 
-    factory.recycle(next);
     return curr;
   }
 

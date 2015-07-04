@@ -60,9 +60,6 @@ public abstract class MergeFunction implements IMergeFunction {
           if (j != i || f != e) {
             state.insert(n, a);
           }
-          else {
-            positionFactory.recycle(a);
-          }
         }
         else {
           state.add(a);
@@ -113,9 +110,6 @@ public abstract class MergeFunction implements IMergeFunction {
 
           if (j != i || f != e || t != s) {
             state.insert(n, a);
-          }
-          else {
-            positionFactory.recycle(a);
           }
         }
         else {

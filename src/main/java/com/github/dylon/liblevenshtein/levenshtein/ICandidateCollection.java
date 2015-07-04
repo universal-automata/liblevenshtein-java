@@ -20,5 +20,8 @@ public interface ICandidateCollection<Type> extends Iterable<Type> {
    * query term.
    * @return Whether {@code term} was accepted into this collection.
    */
-  boolean offer(String term, int distance);
+  default boolean offer(String term, int distance) {
+    throw new UnsupportedOperationException(
+      "offer(String,int) is not supported by this implementation");
+  }
 }

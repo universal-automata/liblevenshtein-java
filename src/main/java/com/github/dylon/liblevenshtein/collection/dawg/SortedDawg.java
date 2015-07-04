@@ -161,13 +161,11 @@ public class SortedDawg extends AbstractDawg {
       if (null != existing) {
         finalNodes.remove(target);
         source.addEdge(label, existing);
-        factory.recycle(target);
       }
       else {
         source.addEdge(label, target);
         minimizedNodes.put(targetKey, target);
       }
-      transitionFactory.recycle(transition);
     }
   }
 

@@ -70,7 +70,6 @@ public class DawgIterator extends AbstractIterator<String> {
                 "Failed to enqueue prefix value: " + nextValue);
           }
         }
-        prefixFactory.recycle(prefix);
       }
       while (!isFinal.at(node));
       this.next = value;

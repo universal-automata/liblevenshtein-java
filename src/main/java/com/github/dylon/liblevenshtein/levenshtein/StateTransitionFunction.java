@@ -86,36 +86,28 @@ public class StateTransitionFunction implements IStateTransitionFunction {
       final boolean[] characteristicVector) {
 
     final IPositionTransitionFunction transition = transitionFactory.build();
+    final int offset = currState.getOuter(0)[0];
+    final IState nextState = stateFactory.build();
+    final int n = maxDistance;
 
-    try {
-      final int offset = currState.getOuter(0)[0];
-      final IState nextState = stateFactory.build();
-      final int n = maxDistance;
+    for (int m = 0; m < currState.size(); ++m) {
+      final IState positions =
+        transition.of(n, currState.getOuter(m), characteristicVector, offset);
 
-      for (int m = 0; m < currState.size(); ++m) {
-        final IState positions =
-          transition.of(n, currState.getOuter(m), characteristicVector, offset);
-
-        if (null == positions) {
-          continue;
-        }
-
-        merge.into(nextState, positions);
-        stateFactory.recycle(positions);
+      if (null == positions) {
+        continue;
       }
 
-      unsubsume.at(nextState);
-
-      if (nextState.size() > 0) {
-        nextState.sort(comparator);
-        return nextState;
-      }
-
-      stateFactory.recycle(nextState);
-      return null;
+      merge.into(nextState, positions);
     }
-    finally {
-      transitionFactory.recycle(transition);
+
+    unsubsume.at(nextState);
+
+    if (nextState.size() > 0) {
+      nextState.sort(comparator);
+      return nextState;
     }
+
+    return null;
   }
 }
