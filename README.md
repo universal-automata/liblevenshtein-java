@@ -32,6 +32,13 @@ will be porting it to other languages, soon.  If you have a specific language
 you would like to see it in, or package-management system you would like it
 deployed to, let me know.
 
+### Documentation
+
+When it comes to documentation, you have several options:
+- [Wiki](https://github.com/universal-automata/liblevenshtein/wiki)
+- [Javadoc](http://universal-automata.github.io/liblevenshtein/docs/javadoc/)
+- [Source Code](https://github.com/universal-automata/liblevenshtein-java/tree/master/src)
+
 ### Basic Usage:
 
 ### Minimum Java Version
