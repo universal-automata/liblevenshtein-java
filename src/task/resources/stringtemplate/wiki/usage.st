@@ -34,7 +34,7 @@ The easiest way to use the library is through the [`TransducerBuilder`](https://
 
 Once you have an instance of `ITransducer`, you may query it via `ITransducer<CandidateType>.transduce(term : String) : ICandiateCollection<CandidateType>` or `ITransducer<CandidateType>.transduce(term : String, maxDistance : int) : ICandiateCollection<CandidateType>`.  You should use the latter if you want to use a maximum edit distance that is different from the default (specified by `TransducerBuilder.defaultMaxDistance(defaultMaxDistance : int) : TransducerBuilder`).  The collection returned is `Iterable`, so you probably want to use a `for-each` loop (you may certainly use the `Iterator` directly, if that's your cup of tea).
 
-The transducer may be reused, but is not currently threadsafe.  Keep that in mind.  I'll fix this soon.
+Please not that the transducer may be reused, by repeatedly calling <code>transduce(String)</code>.  It is also threadsafe and non-blocking, so you may share the same transducer across multiple threads.
 
 Here's a toy example that uses the `TRANSPOSITION` algorithm:
 
