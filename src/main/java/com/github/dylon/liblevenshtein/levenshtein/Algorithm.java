@@ -15,7 +15,7 @@ public enum Algorithm {
   STANDARD,
 
   /**
-   * Somethimes known as Damerau–Levenshtein distance, this includes the
+   * Sometimes known as Damerau–Levenshtein distance, this includes the
    * elementary operations described by the standard algorithm, as well as the
    * elementary operation, transposition, which would incur a penalty of two
    * units of error in the standard algorithm (whether it be an insertion and
