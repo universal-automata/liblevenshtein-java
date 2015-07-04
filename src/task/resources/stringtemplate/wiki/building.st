@@ -1,9 +1,9 @@
-building(groupId, artifactId, version) ::= <<
+building(groupId, artifactId, version, gradleVersion, javaSourceVersion, javaTargetVersion) ::= <<
 [Home](Home) > [Building](building) > Java
 
 Run `gradle jar`.  That's it!  Gradle will download the required dependencies,
 compile the sources and zip them into a Jar.  You may find the Jar at the
-following location: `build/libs/liblevenshtein-$version$.jar`
+following location: `build/libs/$artifactId$-$version$.jar`
 
 ```
 % gradle jar

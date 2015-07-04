@@ -16,8 +16,8 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 ext {
-	srcJava = "$projectDir/src/main/java"
-	srcDelomboked = "$buildDir/src-delomboked/main/java"
+  srcJava = "$projectDir/src/main/java"
+  srcDelomboked = "$buildDir/src-delomboked/main/java"
 
   def groupPart = group.replaceAll('\\.', '/')
   def pomFileName = "${name}-${version}.pom"
@@ -100,17 +100,17 @@ def exec(classpath, mainClass, args=[]) {
 task syntastic(dependsOn: taskClasses) {
   description = 'Dumps the classpaths a file that can be read by Syntastic.vim'
   doLast {
-  	def classpath = configurations.taskCompile
-  	classpath += files(sourceSets.task.output.classesDir)
-  	classpath += files(sourceSets.task.output.resourcesDir)
-  	sourceSets.each() {classpath += it.runtimeClasspath}
+    def classpath = configurations.taskCompile
+    classpath += files(sourceSets.task.output.classesDir)
+    classpath += files(sourceSets.task.output.resourcesDir)
+    sourceSets.each() {classpath += it.runtimeClasspath}
 
-		def configPath = "${projectDir}/.vimrc.local".toString()
+    def configPath = "${projectDir}/.vimrc.local".toString()
 
-		exec(classpath, 'com.github.dylon.liblevenshtein.task.GenerateSyntasticConfig', [
-			classpath.asPath,
-			configPath
-		])
+    exec(classpath, 'com.github.dylon.liblevenshtein.task.GenerateSyntasticConfig', [
+      classpath.asPath,
+      configPath
+    ])
   }
 }
 
@@ -119,27 +119,48 @@ task(shell, dependsOn: classes) {
     'Groovy repl with this project and all its dependencies on the $CLASSPATH'
 
   doLast {
-  	def classpath = configurations.shell
-  	classpath += files(sourceSets.task.output.classesDir)
-  	classpath += files(sourceSets.task.output.resourcesDir)
-  	sourceSets.each() {classpath += it.runtimeClasspath}
-  	exec(classpath, 'org.codehaus.groovy.tools.shell.Main', ['--color'])
+    def classpath = configurations.shell
+    classpath += files(sourceSets.task.output.classesDir)
+    classpath += files(sourceSets.task.output.resourcesDir)
+    sourceSets.each() {classpath += it.runtimeClasspath}
+    exec(classpath, 'org.codehaus.groovy.tools.shell.Main', ['--color'])
   }
 }
 
 task wikidoc(dependsOn: taskClasses) {
-	description = 'Generates GitHub, wiki documentation'
-	doLast {
-		def classpath = configurations.taskCompile
-  	classpath += files(sourceSets.task.output.classesDir)
-  	classpath += files(sourceSets.task.output.resourcesDir)
-		exec(classpath, 'com.github.dylon.liblevenshtein.task.GenerateWikidoc', [
-			rootProject.group,
-			rootProject.name,
-			rootProject.version,
-			wikidocDir.path
-		])
-	}
+  description = 'Generates GitHub, wiki documentation'
+  doLast {
+    def classpath = configurations.taskCompile
+    classpath += files(sourceSets.task.output.classesDir)
+    classpath += files(sourceSets.task.output.resourcesDir)
+    exec(classpath, 'com.github.dylon.liblevenshtein.task.GenerateWikidoc', [
+      rootProject.group,
+      rootProject.name,
+      rootProject.version,
+      wikidocDir.path,
+      gradle.gradleVersion,
+      sourceCompatibility.toString(),
+      targetCompatibility.toString()
+    ])
+  }
+}
+
+task readme(dependsOn: taskClasses) {
+  description = 'Keeps the README.md up-to-date'
+  doLast {
+    def classpath = configurations.taskCompile
+    classpath += files(sourceSets.task.output.classesDir)
+    classpath += files(sourceSets.task.output.resourcesDir)
+    exec(classpath, 'com.github.dylon.liblevenshtein.task.GenerateReadme', [
+      rootProject.group,
+      rootProject.name,
+      rootProject.version,
+      "$projectDir/README.md".toString(),
+      gradle.gradleVersion,
+      sourceCompatibility.toString(),
+      targetCompatibility.toString()
+    ])
+  }
 }
 
 tasks.withType(FindBugs) {

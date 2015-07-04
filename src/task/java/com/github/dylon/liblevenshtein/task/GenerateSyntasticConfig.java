@@ -16,14 +16,14 @@ public class GenerateSyntasticConfig {
     final Path configPath = Paths.get(args[1]);
 
     final STGroup group = new STGroupDir("stringtemplate");
-		final ST template = group.getInstanceOf("syntastic");
-		template.add("classpath", classpath);
+    final ST template = group.getInstanceOf("syntastic");
+    template.add("classpath", classpath);
 
-		String configText = template.render();
-		if ('\n' != configText.charAt(configText.length() - 1)) {
-			configText += "\n"; // make sure it ends with a newline
-		}
+    String configText = template.render();
+    if ('\n' != configText.charAt(configText.length() - 1)) {
+      configText += "\n"; // make sure it ends with a newline
+    }
 
-		Files.write(configPath, configText.getBytes(StandardCharsets.UTF_8));
-	}
+    Files.write(configPath, configText.getBytes(StandardCharsets.UTF_8));
+  }
 }

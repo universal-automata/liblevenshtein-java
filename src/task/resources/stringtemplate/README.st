@@ -1,3 +1,4 @@
+README(groupId, artifactId, version, gradleVersion, javaSourceVersion, javaTargetVersion) ::= <<
 # liblevenshtein
 
 ## Java
@@ -44,25 +45,25 @@ Levenshtein-Automata](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.16
 
 ### Minimum Java Version
 
-liblevenshtein has been developed against Java >= 1.8.  It will not work with prior versions.
+liblevenshtein has been developed against Java >= $javaTargetVersion$.  It will not work with prior versions.
 
 #### Installation
 
 ##### Gradle
 
-Add a dependency on com.github.dylon:liblevenshtein:2.1.0 to your project's <code>build.gradle</code>:
+Add a dependency on $groupId$:$artifactId$:$version$ to your project's <code>build.gradle</code>:
 
 ```groovy
 // ...
 dependencies {
-  compile 'com.github.dylon:liblevenshtein:2.1.0'
+  compile '$groupId$:$artifactId$:$version$'
 }
 // ...
 ```
 
 ##### Maven
 
-Add a dependency on com.github.dylon:liblevenshtein:2.1.0 to your project's POM:
+Add a dependency on $groupId$:$artifactId$:$version$ to your project's POM:
 
 ```xml
 <project>
@@ -70,9 +71,9 @@ Add a dependency on com.github.dylon:liblevenshtein:2.1.0 to your project's POM:
   <dependencies>
     <!-- ... -->
     <dependency>
-      <groupId>com.github.dylon</groupId>
-      <artifactId>liblevenshtein</artifactId>
-      <version>2.1.0</version>
+      <groupId>$groupId$</groupId>
+      <artifactId>$artifactId$</artifactId>
+      <version>$version$</version>
     </dependency>
     <!-- ... -->
   </dependencies>
@@ -85,7 +86,7 @@ Add a dependency on com.github.dylon:liblevenshtein:2.1.0 to your project's POM:
 You probably don't want this option unless you just want to dig through the source or help me with maintenance (yes, please!), but if you'd like to checkout the Git repo, clone it from GitHub:
 
 ```
-$ git clone https://github.com/universal-automata/liblevenshtein-java.git
+\$ git clone https://github.com/universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
 remote: Counting objects: 1570, done.
 remote: Compressing objects: 100% (23/23), done.
@@ -177,3 +178,5 @@ Mitankin: "[Fast String Correction with
 Levenshtein-Automata](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.16.652
 "Klaus Schulz and Stoyan Mihov (2002)")".  For more details, please see the
 [wiki](https://github.com/universal-automata/liblevenshtein/wiki).
+>>
+/* vim: set ft=ghmarkdown: */

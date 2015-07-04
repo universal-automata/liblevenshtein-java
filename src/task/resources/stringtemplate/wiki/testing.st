@@ -1,4 +1,4 @@
-testing(groupId, artifactId, version) ::= <<
+testing(groupId, artifactId, version, gradleVersion, javaSourceVersion, javaTargetVersion) ::= <<
 [Home](Home) > [Testing](testing) > Java
 
 Just run `gradle test`:

@@ -1,10 +1,44 @@
-installation(groupId, artifactId, version) ::= <<
+installation(groupId, artifactId, version, gradleVersion, javaSourceVersion, javaTargetVersion) ::= <<
 [Home](Home) > [Installation](installation) > Java
 
-Install Gradle >= 2.4 and checkout the Java repository:
+# Gradle
+
+Add a dependency on $groupId$:$artifactId$:$version$ to your project's <code>build.gradle</code>:
+
+```groovy
+// ...
+dependencies {
+  compile '$groupId$:$artifactId$:$version$'
+}
+// ...
+```
+
+# Maven
+
+Add a dependency on $groupId$:$artifactId$:$version$ to your project's POM:
+
+```xml
+<project>
+  <!-- ... -->
+  <dependencies>
+    <!-- ... -->
+    <dependency>
+      <groupId>$groupId$</groupId>
+      <artifactId>$artifactId$</artifactId>
+      <version>$version$</version>
+    </dependency>
+    <!-- ... -->
+  </dependencies>
+  <!-- ... -->
+</project>
+```
+
+# Git
+
+Install Gradle >= $gradleVersion$ and checkout the Java repository:
 
 ```
-% git clone https://github.com/dylon/liblevenshtein-java.git
+% git clone https://github.com/universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
 remote: Counting objects: 1340, done.
 remote: Compressing objects: 100% (22/22), done.
@@ -16,7 +50,7 @@ Checking connectivity... done.
 % cd liblevenshtein-java
 
 % git submodule init
-Submodule 'shared' (https://github.com/dylon/liblevenshtein-shared.git) registered for path 'shared'
+Submodule 'shared' (https://github.com/universal-automata/liblevenshtein-shared.git) registered for path 'shared'
 
 % git submodule update
 Cloning into 'shared'...
