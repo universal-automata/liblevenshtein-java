@@ -26,6 +26,6 @@ public interface IStateTransitionFactory {
    * discard your reference to {@code transition} once you've recycled it.
    */
   default void recycle(IStateTransitionFunction transition) {
-  	// default behavior is to do nothing
+    // default behavior is to do nothing
   }
 }

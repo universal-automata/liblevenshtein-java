@@ -36,6 +36,6 @@ public interface IPositionFactory {
    * @param position Position vector to recycle.
    */
   default void recycle(int[] position) {
-  	// default behavior is to do nothing
+    // default behavior is to do nothing
   }
 }

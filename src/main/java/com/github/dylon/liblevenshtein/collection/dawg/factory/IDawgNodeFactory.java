@@ -28,6 +28,6 @@ public interface IDawgNodeFactory<NodeType extends IDawgNode<NodeType>> {
    * @return This factory, for chaining method calls.
    */
   default IDawgNodeFactory<NodeType> recycle(NodeType node) {
-  	return this;
+    return this;
   }
 }

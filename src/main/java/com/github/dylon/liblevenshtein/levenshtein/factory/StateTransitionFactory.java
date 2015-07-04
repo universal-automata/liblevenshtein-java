@@ -73,12 +73,12 @@ public class StateTransitionFactory implements IStateTransitionFactory {
    */
   @Override
   public IStateTransitionFunction build(final int maxDistance) {
-		return new StateTransitionFunction()
-    	.comparator(comparator)
-    	.stateFactory(stateFactory)
-    	.transitionFactory(positionTransitionFactory)
-    	.merge(merge)
-    	.unsubsume(unsubsume)
-    	.maxDistance(maxDistance);
+    return new StateTransitionFunction()
+      .comparator(comparator)
+      .stateFactory(stateFactory)
+      .transitionFactory(positionTransitionFactory)
+      .merge(merge)
+      .unsubsume(unsubsume)
+      .maxDistance(maxDistance);
   }
 }

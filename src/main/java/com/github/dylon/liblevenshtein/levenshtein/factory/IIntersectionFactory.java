@@ -35,6 +35,6 @@ public interface IIntersectionFactory<DictionaryNode> {
    * @param intersection Value to recycle.
    */
   default void recycle(Intersection<DictionaryNode> intersection) {
-  	// default behavior is to do nothing
+    // default behavior is to do nothing
   }
 }

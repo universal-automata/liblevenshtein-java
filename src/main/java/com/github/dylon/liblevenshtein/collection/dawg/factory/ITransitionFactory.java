@@ -30,6 +30,6 @@ public interface ITransitionFactory<NodeType extends IDawgNode<NodeType>> {
    * reference in C++).
    */
   default void recycle(Transition<NodeType> transition) {
-  	// default behavior is to do nothing
+    // default behavior is to do nothing
   }
 }

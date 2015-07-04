@@ -28,6 +28,6 @@ public interface IPrefixFactory<DictionaryNode> {
    * {@code prefix}, you should discard it.
    */
   default void recycle(Prefix<DictionaryNode> prefix) {
-  	// default behavior is to do nothing
+    // default behavior is to do nothing
   }
 }

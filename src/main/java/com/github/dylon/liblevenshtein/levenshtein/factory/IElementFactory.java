@@ -23,6 +23,6 @@ public interface IElementFactory<Type> {
    * you should discard its reference.
    */
   default void recycle(Element<Type> element) {
-  	// default behavior is to do nothing
+    // default behavior is to do nothing
   }
 }

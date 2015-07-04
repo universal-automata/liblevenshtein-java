@@ -36,7 +36,7 @@ public abstract class PositionFactory implements IPositionFactory {
      */
     @Override
     public int[] build(final int i, final int e, final int x) {
-    	return new int[] { i, e, x };
+      return new int[] { i, e, x };
     }
   }
 }

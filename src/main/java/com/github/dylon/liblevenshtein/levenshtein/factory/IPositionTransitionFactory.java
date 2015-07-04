@@ -22,6 +22,6 @@ public interface IPositionTransitionFactory {
    * discard your reference to {@code transition} once it's been recycled.
    */
   default void recycle(IPositionTransitionFunction transition) {
-  	// default behavior is to do nothing
+    // default behavior is to do nothing
   }
 }

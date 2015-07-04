@@ -22,6 +22,6 @@ public interface IStateFactory {
    * you've recycled it.
    */
   default void recycle(IState state) {
-  	// default behavior is to do nothing
+    // default behavior is to do nothing
   }
 }
