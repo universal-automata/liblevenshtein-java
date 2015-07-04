@@ -34,7 +34,7 @@ public class GenerateReadme {
     template.add("javaSourceVersion", javaSourceVersion);
     template.add("javaTargetVersion", javaTargetVersion);
 
-    System.out.printf("\nRendering template [README] to [%s]\n", readmePath);
+    System.out.printf("%nRendering template [README] to [%s]%n", readmePath);
     final String readme = template.render() + "\n";
     Files.write(readmePath, readme.getBytes(StandardCharsets.UTF_8));
   }

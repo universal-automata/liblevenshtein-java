@@ -45,7 +45,7 @@ public class GenerateWikidoc {
 
       final String wikidoc = template.render() + "\n";
       final Path wikidocPath = wikidocDir.resolve(templateName + ".java.md");
-      System.out.printf("Rendering template [%s] to [%s]\n",
+      System.out.printf("Rendering template [%s] to [%s]%n",
           templateName, wikidocPath);
       Files.write(wikidocPath, wikidoc.getBytes(StandardCharsets.UTF_8));
     }
