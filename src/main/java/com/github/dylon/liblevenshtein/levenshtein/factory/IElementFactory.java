@@ -22,5 +22,7 @@ public interface IElementFactory<Type> {
    * @param element {@link Element} to recycle.  Once you've recycled an element
    * you should discard its reference.
    */
-  void recycle(Element<Type> element);
+  default void recycle(Element<Type> element) {
+  	// default behavior is to do nothing
+  }
 }

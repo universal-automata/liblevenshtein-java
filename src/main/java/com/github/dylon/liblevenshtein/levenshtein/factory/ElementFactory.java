@@ -15,33 +15,12 @@ import com.github.dylon.liblevenshtein.levenshtein.Element;
 public class ElementFactory<Type> implements IElementFactory<Type> {
 
   /**
-   * Object pool of recycled {@link Element}s.
-   */
-  private final Queue<Element<Type>> elements = new ArrayDeque<>();
-
-  /**
    * {@inheritDoc}
    */
   @Override
   public Element<Type> build(final Type value) {
-    Element<Type> element = elements.poll();
-
-    if (null == element) {
-      element = new Element<Type>();
-    }
-
+    final Element<Type> element = new Element<Type>();
     element.value(value);
     return element;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void recycle(Element<Type> element) {
-    element.prev(null);
-    element.next(null);
-    element.value(null);
-    elements.offer(element);
   }
 }

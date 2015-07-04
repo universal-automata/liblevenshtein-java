@@ -23,11 +23,6 @@ import com.github.dylon.liblevenshtein.levenshtein.StateTransitionFunction;
 public class StateTransitionFactory implements IStateTransitionFactory {
 
   /**
-   * Recycled transition functions
-   */
-  final Queue<StateTransitionFunction> transitions = new ArrayDeque<>();
-
-  /**
    * Compares Levenshtein-state positions
    * -- SETTER --
    * Compares Levenshtein-state positions
@@ -78,28 +73,12 @@ public class StateTransitionFactory implements IStateTransitionFactory {
    */
   @Override
   public IStateTransitionFunction build(final int maxDistance) {
-    StateTransitionFunction transition = transitions.poll();
-
-    if (null == transition) {
-      transition = new StateTransitionFunction();
-    }
-
-    transition.comparator(comparator);
-    transition.stateFactory(stateFactory);
-    transition.transitionFactory(positionTransitionFactory);
-    transition.merge(merge);
-    transition.unsubsume(unsubsume);
-    transition.maxDistance(maxDistance);
-    return transition;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  @SuppressWarnings("unchecked")
-  public void recycle(final IStateTransitionFunction transition) {
-    //transition.maxDistance(0); // primitive type: leave alone
-    transitions.offer((StateTransitionFunction) transition);
+		return new StateTransitionFunction()
+    	.comparator(comparator)
+    	.stateFactory(stateFactory)
+    	.transitionFactory(positionTransitionFactory)
+    	.merge(merge)
+    	.unsubsume(unsubsume)
+    	.maxDistance(maxDistance);
   }
 }

@@ -29,5 +29,7 @@ public interface ITransitionFactory<NodeType extends IDawgNode<NodeType>> {
    * transition has been recycled, you should discard it (like a deleted
    * reference in C++).
    */
-  void recycle(Transition<NodeType> transition);
+  default void recycle(Transition<NodeType> transition) {
+  	// default behavior is to do nothing
+  }
 }

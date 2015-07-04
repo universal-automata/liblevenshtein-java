@@ -21,11 +21,6 @@ import com.github.dylon.liblevenshtein.levenshtein.TranspositionPositionTransiti
 public abstract class PositionTransitionFactory implements IPositionTransitionFactory {
 
   /**
-   * Object pool of recycled transitions
-   */
-  final Queue<IPositionTransitionFunction> transitions = new ArrayDeque<>();
-
-  /**
    * Builds and recycles Levenshtein states.
    * -- SETTER --
    * Builds and recycles Levenshtein states.
@@ -44,35 +39,6 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
   @Setter IPositionFactory positionFactory;
 
   /**
-   * {@inheritDoc}
-   */
-  @Override
-  public IPositionTransitionFunction build() {
-    IPositionTransitionFunction transition = transitions.poll();
-
-    if (null == transition) {
-      transition = create();
-    }
-
-    return transition;
-  }
-
-  /**
-   * Factory method that builds Levenshtein algorithm-specific,
-   * position-transition functions.
-   * @return Levenshtein algorithm-specific, position-transition function.
-   */
-  protected abstract IPositionTransitionFunction create();
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void recycle(final IPositionTransitionFunction transition) {
-    transitions.offer(transition);
-  }
-
-  /**
    * Builds position-transition functions for standard, Levenshtein states.
    * @author Dylon Edwards
    * @since 2.1.0
@@ -83,7 +49,7 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
      * {@inheritDoc}
      */
     @Override
-    protected IPositionTransitionFunction create() {
+    public IPositionTransitionFunction build() {
       return new StandardPositionTransitionFunction()
         .stateFactory(stateFactory)
         .positionFactory(positionFactory);
@@ -101,7 +67,7 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
      * {@inheritDoc}
      */
     @Override
-    protected IPositionTransitionFunction create() {
+    public IPositionTransitionFunction build() {
       return new TranspositionPositionTransitionFunction()
         .stateFactory(stateFactory)
         .positionFactory(positionFactory);
@@ -119,7 +85,7 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
      * {@inheritDoc}
      */
     @Override
-    protected IPositionTransitionFunction create() {
+    public IPositionTransitionFunction build() {
       return new MergeAndSplitPositionTransitionFunction()
         .stateFactory(stateFactory)
         .positionFactory(positionFactory);

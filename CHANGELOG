@@ -1,0 +1,6 @@
+Version 2.1.1 (Friday, July 3, 2015)
+- Makes the recycle methods of factories optional
+- Drops object pooling from the factories to make them threadsafe
+
+Version 2.1.0 (Friday, July 3, 2015)
+- Initial release of the Java port of liblevenshtein

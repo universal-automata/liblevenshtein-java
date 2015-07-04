@@ -27,5 +27,7 @@ public interface IPrefixFactory<DictionaryNode> {
    * @param prefix The {@link Prefix} to recycle.  Note that once you recycle
    * {@code prefix}, you should discard it.
    */
-  void recycle(Prefix<DictionaryNode> prefix);
+  default void recycle(Prefix<DictionaryNode> prefix) {
+  	// default behavior is to do nothing
+  }
 }

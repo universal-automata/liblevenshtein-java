@@ -25,5 +25,7 @@ public interface IStateTransitionFactory {
    * @param transition {@link IStateTransitionFunction} to recycle.  You must
    * discard your reference to {@code transition} once you've recycled it.
    */
-  void recycle(IStateTransitionFunction transition);
+  default void recycle(IStateTransitionFunction transition) {
+  	// default behavior is to do nothing
+  }
 }

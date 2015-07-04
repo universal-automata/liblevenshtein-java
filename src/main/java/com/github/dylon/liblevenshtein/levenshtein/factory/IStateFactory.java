@@ -21,5 +21,7 @@ public interface IStateFactory {
    * @param state {@link IState} to recycle.  You must discard the state once
    * you've recycled it.
    */
-  void recycle(IState state);
+  default void recycle(IState state) {
+  	// default behavior is to do nothing
+  }
 }

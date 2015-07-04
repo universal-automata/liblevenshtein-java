@@ -27,5 +27,7 @@ public interface IDawgNodeFactory<NodeType extends IDawgNode<NodeType>> {
    * @param node Node to recycle
    * @return This factory, for chaining method calls.
    */
-  IDawgNodeFactory<NodeType> recycle(NodeType node);
+  default IDawgNodeFactory<NodeType> recycle(NodeType node) {
+  	return this;
+  }
 }

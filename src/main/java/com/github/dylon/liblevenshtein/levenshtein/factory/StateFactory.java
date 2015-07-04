@@ -16,11 +16,6 @@ import com.github.dylon.liblevenshtein.levenshtein.State;
 public class StateFactory implements IStateFactory {
 
   /**
-   * Object pool for recycled states.
-   */
-  private final Queue<IState> states = new ArrayDeque<>();
-
-  /**
    * Builds and recycles linked-list nodes for state positions.
    * -- SETTER --
    * Builds and recycles linked-list nodes for state positions.
@@ -36,25 +31,12 @@ public class StateFactory implements IStateFactory {
    */
   @Override
   public IState build(final int[]... positions) {
-    IState state = states.poll();
-
-    if (null == state) {
-      state = new State(elementFactory);
-    }
+    final IState state = new State(elementFactory);
 
     for (final int[] position : positions) {
       state.add(position);
     }
 
     return state;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void recycle(final IState state) {
-    state.clear();
-    states.offer(state);
   }
 }

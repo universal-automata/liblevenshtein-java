@@ -34,5 +34,7 @@ public interface IIntersectionFactory<DictionaryNode> {
    * longer be used and may be recycled for reuse.
    * @param intersection Value to recycle.
    */
-  void recycle(Intersection<DictionaryNode> intersection);
+  default void recycle(Intersection<DictionaryNode> intersection) {
+  	// default behavior is to do nothing
+  }
 }

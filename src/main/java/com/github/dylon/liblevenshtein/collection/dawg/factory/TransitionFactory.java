@@ -20,11 +20,6 @@ public class TransitionFactory<NodeType extends IDawgNode<NodeType>>
   implements ITransitionFactory<NodeType> {
 
   /**
-   * Object pool for recycled {@link Transition}s.
-   */
-  Queue<Transition<NodeType>> transitions = new ArrayDeque<>();
-
-  /**
    * {@inheritDoc}
    */
   @Override
@@ -33,25 +28,9 @@ public class TransitionFactory<NodeType extends IDawgNode<NodeType>>
       final char label,
       final NodeType target) {
 
-    Transition<NodeType> transition = transitions.poll();
-
-    if (null == transition) {
-      transition = new Transition<NodeType>();
-    }
-
-    return transition
+    return new Transition<NodeType>()
       .source(source)
       .label(label)
       .target(target);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void recycle(final Transition<NodeType> transition) {
-    transition.source(null);
-    transition.target(null);
-    transitions.offer(transition);
   }
 }

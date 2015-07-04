@@ -13,7 +13,9 @@ public interface IPositionFactory {
    * @param e Number of accumulated errors at index {@code i}.
    * @return New position vector having index {@code i} and error {@code e}.
    */
-  int[] build(int i, int e);
+  default int[] build(int i, int e) {
+    throw new UnsupportedOperationException("build(i,e) is not implemented");
+  }
 
   /**
    * Builds a position vector for the transposition and merge-and-split,
@@ -25,11 +27,15 @@ public interface IPositionFactory {
    * @return New position vector having index {@code i}, error {@code e}, and
    * special marker {@code x}.
    */
-  int[] build(int i, int e, int x);
+  default int[] build(int i, int e, int x) {
+    throw new UnsupportedOperationException("build(i,e,x) is not implemented");
+  }
 
   /**
    * Recycles a position vector for re-use.
    * @param position Position vector to recycle.
    */
-  void recycle(int[] position);
+  default void recycle(int[] position) {
+  	// default behavior is to do nothing
+  }
 }
