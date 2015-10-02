@@ -82,24 +82,6 @@ public class DawgNode implements IDawgNode<DawgNode> {
    * {@inheritDoc}
    */
   @Override
-  public int hashCode() {
-    // NOTE: It looks like this gets called twice (consecutively) during
-    // construction of the DAWG dictionary.
-    // NOTE: An assumption is made that edges is sorted.
-    final HashCodeBuilder builder = new HashCodeBuilder(8777, 4343);
-    for (val entry : edges.char2ObjectEntrySet()) {
-      final char label = entry.getCharKey();
-      final DawgNode target = entry.getValue();
-      builder.append(label);
-      builder.append(target);
-    }
-    return builder.toHashCode();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public String toString() {
     final StringBuilder buffer = new StringBuilder();
     buffer.append("DawgNode{");
