@@ -117,7 +117,11 @@ public abstract class AbstractDawg
    */
   @Override
   public boolean addAll(final Collection<? extends String> terms) {
+    int counter = 0;
     for (final String term : terms) {
+      if (++counter % 10000 == 0) {
+        System.out.println(counter + " lines of " + terms.size());
+      }
       if (!add(term)) return false;
     }
     return true;
