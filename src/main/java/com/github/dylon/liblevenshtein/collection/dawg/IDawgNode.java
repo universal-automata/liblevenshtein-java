@@ -18,6 +18,12 @@ public interface IDawgNode<Node extends IDawgNode<Node>> {
    */
   CharIterator labels();
 
+	/**
+	 * Specifies whether this node represents the last character of some term.
+	 * @return Whether this node represents the last character of some term.
+	 */
+  boolean isFinal();
+
   /**
    * Accepts a label and returns the outgoing transition corresponding to it.
    * @param label Identifier of the outgoing transition to return

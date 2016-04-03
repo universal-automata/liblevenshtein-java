@@ -23,14 +23,14 @@ public class DawgIterator extends AbstractIterator<String> {
    */
   private final Queue<Prefix<DawgNode>> prefixes = new ArrayDeque<>();
 
+  /** Creates and caches {@link Prefix} instances. */
+  private final IPrefixFactory<DawgNode> prefixFactory;
+
   /**
    * Returns whether the current {@link DawgNode} represents the last character
    * in some term.
    */
   private final IFinalFunction<DawgNode> isFinal;
-
-  /** Creates and caches {@link Prefix} instances. */
-  private final IPrefixFactory<DawgNode> prefixFactory;
 
   /**
    * Initializes a new {@link DawgIterator} with a {@link IPrefixFactory} and an
@@ -42,8 +42,8 @@ public class DawgIterator extends AbstractIterator<String> {
   public DawgIterator(
       @NonNull final IPrefixFactory<DawgNode> prefixFactory,
       @NonNull final AbstractDawg dawg) {
-    this.isFinal = dawg;
     this.prefixFactory = prefixFactory;
+    this.isFinal = dawg;
     prefixes.offer(prefixFactory.build(dawg.root(), ""));
   }
 

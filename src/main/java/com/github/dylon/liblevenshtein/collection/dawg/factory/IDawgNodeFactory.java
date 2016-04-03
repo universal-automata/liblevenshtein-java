@@ -21,6 +21,14 @@ public interface IDawgNodeFactory<NodeType extends IDawgNode<NodeType>> {
   NodeType build();
 
   /**
+   * Builds a DAWG node
+   * @param isFinal Whether the node represents the last character of some term
+   * @return A DAWG node
+   * @throws NullPointerException When edges is null
+   */
+  NodeType build(boolean isFinal);
+
+  /**
    * [Green Operation] In an effort to fight global warming and environmental
    * polution, you may invoke this method when you no longer have need of a node
    * so it may be recycled for future use.

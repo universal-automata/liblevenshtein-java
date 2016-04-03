@@ -22,7 +22,15 @@ public class DawgNodeFactory implements IDawgNodeFactory<DawgNode> {
    */
   @Override
   public DawgNode build() {
+    return build(false);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public DawgNode build(final boolean isFinal) {
     final Char2ObjectMap<DawgNode> edges = new Char2ObjectRBTreeMap<>();
-    return new DawgNode(edges);
+    return new DawgNode(edges, isFinal);
   }
 }

@@ -127,7 +127,7 @@ public class SortedDawg extends AbstractDawg {
       i += 1;
     }
 
-    finalNodes.add(node);
+    node.isFinal(true);
     previousTerm = term;
     size += 1;
     return true;
@@ -147,19 +147,19 @@ public class SortedDawg extends AbstractDawg {
    */
   private void minimize(final int lowerBound) {
     // Proceed from the leaf up to a certain point
-    for (int j = uncheckedTransitions.size(); j > lowerBound; --j) {
+    for (int j = uncheckedTransitions.size(); j > lowerBound; j -= 1) {
       final Transition<DawgNode> transition = uncheckedTransitions.removeFirst();
       final DawgNode source = transition.source();
       final char label = transition.label();
       final DawgNode target = transition.target();
+      final boolean isFinal = target.isFinal();
 
       final NodeFinalization targetKey =
-        new NodeFinalization(target, finalNodes.contains(target));
+        new NodeFinalization(target, isFinal);
 
       final DawgNode existing = minimizedNodes.get(targetKey);
 
       if (null != existing) {
-        finalNodes.remove(target);
         source.addEdge(label, existing);
       }
       else {

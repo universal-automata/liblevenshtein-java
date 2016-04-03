@@ -13,6 +13,8 @@ import java.util.Set;
 
 import lombok.RequiredArgsConstructor;
 
+import com.google.common.base.Joiner;
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -38,8 +40,7 @@ public class DawgTest {
   public void setUp() throws IOException {
     try (final BufferedReader reader = new BufferedReader(
           new InputStreamReader(
-            getClass().getResourceAsStream(
-              "/resources/top-20-most-common-english-words.txt"),
+            getClass().getResourceAsStream("/resources/wordsEn.txt"),
             StandardCharsets.UTF_8))) {
 
       final List<String> terms = new ArrayList<String>();
@@ -81,7 +82,6 @@ public class DawgTest {
     assertFalse(fullDawg.contains(""));
     assertFalse(fullDawg.contains("foobar"));
     assertFalse(fullDawg.contains("C+"));
-    assertFalse(fullDawg.contains("java"));
   }
 
   @Test
@@ -106,12 +106,16 @@ public class DawgTest {
         assertTrue(terms.contains(term));
       }
       catch (final AssertionError exception) {
-        System.err.println("Expected terms to contain: \"" + term + "\"");
-        throw exception;
+        throw new AssertionError("Expected terms to contain: \"" + term + "\"", exception);
       }
       terms.remove(term);
     }
-    assertTrue(terms.isEmpty());
+    if (!terms.isEmpty()) {
+      final String message =
+        String.format("Expected all terms to be iterated over, but missed [%s]",
+          Joiner.on(", ").join(terms));
+      throw new AssertionError(message);
+    }
   }
 
   @Test(expectedExceptions=IllegalArgumentException.class)
