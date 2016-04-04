@@ -28,7 +28,7 @@ public class DawgNode implements IDawgNode<DawgNode> {
    * Specifies whether this node represents the last character of some term.
    */
   @Getter(onMethod=@_(@Override))
-  private boolean isFinal;
+  private boolean isFinal = false;
 
   /**
    * {@inheritDoc}
