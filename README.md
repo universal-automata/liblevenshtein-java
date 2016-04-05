@@ -49,7 +49,7 @@ When it comes to documentation, you have several options:
 
 ### Minimum Java Version
 
-liblevenshtein has been developed against Java >= 1.8.  It will not work with prior versions.
+liblevenshtein has been developed against Java &ge; 1.8.  It will not work with prior versions.
 
 #### Installation
 
