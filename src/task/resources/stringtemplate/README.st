@@ -68,7 +68,7 @@ Add a dependency on $groupId$:$artifactId$:$version$ to your project's POM:
 
 ##### Apache Buildr
 
-```
+```ruby
 '$groupId$:$artifactId$:jar:$version$'
 ```
 

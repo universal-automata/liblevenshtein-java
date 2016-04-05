@@ -67,7 +67,7 @@ Add a dependency on com.github.dylon:liblevenshtein:2.1.4-alpha.1 to your projec
 
 ##### Apache Buildr
 
-```
+```ruby
 'com.github.dylon:liblevenshtein:jar:2.1.4-alpha.1'
 ```
 
