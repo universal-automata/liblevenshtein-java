@@ -9,6 +9,7 @@ README(groupId, artifactId, version, gradleVersion, javaSourceVersion, javaTarge
 [![Reference Status](https://www.versioneye.com/java/com.github.dylon:liblevenshtein/reference_badge.svg)](https://www.versioneye.com/java/com.github.dylon:liblevenshtein/references)
 [![License](https://img.shields.io/github/license/universal-automata/liblevenshtein-java.svg)](http://www.opensource.org/licenses/mit-license.php)
 [![Build Status](https://travis-ci.org/universal-automata/liblevenshtein-java.svg?branch=master)](https://travis-ci.org/universal-automata/liblevenshtein-java)
+[![Coverage Status](https://coveralls.io/repos/github/universal-automata/liblevenshtein-java/badge.svg?branch=master)](https://coveralls.io/github/universal-automata/liblevenshtein-java?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99/badge.svg)](https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99)
 [![Gitter](https://badges.gitter.im/universal-automata/liblevenshtein-java.svg)](https://gitter.im/universal-automata/liblevenshtein-java?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
