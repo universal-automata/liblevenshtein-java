@@ -6,6 +6,7 @@ README(groupId, artifactId, version, gradleVersion, javaSourceVersion, javaTarge
 ### A library for generating Finite State Transducers based on Levenshtein Automata.
 
 [![Build Status](https://travis-ci.org/universal-automata/liblevenshtein-java.svg?branch=master)](https://travis-ci.org/universal-automata/liblevenshtein-java)
+[![Dependency Status](https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99/badge.svg?style=flat)](https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99)
 
 Levenshtein transducers accept a query term and return all terms in a
 dictionary that are within n spelling errors away from it. They constitute a
