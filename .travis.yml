@@ -27,3 +27,7 @@ addons:
     build_command:   "./gradlew build -S"
     #branch_pattern: coverity_scan
     branch_pattern: master
+before_script:
+  - ./gradlew setupCIWorkspace -S
+script:
+  - ./gradlew build -S
