@@ -12,7 +12,7 @@ repositories {
 
 group = 'com.github.dylon'
 archivesBaseName = name
-version = '2.1.4'
+version = '2.1.4-alpha.1' // http://semver.org/
 
 description = 'A library for generating Finite State Transducers based on Levenshtein Automata (keywords: fuzzy search; distance; metric; levenshtein; spelling correction; approximate string matching; automata; information retrieval; transducer).'
 

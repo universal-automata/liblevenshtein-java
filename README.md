@@ -51,19 +51,19 @@ liblevenshtein has been developed against Java >= 1.8.  It will not work with pr
 
 ##### Gradle
 
-Add a dependency on com.github.dylon:liblevenshtein:2.1.4 to your project's <code>build.gradle</code>:
+Add a dependency on com.github.dylon:liblevenshtein:2.1.4-alpha.1 to your project's <code>build.gradle</code>:
 
 ```groovy
 // ...
 dependencies {
-  compile 'com.github.dylon:liblevenshtein:2.1.4'
+  compile 'com.github.dylon:liblevenshtein:2.1.4-alpha.1'
 }
 // ...
 ```
 
 ##### Maven
 
-Add a dependency on com.github.dylon:liblevenshtein:2.1.4 to your project's POM:
+Add a dependency on com.github.dylon:liblevenshtein:2.1.4-alpha.1 to your project's POM:
 
 ```xml
 <project>
@@ -73,7 +73,7 @@ Add a dependency on com.github.dylon:liblevenshtein:2.1.4 to your project's POM:
     <dependency>
       <groupId>com.github.dylon</groupId>
       <artifactId>liblevenshtein</artifactId>
-      <version>2.1.4</version>
+      <version>2.1.4-alpha.1</version>
     </dependency>
     <!-- ... -->
   </dependencies>
