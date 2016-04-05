@@ -4,6 +4,7 @@
 
 ### A library for generating Finite State Transducers based on Levenshtein Automata.
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.dylon/liblevenshtein/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.dylon/liblevenshtein)
 [![Build Status](https://travis-ci.org/universal-automata/liblevenshtein-java.svg?branch=master)](https://travis-ci.org/universal-automata/liblevenshtein-java)
 [![Dependency Status](https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99/badge.svg?style=flat)](https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99)
 
@@ -50,19 +51,19 @@ liblevenshtein has been developed against Java >= 1.8.  It will not work with pr
 
 ##### Gradle
 
-Add a dependency on com.github.dylon:liblevenshtein:2.1.3 to your project's <code>build.gradle</code>:
+Add a dependency on com.github.dylon:liblevenshtein:2.1.4 to your project's <code>build.gradle</code>:
 
 ```groovy
 // ...
 dependencies {
-  compile 'com.github.dylon:liblevenshtein:2.1.3'
+  compile 'com.github.dylon:liblevenshtein:2.1.4'
 }
 // ...
 ```
 
 ##### Maven
 
-Add a dependency on com.github.dylon:liblevenshtein:2.1.3 to your project's POM:
+Add a dependency on com.github.dylon:liblevenshtein:2.1.4 to your project's POM:
 
 ```xml
 <project>
@@ -72,7 +73,7 @@ Add a dependency on com.github.dylon:liblevenshtein:2.1.3 to your project's POM:
     <dependency>
       <groupId>com.github.dylon</groupId>
       <artifactId>liblevenshtein</artifactId>
-      <version>2.1.3</version>
+      <version>2.1.4</version>
     </dependency>
     <!-- ... -->
   </dependencies>
