@@ -17,6 +17,11 @@ public class GenerateSyntasticConfig {
 
     final STGroup group = new STGroupDir("stringtemplate");
     final ST template = group.getInstanceOf("syntastic");
+
+    if (null == template) {
+    	throw new IllegalStateException("Cannot find template [stringtemplate/syntastic]");
+    }
+
     template.add("classpath", classpath);
 
     String configText = template.render();

@@ -27,6 +27,11 @@ public class GenerateReadme {
     final STGroup group = new STGroupDir("stringtemplate", '$', '$');
 
     final ST template = group.getInstanceOf("README");
+
+    if (null == template) {
+    	throw new IllegalStateException("Cannot find template [stringtemplate/README]");
+    }
+
     template.add("groupId", groupId);
     template.add("artifactId", artifactId);
     template.add("version", version);
