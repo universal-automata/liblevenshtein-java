@@ -27,5 +27,5 @@ addons:
     build_command:   "./gradlew build"
     #branch_pattern: coverity_scan
     branch_pattern: master
-script:
-  - ./gradlew build
+#script:
+  #- ./gradlew build
