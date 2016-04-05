@@ -25,8 +25,5 @@ addons:
     notification_email: dylon.devo+github@gmail.com
     build_command_prepend: "./gradlew setupCIWorkspace -S"
     build_command:   "./gradlew build -S"
-    branch_pattern: coverity_scan
-branches:
-  only:
-    - master
-    #- coverity-scan
+    #branch_pattern: coverity_scan
+    branch_pattern: master
