@@ -23,11 +23,9 @@ addons:
       name: "universal-automata/liblevenshtein-java"
       description: "Build submitted via Travis CI"
     notification_email: dylon.devo+github@gmail.com
-    build_command_prepend: "./gradlew setupCIWorkspace -S"
-    build_command:   "./gradlew build -S"
+    build_command_prepend: ""
+    build_command:   "./gradlew build"
     #branch_pattern: coverity_scan
     branch_pattern: master
-before_script:
-  - ./gradlew setupCIWorkspace -S
 script:
-  - ./gradlew build -S
+  - ./gradlew build
