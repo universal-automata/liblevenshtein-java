@@ -54,7 +54,39 @@ liblevenshtein has been developed against Java &ge; $javaTargetVersion$.  It wil
 
 #### Installation
 
-##### Gradle
+##### Maven
+
+Add a dependency on $groupId$:$artifactId$:$version$ to your project's POM:
+
+```xml
+<dependency>
+  <groupId>$groupId$</groupId>
+  <artifactId>$artifactId$</artifactId>
+  <version>$version$</version>
+</dependency>
+```
+
+##### Apache Buildr
+
+```
+'$groupId$:$artifactId$:jar:$version$'
+```
+
+##### Apache Ivy
+
+```zml
+<dependency org="$groupId$" name="$artifactId$" rev="$version$" />
+```
+
+##### Groovy Grape
+
+```groovy
+@Grapes(
+@Grab(group='$groupId$', module='$artifactId$', version='$version$')
+)
+```
+
+##### Gradle / Grails
 
 Add a dependency on $groupId$:$artifactId$:$version$ to your project's <code>build.gradle</code>:
 
@@ -66,24 +98,16 @@ dependencies {
 // ...
 ```
 
-##### Maven
+##### Scala SBT
 
-Add a dependency on $groupId$:$artifactId$:$version$ to your project's POM:
+```scala
+libraryDependencies += "$groupId$" % "$artifactId$" % "$version$"
+```
 
-```xml
-<project>
-  <!-- ... -->
-  <dependencies>
-    <!-- ... -->
-    <dependency>
-      <groupId>$groupId$</groupId>
-      <artifactId>$artifactId$</artifactId>
-      <version>$version$</version>
-    </dependency>
-    <!-- ... -->
-  </dependencies>
-  <!-- ... -->
-</project>
+##### Leiningen
+
+```clojure
+[$groupId$/$artifactId$ "$version$"]
 ```
 
 #### Git
