@@ -90,11 +90,7 @@ Add a dependency on com.github.dylon:liblevenshtein:2.1.4-alpha.1 to your projec
 Add a dependency on com.github.dylon:liblevenshtein:2.1.4-alpha.1 to your project's <code>build.gradle</code>:
 
 ```groovy
-// ...
-dependencies {
-  compile 'com.github.dylon:liblevenshtein:2.1.4-alpha.1'
-}
-// ...
+compile 'com.github.dylon:liblevenshtein:2.1.4-alpha.1'
 ```
 
 ##### Scala SBT

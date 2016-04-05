@@ -91,11 +91,7 @@ Add a dependency on $groupId$:$artifactId$:$version$ to your project's POM:
 Add a dependency on $groupId$:$artifactId$:$version$ to your project's <code>build.gradle</code>:
 
 ```groovy
-// ...
-dependencies {
-  compile '$groupId$:$artifactId$:$version$'
-}
-// ...
+compile '$groupId$:$artifactId$:$version$'
 ```
 
 ##### Scala SBT
