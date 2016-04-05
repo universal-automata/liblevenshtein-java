@@ -1,7 +1,7 @@
 plugins {
-	id "jacoco"
-	id "com.github.kt3k.coveralls" version "2.6.3"
-	id "org.standardout.versioneye" version "1.2.0"
+  id "jacoco"
+  id "com.github.kt3k.coveralls" version "2.6.3"
+  id "org.standardout.versioneye" version "1.2.0"
 }
 
 apply plugin: 'java'
@@ -68,10 +68,10 @@ dependencies {
 }
 
 jacocoTestReport {
-	reports {
-	  xml.enabled = true // coveralls plugin depends on xml format report
-	  html.enabled = true
-	}
+  reports {
+    xml.enabled = true // coveralls plugin depends on xml format report
+    html.enabled = true
+  }
 }
 
 tasks.withType(JavaCompile) {
