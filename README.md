@@ -5,6 +5,7 @@
 ### A library for generating Finite State Transducers based on Levenshtein Automata.
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.dylon/liblevenshtein/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.dylon/liblevenshtein)
+[![License](https://img.shields.io/github/license/universal-automata/liblevenshtein-java.svg)](http://www.opensource.org/licenses/mit-license.php)
 [![Build Status](https://travis-ci.org/universal-automata/liblevenshtein-java.svg?branch=master)](https://travis-ci.org/universal-automata/liblevenshtein-java)
 [![Dependency Status](https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99/badge.svg?style=flat)](https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99)
 
