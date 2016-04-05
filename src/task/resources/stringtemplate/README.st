@@ -10,8 +10,7 @@ README(groupId, artifactId, version, gradleVersion, javaSourceVersion, javaTarge
 [![License](https://img.shields.io/github/license/universal-automata/liblevenshtein-java.svg)](http://www.opensource.org/licenses/mit-license.php)
 [![Build Status](https://travis-ci.org/universal-automata/liblevenshtein-java.svg?branch=master)](https://travis-ci.org/universal-automata/liblevenshtein-java)
 [![Coverage Status](https://coveralls.io/repos/github/universal-automata/liblevenshtein-java/badge.svg?branch=master)](https://coveralls.io/github/universal-automata/liblevenshtein-java?branch=master)
-[![Code Climate](https://codeclimate.com/github/universal-automata/liblevenshtein-java/badges/gpa.svg)](https://codeclimate.com/github/universal-automata/liblevenshtein-java)
-[![Issue Count](https://codeclimate.com/github/universal-automata/liblevenshtein-java/badges/issue_count.svg)](https://codeclimate.com/github/universal-automata/liblevenshtein-java)
+[![Coverity Scan Build Status](https://img.shields.io/coverity/scan/8476.svg)](https://scan.coverity.com/projects/universal-automata-liblevenshtein-java)
 [![Dependency Status](https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99/badge.svg)](https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99)
 [![Gitter](https://badges.gitter.im/universal-automata/liblevenshtein-java.svg)](https://gitter.im/universal-automata/liblevenshtein-java?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
