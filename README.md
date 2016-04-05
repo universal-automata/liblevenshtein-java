@@ -73,7 +73,7 @@ Add a dependency on com.github.dylon:liblevenshtein:2.1.4-alpha.1 to your projec
 
 ##### Apache Ivy
 
-```zml
+```xml
 <dependency org="com.github.dylon" name="liblevenshtein" rev="2.1.4-alpha.1" />
 ```
 

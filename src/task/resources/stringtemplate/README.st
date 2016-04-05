@@ -74,7 +74,7 @@ Add a dependency on $groupId$:$artifactId$:$version$ to your project's POM:
 
 ##### Apache Ivy
 
-```zml
+```xml
 <dependency org="$groupId$" name="$artifactId$" rev="$version$" />
 ```
 
