@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Deque;
@@ -184,7 +185,9 @@ public class SortedDawg extends AbstractDawg {
    * Maintains whether a node among the pending transitions is final.
    */
   @Value
-  private static class NodeFinalization {
+  private static class NodeFinalization implements Serializable {
+
+  	private static final long serialVersionUID = 1L;
 
     /**
      * {@link DawgNode} represented by this {@link NodeFinalization}

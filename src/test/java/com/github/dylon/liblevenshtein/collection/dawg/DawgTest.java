@@ -1,7 +1,7 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
-import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -26,6 +26,8 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.PrefixFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.TransitionFactory;
+import com.github.dylon.liblevenshtein.serialization.Serializer;
+import com.github.dylon.liblevenshtein.serialization.BytecodeSerializer;
 
 public class DawgTest {
   private List<String> terms;
@@ -75,6 +77,15 @@ public class DawgTest {
   @Test(dataProvider="terms")
   public void dawgAcceptsAllItsTerms(final String term) {
     assertTrue(fullDawg.contains(term));
+  }
+
+  @Test
+  public void dawgBytecodeSerialization() throws Exception {
+    final Serializer bytecode = new BytecodeSerializer();
+    final byte[] bytes = bytecode.serialize(fullDawg);
+    final AbstractDawg actualDawg =
+      bytecode.deserialize(AbstractDawg.class, bytes);
+    assertEquals(actualDawg, fullDawg);
   }
 
   @Test

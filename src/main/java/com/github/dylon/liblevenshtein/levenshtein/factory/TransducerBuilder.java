@@ -301,7 +301,9 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
   @Deprecated
   @RequiredArgsConstructor
   private static class DeprecatedTransducerForLimitingNumberOfCandidates<CandidateType>
-      implements ITransducer<CandidateType> {
+      implements ITransducer<CandidateType>, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * Number of elements to take from the spelling candidates.

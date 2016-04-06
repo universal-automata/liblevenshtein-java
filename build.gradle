@@ -50,10 +50,10 @@ sourceSets {
 
 dependencies {
   compile 'com.google.code.findbugs:annotations:3.0.1'
-  compile 'org.projectlombok:lombok:1.16.8'
-  compile 'org.apache.commons:commons-lang3:3.4'
-  compile 'it.unimi.dsi:fastutil:7.0.11'
   compile 'com.google.guava:guava:19.0'
+  compile 'it.unimi.dsi:fastutil:7.0.11'
+  compile 'org.apache.commons:commons-lang3:3.4'
+  compile 'org.projectlombok:lombok:1.16.8'
 
   testCompile 'org.testng:testng:6.9.10'
 
