@@ -35,8 +35,8 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@ToString(of={"size", "root"})
-@EqualsAndHashCode(of={"size", "root"})
+@ToString(of={"size", "root"}, callSuper=false)
+@EqualsAndHashCode(of={"size", "root"}, callSuper=false)
 @FieldDefaults(level=AccessLevel.PROTECTED)
 public abstract class AbstractDawg
     extends AbstractSet<String>

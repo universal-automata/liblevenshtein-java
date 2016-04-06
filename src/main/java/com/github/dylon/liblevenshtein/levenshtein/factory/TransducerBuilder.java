@@ -158,26 +158,32 @@ public class TransducerBuilder implements ITransducerBuilder {
     final IStateFactory stateFactory =
       new StateFactory().elementFactory(new ElementFactory<int[]>());
 
-    final TransducerAttributes attributes = new TransducerAttributes()
-      .maxDistance(defaultMaxDistance)
-      .stateTransitionFactory(buildStateTransitionFactory(stateFactory))
-      .candidateFactory(includeDistance
-          ? new CandidateFactory.WithDistance()
-          : new CandidateFactory.WithoutDistance())
-      .intersectionFactory(new IntersectionFactory<DawgNode>())
-      .minDistance(buildMinDistance())
-      .isFinal(dawgFactory.isFinal(dictionary))
-      .dictionaryTransition(dawgFactory.transition(dictionary))
-      .initialState(buildInitialState(stateFactory))
-      .dictionaryRoot(dictionary.root());
+    final TransducerAttributes<DawgNode, CandidateType> attributes =
+    	new TransducerAttributes<DawgNode, CandidateType>()
+      	.maxDistance(defaultMaxDistance)
+      	.stateTransitionFactory(buildStateTransitionFactory(stateFactory))
+      	.candidateFactory(
+      		(ICandidateFactory<CandidateType>)
+      		(includeDistance
+          	? new CandidateFactory.WithDistance()
+          	: new CandidateFactory.WithoutDistance()))
+      	.intersectionFactory(new IntersectionFactory<DawgNode>())
+      	.minDistance(buildMinDistance())
+      	.isFinal(dawgFactory.isFinal(dictionary))
+      	.dictionaryTransition(dawgFactory.transition(dictionary))
+      	.initialState(buildInitialState(stateFactory))
+      	.dictionaryRoot(dictionary.root());
 
-    val transducer = new Transducer<DawgNode, CandidateType>(attributes);
+    final Transducer<DawgNode, CandidateType> transducer =
+    	new Transducer<DawgNode, CandidateType>(attributes);
 
     if (maxCandidates == Integer.MAX_VALUE) {
       return transducer;
     }
 
-    return new DeprecatedTransducerForLimitingNumberOfCandidates(maxCandidates, transducer);
+    return new DeprecatedTransducerForLimitingNumberOfCandidates<CandidateType>(
+    		maxCandidates,
+    		transducer);
   }
 
   /**
