@@ -56,54 +56,54 @@ liblevenshtein has been developed against Java &ge; 1.8.  It will not work with 
 
 ##### Maven
 
-Add a dependency on com.github.dylon:liblevenshtein:2.1.5 to your project's POM:
+Add a dependency on com.github.dylon:liblevenshtein:2.2.0 to your project's POM:
 
 ```xml
 <dependency>
   <groupId>com.github.dylon</groupId>
   <artifactId>liblevenshtein</artifactId>
-  <version>2.1.5</version>
+  <version>2.2.0</version>
 </dependency>
 ```
 
 ##### Apache Buildr
 
 ```ruby
-'com.github.dylon:liblevenshtein:jar:2.1.5'
+'com.github.dylon:liblevenshtein:jar:2.2.0'
 ```
 
 ##### Apache Ivy
 
 ```xml
-<dependency org="com.github.dylon" name="liblevenshtein" rev="2.1.5" />
+<dependency org="com.github.dylon" name="liblevenshtein" rev="2.2.0" />
 ```
 
 ##### Groovy Grape
 
 ```groovy
 @Grapes(
-@Grab(group='com.github.dylon', module='liblevenshtein', version='2.1.5')
+@Grab(group='com.github.dylon', module='liblevenshtein', version='2.2.0')
 )
 ```
 
 ##### Gradle / Grails
 
-Add a dependency on com.github.dylon:liblevenshtein:2.1.5 to your project's <code>build.gradle</code>:
+Add a dependency on com.github.dylon:liblevenshtein:2.2.0 to your project's <code>build.gradle</code>:
 
 ```groovy
-compile 'com.github.dylon:liblevenshtein:2.1.5'
+compile 'com.github.dylon:liblevenshtein:2.2.0'
 ```
 
 ##### Scala SBT
 
 ```scala
-libraryDependencies += "com.github.dylon" % "liblevenshtein" % "2.1.5"
+libraryDependencies += "com.github.dylon" % "liblevenshtein" % "2.2.0"
 ```
 
 ##### Leiningen
 
 ```clojure
-[com.github.dylon/liblevenshtein "2.1.5"]
+[com.github.dylon/liblevenshtein "2.2.0"]
 ```
 
 #### Git
