@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
+import java.io.Serializable;
+
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
 /**
@@ -10,7 +12,7 @@ import it.unimi.dsi.fastutil.chars.CharIterator;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IDawgNode<Node extends IDawgNode<Node>> {
+public interface IDawgNode<Node extends IDawgNode<Node>> extends Serializable {
 
   /**
    * Returns the labels of the outgoing edges of this node

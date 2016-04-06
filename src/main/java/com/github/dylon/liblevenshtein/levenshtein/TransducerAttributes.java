@@ -4,12 +4,15 @@ import java.io.Serializable;
 
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.collection.dawg.IFinalFunction;
 import com.github.dylon.liblevenshtein.collection.dawg.ITransitionFunction;
+import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
 import com.github.dylon.liblevenshtein.levenshtein.factory.ICandidateFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.IIntersectionFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.IStateTransitionFactory;
@@ -24,6 +27,18 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IStateTransitionFacto
 @Data
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PROTECTED)
+@ToString(of={
+	"maxDistance",
+	"dictionary",
+	"algorithm",
+	"maxCandidates",
+	"includeDistance"})
+@EqualsAndHashCode(of={
+	"maxDistance",
+	"dictionary",
+	"algorithm",
+	"maxCandidates",
+	"includeDistance"})
 public class TransducerAttributes<DictionaryNode, CandidateType> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -164,4 +179,57 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * @return This {@link TransducerAttributes} for fluency.
    */
   @NonNull DictionaryNode dictionaryRoot;
+
+  /**
+   * Dictionary of this transducer.
+   * -- GETTER --
+   * Dictionary of this transducer.
+   * @return Dictionary of this transducer.
+   * -- SETTER --
+   * Dictionary of this transducer.
+   * @param dictionary Dictionary of this transducer.
+   * @return This {@link TransducerAttributes} for fluency.
+   */
+  @NonNull SortedDawg dictionary;
+
+  /**
+   * Transduction algorithm.
+   * -- GETTER --
+   * Transduction algorithm.
+   * @return Transduction algorithm.
+   * -- SETTER --
+   * Transduction algorithm.
+   * @param algorithm Transduction algorithm.
+   * @return This {@link TransducerAttributes} for fluency.
+   */
+  @NonNull Algorithm algorithm;
+
+  /**
+   * Maximum number of candidates to match.
+   * -- GETTER --
+   * Maximum number of candidates to match.
+   * @return Maximum number of candidates to match.
+   * -- SETTER --
+   * Maximum number of candidates to match.
+   * @param maxCandidates Maximum number of candidates to match.
+   * @return This {@link TransducerAttributes} for fluency.
+   */
+  int maxCandidates;
+
+  /**
+   * Whether to include the number of errors from the query term with the
+   * candidate terms.
+   * -- GETTER --
+   * Whether to include the number of errors from the query term with the
+   * candidate terms.
+   * @return Whether to include the number of errors from the query term with
+   * the candidate terms.
+   * -- SETTER --
+   * Whether to include the number of errors from the query term with the
+   * candidate terms.
+   * @param includeDistance Whether to include the number of errors from the
+   * query term with the candidate terms.
+   * @return This {@link TransducerAttributes} for fluency.
+   */
+  boolean includeDistance;
 }

@@ -12,7 +12,7 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IPositionFactory;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public abstract class UnsubsumeFunction implements IUnsubsumeFunction {
+public abstract class UnsubsumeFunction implements IUnsubsumeFunction, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,6 +42,8 @@ public abstract class UnsubsumeFunction implements IUnsubsumeFunction {
    * @since 2.1.0
    */
   public static class ForStandardPositions extends UnsubsumeFunction {
+
+	  private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}
@@ -86,6 +88,8 @@ public abstract class UnsubsumeFunction implements IUnsubsumeFunction {
    * @since 2.1.0
    */
   public static class ForXPositions extends UnsubsumeFunction {
+
+	  private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}

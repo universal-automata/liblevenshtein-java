@@ -18,7 +18,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.DawgNode;
  */
 public class DawgNodeFactory implements IDawgNodeFactory<DawgNode>, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * {@inheritDoc}

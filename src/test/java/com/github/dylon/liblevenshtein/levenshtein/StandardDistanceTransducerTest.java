@@ -3,11 +3,14 @@ package com.github.dylon.liblevenshtein.levenshtein;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -16,7 +19,11 @@ import lombok.val;
 
 import com.github.dylon.liblevenshtein.levenshtein.distance.MemoizedStandard;
 import com.github.dylon.liblevenshtein.levenshtein.factory.TransducerBuilder;
+import com.github.dylon.liblevenshtein.serialization.BytecodeSerializer;
+import com.github.dylon.liblevenshtein.serialization.ProtobufSerializer;
+import com.github.dylon.liblevenshtein.serialization.Serializer;
 
+@SuppressWarnings("unchecked")
 public class StandardDistanceTransducerTest extends AbstractTransducerTest {
   private static final int MAX_DISTANCE = 3;
   private static final String QUERY_TERM = "Jvaa";
@@ -73,6 +80,23 @@ public class StandardDistanceTransducerTest extends AbstractTransducerTest {
     expectedCandidates.add(new Candidate("Trac", 3));
     expectedCandidates.add(new Candidate("Vala", 3));
     expectedCandidates.add(new Candidate("Vvvv", 3));
+  }
+
+  @DataProvider(name="serializers")
+  public Iterator<Object[]> serializers() {
+    final List<Object[]> serializers = new LinkedList<>();
+    serializers.add(new Object[] {new BytecodeSerializer()});
+    serializers.add(new Object[] {new ProtobufSerializer()});
+    return serializers.iterator();
+  }
+
+  @Test(dataProvider="serializers")
+  public void testSerialization(final Serializer serializer) throws Exception {
+    final byte[] bytes = serializer.serialize(transducer);
+    final ITransducer<Candidate> actualTransducer =
+      (ITransducer<Candidate>)
+        serializer.deserialize(Transducer.class, bytes);
+    assertEquals(actualTransducer, transducer);
   }
 
   @Test

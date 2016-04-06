@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.collection.dawg.factory;
 
+import java.io.Serializable;
+
 import com.github.dylon.liblevenshtein.collection.dawg.IDawgNode;
 import com.github.dylon.liblevenshtein.collection.dawg.Transition;
 
@@ -9,7 +11,9 @@ import com.github.dylon.liblevenshtein.collection.dawg.Transition;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface ITransitionFactory<NodeType extends IDawgNode<NodeType>> {
+public interface ITransitionFactory<NodeType extends IDawgNode<NodeType>> extends Serializable {
+
+	static final long serialVersionUID = 1L;
 
   /**
    * Builds or recycles a {@link Transition} object representing an edge from

@@ -1,12 +1,14 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 /**
  * Transitions an input position of a Levenshtein state to all candidate
  * positions, conditioned by a set of parameters.
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IPositionTransitionFunction {
+public interface IPositionTransitionFunction extends Serializable {
 
   /**
    * Returns a state with all the possible transitions from the current

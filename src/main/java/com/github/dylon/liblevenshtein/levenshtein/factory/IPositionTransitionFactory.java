@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
+
 import com.github.dylon.liblevenshtein.levenshtein.IPositionTransitionFunction;
 
 /**
@@ -8,7 +10,9 @@ import com.github.dylon.liblevenshtein.levenshtein.IPositionTransitionFunction;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IPositionTransitionFactory {
+public interface IPositionTransitionFactory extends Serializable {
+
+	static final long serialVersionUID = 1L;
 
   /**
    * Builds a new position-transition function.

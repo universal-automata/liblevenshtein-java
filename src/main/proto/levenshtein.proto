@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package liblevenshtein;
+
+option java_package = "com.github.dylon.liblevenshtein.levenshtein";
+option java_outer_classname = "LibLevenshteinProtos";
+
+message DawgNode {
+  message Edge {
+    uint32 charKey = 1;
+    DawgNode value = 2;
+  }
+
+  bool isFinal = 1;
+  repeated Edge edge = 2;
+}
+
+message Dawg {
+  uint32 size   = 1;
+  DawgNode root = 2;
+}
+
+message Transducer {
+  enum Algorithm {
+    STANDARD        = 0;
+    TRANSPOSITION   = 1;
+    MERGE_AND_SPLIT = 2;
+  }
+
+  uint32 defaultMaxDistance = 1;
+  bool includeDistance      = 2;
+  uint32 maxCandidates      = 3;
+  Algorithm algorithm       = 4;
+  Dawg dictionary           = 5;
+}

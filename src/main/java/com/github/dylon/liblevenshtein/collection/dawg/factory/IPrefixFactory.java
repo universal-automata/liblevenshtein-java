@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.collection.dawg.factory;
 
+import java.io.Serializable;
+
 import com.github.dylon.liblevenshtein.collection.dawg.Prefix;
 
 /**
@@ -8,7 +10,9 @@ import com.github.dylon.liblevenshtein.collection.dawg.Prefix;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IPrefixFactory<DictionaryNode> {
+public interface IPrefixFactory<DictionaryNode> extends Serializable {
+
+	static final long serialVersionUID = 1L;
 
   /**
    * Builds or recycles a {@link Prefix} instance, representing {@code node} and

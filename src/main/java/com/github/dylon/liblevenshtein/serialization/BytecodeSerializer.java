@@ -30,7 +30,7 @@ public class BytecodeSerializer implements Serializer {
    */
   @Override
   public byte[] serialize(
-      final  Serializable object) throws Exception {
+      final Serializable object) throws Exception {
     try (final ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
       serialize(object, stream);
       return stream.toByteArray();

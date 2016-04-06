@@ -13,8 +13,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TakeIterator<Type> extends AbstractIterator<Type> {
 
-	private static final long serialVersionUID = 1L;
-
   /**
    * Naximum number of elements to take from the composed iterator.
    * @see #iterator

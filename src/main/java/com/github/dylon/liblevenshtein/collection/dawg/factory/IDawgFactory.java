@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.collection.dawg.factory;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import com.github.dylon.liblevenshtein.collection.dawg.IDawg;
@@ -16,7 +17,8 @@ import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
  * @since 2.1.0
  */
 public interface IDawgFactory
-  <Node extends IDawgNode<Node>, Dawg extends IDawg<Node>> {
+  <Node extends IDawgNode<Node>, Dawg extends IDawg<Node>>
+	extends Serializable {
 
   /**
    * Returns a new DAWG.

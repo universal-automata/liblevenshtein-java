@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.collection.dawg.factory;
 
+import java.io.Serializable;
+
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 
 import com.github.dylon.liblevenshtein.collection.dawg.IDawgNode;
@@ -11,7 +13,9 @@ import com.github.dylon.liblevenshtein.collection.dawg.IDawgNode;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IDawgNodeFactory<NodeType extends IDawgNode<NodeType>> {
+public interface IDawgNodeFactory<NodeType extends IDawgNode<NodeType>> extends Serializable {
+
+	static final long serialVersionUID = 1L;
 
   /**
    * Builds a DAWG node

@@ -12,8 +12,8 @@ import lombok.experimental.FieldDefaults;
 import lombok.val;
 
 import com.github.dylon.liblevenshtein.collection.TakeIterator;
-import com.github.dylon.liblevenshtein.collection.dawg.AbstractDawg;
 import com.github.dylon.liblevenshtein.collection.dawg.DawgNode;
+import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IDawgFactory;
@@ -48,22 +48,26 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
 	private static final long serialVersionUID = 1L;
 
   /**
-   * Builds and recycles {@link DawgNode} {@link Prefix}es.
+   * Builds and recycles {@link DawgNode} {@link com.github.dylon.liblevenshtein.collection.dawg.Prefix}es.
    */
   final IPrefixFactory<DawgNode> prefixFactory = new PrefixFactory<>();
 
   /**
    * Builds DAWG collections from dictionaries.
    */
-  final IDawgFactory<DawgNode, AbstractDawg> dawgFactory = new DawgFactory()
-    .dawgNodeFactory(new DawgNodeFactory())
-    .prefixFactory(prefixFactory)
-    .transitionFactory(new TransitionFactory<DawgNode>());
+	@SuppressWarnings("unchecked")
+  final IDawgFactory<DawgNode, SortedDawg> dawgFactory =
+    (IDawgFactory<DawgNode, SortedDawg>)
+    (Object)
+      new DawgFactory()
+        .dawgNodeFactory(new DawgNodeFactory())
+        .prefixFactory(prefixFactory)
+        .transitionFactory(new TransitionFactory<DawgNode>());
 
   /**
    * Dictionary automaton for seeking spelling candidates.
    */
-  AbstractDawg dictionary;
+  SortedDawg dictionary;
 
   /**
    * Desired Levenshtein algorithm for searching.
@@ -142,8 +146,8 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
       @NonNull final Collection<String> dictionary,
       final boolean isSorted) {
 
-    if (dictionary instanceof AbstractDawg) {
-      this.dictionary = (AbstractDawg) dictionary;
+    if (dictionary instanceof SortedDawg) {
+      this.dictionary = (SortedDawg) dictionary;
     }
     else {
       this.dictionary = dawgFactory.build(dictionary, isSorted);
@@ -175,7 +179,11 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
       	.isFinal(dawgFactory.isFinal(dictionary))
       	.dictionaryTransition(dawgFactory.transition(dictionary))
       	.initialState(buildInitialState(stateFactory))
-      	.dictionaryRoot(dictionary.root());
+      	.dictionaryRoot(dictionary.root())
+      	.dictionary(dictionary)
+      	.algorithm(algorithm)
+      	.maxCandidates(maxCandidates)
+      	.includeDistance(includeDistance);
 
     final Transducer<DawgNode, CandidateType> transducer =
     	new Transducer<DawgNode, CandidateType>(attributes);

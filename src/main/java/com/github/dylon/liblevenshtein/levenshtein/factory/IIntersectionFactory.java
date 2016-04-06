@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
+
 import com.github.dylon.liblevenshtein.levenshtein.Intersection;
 import com.github.dylon.liblevenshtein.levenshtein.IState;
 
@@ -10,7 +12,9 @@ import com.github.dylon.liblevenshtein.levenshtein.IState;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IIntersectionFactory<DictionaryNode> {
+public interface IIntersectionFactory<DictionaryNode> extends Serializable {
+
+	static final long serialVersionUID = 1L;
 
   /**
    * Constructs a new Intersection between two states: one from the dictionary

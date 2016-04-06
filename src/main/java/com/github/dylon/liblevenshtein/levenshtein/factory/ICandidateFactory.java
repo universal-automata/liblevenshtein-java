@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
+
 /**
  * Builds spelling candidates of the requested type, optionally including the
  * distance of the candidate from the query term.
@@ -7,7 +9,7 @@ package com.github.dylon.liblevenshtein.levenshtein.factory;
  * @author Dylon Edwards
  * @since 2.1.2
  */
-public interface ICandidateFactory<CandidateType> {
+public interface ICandidateFactory<CandidateType> extends Serializable {
 
   /**
    * Builds a new spelling candidate from the dictionary term and its

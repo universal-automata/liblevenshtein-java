@@ -1,11 +1,15 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
+
 /**
  * Builds position vectors for a specific, Levenshtein algorithm.
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IPositionFactory {
+public interface IPositionFactory extends Serializable {
+
+	static final long serialVersionUID = 1L;
 
   /**
    * Builds a position vector for the standard, Levenshtein algorihtm.

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -26,8 +27,9 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.PrefixFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.TransitionFactory;
-import com.github.dylon.liblevenshtein.serialization.Serializer;
 import com.github.dylon.liblevenshtein.serialization.BytecodeSerializer;
+import com.github.dylon.liblevenshtein.serialization.ProtobufSerializer;
+import com.github.dylon.liblevenshtein.serialization.Serializer;
 
 public class DawgTest {
   private List<String> terms;
@@ -79,12 +81,19 @@ public class DawgTest {
     assertTrue(fullDawg.contains(term));
   }
 
-  @Test
-  public void dawgBytecodeSerialization() throws Exception {
-    final Serializer bytecode = new BytecodeSerializer();
-    final byte[] bytes = bytecode.serialize(fullDawg);
+  @DataProvider(name="serializers")
+  public Iterator<Object[]> serializers() {
+    final List<Object[]> serializers = new LinkedList<>();
+    serializers.add(new Object[] {new BytecodeSerializer()});
+    serializers.add(new Object[] {new ProtobufSerializer()});
+    return serializers.iterator();
+  }
+
+  @Test(dataProvider="serializers")
+  public void testSerialization(final Serializer serializer) throws Exception {
+    final byte[] bytes = serializer.serialize(fullDawg);
     final AbstractDawg actualDawg =
-      bytecode.deserialize(AbstractDawg.class, bytes);
+      serializer.deserialize(SortedDawg.class, bytes);
     assertEquals(actualDawg, fullDawg);
   }
 

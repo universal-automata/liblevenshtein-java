@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
+
 import com.github.dylon.liblevenshtein.levenshtein.IStateTransitionFunction;
 
 /**
@@ -7,7 +9,9 @@ import com.github.dylon.liblevenshtein.levenshtein.IStateTransitionFunction;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IStateTransitionFactory {
+public interface IStateTransitionFactory extends Serializable {
+
+	static final long serialVersionUID = 1L;
 
   /**
    * Builds a new state-transition function that only considers spelling

@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 /**
  * Returns a collection of spelling candidates for the given query term.
  * @param <CandidateType> Kind of spelling candidate returned (e.g.
@@ -7,7 +9,7 @@ package com.github.dylon.liblevenshtein.levenshtein;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface ITransducer<CandidateType> {
+public interface ITransducer<CandidateType> extends Serializable {
 
   /**
    * Finds all terms in the dictionary that are fewer than n units of spelling

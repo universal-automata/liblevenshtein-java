@@ -19,7 +19,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.Prefix;
 @FieldDefaults(level=AccessLevel.PRIVATE, makeFinal=true)
 public class PrefixFactory<DictionaryNode> implements IPrefixFactory<DictionaryNode>, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * {@inheritDoc}

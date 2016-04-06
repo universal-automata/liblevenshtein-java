@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 /**
  * The distance of each position in a state can be defined as follows:
  * <p>
@@ -18,7 +20,7 @@ package com.github.dylon.liblevenshtein.levenshtein;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IDistanceFunction {
+public interface IDistanceFunction extends Serializable {
 
   /**
    * @param state Levenshtein state whose minimum, Levenshtein distance is to be

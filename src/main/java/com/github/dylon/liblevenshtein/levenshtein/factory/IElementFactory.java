@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
+
 import com.github.dylon.liblevenshtein.levenshtein.Element;
 
 /**
@@ -8,7 +10,9 @@ import com.github.dylon.liblevenshtein.levenshtein.Element;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IElementFactory<Type> {
+public interface IElementFactory<Type> extends Serializable {
+
+	static final long serialVersionUID = 1L;
 
   /**
    * Builds a new linked-list node with the given value.

@@ -1,11 +1,13 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 /**
  * Transitions Levenshtein states according to the evidence.
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IStateTransitionFunction {
+public interface IStateTransitionFunction extends Serializable {
 
   /**
    * Returns the state consisting of all the possible position-transitions from

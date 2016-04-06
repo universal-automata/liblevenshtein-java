@@ -15,7 +15,6 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Value;
 import lombok.experimental.FieldDefaults;
 
@@ -49,13 +48,13 @@ public abstract class AbstractDawg
   private static final long serialVersionUID = 1L;
 
   /** Manages instances of DAWG nodes */
-  IDawgNodeFactory<DawgNode> factory;
+  volatile IDawgNodeFactory<DawgNode> factory;
 
   /**
    * Builds and recycles prefix objects, which are used to generate terms from
    * the dictionary's root.
    */
-  final IPrefixFactory<DawgNode> prefixFactory;
+  volatile IPrefixFactory<DawgNode> prefixFactory;
 
   /**
    * Root node of this trie.
@@ -75,13 +74,28 @@ public abstract class AbstractDawg
    * Initializes an {@link AbstractDawg}.
    * @param prefixFactory Builds/Caches instances of {@link DawgNode} paths.
    * @param factory Builds/Caches {@link DawgNode} nodes.
+   * @param root Root node of this DAWG.
    */
-  public AbstractDawg(
-      @NonNull final IPrefixFactory<DawgNode> prefixFactory,
-      @NonNull final IDawgNodeFactory<DawgNode> factory) {
+  protected AbstractDawg(
+      final IPrefixFactory<DawgNode> prefixFactory,
+      final IDawgNodeFactory<DawgNode> factory,
+      final DawgNode root,
+      final int size) {
     this.prefixFactory = prefixFactory;
     this.factory = factory;
-    this.root = factory.build();
+    this.root = root;
+    this.size = size;
+  }
+
+  /**
+   * Initializes an {@link AbstractDawg}.
+   * @param prefixFactory Builds/Caches instances of {@link DawgNode} paths.
+   * @param factory Builds/Caches {@link DawgNode} nodes.
+   */
+  public AbstractDawg(
+      final IPrefixFactory<DawgNode> prefixFactory,
+      final IDawgNodeFactory<DawgNode> factory) {
+    this(prefixFactory, factory, factory.build(), 0);
   }
 
   /**

@@ -1,6 +1,5 @@
 package com.github.dylon.liblevenshtein.collection;
 
-import java.io.Serializable;
 import java.util.Iterator;
 
 /**
@@ -9,9 +8,7 @@ import java.util.Iterator;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public abstract class AbstractIterator<Type> implements Iterator<Type>, Serializable {
-
-	private static final long serialVersionUID = 1L;
+public abstract class AbstractIterator<Type> implements Iterator<Type> {
 
   /**
    * Next value to return. The next element to return is determined via

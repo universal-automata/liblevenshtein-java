@@ -12,9 +12,12 @@ import lombok.NonNull;
 import lombok.Value;
 import lombok.experimental.FieldDefaults;
 
+import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IDawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.ITransitionFactory;
+import com.github.dylon.liblevenshtein.collection.dawg.factory.PrefixFactory;
+import com.github.dylon.liblevenshtein.collection.dawg.factory.TransitionFactory;
 
 /**
  * <p>
@@ -52,7 +55,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.ITransitionFactor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class SortedDawg extends AbstractDawg {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /** Transitions that have not been checked for redundancy */
   Deque<Transition<DawgNode>> uncheckedTransitions = new ArrayDeque<>();
@@ -79,8 +82,8 @@ public class SortedDawg extends AbstractDawg {
    * is not.
    */
   public SortedDawg(
-      @NonNull final IPrefixFactory<DawgNode> prefixFactory,
-      @NonNull final IDawgNodeFactory<DawgNode> factory,
+      final IPrefixFactory<DawgNode> prefixFactory,
+      final IDawgNodeFactory<DawgNode> factory,
       @NonNull final ITransitionFactory<DawgNode> transitionFactory,
       @NonNull Collection<String> terms) {
     super(prefixFactory, factory);
@@ -89,6 +92,18 @@ public class SortedDawg extends AbstractDawg {
       throw new IllegalStateException("Failed to add all terms");
     }
     finish();
+  }
+
+  /**
+   * Constructs a new SortedDawg instance.
+   * @param size Number of terms in this dictionary.
+   * @param root Root node of this dictionary.
+   */
+  public SortedDawg(
+      final int size,
+      @NonNull final DawgNode root) {
+    super(new PrefixFactory<DawgNode>(), new DawgNodeFactory(), root, size);
+    this.transitionFactory = new TransitionFactory<DawgNode>();
   }
 
   /**
@@ -187,7 +202,7 @@ public class SortedDawg extends AbstractDawg {
   @Value
   private static class NodeFinalization implements Serializable {
 
-  	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@link DawgNode} represented by this {@link NodeFinalization}

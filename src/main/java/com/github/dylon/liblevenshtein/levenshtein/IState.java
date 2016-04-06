@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Comparator;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IState {
+public interface IState extends Serializable {
 
   /**
    * Number of positions in this state.

@@ -1,11 +1,13 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 /**
  * Specifies the interface that all distance functions must implement.
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IDistance<Term> {
+public interface IDistance<Term> extends Serializable {
 
   /**
    * Finds the distance between two terms, {@code v} and {@code w}. The distance

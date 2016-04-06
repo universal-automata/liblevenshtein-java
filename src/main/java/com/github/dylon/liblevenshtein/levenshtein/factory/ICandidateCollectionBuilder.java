@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
+
 import com.github.dylon.liblevenshtein.levenshtein.ICandidateCollection;
 
 /**
@@ -8,7 +10,7 @@ import com.github.dylon.liblevenshtein.levenshtein.ICandidateCollection;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface ICandidateCollectionBuilder<Type> {
+public interface ICandidateCollectionBuilder<Type> extends Serializable {
 
   /**
    * Specifies the maximum number of spelling candidates to hold in a

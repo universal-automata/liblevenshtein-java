@@ -22,7 +22,7 @@ import it.unimi.dsi.fastutil.chars.CharIterator;
 @AllArgsConstructor
 public class DawgNode implements IDawgNode<DawgNode>, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /** Outgoing edges of this node */
   @NonNull private final Char2ObjectMap<DawgNode> edges;

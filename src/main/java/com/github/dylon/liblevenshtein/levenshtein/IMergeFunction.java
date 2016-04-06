@@ -1,11 +1,13 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 /**
  * Defines operations for merging states together.
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IMergeFunction {
+public interface IMergeFunction extends Serializable {
 
   /**
    * Merges the positions in the latter state into the former, in a

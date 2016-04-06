@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -10,7 +11,7 @@ import java.util.Set;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IDawg <Node extends IDawgNode<Node>> extends Set<String> {
+public interface IDawg <Node extends IDawgNode<Node>> extends Set<String>, Serializable {
 
   /**
    * [Optional Operation] Replaces the String, current, with another.

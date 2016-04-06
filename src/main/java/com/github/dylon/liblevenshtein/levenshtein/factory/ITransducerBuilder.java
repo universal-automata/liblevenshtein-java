@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Comparator;
 
@@ -11,7 +12,7 @@ import com.github.dylon.liblevenshtein.levenshtein.ITransducer;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface ITransducerBuilder {
+public interface ITransducerBuilder extends Serializable {
 
   /**
    * Specifies the collection of dictionary terms for the dictionary automaton.

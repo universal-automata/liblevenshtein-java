@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
+import java.io.Serializable;
+
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
 /**
@@ -8,7 +10,7 @@ import it.unimi.dsi.fastutil.chars.CharIterator;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface ITransitionFunction<State> {
+public interface ITransitionFunction<State> extends Serializable {
 
   /**
    * Determines the next state given the current one and some input.

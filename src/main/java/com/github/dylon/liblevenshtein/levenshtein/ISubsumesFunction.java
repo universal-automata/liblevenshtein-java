@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 /**
  * Determines whether the position represented by the combination of parameters
  * in the left half subsumes the position represented by the combination of
@@ -7,7 +9,7 @@ package com.github.dylon.liblevenshtein.levenshtein;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface ISubsumesFunction {
+public interface ISubsumesFunction extends Serializable {
 
   /**
    * Determines whether the standard, Levenshtein state represented by

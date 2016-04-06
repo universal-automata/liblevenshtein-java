@@ -2,6 +2,8 @@ package com.github.dylon.liblevenshtein.levenshtein;
 
 import java.io.Serializable;
 
+import lombok.Data;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -15,6 +17,7 @@ import lombok.RequiredArgsConstructor;
  * @author Dylon Edwards
  * @since 2.1.0
  */
+@Data
 @RequiredArgsConstructor
 public class Transducer<DictionaryNode, CandidateType>
   implements ITransducer<CandidateType>, Serializable {
@@ -29,7 +32,9 @@ public class Transducer<DictionaryNode, CandidateType>
    * dictionary.
    * @return This {@link Transducer} for fluency.
    */
-  @NonNull TransducerAttributes<DictionaryNode,CandidateType> attributes;
+  @Getter
+  @NonNull
+  TransducerAttributes<DictionaryNode,CandidateType> attributes;
 
   /**
    * {@inheritDoc}
