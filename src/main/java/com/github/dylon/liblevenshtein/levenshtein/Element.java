@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +21,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 @Getter
 @Setter
-public class Element<Type> {
+public class Element<Type> implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Reference to the previous node in this linked-list.  The previous node may

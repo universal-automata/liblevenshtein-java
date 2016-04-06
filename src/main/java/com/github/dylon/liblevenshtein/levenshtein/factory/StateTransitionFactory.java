@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Comparator;
 import java.util.Queue;
@@ -20,7 +21,9 @@ import com.github.dylon.liblevenshtein.levenshtein.StateTransitionFunction;
  * @since 2.1.0
  */
 @FieldDefaults(level=AccessLevel.PRIVATE)
-public class StateTransitionFactory implements IStateTransitionFactory {
+public class StateTransitionFactory implements IStateTransitionFactory, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Compares Levenshtein-state positions

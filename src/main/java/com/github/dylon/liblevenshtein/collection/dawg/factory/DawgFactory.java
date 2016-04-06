@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.collection.dawg.factory;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -23,7 +24,9 @@ import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
  */
 @NoArgsConstructor
 @AllArgsConstructor
-public class DawgFactory implements IDawgFactory<DawgNode, AbstractDawg> {
+public class DawgFactory implements IDawgFactory<DawgNode, AbstractDawg>, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Builds and recycles Dawg nodes

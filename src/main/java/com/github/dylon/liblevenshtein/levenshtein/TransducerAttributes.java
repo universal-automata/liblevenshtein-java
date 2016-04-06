@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +24,9 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IStateTransitionFacto
 @Data
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PROTECTED)
-public class TransducerAttributes<DictionaryNode, CandidateType> {
+public class TransducerAttributes<DictionaryNode, CandidateType> implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Maximum number of spelling errors candidates may have from the query term.

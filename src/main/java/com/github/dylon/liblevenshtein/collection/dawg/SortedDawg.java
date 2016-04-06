@@ -51,6 +51,8 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.ITransitionFactor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class SortedDawg extends AbstractDawg {
 
+	private static final long serialVersionUID = 1L;
+
   /** Transitions that have not been checked for redundancy */
   Deque<Transition<DawgNode>> uncheckedTransitions = new ArrayDeque<>();
 

@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -12,7 +13,9 @@ import com.github.dylon.liblevenshtein.levenshtein.Element;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public class ElementFactory<Type> implements IElementFactory<Type> {
+public class ElementFactory<Type> implements IElementFactory<Type>, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * {@inheritDoc}

@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -42,7 +43,9 @@ import com.github.dylon.liblevenshtein.levenshtein.XPositionDistanceFunction;
  * @since 2.1.0
  */
 @FieldDefaults(level=AccessLevel.PRIVATE)
-public class TransducerBuilder implements ITransducerBuilder {
+public class TransducerBuilder implements ITransducerBuilder, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Builds and recycles {@link DawgNode} {@link Prefix}es.

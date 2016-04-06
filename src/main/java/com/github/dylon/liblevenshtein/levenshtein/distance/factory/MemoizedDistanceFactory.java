@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
+
 import lombok.NonNull;
 
 import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
@@ -14,7 +16,9 @@ import com.github.dylon.liblevenshtein.levenshtein.distance.MemoizedMergeAndSpli
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public class MemoizedDistanceFactory implements IDistanceFactory<String> {
+public class MemoizedDistanceFactory implements IDistanceFactory<String>, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Computes the distance between two terms using the standard, Levenshtein

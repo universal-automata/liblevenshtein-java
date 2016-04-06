@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.collection;
 
+import java.io.Serializable;
+
 import lombok.NonNull;
 import lombok.Value;
 
@@ -14,7 +16,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  */
 @Value
 public class SymmetricImmutablePair<Type extends Comparable<Type>>
-    implements Comparable<SymmetricImmutablePair<Type>> {
+    implements Comparable<SymmetricImmutablePair<Type>>, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * First element of this pair

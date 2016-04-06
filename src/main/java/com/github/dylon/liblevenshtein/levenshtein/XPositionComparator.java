@@ -9,6 +9,7 @@ import java.util.Comparator;
  * @since 2.1.0
  */
 public class XPositionComparator implements Serializable, Comparator<int[]> {
+
   private static final long serialVersionUID = 1L;
 
   /**

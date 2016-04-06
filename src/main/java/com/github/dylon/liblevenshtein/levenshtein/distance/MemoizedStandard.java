@@ -13,6 +13,8 @@ import com.github.dylon.liblevenshtein.collection.SymmetricImmutablePair;
  */
 public class MemoizedStandard extends AbstractMemoized {
 
+	private static final long serialVersionUID = 1L;
+
   /**
    * {@inheritDoc}
    */

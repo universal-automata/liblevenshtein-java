@@ -1,11 +1,15 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 /**
  * Routines for determining whether one position subsumes another.
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public abstract class SubsumesFunction implements ISubsumesFunction {
+public abstract class SubsumesFunction implements ISubsumesFunction, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * {@inheritDoc}
@@ -38,6 +42,8 @@ public abstract class SubsumesFunction implements ISubsumesFunction {
    */
   public static class ForStandardAlgorithm extends SubsumesFunction {
 
+		private static final long serialVersionUID = 1L;
+
     /**
      * {@inheritDoc}
      */
@@ -56,6 +62,8 @@ public abstract class SubsumesFunction implements ISubsumesFunction {
    * @since 2.1.0
    */
   public static class ForTransposition extends SubsumesFunction {
+
+		private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}
@@ -106,6 +114,8 @@ public abstract class SubsumesFunction implements ISubsumesFunction {
    * @since 2.1.0
    */
   public static class ForMergeAndSplit extends SubsumesFunction {
+
+		private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}

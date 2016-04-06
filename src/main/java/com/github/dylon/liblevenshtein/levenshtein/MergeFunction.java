@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 import lombok.Setter;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.IPositionFactory;
@@ -10,7 +12,9 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IPositionFactory;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public abstract class MergeFunction implements IMergeFunction {
+public abstract class MergeFunction implements IMergeFunction, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * -- Setter --
@@ -27,6 +31,8 @@ public abstract class MergeFunction implements IMergeFunction {
    * @since 2.1.0
    */
   public static class ForStandardPositions extends MergeFunction {
+
+		private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}
@@ -75,6 +81,8 @@ public abstract class MergeFunction implements IMergeFunction {
    * @since 2.1.0
    */
   public static class ForXPositions extends MergeFunction {
+
+		private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}

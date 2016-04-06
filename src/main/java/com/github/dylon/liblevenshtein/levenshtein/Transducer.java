@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -15,7 +17,9 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 public class Transducer<DictionaryNode, CandidateType>
-  implements ITransducer<CandidateType> {
+  implements ITransducer<CandidateType>, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * Attributes required for this transducer to search the dictionary.

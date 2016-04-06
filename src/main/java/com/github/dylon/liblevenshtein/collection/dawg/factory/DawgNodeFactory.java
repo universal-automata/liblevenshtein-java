@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.collection.dawg.factory;
 
+import java.io.Serializable;
 import java.util.Queue;
 import java.util.ArrayDeque;
 
@@ -15,7 +16,9 @@ import com.github.dylon.liblevenshtein.collection.dawg.DawgNode;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public class DawgNodeFactory implements IDawgNodeFactory<DawgNode> {
+public class DawgNodeFactory implements IDawgNodeFactory<DawgNode>, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * {@inheritDoc}

@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -18,7 +19,9 @@ import com.github.dylon.liblevenshtein.levenshtein.TranspositionPositionTransiti
  * @since 2.1.0
  */
 @FieldDefaults(level=AccessLevel.PROTECTED)
-public abstract class PositionTransitionFactory implements IPositionTransitionFactory {
+public abstract class PositionTransitionFactory implements IPositionTransitionFactory, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Builds and recycles Levenshtein states.
@@ -45,6 +48,8 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
    */
   public static class ForStandardPositions extends PositionTransitionFactory {
 
+		private static final long serialVersionUID = 1L;
+
     /**
      * {@inheritDoc}
      */
@@ -63,6 +68,8 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
    */
   public static class ForTranspositionPositions extends PositionTransitionFactory {
 
+		private static final long serialVersionUID = 1L;
+
     /**
      * {@inheritDoc}
      */
@@ -80,6 +87,8 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
    * @since 2.1.0
    */
   public static class ForMergeAndSplitPositions extends PositionTransitionFactory {
+
+		private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}

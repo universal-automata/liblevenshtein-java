@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
 import java.util.Queue;
 import java.util.ArrayDeque;
 
@@ -16,7 +17,9 @@ import com.github.dylon.liblevenshtein.levenshtein.IState;
  * @since 2.1.0
  */
 public class IntersectionFactory<DictionaryNode>
-  implements IIntersectionFactory<DictionaryNode> {
+  implements IIntersectionFactory<DictionaryNode>, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * {@inheritDoc}

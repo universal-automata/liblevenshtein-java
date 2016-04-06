@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
+
 import lombok.AccessLevel;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
@@ -17,7 +19,9 @@ import com.github.dylon.liblevenshtein.levenshtein.ICandidateCollection;
  */
 @FieldDefaults(level=AccessLevel.PROTECTED)
 public abstract class CandidateCollectionBuilder<Type>
-  implements ICandidateCollectionBuilder<Type> {
+  implements ICandidateCollectionBuilder<Type>, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * Maximum number of candidates to hold in the collection.
@@ -39,6 +43,8 @@ public abstract class CandidateCollectionBuilder<Type>
    */
   public static class WithDistance extends CandidateCollectionBuilder<Candidate> {
 
+  	private static final long serialVersionUID = 1L;
+
     /**
      * {@inheritDoc}
      */
@@ -56,6 +62,8 @@ public abstract class CandidateCollectionBuilder<Type>
    * @since 2.1.0
    */
   public static class WithoutDistance extends CandidateCollectionBuilder<String> {
+
+  	private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}

@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import lombok.Setter;
@@ -14,7 +15,9 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IStateFactory;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public class StateTransitionFunction implements IStateTransitionFunction {
+public class StateTransitionFunction implements IStateTransitionFunction, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Sorts {@link IState} elements in an unsubsumption-friendly fashion.

@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 import lombok.Value;
 
 /**
@@ -9,7 +11,9 @@ import lombok.Value;
  * @since 2.1.0
  */
 @Value
-public class Candidate {
+public class Candidate implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Candidate term from the dictionary automaton.

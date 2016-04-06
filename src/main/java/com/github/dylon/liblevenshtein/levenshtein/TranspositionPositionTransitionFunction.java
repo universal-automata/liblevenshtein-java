@@ -9,6 +9,8 @@ package com.github.dylon.liblevenshtein.levenshtein;
 public class TranspositionPositionTransitionFunction
   extends AbstractPositionTransitionFunction {
 
+  private static final long serialVersionUID = 1L;
+
   /**
    * {@inheritDoc}
    */

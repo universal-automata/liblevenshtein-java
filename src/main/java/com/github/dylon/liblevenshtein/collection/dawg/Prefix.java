@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
+import java.io.Serializable;
+
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -13,7 +15,9 @@ import lombok.experimental.FieldDefaults;
  */
 @Data
 @FieldDefaults(level=AccessLevel.PRIVATE)
-public class Prefix<DictionaryNode> {
+public class Prefix<DictionaryNode> implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Current node in the trie.

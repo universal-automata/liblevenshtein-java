@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 import lombok.Setter;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.IPositionFactory;
@@ -11,6 +13,8 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IPositionFactory;
  * @since 2.1.0
  */
 public abstract class UnsubsumeFunction implements IUnsubsumeFunction {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Determines whether one position subsumes another.

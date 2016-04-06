@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
+import java.io.Serializable;
 import java.util.AbstractSet;
 import java.util.ArrayDeque;
 import java.util.Collection;
@@ -42,7 +43,10 @@ public abstract class AbstractDawg
     extends AbstractSet<String>
     implements IDawg<DawgNode>,
                IFinalFunction<DawgNode>,
-               ITransitionFunction<DawgNode> {
+               ITransitionFunction<DawgNode>,
+               Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /** Manages instances of DAWG nodes */
   IDawgNodeFactory<DawgNode> factory;

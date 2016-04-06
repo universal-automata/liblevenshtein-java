@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -33,7 +34,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Deprecated
 @FieldDefaults(level=AccessLevel.PROTECTED, makeFinal=true)
 public abstract class CandidateCollection<Type>
-  implements ICandidateCollection<Type> {
+  implements ICandidateCollection<Type>, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * Maximum number of correction candidates that may be added to this
@@ -85,6 +88,8 @@ public abstract class CandidateCollection<Type>
    */
   public static class WithDistance extends CandidateCollection<Candidate> {
 
+  	private static final long serialVersionUID = 1L;
+
     /**
      * Constructs a new instance of ICandidateCollection, with a maximum
      * threshold for the number of correction candidates it will accept.
@@ -116,6 +121,8 @@ public abstract class CandidateCollection<Type>
    * @since 2.1.0
    */
   public static class WithoutDistance extends CandidateCollection<String> {
+
+  	private static final long serialVersionUID = 1L;
 
     /**
      * Constructs a new instance of ICandidateCollection, with a maximum

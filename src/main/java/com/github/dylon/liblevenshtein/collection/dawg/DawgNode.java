@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +20,9 @@ import it.unimi.dsi.fastutil.chars.CharIterator;
  */
 @Data
 @AllArgsConstructor
-public class DawgNode implements IDawgNode<DawgNode> {
+public class DawgNode implements IDawgNode<DawgNode>, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /** Outgoing edges of this node */
   @NonNull private final Char2ObjectMap<DawgNode> edges;

@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 /**
  * Distance function for the Levenshtein distance algorithms, extended with
  * transposition (standard- and t-positions), and with merge and split
@@ -9,7 +11,9 @@ package com.github.dylon.liblevenshtein.levenshtein;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public class XPositionDistanceFunction implements IDistanceFunction {
+public class XPositionDistanceFunction implements IDistanceFunction, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * {@inheritDoc}

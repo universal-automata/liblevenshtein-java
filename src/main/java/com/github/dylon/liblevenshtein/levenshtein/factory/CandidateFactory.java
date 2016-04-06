@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
+
 import com.github.dylon.liblevenshtein.levenshtein.Candidate;
 
 /**
@@ -10,7 +12,9 @@ import com.github.dylon.liblevenshtein.levenshtein.Candidate;
  * @since 2.1.2
  */
 public abstract class CandidateFactory<CandidateType>
-    implements ICandidateFactory<CandidateType> {
+    implements ICandidateFactory<CandidateType>, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * Builds instances of {@link Candidate}, with the dictionary term and its
@@ -19,6 +23,8 @@ public abstract class CandidateFactory<CandidateType>
    * @since 2.1.2
    */
   public static class WithDistance extends CandidateFactory<Candidate> {
+
+  	private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}
@@ -35,6 +41,8 @@ public abstract class CandidateFactory<CandidateType>
    * @since 2.1.2
    */
   public static class WithoutDistance extends CandidateFactory<String> {
+
+  	private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}

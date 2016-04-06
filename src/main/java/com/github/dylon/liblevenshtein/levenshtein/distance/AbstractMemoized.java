@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein.distance;
 
+import java.io.Serializable;
+
 import lombok.NonNull;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
@@ -13,7 +15,9 @@ import com.github.dylon.liblevenshtein.levenshtein.IDistance;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public abstract class AbstractMemoized implements IDistance<String> {
+public abstract class AbstractMemoized implements IDistance<String>, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /** Default return value of memoized distances when no record exists. */
   protected static final int DEFAULT_RETURN_VALUE = -1;

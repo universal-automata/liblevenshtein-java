@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 import lombok.AccessLevel;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
@@ -17,7 +19,9 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IStateFactory;
  */
 @FieldDefaults(level=AccessLevel.PROTECTED)
 public abstract class AbstractPositionTransitionFunction
-  implements IPositionTransitionFunction {
+  implements IPositionTransitionFunction, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * Builds and caches states for the transducer.

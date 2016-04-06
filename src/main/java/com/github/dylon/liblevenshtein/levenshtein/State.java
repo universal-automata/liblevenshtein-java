@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import lombok.AccessLevel;
@@ -22,7 +23,9 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IElementFactory;
 @ToString(of={"size", "head", "tail"})
 @EqualsAndHashCode(of={"size", "head", "tail"})
 @FieldDefaults(level=AccessLevel.PRIVATE)
-public class State implements IState {
+public class State implements IState, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Number of positions in this state.  This statistic is useful when

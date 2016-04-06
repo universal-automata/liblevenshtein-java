@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Iterator;
@@ -50,7 +51,9 @@ import com.github.dylon.liblevenshtein.collection.AbstractIterator;
 @FieldDefaults(level=AccessLevel.PRIVATE, makeFinal=true)
 public class LazyTransducerCollection<DictionaryNode, CandidateType>
     extends AbstractIterator<CandidateType>
-    implements ICandidateCollection<CandidateType> {
+    implements ICandidateCollection<CandidateType>, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * Query term whose spelling should be corrected.

@@ -1,11 +1,15 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
+
 /**
  * Builds position vectors for the given algorithm.
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public abstract class PositionFactory implements IPositionFactory {
+public abstract class PositionFactory implements IPositionFactory, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Builds position vectors for the standard algorithm.
@@ -13,6 +17,8 @@ public abstract class PositionFactory implements IPositionFactory {
    * @since 2.1.0
    */
   public static class ForStandardPositions extends PositionFactory {
+
+		private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}
@@ -30,6 +36,8 @@ public abstract class PositionFactory implements IPositionFactory {
    * @since 2.1.0
    */
   public static class ForXPositions extends PositionFactory {
+
+		private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}

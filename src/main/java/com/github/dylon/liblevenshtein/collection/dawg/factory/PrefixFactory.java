@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.collection.dawg.factory;
 
+import java.io.Serializable;
 import java.util.Queue;
 import java.util.ArrayDeque;
 
@@ -16,7 +17,9 @@ import com.github.dylon.liblevenshtein.collection.dawg.Prefix;
  * @since 2.1.0
  */
 @FieldDefaults(level=AccessLevel.PRIVATE, makeFinal=true)
-public class PrefixFactory<DictionaryNode> implements IPrefixFactory<DictionaryNode> {
+public class PrefixFactory<DictionaryNode> implements IPrefixFactory<DictionaryNode>, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * {@inheritDoc}

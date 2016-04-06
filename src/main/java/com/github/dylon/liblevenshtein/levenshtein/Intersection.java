@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 /**
@@ -10,7 +12,9 @@ import lombok.Data;
  * @since 2.1.0
  */
 @Data
-public class Intersection<DictionaryNode> {
+public class Intersection<DictionaryNode> implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Spelling candidate from the dictionary automaton, represented as the prefix

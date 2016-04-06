@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -13,7 +14,9 @@ import com.github.dylon.liblevenshtein.levenshtein.State;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public class StateFactory implements IStateFactory {
+public class StateFactory implements IStateFactory, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Builds and recycles linked-list nodes for state positions.

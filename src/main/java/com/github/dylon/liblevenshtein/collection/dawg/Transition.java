@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
+import java.io.Serializable;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +13,9 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class Transition<NodeType extends IDawgNode<NodeType>> {
+public class Transition<NodeType extends IDawgNode<NodeType>> implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * Node from which the transition is leaving.

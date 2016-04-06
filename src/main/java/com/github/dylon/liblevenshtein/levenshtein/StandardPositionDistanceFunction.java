@@ -1,11 +1,15 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
+import java.io.Serializable;
+
 /**
  * Distance function for the standard, Levenshtein distance algorithm.
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public class StandardPositionDistanceFunction implements IDistanceFunction {
+public class StandardPositionDistanceFunction implements IDistanceFunction, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
   /**
    * {@inheritDoc}

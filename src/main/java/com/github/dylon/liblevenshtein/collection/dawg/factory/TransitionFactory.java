@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.collection.dawg.factory;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -17,7 +18,9 @@ import com.github.dylon.liblevenshtein.collection.dawg.Transition;
  */
 @FieldDefaults(level=AccessLevel.PRIVATE, makeFinal=true)
 public class TransitionFactory<NodeType extends IDawgNode<NodeType>>
-  implements ITransitionFactory<NodeType> {
+  implements ITransitionFactory<NodeType>, Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * {@inheritDoc}
