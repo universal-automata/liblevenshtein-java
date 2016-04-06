@@ -133,7 +133,7 @@ public class SortedDawg extends AbstractDawg {
     minimize(i);
 
     // Add the suffix, starting from the correct node, mid-way through the graph
-    DawgNode node = uncheckedTransitions.isEmpty()
+    DawgNode node = (null == uncheckedTransitions.peekFirst())
       ? root
       : uncheckedTransitions.peekFirst().target();
 
