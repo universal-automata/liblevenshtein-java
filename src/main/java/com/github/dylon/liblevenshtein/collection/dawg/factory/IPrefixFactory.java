@@ -12,7 +12,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.Prefix;
  */
 public interface IPrefixFactory<DictionaryNode> extends Serializable {
 
-	static final long serialVersionUID = 1L;
+  static final long serialVersionUID = 1L;
 
   /**
    * Builds or recycles a {@link Prefix} instance, representing {@code node} and

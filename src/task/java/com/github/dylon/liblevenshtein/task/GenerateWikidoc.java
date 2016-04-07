@@ -44,9 +44,9 @@ public class GenerateWikidoc {
       final ST template = group.getInstanceOf(templateName);
 
       if (null == template) {
-      	final String message =
-      		String.format("Cannot find template [stringtemplate/%s]", templateName);
-      	throw new IllegalStateException(message);
+        final String message =
+          String.format("Cannot find template [stringtemplate/%s]", templateName);
+        throw new IllegalStateException(message);
       }
 
       template.add("groupId", groupId);

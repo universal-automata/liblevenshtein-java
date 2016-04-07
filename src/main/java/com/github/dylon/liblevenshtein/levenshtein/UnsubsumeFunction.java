@@ -14,7 +14,7 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IPositionFactory;
  */
 public abstract class UnsubsumeFunction implements IUnsubsumeFunction, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * Determines whether one position subsumes another.
@@ -43,7 +43,7 @@ public abstract class UnsubsumeFunction implements IUnsubsumeFunction, Serializa
    */
   public static class ForStandardPositions extends UnsubsumeFunction {
 
-	  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}
@@ -89,7 +89,7 @@ public abstract class UnsubsumeFunction implements IUnsubsumeFunction, Serializa
    */
   public static class ForXPositions extends UnsubsumeFunction {
 
-	  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}

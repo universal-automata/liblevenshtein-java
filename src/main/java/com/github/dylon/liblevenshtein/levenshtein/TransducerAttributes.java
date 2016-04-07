@@ -28,20 +28,20 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IStateTransitionFacto
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PROTECTED)
 @ToString(of={
-	"maxDistance",
-	"dictionary",
-	"algorithm",
-	"maxCandidates",
-	"includeDistance"})
+  "maxDistance",
+  "dictionary",
+  "algorithm",
+  "maxCandidates",
+  "includeDistance"})
 @EqualsAndHashCode(of={
-	"maxDistance",
-	"dictionary",
-	"algorithm",
-	"maxCandidates",
-	"includeDistance"})
+  "maxDistance",
+  "dictionary",
+  "algorithm",
+  "maxCandidates",
+  "includeDistance"})
 public class TransducerAttributes<DictionaryNode, CandidateType> implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * Maximum number of spelling errors candidates may have from the query term.

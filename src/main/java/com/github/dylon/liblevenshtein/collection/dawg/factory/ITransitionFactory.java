@@ -13,7 +13,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.Transition;
  */
 public interface ITransitionFactory<NodeType extends IDawgNode<NodeType>> extends Serializable {
 
-	static final long serialVersionUID = 1L;
+  static final long serialVersionUID = 1L;
 
   /**
    * Builds or recycles a {@link Transition} object representing an edge from

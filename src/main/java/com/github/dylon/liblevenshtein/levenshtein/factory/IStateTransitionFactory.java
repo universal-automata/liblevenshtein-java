@@ -11,7 +11,7 @@ import com.github.dylon.liblevenshtein.levenshtein.IStateTransitionFunction;
  */
 public interface IStateTransitionFactory extends Serializable {
 
-	static final long serialVersionUID = 1L;
+  static final long serialVersionUID = 1L;
 
   /**
    * Builds a new state-transition function that only considers spelling

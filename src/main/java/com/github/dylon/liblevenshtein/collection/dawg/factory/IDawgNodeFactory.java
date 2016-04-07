@@ -15,7 +15,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.IDawgNode;
  */
 public interface IDawgNodeFactory<NodeType extends IDawgNode<NodeType>> extends Serializable {
 
-	static final long serialVersionUID = 1L;
+  static final long serialVersionUID = 1L;
 
   /**
    * Builds a DAWG node

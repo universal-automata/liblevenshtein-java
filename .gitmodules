@@ -1,6 +1,6 @@
 [submodule "wiki"]
-	path = wiki
-	url = https://github.com/universal-automata/liblevenshtein.wiki.git
+  path = wiki
+  url = https://github.com/universal-automata/liblevenshtein.wiki.git
 [submodule "shared"]
-	path = shared
-	url = https://github.com/universal-automata/liblevenshtein-shared.git
+  path = shared
+  url = https://github.com/universal-automata/liblevenshtein-shared.git

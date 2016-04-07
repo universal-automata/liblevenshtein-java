@@ -26,7 +26,9 @@ public class StandardPositionTransitionFunction
     final int h = i - offset;
     final int w = characteristicVector.length;
 
+    // The edit distance is not below its maximum, allowed value.
     if (e < n) {
+      // Consider any character before the last one of the spelling candidate
       if (h <= w - 2) {
         final int a = (n - e < Integer.MAX_VALUE)
           ? n - e + 1
@@ -37,50 +39,72 @@ public class StandardPositionTransitionFunction
 
         if (0 == j) {
           return stateFactory.build(
+              // [No Error]: Increment the index by one; leave the error alone.
               positionFactory.build(1 + i, e)
           );
         }
 
         if (j > 0) {
           return stateFactory.build(
+              // [Insertion|Deletion]: Leave the index alone; increment the
+              // error by one.
               positionFactory.build(i, e + 1),
+              // [Substitution]: Increment both the index and error by one.
               positionFactory.build(i + 1, e + 1),
+              // [Substitution]: Increment the index by one-more than the number
+              // of substitutions; increment the error by the number of
+              // substitutions.
               positionFactory.build(i + j + 1, e + j)
           );
         }
 
         // else, j < 0
         return stateFactory.build(
+            // [Insertion|Deletion]: Leave the index alone; increment the error
+            // by one.
             positionFactory.build(i, e + 1),
+            // [Substitution]: Increment both the index and error by one.
             positionFactory.build(i + 1, e + 1)
         );
       }
 
+      // Consider the last character of the spelling candidate
       if (h == w - 1) {
         if (characteristicVector[h]) {
           return stateFactory.build(
+              // [No Error]: Increment the index by one; leave the error alone.
               positionFactory.build(i + 1, e)
           );
         }
 
         return stateFactory.build(
+            // [Insertion|Deletion]: Leave the index alone; increment the error
+            // by one.
             positionFactory.build(i, e + 1),
+            // [Substitution]: Increment both the index and error by one.
             positionFactory.build(i + 1, e + 1)
         );
       }
 
       // else, h == w
       return stateFactory.build(
+          // [Insertion|Deletion]: Leave the index alone; increment the error by
+          // one.
           positionFactory.build(i, e + 1)
       );
     }
 
+    // The edit distance is at its maximum, allowed value.  Only consider this
+    // spelling candidate if there is no error at the index of its current term.
     if ((e == n) && (h <= w - 1) && characteristicVector[h]) {
       return stateFactory.build(
+          // [No Error]: Increment the index by one; leave the error alone.
           positionFactory.build(i + 1, n)
       );
     }
 
+    // [Too Many Errors]: The edit distance has exceeded the max distance for
+    // the candidate term.
     return null;
   }
 }

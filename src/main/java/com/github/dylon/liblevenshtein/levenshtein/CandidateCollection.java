@@ -88,7 +88,7 @@ public abstract class CandidateCollection<Type>
    */
   public static class WithDistance extends CandidateCollection<Candidate> {
 
-  	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Constructs a new instance of ICandidateCollection, with a maximum
@@ -122,7 +122,7 @@ public abstract class CandidateCollection<Type>
    */
   public static class WithoutDistance extends CandidateCollection<String> {
 
-  	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Constructs a new instance of ICandidateCollection, with a maximum

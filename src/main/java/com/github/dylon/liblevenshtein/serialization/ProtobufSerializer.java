@@ -155,7 +155,7 @@ public class ProtobufSerializer implements Serializer {
   // Models
   // ---------------------------------------------------------------------------
 
-  private DawgNode modelOf(final LibLevenshteinProtos.DawgNode proto) {
+  protected DawgNode modelOf(final LibLevenshteinProtos.DawgNode proto) {
     final Char2ObjectSortedMap<DawgNode> edges = new Char2ObjectRBTreeMap<>();
     for (final LibLevenshteinProtos.DawgNode.Edge edge : proto.getEdgeList()) {
       final char label = (char) edge.getCharKey();
@@ -164,12 +164,12 @@ public class ProtobufSerializer implements Serializer {
     return new DawgNode(edges, proto.getIsFinal());
   }
 
-  private SortedDawg modelOf(final LibLevenshteinProtos.Dawg proto) {
+  protected SortedDawg modelOf(final LibLevenshteinProtos.Dawg proto) {
     final DawgNode root = modelOf(proto.getRoot());
     return new SortedDawg(proto.getSize(), root);
   }
 
-  private Transducer<DawgNode, Object> modelOf(final LibLevenshteinProtos.Transducer proto) {
+  protected Transducer<DawgNode, Object> modelOf(final LibLevenshteinProtos.Transducer proto) {
     return (Transducer<DawgNode, Object>)
       new TransducerBuilder()
         .dictionary(modelOf(proto.getDictionary()))
@@ -180,7 +180,7 @@ public class ProtobufSerializer implements Serializer {
         .build();
   }
 
-  private Algorithm modelOf(final LibLevenshteinProtos.Transducer.Algorithm proto) {
+  protected Algorithm modelOf(final LibLevenshteinProtos.Transducer.Algorithm proto) {
     switch (proto) {
       case STANDARD:
         return Algorithm.STANDARD;
@@ -197,18 +197,18 @@ public class ProtobufSerializer implements Serializer {
   // Prototypes
   // ---------------------------------------------------------------------------
 
-  private LibLevenshteinProtos.Transducer protoOf(final Transducer<DawgNode, Object> transducer) {
-  	final TransducerAttributes<DawgNode, Object> attributes = transducer.attributes();
-  	return LibLevenshteinProtos.Transducer.newBuilder()
-  		.setDefaultMaxDistance(attributes.maxDistance())
-  		.setIncludeDistance(attributes.includeDistance())
-  		.setMaxCandidates(attributes.maxCandidates())
-  		.setAlgorithm(protoOf(attributes.algorithm()))
-  		.setDictionary(protoOf(attributes.dictionary()))
-  		.build();
+  protected LibLevenshteinProtos.Transducer protoOf(final Transducer<DawgNode, Object> transducer) {
+    final TransducerAttributes<DawgNode, Object> attributes = transducer.attributes();
+    return LibLevenshteinProtos.Transducer.newBuilder()
+      .setDefaultMaxDistance(attributes.maxDistance())
+      .setIncludeDistance(attributes.includeDistance())
+      .setMaxCandidates(attributes.maxCandidates())
+      .setAlgorithm(protoOf(attributes.algorithm()))
+      .setDictionary(protoOf(attributes.dictionary()))
+      .build();
   }
 
-  private LibLevenshteinProtos.Transducer.Algorithm protoOf(final Algorithm algorithm) {
+  protected LibLevenshteinProtos.Transducer.Algorithm protoOf(final Algorithm algorithm) {
     switch (algorithm) {
       case STANDARD:
         return LibLevenshteinProtos.Transducer.Algorithm.STANDARD;
@@ -222,14 +222,14 @@ public class ProtobufSerializer implements Serializer {
     }
   }
 
-  private LibLevenshteinProtos.Dawg protoOf(final SortedDawg dawg) {
+  protected LibLevenshteinProtos.Dawg protoOf(final SortedDawg dawg) {
     return LibLevenshteinProtos.Dawg.newBuilder()
       .setSize(dawg.size())
       .setRoot(protoOf(dawg.root()))
       .build();
   }
 
-  private LibLevenshteinProtos.DawgNode protoOf(final DawgNode node) {
+  protected LibLevenshteinProtos.DawgNode protoOf(final DawgNode node) {
     final LibLevenshteinProtos.DawgNode.Builder builder =
       LibLevenshteinProtos.DawgNode.newBuilder();
     builder.setIsFinal(node.isFinal());
@@ -239,7 +239,7 @@ public class ProtobufSerializer implements Serializer {
     return builder.build();
   }
 
-  private LibLevenshteinProtos.DawgNode.Edge protoOf(
+  protected LibLevenshteinProtos.DawgNode.Edge protoOf(
       final char label,
       final DawgNode node) {
     return LibLevenshteinProtos.DawgNode.Edge.newBuilder()

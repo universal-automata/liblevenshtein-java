@@ -14,7 +14,7 @@ import lombok.Data;
 @Data
 public class Intersection<DictionaryNode> implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * Spelling candidate from the dictionary automaton, represented as the prefix

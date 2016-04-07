@@ -26,7 +26,7 @@ public abstract class CandidateFactory<CandidateType>
    */
   public static class WithDistance extends CandidateFactory<Candidate> {
 
-  	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}
@@ -44,7 +44,7 @@ public abstract class CandidateFactory<CandidateType>
    */
   public static class WithoutDistance extends CandidateFactory<String> {
 
-  	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}

@@ -13,7 +13,7 @@ import lombok.Value;
 @Value
 public class Candidate implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * Candidate term from the dictionary automaton.

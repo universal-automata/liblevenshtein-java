@@ -18,7 +18,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
  */
 public interface IDawgFactory
   <Node extends IDawgNode<Node>, Dawg extends IDawg<Node>>
-	extends Serializable {
+  extends Serializable {
 
   /**
    * Returns a new DAWG.

@@ -26,7 +26,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
 @AllArgsConstructor
 public class DawgFactory implements IDawgFactory<DawgNode, AbstractDawg>, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * Builds and recycles Dawg nodes

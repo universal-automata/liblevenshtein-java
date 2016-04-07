@@ -22,7 +22,7 @@ public class GenerateSyntasticConfig {
     final ST template = group.getInstanceOf("syntastic");
 
     if (null == template) {
-    	throw new IllegalStateException("Cannot find template [stringtemplate/syntastic]");
+      throw new IllegalStateException("Cannot find template [stringtemplate/syntastic]");
     }
 
     template.add("classpath", classpath);

@@ -11,7 +11,7 @@ import com.github.dylon.liblevenshtein.levenshtein.IState;
  */
 public interface IStateFactory extends Serializable {
 
-	static final long serialVersionUID = 1L;
+  static final long serialVersionUID = 1L;
 
   /**
    * Builds a new, Levenshtein state with the given position vectors.

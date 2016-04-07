@@ -17,7 +17,7 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IStateFactory;
  */
 public class StateTransitionFunction implements IStateTransitionFunction, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * Sorts {@link IState} elements in an unsubsumption-friendly fashion.

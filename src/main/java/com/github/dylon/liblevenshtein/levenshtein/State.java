@@ -25,7 +25,7 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IElementFactory;
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class State implements IState, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * Number of positions in this state.  This statistic is useful when

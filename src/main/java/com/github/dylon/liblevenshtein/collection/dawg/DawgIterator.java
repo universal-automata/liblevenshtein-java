@@ -17,7 +17,7 @@ import com.github.dylon.liblevenshtein.collection.AbstractIterator;
  */
 public class DawgIterator extends AbstractIterator<String> {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * Queue for traversing the terms in the {@link AbstractDawg} in a

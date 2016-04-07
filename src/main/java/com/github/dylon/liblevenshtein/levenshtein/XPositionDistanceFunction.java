@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public class XPositionDistanceFunction implements IDistanceFunction, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * {@inheritDoc}

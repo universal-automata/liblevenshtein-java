@@ -18,7 +18,7 @@ import com.github.dylon.liblevenshtein.levenshtein.distance.MemoizedMergeAndSpli
  */
 public class MemoizedDistanceFactory implements IDistanceFactory<String>, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * Computes the distance between two terms using the standard, Levenshtein

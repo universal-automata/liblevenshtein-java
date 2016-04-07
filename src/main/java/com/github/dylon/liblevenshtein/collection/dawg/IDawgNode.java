@@ -20,10 +20,10 @@ public interface IDawgNode<Node extends IDawgNode<Node>> extends Serializable {
    */
   CharIterator labels();
 
-	/**
-	 * Specifies whether this node represents the last character of some term.
-	 * @return Whether this node represents the last character of some term.
-	 */
+  /**
+   * Specifies whether this node represents the last character of some term.
+   * @return Whether this node represents the last character of some term.
+   */
   boolean isFinal();
 
   /**

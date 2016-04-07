@@ -23,7 +23,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Setter
 public class Element<Type> implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * Reference to the previous node in this linked-list.  The previous node may

@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public interface IPositionFactory extends Serializable {
 
-	static final long serialVersionUID = 1L;
+  static final long serialVersionUID = 1L;
 
   /**
    * Builds a position vector for the standard, Levenshtein algorihtm.

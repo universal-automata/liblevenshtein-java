@@ -46,7 +46,10 @@ import com.github.dylon.liblevenshtein.levenshtein.XPositionDistanceFunction;
 public class TransducerBuilder implements ITransducerBuilder, Serializable {
 
   private static final long serialVersionUID = 1L;
+<<<<<<< f79c66ba903206f001bc8095e41d9430f5c76ad5
   public static final String UNSUPPORTED_ALGORITHM = "Unsupported Algorithm: ";
+=======
+>>>>>>> Annotates StandardPositionTransitionFunction with descriptions of its transitions; adds AssertJ for unit tests; renames levenshtein.proto to liblevelshtein.proto; replaces tabs in source with two spaces
 
   /**
    * Builds and recycles {@link DawgNode} {@link com.github.dylon.liblevenshtein.collection.dawg.Prefix}es.
@@ -187,15 +190,25 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
         .includeDistance(includeDistance);
 
     final Transducer<DawgNode, CandidateType> transducer =
+<<<<<<< f79c66ba903206f001bc8095e41d9430f5c76ad5
     	new Transducer<>(attributes);
+=======
+      new Transducer<DawgNode, CandidateType>(attributes);
+>>>>>>> Annotates StandardPositionTransitionFunction with descriptions of its transitions; adds AssertJ for unit tests; renames levenshtein.proto to liblevelshtein.proto; replaces tabs in source with two spaces
 
     if (maxCandidates == Integer.MAX_VALUE) {
       return transducer;
     }
 
+<<<<<<< f79c66ba903206f001bc8095e41d9430f5c76ad5
     return new DeprecatedTransducerForLimitingNumberOfCandidates<>(
     		maxCandidates,
     		transducer);
+=======
+    return new DeprecatedTransducerForLimitingNumberOfCandidates<CandidateType>(
+        maxCandidates,
+        transducer);
+>>>>>>> Annotates StandardPositionTransitionFunction with descriptions of its transitions; adds AssertJ for unit tests; renames levenshtein.proto to liblevelshtein.proto; replaces tabs in source with two spaces
   }
 
   /**

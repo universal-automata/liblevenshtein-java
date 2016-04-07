@@ -12,7 +12,7 @@ import com.github.dylon.liblevenshtein.levenshtein.IPositionTransitionFunction;
  */
 public interface IPositionTransitionFactory extends Serializable {
 
-	static final long serialVersionUID = 1L;
+  static final long serialVersionUID = 1L;
 
   /**
    * Builds a new position-transition function.

@@ -15,7 +15,7 @@ import com.github.dylon.liblevenshtein.levenshtein.Element;
  */
 public class ElementFactory<Type> implements IElementFactory<Type>, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * {@inheritDoc}

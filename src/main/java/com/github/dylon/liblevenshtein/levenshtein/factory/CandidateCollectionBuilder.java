@@ -43,7 +43,7 @@ public abstract class CandidateCollectionBuilder<Type>
    */
   public static class WithDistance extends CandidateCollectionBuilder<Candidate> {
 
-  	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}
@@ -63,7 +63,7 @@ public abstract class CandidateCollectionBuilder<Type>
    */
   public static class WithoutDistance extends CandidateCollectionBuilder<String> {
 
-  	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}

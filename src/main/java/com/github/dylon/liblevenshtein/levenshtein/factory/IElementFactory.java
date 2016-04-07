@@ -12,7 +12,7 @@ import com.github.dylon.liblevenshtein.levenshtein.Element;
  */
 public interface IElementFactory<Type> extends Serializable {
 
-	static final long serialVersionUID = 1L;
+  static final long serialVersionUID = 1L;
 
   /**
    * Builds a new linked-list node with the given value.

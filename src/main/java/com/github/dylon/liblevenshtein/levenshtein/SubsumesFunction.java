@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public abstract class SubsumesFunction implements ISubsumesFunction, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * {@inheritDoc}
@@ -42,7 +42,7 @@ public abstract class SubsumesFunction implements ISubsumesFunction, Serializabl
    */
   public static class ForStandardAlgorithm extends SubsumesFunction {
 
-		private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}
@@ -63,7 +63,7 @@ public abstract class SubsumesFunction implements ISubsumesFunction, Serializabl
    */
   public static class ForTransposition extends SubsumesFunction {
 
-		private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}
@@ -115,7 +115,7 @@ public abstract class SubsumesFunction implements ISubsumesFunction, Serializabl
    */
   public static class ForMergeAndSplit extends SubsumesFunction {
 
-		private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}

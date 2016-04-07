@@ -16,7 +16,7 @@ import com.github.dylon.liblevenshtein.levenshtein.State;
  */
 public class StateFactory implements IStateFactory, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * Builds and recycles linked-list nodes for state positions.

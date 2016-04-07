@@ -144,10 +144,17 @@ public class DawgTest {
 
   @Test
   public void dawgAcceptsEmptyStringIfInTerms() {
+<<<<<<< f79c66ba903206f001bc8095e41d9430f5c76ad5
     final List<String> termsList = new ArrayList<>(1);
     termsList.add("");
     final AbstractDawg dawg = dawgFactory.build(termsList);
+    assertTrue(dawg.contains(""));
+=======
+    final List<String> terms = new ArrayList<>(1);
+    terms.add("");
+    final AbstractDawg dawg = dawgFactory.build(terms);
     assertThat(dawg).contains("");
+>>>>>>> Annotates StandardPositionTransitionFunction with descriptions of its transitions; adds AssertJ for unit tests; renames levenshtein.proto to liblevelshtein.proto; replaces tabs in source with two spaces
   }
 
   @Test
@@ -155,7 +162,11 @@ public class DawgTest {
     final Set<String> termsList = new HashSet<>(this.terms);
     for (final String term : fullDawg) {
       try {
-        assertThat(termsList).contains(term);
+<<<<<<< f79c66ba903206f001bc8095e41d9430f5c76ad5
+        assertTrue(termsList.contains(term));
+=======
+        assertThat(terms).contains(term);
+>>>>>>> Annotates StandardPositionTransitionFunction with descriptions of its transitions; adds AssertJ for unit tests; renames levenshtein.proto to liblevelshtein.proto; replaces tabs in source with two spaces
       }
       catch (final AssertionError exception) {
         throw new AssertionError("Expected terms to contain: \"" + term + "\"", exception);

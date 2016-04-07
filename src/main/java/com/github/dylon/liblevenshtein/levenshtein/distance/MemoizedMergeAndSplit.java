@@ -12,7 +12,7 @@ import com.github.dylon.liblevenshtein.collection.SymmetricImmutablePair;
  */
 public class MemoizedMergeAndSplit extends AbstractMemoized {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * {@inheritDoc}

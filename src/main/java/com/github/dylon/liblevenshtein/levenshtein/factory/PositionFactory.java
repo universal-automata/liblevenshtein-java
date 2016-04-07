@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public abstract class PositionFactory implements IPositionFactory, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   private PositionFactory() {}
 
@@ -20,7 +20,7 @@ public abstract class PositionFactory implements IPositionFactory, Serializable 
    */
   public static class ForStandardPositions extends PositionFactory {
 
-		private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}
@@ -39,7 +39,7 @@ public abstract class PositionFactory implements IPositionFactory, Serializable 
    */
   public static class ForXPositions extends PositionFactory {
 
-		private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}

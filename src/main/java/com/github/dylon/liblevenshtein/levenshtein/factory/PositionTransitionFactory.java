@@ -21,7 +21,7 @@ import com.github.dylon.liblevenshtein.levenshtein.TranspositionPositionTransiti
 @FieldDefaults(level=AccessLevel.PROTECTED)
 public abstract class PositionTransitionFactory implements IPositionTransitionFactory, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * Builds and recycles Levenshtein states.
@@ -48,7 +48,7 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
    */
   public static class ForStandardPositions extends PositionTransitionFactory {
 
-		private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}
@@ -68,7 +68,7 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
    */
   public static class ForTranspositionPositions extends PositionTransitionFactory {
 
-		private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}
@@ -88,7 +88,7 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
    */
   public static class ForMergeAndSplitPositions extends PositionTransitionFactory {
 
-		private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}

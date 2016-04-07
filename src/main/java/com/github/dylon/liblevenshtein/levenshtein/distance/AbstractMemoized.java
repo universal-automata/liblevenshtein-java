@@ -17,7 +17,7 @@ import com.github.dylon.liblevenshtein.levenshtein.IDistance;
  */
 public abstract class AbstractMemoized implements IDistance<String>, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /** Default return value of memoized distances when no record exists. */
   protected static final int DEFAULT_RETURN_VALUE = -1;

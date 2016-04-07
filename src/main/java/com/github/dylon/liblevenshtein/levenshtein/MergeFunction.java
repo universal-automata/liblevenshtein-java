@@ -14,7 +14,7 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IPositionFactory;
  */
 public abstract class MergeFunction implements IMergeFunction, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * -- Setter --
@@ -32,7 +32,7 @@ public abstract class MergeFunction implements IMergeFunction, Serializable {
    */
   public static class ForStandardPositions extends MergeFunction {
 
-		private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}
@@ -82,7 +82,7 @@ public abstract class MergeFunction implements IMergeFunction, Serializable {
    */
   public static class ForXPositions extends MergeFunction {
 
-		private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}

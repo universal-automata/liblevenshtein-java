@@ -23,7 +23,7 @@ import com.github.dylon.liblevenshtein.levenshtein.StateTransitionFunction;
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class StateTransitionFactory implements IStateTransitionFactory, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
   /**
    * Compares Levenshtein-state positions
