@@ -10,7 +10,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveAction;
+import java.util.concurrent.atomic.AtomicReference;
 
 import lombok.RequiredArgsConstructor;
 
@@ -98,32 +102,19 @@ public class DawgTest {
       serializer.deserialize(SortedDawg.class, bytes);
     assertThat(actualDawg).isEqualTo(fullDawg);
 
-    final int numIters = 50;
-    double buildTime = 0.0;
-    double deserializationTime = 0.0;
+		final RuntimeAverager average = new RuntimeAverager(serializer);
+    final ForkJoinPool pool = new ForkJoinPool();
+    pool.invoke(average);
 
-    for (int iter = 0; iter < numIters; iter += 1) {
-      System.out.printf("::: Timing (de)serialization in iteration [%d] of [%d]%n",
-        iter, numIters);
+    final double buildTime = average.buildTime();
+    final double deserializationTime = average.deserializationTime();
 
-      long startTime = System.currentTimeMillis();
-      final AbstractDawg dawg = dawgFactory.build(terms);
-      long stopTime = System.currentTimeMillis();
-      buildTime += (stopTime - startTime);
-
-      bytes = serializer.serialize(dawg);
-      startTime = System.currentTimeMillis();
-      serializer.deserialize(SortedDawg.class, bytes);
-      stopTime = System.currentTimeMillis();
-      deserializationTime += (stopTime - startTime);
-    }
-
-    buildTime /= numIters;
-    deserializationTime /= numIters;
     System.out.printf(
       "::: Deserialized DAWG in %.7f %% the average time required to build it "+
       "after [%d] iterations, using deserializer [%s]%n",
-      (100.0 * deserializationTime / buildTime), numIters, serializer.getClass());
+      (100.0 * deserializationTime / buildTime), RuntimeAverager.NUM_ITERS,
+      serializer.getClass());
+
     assertThat(deserializationTime).isLessThan(buildTime);
   }
 
@@ -216,5 +207,81 @@ public class DawgTest {
         params = buffer;
       }
     }
+  }
+
+	@RequiredArgsConstructor
+  private class RuntimeAverager extends RecursiveAction {
+  	private static final long serialVersionUID = 1L;
+  	private static final int NUM_ITERS = 50;
+
+		private final Serializer serializer;
+  	private final int numIters;
+		private final AtomicReference<Double> buildTimeSum;
+		private final AtomicReference<Double> deserializationTimeSum;
+
+  	public RuntimeAverager(final Serializer serializer) {
+  		this(serializer, NUM_ITERS,
+  				 new AtomicReference<Double>(0.0),
+  				 new AtomicReference<Double>(0.0));
+  	}
+
+  	public double buildTime() {
+  		return buildTimeSum.get() / NUM_ITERS;
+  	}
+
+  	public double deserializationTime() {
+  		return deserializationTimeSum.get() / NUM_ITERS;
+  	}
+
+  	@Override
+  	protected void compute() {
+  		try {
+  			if (1 == numIters) {
+      		long startTime;
+      		long stopTime;
+      		AbstractDawg dawg;
+
+					final Random random = new Random(58073L);
+					final List<String> unsortedTerms = new ArrayList<>(terms);
+					Collections.shuffle(unsortedTerms, random);
+
+      		startTime = System.nanoTime();
+      		dawg = dawgFactory.build(unsortedTerms);
+      		stopTime = System.nanoTime();
+      		final double buildTime = (stopTime - startTime);
+
+      		synchronized (buildTimeSum) {
+      			buildTimeSum.set(buildTime + buildTimeSum.get());
+      		}
+
+      		final byte[] bytes = serializer.serialize(dawg);
+      		startTime = System.nanoTime();
+      		dawg = serializer.deserialize(SortedDawg.class, bytes);
+      		stopTime = System.nanoTime();
+      		final double deserializationTime = (stopTime - startTime);
+
+      		synchronized (deserializationTimeSum) {
+      			deserializationTimeSum.set(deserializationTime + deserializationTimeSum.get());
+      		}
+  			}
+  			else if (numIters > 0) {
+  				final int lhsIters = numIters >> 1;
+  				final int rhsIters = numIters - lhsIters;
+  				invokeAll(new RuntimeAverager(serializer,
+  						                        	lhsIters,
+  						                        	buildTimeSum,
+  						                        	deserializationTimeSum),
+  					      	new RuntimeAverager(serializer,
+  					      	                  	rhsIters,
+  					      	                  	buildTimeSum,
+  					      	                  	deserializationTimeSum));
+  			}
+  		}
+  		catch (final Throwable thrown) {
+  			System.err.println(thrown.getMessage());
+  			thrown.printStackTrace();
+  			throw new RuntimeException("Failed to compute average runtimes", thrown);
+  		}
+  	}
   }
 }
