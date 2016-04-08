@@ -5,12 +5,18 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Logger;
 
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupDir;
 import org.stringtemplate.v4.ST;
 
 public class GenerateReadme {
+
+  private static final Logger log = Logger.getLogger(GenerateReadme.class.getName());
+
+  private GenerateReadme() {}
+
   public static void main(final String... args) throws IOException  {
     int argsIdx = 0;
 
@@ -39,7 +45,7 @@ public class GenerateReadme {
     template.add("javaSourceVersion", javaSourceVersion);
     template.add("javaTargetVersion", javaTargetVersion);
 
-    System.out.printf("%nRendering template [README] to [%s]%n", readmePath);
+    log.info(String.format("%nRendering template [README] to [%s]%n", readmePath));
     final String readme = template.render() + "\n";
     Files.write(readmePath, readme.getBytes(StandardCharsets.UTF_8));
   }

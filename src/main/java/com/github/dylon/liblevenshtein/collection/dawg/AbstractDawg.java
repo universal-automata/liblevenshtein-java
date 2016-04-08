@@ -28,6 +28,7 @@ import it.unimi.dsi.fastutil.chars.CharIterator;
 
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IDawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
+import java.util.logging.Logger;
 
 /**
  * Provides common logic for all my Dawg implementations.  Currently, there is
@@ -44,6 +45,8 @@ public abstract class AbstractDawg
                IFinalFunction<DawgNode>,
                ITransitionFunction<DawgNode>,
                Serializable {
+
+  private static final Logger log = Logger.getLogger(AbstractDawg.class.getName());
 
   private static final long serialVersionUID = 1L;
 
@@ -136,7 +139,7 @@ public abstract class AbstractDawg
     int counter = 0;
     for (final String term : terms) {
       if (++counter % 10000 == 0) {
-        System.out.println(counter + " lines of " + terms.size());
+        log.info(counter + " lines of " + terms.size());
       }
       if (!add(term)) return false;
     }

@@ -72,74 +72,74 @@ public class StateTransitionFunctionTest {
     characteristicVector[0] = false;
     characteristicVector[1] = false;
     characteristicVector[2] = false;
-    validate(A(i), C(i), characteristicVector);
-    validate(B(i), null, characteristicVector);
-    validate(C(i), null, characteristicVector);
-    validate(D(i), null, characteristicVector);
-    validate(E(i), null, characteristicVector);
+    validate(a(i), c(i), characteristicVector);
+    validate(b(i), null, characteristicVector);
+    validate(c(i), null, characteristicVector);
+    validate(d(i), null, characteristicVector);
+    validate(e(i), null, characteristicVector);
 
     characteristicVector[0] = true;
     characteristicVector[1] = false;
     characteristicVector[2] = false;
-    validate(A(i), A(1+i), characteristicVector);
-    validate(B(i), B(1+i), characteristicVector);
-    validate(C(i), B(1+i), characteristicVector);
-    validate(D(i), B(1+i), characteristicVector);
-    validate(E(i), B(1+i), characteristicVector);
+    validate(a(i), a(1+i), characteristicVector);
+    validate(b(i), b(1+i), characteristicVector);
+    validate(c(i), b(1+i), characteristicVector);
+    validate(d(i), b(1+i), characteristicVector);
+    validate(e(i), b(1+i), characteristicVector);
 
     characteristicVector[0] = false;
     characteristicVector[1] = true;
     characteristicVector[2] = false;
-    validate(A(i), E(i), characteristicVector);
-    validate(B(i), null, characteristicVector);
-    validate(C(i), B(2+i), characteristicVector);
-    validate(D(i), null, characteristicVector);
-    validate(E(i), B(2+i), characteristicVector);
+    validate(a(i), e(i), characteristicVector);
+    validate(b(i), null, characteristicVector);
+    validate(c(i), b(2+i), characteristicVector);
+    validate(d(i), null, characteristicVector);
+    validate(e(i), b(2+i), characteristicVector);
 
     characteristicVector[0] = false;
     characteristicVector[1] = false;
     characteristicVector[2] = true;
-    validate(A(i), C(i), characteristicVector);
-    validate(B(i), null, characteristicVector);
-    validate(C(i), null, characteristicVector);
-    validate(D(i), B(3+i), characteristicVector);
-    validate(E(i), B(3+i), characteristicVector);
+    validate(a(i), c(i), characteristicVector);
+    validate(b(i), null, characteristicVector);
+    validate(c(i), null, characteristicVector);
+    validate(d(i), b(3+i), characteristicVector);
+    validate(e(i), b(3+i), characteristicVector);
 
     characteristicVector[0] = true;
     characteristicVector[1] = true;
     characteristicVector[2] = false;
-    validate(A(i), A(1+i), characteristicVector);
-    validate(B(i), B(1+i), characteristicVector);
-    validate(C(i), C(1+i), characteristicVector);
-    validate(D(i), B(1+i), characteristicVector);
-    validate(E(i), C(1+i), characteristicVector);
+    validate(a(i), a(1+i), characteristicVector);
+    validate(b(i), b(1+i), characteristicVector);
+    validate(c(i), c(1+i), characteristicVector);
+    validate(d(i), b(1+i), characteristicVector);
+    validate(e(i), c(1+i), characteristicVector);
 
     characteristicVector[0] = true;
     characteristicVector[1] = false;
     characteristicVector[2] = true;
-    validate(A(i), A(1+i), characteristicVector);
-    validate(B(i), B(1+i), characteristicVector);
-    validate(C(i), B(1+i), characteristicVector);
-    validate(D(i), D(1+i), characteristicVector);
-    validate(E(i), D(1+i), characteristicVector);
+    validate(a(i), a(1+i), characteristicVector);
+    validate(b(i), b(1+i), characteristicVector);
+    validate(c(i), b(1+i), characteristicVector);
+    validate(d(i), d(1+i), characteristicVector);
+    validate(e(i), d(1+i), characteristicVector);
 
     characteristicVector[0] = false;
     characteristicVector[1] = true;
     characteristicVector[2] = true;
-    validate(A(i), E(i), characteristicVector);
-    validate(B(i), null, characteristicVector);
-    validate(C(i), B(2+i), characteristicVector);
-    validate(D(i), B(3+i), characteristicVector);
-    validate(E(i), C(2+i), characteristicVector);
+    validate(a(i), e(i), characteristicVector);
+    validate(b(i), null, characteristicVector);
+    validate(c(i), b(2+i), characteristicVector);
+    validate(d(i), b(3+i), characteristicVector);
+    validate(e(i), c(2+i), characteristicVector);
 
     characteristicVector[0] = true;
     characteristicVector[1] = true;
     characteristicVector[2] = true;
-    validate(A(i), A(1+i), characteristicVector);
-    validate(B(i), B(1+i), characteristicVector);
-    validate(C(i), C(1+i), characteristicVector);
-    validate(D(i), D(1+i), characteristicVector);
-    validate(E(i), E(1+i), characteristicVector);
+    validate(a(i), a(1+i), characteristicVector);
+    validate(b(i), b(1+i), characteristicVector);
+    validate(c(i), c(1+i), characteristicVector);
+    validate(d(i), d(1+i), characteristicVector);
+    validate(e(i), e(1+i), characteristicVector);
   }
 
   @Test
@@ -152,48 +152,48 @@ public class StateTransitionFunctionTest {
 
     characteristicVector[0] = false;
     characteristicVector[1] = false;
-    validate(A(i), C(i), characteristicVector);
-    validate(B(i), null, characteristicVector);
-    validate(C(i), null, characteristicVector);
-    validate(D(i), null, characteristicVector);
-    validate(E(i), null, characteristicVector);
+    validate(a(i), c(i), characteristicVector);
+    validate(b(i), null, characteristicVector);
+    validate(c(i), null, characteristicVector);
+    validate(d(i), null, characteristicVector);
+    validate(e(i), null, characteristicVector);
 
     characteristicVector[0] = true;
     characteristicVector[1] = false;
-    validate(A(i), A(1+i), characteristicVector);
-    validate(B(i), B(1+i), characteristicVector);
-    validate(C(i), B(1+i), characteristicVector);
-    validate(D(i), B(1+i), characteristicVector);
-    validate(E(i), B(1+i), characteristicVector);
+    validate(a(i), a(1+i), characteristicVector);
+    validate(b(i), b(1+i), characteristicVector);
+    validate(c(i), b(1+i), characteristicVector);
+    validate(d(i), b(1+i), characteristicVector);
+    validate(e(i), b(1+i), characteristicVector);
 
     characteristicVector[0] = false;
     characteristicVector[1] = true;
-    validate(A(i), E(i), characteristicVector);
-    validate(B(i), null, characteristicVector);
-    validate(C(i), B(2+i), characteristicVector);
-    validate(D(i), null, characteristicVector);
-    validate(E(i), B(2+i), characteristicVector);
+    validate(a(i), e(i), characteristicVector);
+    validate(b(i), null, characteristicVector);
+    validate(c(i), b(2+i), characteristicVector);
+    validate(d(i), null, characteristicVector);
+    validate(e(i), b(2+i), characteristicVector);
 
     characteristicVector[0] = true;
     characteristicVector[1] = true;
-    validate(A(i), A(1+i), characteristicVector);
-    validate(B(i), B(1+i), characteristicVector);
-    validate(C(i), C(1+i), characteristicVector);
-    validate(D(i), B(1+i), characteristicVector);
-    validate(E(i), C(1+i), characteristicVector);
+    validate(a(i), a(1+i), characteristicVector);
+    validate(b(i), b(1+i), characteristicVector);
+    validate(c(i), c(1+i), characteristicVector);
+    validate(d(i), b(1+i), characteristicVector);
+    validate(e(i), c(1+i), characteristicVector);
 
     i = W - 1;
     Arrays.fill(characteristicVector, false);
 
     characteristicVector[0] = false;
-    validate(A(i), C(i), characteristicVector);
-    validate(B(i), null, characteristicVector);
-    validate(C(i), null, characteristicVector);
+    validate(a(i), c(i), characteristicVector);
+    validate(b(i), null, characteristicVector);
+    validate(c(i), null, characteristicVector);
 
     characteristicVector[0] = true;
-    validate(A(i), A(1+i), characteristicVector);
-    validate(B(i), B(1+i), characteristicVector);
-    validate(C(i), B(1+i), characteristicVector);
+    validate(a(i), a(1+i), characteristicVector);
+    validate(b(i), b(1+i), characteristicVector);
+    validate(c(i), b(1+i), characteristicVector);
 
     i = W;
     Arrays.fill(characteristicVector, false);
@@ -205,8 +205,8 @@ public class StateTransitionFunctionTest {
     // figure out what I'm doing wrong ...
     //
     //validate(A(i), B(i), characteristicVector);
-    validate(A(i), C(i), characteristicVector);
-    validate(B(i), null, characteristicVector);
+    validate(a(i), c(i), characteristicVector);
+    validate(b(i), null, characteristicVector);
   }
 
   private void validate(
@@ -217,7 +217,7 @@ public class StateTransitionFunctionTest {
     assertEquals(actualOutput, expectedOutput);
   }
 
-  private IState A(final int i) {
+  private IState a(final int i) {
     if (0 <= i && i <= W) {
       return stateFactory.build(
           positionFactory.build(i,0));
@@ -226,7 +226,7 @@ public class StateTransitionFunctionTest {
     return null;
   }
 
-  private IState B(final int i) {
+  private IState b(final int i) {
     if (0 <= i && i <= W) {
       return stateFactory.build(
           positionFactory.build(i,1));
@@ -235,7 +235,7 @@ public class StateTransitionFunctionTest {
     return null;
   }
 
-  private IState C(final int i) {
+  private IState c(final int i) {
     // [NOTE] :: In the paper, this should not be defined when i = W, but from
     // my experiments it seems to be the appropriate image of A(i) when i = W.
     //
@@ -251,7 +251,7 @@ public class StateTransitionFunctionTest {
     //return null;
   }
 
-  private IState D(final int i) {
+  private IState d(final int i) {
     if (0 <= i && i <= W - 2) {
       return stateFactory.build(
           positionFactory.build(i,1),
@@ -261,7 +261,7 @@ public class StateTransitionFunctionTest {
     return null;
   }
 
-  private IState E(final int i) {
+  private IState e(final int i) {
     if (0 <= i && i <= W - 2) {
       return stateFactory.build(
           positionFactory.build(i,1),
