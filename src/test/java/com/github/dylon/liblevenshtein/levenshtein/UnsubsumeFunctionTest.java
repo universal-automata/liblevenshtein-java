@@ -74,7 +74,7 @@ public class UnsubsumeFunctionTest {
         standardPositionFactory.build(i,e),
         standardPositionFactory.build(j,f));
 
-    final IState expectedOutput = (shouldSubsume)
+    final IState expectedOutput = shouldSubsume
       ? stateFactory.build(
           standardPositionFactory.build(i,e))
       : stateFactory.build(
@@ -95,7 +95,7 @@ public class UnsubsumeFunctionTest {
         xPositionFactory.build(i,e,s),
         xPositionFactory.build(j,f,t));
 
-    final IState expectedOutput = (shouldSubsume)
+    final IState expectedOutput = shouldSubsume
       ? stateFactory.build(
           xPositionFactory.build(i,e,s))
       : stateFactory.build(

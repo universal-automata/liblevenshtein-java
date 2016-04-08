@@ -45,7 +45,8 @@ import com.github.dylon.liblevenshtein.levenshtein.XPositionDistanceFunction;
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class TransducerBuilder implements ITransducerBuilder, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
+  public static final String UNSUPPORTED_ALGORITHM = "Unsupported Algorithm: ";
 
   /**
    * Builds and recycles {@link DawgNode} {@link com.github.dylon.liblevenshtein.collection.dawg.Prefix}es.
@@ -186,13 +187,13 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
       	.includeDistance(includeDistance);
 
     final Transducer<DawgNode, CandidateType> transducer =
-    	new Transducer<DawgNode, CandidateType>(attributes);
+    	new Transducer<>(attributes);
 
     if (maxCandidates == Integer.MAX_VALUE) {
       return transducer;
     }
 
-    return new DeprecatedTransducerForLimitingNumberOfCandidates<CandidateType>(
+    return new DeprecatedTransducerForLimitingNumberOfCandidates<>(
     		maxCandidates,
     		transducer);
   }
@@ -210,7 +211,7 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
       case MERGE_AND_SPLIT:
         return new XPositionDistanceFunction();
       default:
-        throw new IllegalArgumentException("Unsupported Algorithm: " + algorithm);
+        throw new IllegalArgumentException(UNSUPPORTED_ALGORITHM + algorithm);
     }
   }
 
@@ -228,7 +229,7 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
       case MERGE_AND_SPLIT:
         return stateFactory.build(new int[] {0,0,0});
       default:
-        throw new IllegalArgumentException("Unsupported Algorithm: " + algorithm);
+        throw new IllegalArgumentException(UNSUPPORTED_ALGORITHM + algorithm);
     }
   }
 
@@ -288,7 +289,7 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
               .positionFactory(positionFactory));
         break;
       default:
-        throw new IllegalArgumentException("Unsupported Algorithm: " + algorithm);
+        throw new IllegalArgumentException(UNSUPPORTED_ALGORITHM + algorithm);
     }
 
     positionTransitionFactory
@@ -352,7 +353,7 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
         final ICandidateCollection<CandidateType> candidates) {
       return new ICandidateCollection<CandidateType>() {
         @Override public Iterator<CandidateType> iterator() {
-          return new TakeIterator<CandidateType>(elementsToTake, candidates.iterator());
+          return new TakeIterator<>(elementsToTake, candidates.iterator());
         }
       };
     }

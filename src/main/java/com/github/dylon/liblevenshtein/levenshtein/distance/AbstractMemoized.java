@@ -29,7 +29,7 @@ public abstract class AbstractMemoized implements IDistance<String>, Serializabl
    * Initializes the memoization map, etc.
    */
   public AbstractMemoized() {
-    memo = new Object2IntOpenHashMap<SymmetricImmutablePair<String>>();
+    memo = new Object2IntOpenHashMap<>();
     memo.defaultReturnValue(DEFAULT_RETURN_VALUE);
   }
 

@@ -60,8 +60,8 @@ public abstract class CandidateCollection<Type>
     // TODO: Consider specializing the data struction by <Type>, such as using
     // an unsorted Dawg for <Type=String>, etc.
     this.candidates = (maxCandidates < Integer.MAX_VALUE)
-      ? new ArrayList<Type>(maxCandidates)
-      : new ArrayList<Type>();
+      ? new ArrayList<>(maxCandidates)
+      : new ArrayList<>();
   }
 
   /**

@@ -44,7 +44,7 @@ public class StandardDistanceTransducerTest extends AbstractTransducerTest {
         .build();
     }
 
-    this.expectedCandidates = new HashSet<Candidate>();
+    this.expectedCandidates = new HashSet<>();
     expectedCandidates.add(new Candidate("Java", 2));
     expectedCandidates.add(new Candidate("Ada", 3));
     expectedCandidates.add(new Candidate("Agda", 3));

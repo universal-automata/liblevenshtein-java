@@ -22,7 +22,7 @@ public class GenerateReadme {
 
     final String gradleVersion = args[argsIdx ++];
     final String javaSourceVersion = args[argsIdx ++];
-    final String javaTargetVersion = args[argsIdx ++];
+    final String javaTargetVersion = args[argsIdx];
 
     final STGroup group = new STGroupDir("stringtemplate", '$', '$');
 

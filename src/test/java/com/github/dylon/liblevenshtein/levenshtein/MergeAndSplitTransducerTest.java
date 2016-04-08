@@ -45,7 +45,7 @@ public class MergeAndSplitTransducerTest extends AbstractTransducerTest {
         .build();
     }
 
-    this.expectedCandidates = new HashSet<Candidate>();
+    this.expectedCandidates = new HashSet<>();
     expectedCandidates.add(new Candidate("A#", 2));
     expectedCandidates.add(new Candidate("A+", 2));
     expectedCandidates.add(new Candidate("Ada", 2));

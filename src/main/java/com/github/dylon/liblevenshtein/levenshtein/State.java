@@ -204,19 +204,19 @@ public class State implements IState, Serializable {
           "No elements at index: " + innerIndex);
     }
 
-    final Element<int[]> inner = this.inner;
+    final Element<int[]> innerLocal = this.inner;
 
-    if (null != inner.next()) {
-      this.inner = inner.next();
+    if (null != innerLocal.next()) {
+      this.inner = innerLocal.next();
 
-      if (null != inner.prev()) {
-        inner.prev().next(inner.next());
+      if (null != innerLocal.prev()) {
+        innerLocal.prev().next(innerLocal.next());
       }
 
-      this.inner.prev(inner.prev());
+      this.inner.prev(innerLocal.prev());
     }
     else {
-      this.inner = inner.prev();
+      this.inner = innerLocal.prev();
 
       if (null != this.inner) {
         this.inner.next(null);
@@ -225,15 +225,15 @@ public class State implements IState, Serializable {
       innerIndex -= 1;
     }
 
-    if (head == inner) {
+    if (head == innerLocal) {
       head = head.next();
     }
 
-    if (tail == inner) {
+    if (tail == innerLocal) {
       tail = tail.prev();
     }
 
-    final int[] position = inner.value();
+    final int[] position = innerLocal.value();
     size -= 1;
 
     return position;
@@ -244,11 +244,11 @@ public class State implements IState, Serializable {
    */
   @Override
   public void clear() {
-    Element<int[]> tail = this.tail;
+    Element<int[]> tailLocal = this.tail;
 
-    while (null != tail) {
-      final Element<int[]> prev = tail.prev();
-      tail = prev;
+    while (null != tailLocal) {
+      final Element<int[]> prev = tailLocal.prev();
+      tailLocal = prev;
     }
 
     this.size = 0;

@@ -47,22 +47,22 @@ public class DawgTest {
             getClass().getResourceAsStream("/resources/wordsEn.txt"),
             StandardCharsets.UTF_8))) {
 
-      final List<String> terms = new ArrayList<String>();
+      final List<String> termsList = new ArrayList<>();
 
       String term;
       while ((term = reader.readLine()) != null) {
-        terms.add(term);
+        termsList.add(term);
       }
 
-      Collections.sort(terms);
+      Collections.sort(termsList);
 
-      this.terms = terms;
+      this.terms = termsList;
       this.dawgNodeFactory = new DawgNodeFactory();
-      this.prefixFactory = new PrefixFactory<DawgNode>();
-      this.transitionFactory = new TransitionFactory<DawgNode>();
+      this.prefixFactory = new PrefixFactory<>();
+      this.transitionFactory = new TransitionFactory<>();
       this.dawgFactory = new DawgFactory(dawgNodeFactory, prefixFactory, transitionFactory);
-      this.emptyDawg = dawgFactory.build(new ArrayList<String>(0));
-      this.fullDawg = dawgFactory.build(terms);
+      this.emptyDawg = dawgFactory.build(new ArrayList<>(0));
+      this.fullDawg = dawgFactory.build(termsList);
     }
   }
 
@@ -112,39 +112,39 @@ public class DawgTest {
 
   @Test
   public void dawgAcceptsEmptyStringIfInTerms() {
-    final List<String> terms = new ArrayList<>(1);
-    terms.add("");
-    final AbstractDawg dawg = dawgFactory.build(terms);
+    final List<String> termsList = new ArrayList<>(1);
+    termsList.add("");
+    final AbstractDawg dawg = dawgFactory.build(termsList);
     assertTrue(dawg.contains(""));
   }
 
   @Test
   public void dawgShouldIterateOverAllTerms() {
-    final Set<String> terms = new HashSet<>(this.terms);
+    final Set<String> termsList = new HashSet<>(this.terms);
     for (final String term : fullDawg) {
       try {
-        assertTrue(terms.contains(term));
+        assertTrue(termsList.contains(term));
       }
       catch (final AssertionError exception) {
         throw new AssertionError("Expected terms to contain: \"" + term + "\"", exception);
       }
-      terms.remove(term);
+      termsList.remove(term);
     }
-    if (!terms.isEmpty()) {
+    if (!termsList.isEmpty()) {
       final String message =
         String.format("Expected all terms to be iterated over, but missed [%s]",
-          Joiner.on(", ").join(terms));
+          Joiner.on(", ").join(termsList));
       throw new AssertionError(message);
     }
   }
 
   @Test(expectedExceptions=IllegalArgumentException.class)
   public void insertingTermsOutOfOrderShouldThrowAnException() {
-    final List<String> terms = new ArrayList<>(3);
-    terms.add("a");
-    terms.add("c");
-    terms.add("b");
-    dawgFactory.build(terms, true);
+    final List<String> termsList = new ArrayList<>(3);
+    termsList.add("a");
+    termsList.add("c");
+    termsList.add("b");
+    dawgFactory.build(termsList, true);
   }
 
   @Test
@@ -169,9 +169,9 @@ public class DawgTest {
     @Override
     public Object[] next() {
       advance();
-      final Object[] params = this.params;
+      final Object[] paramsLocal = this.params;
       this.params = null;
-      return params;
+      return paramsLocal;
     }
 
     @Override

@@ -45,7 +45,7 @@ public class TranspositionTransducerTest extends AbstractTransducerTest {
         .build();
     }
 
-    this.expectedCandidates = new HashSet<Candidate>();
+    this.expectedCandidates = new HashSet<>();
     expectedCandidates.add(new Candidate("Java", 1));
     expectedCandidates.add(new Candidate("Lava", 2));
     expectedCandidates.add(new Candidate("Ada", 3));
