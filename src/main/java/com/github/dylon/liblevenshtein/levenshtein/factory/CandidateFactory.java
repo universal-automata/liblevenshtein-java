@@ -16,6 +16,8 @@ public abstract class CandidateFactory<CandidateType>
 
   private static final long serialVersionUID = 1L;
 
+  private CandidateFactory() {}
+
   /**
    * Builds instances of {@link Candidate}, with the dictionary term and its
    * Levenshtein distance from the query term.

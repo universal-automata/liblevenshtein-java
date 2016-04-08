@@ -11,6 +11,9 @@ import org.stringtemplate.v4.STGroupDir;
 import org.stringtemplate.v4.ST;
 
 public class GenerateSyntasticConfig {
+
+  private GenerateSyntasticConfig() {}
+
   public static void main(final String... args) throws IOException {
     final String classpath = args[0];
     final Path configPath = Paths.get(args[1]);

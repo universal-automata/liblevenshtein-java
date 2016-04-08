@@ -11,6 +11,8 @@ public abstract class PositionFactory implements IPositionFactory, Serializable 
 
 	private static final long serialVersionUID = 1L;
 
+  private PositionFactory() {}
+
   /**
    * Builds position vectors for the standard algorithm.
    * @author Dylon Edwards
