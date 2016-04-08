@@ -30,14 +30,14 @@ public class MemoizedDistanceFactoryTest {
               "/resources/top-20-most-common-english-words.txt"),
             StandardCharsets.UTF_8))) {
 
-      final List<String> terms = new ArrayList<String>();
+      final List<String> termsList = new ArrayList<>();
 
       String term;
       while ((term = reader.readLine()) != null) {
-        terms.add(term);
+        termsList.add(term);
       }
 
-      this.terms = terms;
+      this.terms = termsList;
       this.factory = new MemoizedDistanceFactory();
     }
   }
@@ -158,9 +158,9 @@ public class MemoizedDistanceFactoryTest {
     @Override
     public Object[] next() {
       advance();
-      final Object[] params = this.params;
+      final Object[] paramsLocal = this.params;
       this.params = null;
-      return params;
+      return paramsLocal;
     }
 
     @Override

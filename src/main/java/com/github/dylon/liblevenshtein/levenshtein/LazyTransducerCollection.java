@@ -241,7 +241,7 @@ public class LazyTransducerCollection<DictionaryNode, CandidateType>
     final boolean[] characteristicVector = new boolean[k];
 
     for (int j = 0; j < k; ++j) {
-      characteristicVector[j] = (x == term.charAt(i + j));
+      characteristicVector[j] = x == term.charAt(i + j);
     }
 
     return characteristicVector;

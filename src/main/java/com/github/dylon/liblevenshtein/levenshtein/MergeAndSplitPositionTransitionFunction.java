@@ -31,31 +31,36 @@ public class MergeAndSplitPositionTransitionFunction
       if (h <= w - 2) {
         if (characteristicVector[h]) {
           return stateFactory.build(
-              positionFactory.build((i + 1), e, 0));
+              positionFactory.build(i + 1, e, 0)
+          );
         }
 
         return stateFactory.build(
-            positionFactory.build(i, (e + 1), 0),
-            positionFactory.build(i, (e + 1), 1),
-            positionFactory.build((i + 1), (e + 1), 0),
-            positionFactory.build((i + 2), (e + 1), 0));
+            positionFactory.build(i, e + 1, 0),
+            positionFactory.build(i, e + 1, 1),
+            positionFactory.build(i + 1, e + 1, 0),
+            positionFactory.build(i + 2, e + 1, 0)
+        );
       }
 
       if (h == w - 1) {
         if (characteristicVector[h]) {
           return stateFactory.build(
-              positionFactory.build((i + 1), e, 0));
+              positionFactory.build(i + 1, e, 0)
+          );
         }
 
         return stateFactory.build(
-            positionFactory.build(i, (e + 1), 0),
-            positionFactory.build(i, (e + 1), 1),
-            positionFactory.build((i + 1), (e + 1), 0));
+            positionFactory.build(i, e + 1, 0),
+            positionFactory.build(i, e + 1, 1),
+            positionFactory.build(i + 1, e + 1, 0)
+        );
       }
 
       // else, h == w
       return stateFactory.build(
-          positionFactory.build(i, (e + 1), 0));
+          positionFactory.build(i, e + 1, 0)
+      );
     }
 
     if (e < n) {
@@ -63,54 +68,63 @@ public class MergeAndSplitPositionTransitionFunction
         if (s == 0) {
           if (characteristicVector[h]) {
             return stateFactory.build(
-                positionFactory.build((i + 1), e, 0));
+                positionFactory.build(i + 1, e, 0)
+            );
           }
 
           return stateFactory.build(
-              positionFactory.build(i, (e + 1), 0),
-              positionFactory.build(i, (e + 1), 1),
-              positionFactory.build((i + 1), (e + 1), 0),
-              positionFactory.build((i + 2), (e + 1), 0));
+              positionFactory.build(i, e + 1, 0),
+              positionFactory.build(i, e + 1, 1),
+              positionFactory.build(i + 1, e + 1, 0),
+              positionFactory.build(i + 2, e + 1, 0)
+          );
         }
 
         return stateFactory.build(
-            positionFactory.build((i + 1), e, 0));
+            positionFactory.build(i + 1, e, 0)
+        );
       }
 
       if (h == w - 1) {
         if (s == 0) {
           if (characteristicVector[h]) {
             return stateFactory.build(
-                positionFactory.build((i + 1), e, 0));
+                positionFactory.build(i + 1, e, 0)
+            );
           }
 
           return stateFactory.build(
-              positionFactory.build(i, (e + 1), 0),
-              positionFactory.build(i, (e + 1), 1),
-              positionFactory.build((i + 1), (e + 1), 0));
+              positionFactory.build(i, e + 1, 0),
+              positionFactory.build(i, e + 1, 1),
+              positionFactory.build(i + 1, e + 1, 0)
+          );
         }
 
         return stateFactory.build(
-            positionFactory.build((i + 1), e, 0));
+            positionFactory.build(i + 1, e, 0)
+        );
       }
 
       // else, h == w
       return stateFactory.build(
-          positionFactory.build(i, (e + 1), 0));
+          positionFactory.build(i, e + 1, 0)
+      );
     }
 
     if (h <= w - 1) {
       if (s == 0) {
         if (characteristicVector[h]) {
           return stateFactory.build(
-              positionFactory.build((i + 1), n, 0));
+              positionFactory.build(i + 1, n, 0)
+          );
         }
 
         return null;
       }
 
       return stateFactory.build(
-          positionFactory.build((i + 1), e, 0));
+          positionFactory.build(i + 1, e, 0)
+      );
     }
 
     // else, h == w

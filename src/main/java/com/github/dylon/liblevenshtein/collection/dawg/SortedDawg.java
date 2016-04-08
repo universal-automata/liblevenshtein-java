@@ -103,7 +103,7 @@ public class SortedDawg extends AbstractDawg {
       final int size,
       @NonNull final DawgNode root) {
     super(new PrefixFactory<DawgNode>(), new DawgNodeFactory(), root, size);
-    this.transitionFactory = new TransitionFactory<DawgNode>();
+    this.transitionFactory = new TransitionFactory<>();
   }
 
   /**

@@ -76,7 +76,7 @@ public abstract class SubsumesFunction implements ISubsumesFunction, Serializabl
 
       if (s == 1) {
         if (t == 1) {
-          return (i == j);
+          return i == j;
         }
 
         return (f == n) && (i == j);

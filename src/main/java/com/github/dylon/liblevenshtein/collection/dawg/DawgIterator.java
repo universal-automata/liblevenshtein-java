@@ -55,8 +55,8 @@ public class DawgIterator extends AbstractIterator<String> {
   @Override
   protected void advance() {
     if (null == next && !prefixes.isEmpty()) {
-      DawgNode node = null;
-      String value = null;
+      DawgNode node;
+      String value;
 
       do {
         final Prefix<DawgNode> prefix = prefixes.poll();

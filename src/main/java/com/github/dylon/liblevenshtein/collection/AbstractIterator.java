@@ -31,9 +31,9 @@ public abstract class AbstractIterator<Type> implements Iterator<Type> {
   @Override
   public Type next() {
     advance();
-    final Type next = this.next;
+    final Type nextLocal = this.next;
     this.next = null;
-    return next;
+    return nextLocal;
   }
 
   /**

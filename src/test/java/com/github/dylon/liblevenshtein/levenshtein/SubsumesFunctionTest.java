@@ -6,6 +6,10 @@ import static org.testng.Assert.assertEquals;
 
 public class SubsumesFunctionTest {
 
+  private final SubsumesFunction standardSubsumes = new SubsumesFunction.ForStandardAlgorithm();
+  private final SubsumesFunction transpositionSubsumes = new SubsumesFunction.ForTransposition();
+  private final SubsumesFunction mergeAndSplitSubsumes = new SubsumesFunction.ForMergeAndSplit();
+
   @DataProvider(name = "forStandardAlgorithm")
   public Object[][] forStandardAlgorithm() {
     return new Object[][] {
@@ -101,10 +105,6 @@ public class SubsumesFunctionTest {
     , {1,1,1, 1,1,1, 4, true}
     };
   }
-
-  private final SubsumesFunction standardSubsumes = new SubsumesFunction.ForStandardAlgorithm();
-  private final SubsumesFunction transpositionSubsumes = new SubsumesFunction.ForTransposition();
-  private final SubsumesFunction mergeAndSplitSubsumes = new SubsumesFunction.ForMergeAndSplit();
 
   @Test(dataProvider = "forStandardAlgorithm")
   public void testForStandardAlgorithm(

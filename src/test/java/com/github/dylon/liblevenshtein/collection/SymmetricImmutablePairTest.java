@@ -49,6 +49,6 @@ public class SymmetricImmutablePairTest {
   public SymmetricImmutablePair<String> build(
       final String first,
       final String second) {
-    return new SymmetricImmutablePair<String>(first, second);
+    return new SymmetricImmutablePair<>(first, second);
   }
 }

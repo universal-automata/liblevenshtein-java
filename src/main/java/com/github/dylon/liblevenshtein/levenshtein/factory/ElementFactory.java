@@ -22,7 +22,7 @@ public class ElementFactory<Type> implements IElementFactory<Type>, Serializable
    */
   @Override
   public Element<Type> build(final Type value) {
-    final Element<Type> element = new Element<Type>();
+    final Element<Type> element = new Element<>();
     element.value(value);
     return element;
   }

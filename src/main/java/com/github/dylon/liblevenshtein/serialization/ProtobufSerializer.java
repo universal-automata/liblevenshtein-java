@@ -22,6 +22,7 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.TransducerBuilder;
  */
 @SuppressWarnings("unchecked")
 public class ProtobufSerializer implements Serializer {
+  public static final String UNKNOWN_TYPE_S = "Unknown type [%s]";
 
   // Serializers
   // ---------------------------------------------------------------------------
@@ -84,7 +85,7 @@ public class ProtobufSerializer implements Serializer {
       return proto.toByteArray();
     }
 
-    final String message = String.format("Unknown type [%s]", object.getClass());
+    final String message = String.format(UNKNOWN_TYPE_S, object.getClass());
     throw new IllegalArgumentException(message);
   }
 
@@ -117,7 +118,7 @@ public class ProtobufSerializer implements Serializer {
       return (Type) modelOf(proto);
     }
 
-    final String message = String.format("Unknown type [%s]", type);
+    final String message = String.format(UNKNOWN_TYPE_S, type);
     throw new IllegalArgumentException(message);
   }
 
@@ -147,7 +148,7 @@ public class ProtobufSerializer implements Serializer {
       return (Type) modelOf(proto);
     }
 
-    final String message = String.format("Unknown type [%s]", type);
+    final String message = String.format(UNKNOWN_TYPE_S, type);
     throw new IllegalArgumentException(message);
   }
 
