@@ -9,6 +9,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 
 import com.github.dylon.liblevenshtein.collection.TakeIterator;
@@ -42,6 +43,7 @@ import com.github.dylon.liblevenshtein.levenshtein.XPositionDistanceFunction;
  * @author Dylon Edwards
  * @since 2.1.0
  */
+@Slf4j
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class TransducerBuilder implements ITransducerBuilder, Serializable {
 
@@ -163,6 +165,11 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
   @Override
   @SuppressWarnings("unchecked")
   public <CandidateType> ITransducer<CandidateType> build() {
+  	log.info("Building transducer out of [{}] terms with algorithm [{}], "+
+  			"defaultMaxDistance [{}], includeDistance [{}], and maxCandidates [{}]",
+  			dictionary.size(), algorithm, defaultMaxDistance, includeDistance,
+  			maxCandidates);
+
     final IStateFactory stateFactory =
       new StateFactory().elementFactory(new ElementFactory<int[]>());
 

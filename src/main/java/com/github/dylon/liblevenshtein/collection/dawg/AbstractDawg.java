@@ -137,7 +137,7 @@ public abstract class AbstractDawg
   public boolean addAll(final Collection<? extends String> terms) {
     int counter = 0;
     for (final String term : terms) {
-      if (++counter % 10000 == 0) {
+      if (++counter % 10_000 == 0) {
       	log.info("Added [{}] of [{}] terms", counter, terms.size());
       }
       if (!add(term)) return false;
