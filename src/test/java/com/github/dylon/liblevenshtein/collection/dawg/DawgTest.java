@@ -17,6 +17,7 @@ import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.atomic.AtomicReference;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import com.google.common.base.Joiner;
 
@@ -35,6 +36,7 @@ import com.github.dylon.liblevenshtein.serialization.ProtobufSerializer;
 import com.github.dylon.liblevenshtein.serialization.Serializer;
 import static com.github.dylon.liblevenshtein.assertion.SetAssertions.assertThat;
 
+@Slf4j
 public class DawgTest {
   private List<String> terms;
   private DawgNodeFactory dawgNodeFactory;
@@ -104,16 +106,17 @@ public class DawgTest {
 
 		final RuntimeAverager average = new RuntimeAverager(serializer);
     final ForkJoinPool pool = new ForkJoinPool();
+    log.info("Benchmarking the average runtimes to build and deserialize a DAWG");
     pool.invoke(average);
 
     final double buildTime = average.buildTime();
     final double deserializationTime = average.deserializationTime();
 
-    System.out.printf(
-      "::: Deserialized DAWG in %.7f %% the average time required to build it "+
-      "after [%d] iterations, using deserializer [%s]%n",
-      (100.0 * deserializationTime / buildTime), RuntimeAverager.NUM_ITERS,
-      serializer.getClass());
+    log.info(
+      "Deserialized DAWG in [{}] % the average time required to build it, "+
+      "after [{}] iterations, using deserializer [{}]%n",
+      String.format("%.5f", (100.0 * deserializationTime / buildTime)),
+      RuntimeAverager.NUM_ITERS, serializer.getClass());
 
     assertThat(deserializationTime).isLessThan(buildTime);
   }
@@ -241,25 +244,38 @@ public class DawgTest {
       		long stopTime;
       		AbstractDawg dawg;
 
-					final Random random = new Random(58073L);
+					log.info(
+						"Copying terms to avoid ConcurrentModificationException in "+
+						"Collections.sort(List)");
+
+					final long seed = 58073L;
+					final Random random = new Random(seed);
 					final List<String> unsortedTerms = new ArrayList<>(terms);
+
+					log.info("Shuffling terms with random seed [{}]", seed);
 					Collections.shuffle(unsortedTerms, random);
 
+					log.info("Benchmarking the time to build a DAWG from an unsorted list");
       		startTime = System.nanoTime();
       		dawg = dawgFactory.build(unsortedTerms);
       		stopTime = System.nanoTime();
       		final double buildTime = (stopTime - startTime);
 
+					log.info("Recording the benchmarked, build time");
       		synchronized (buildTimeSum) {
       			buildTimeSum.set(buildTime + buildTimeSum.get());
       		}
 
+					log.info("Serializing the DAWG to benchmark its deserialization time");
       		final byte[] bytes = serializer.serialize(dawg);
+
+      		log.info("Benchmarking the time to deserialize a DAWG");
       		startTime = System.nanoTime();
       		dawg = serializer.deserialize(SortedDawg.class, bytes);
       		stopTime = System.nanoTime();
       		final double deserializationTime = (stopTime - startTime);
 
+					log.info("Recording the benchmarked, deserialization time");
       		synchronized (deserializationTimeSum) {
       			deserializationTimeSum.set(deserializationTime + deserializationTimeSum.get());
       		}
@@ -267,6 +283,8 @@ public class DawgTest {
   			else if (numIters > 0) {
   				final int lhsIters = numIters >> 1;
   				final int rhsIters = numIters - lhsIters;
+  				log.info("Splitting benchmark into two, subtasks of sizes [{}] and [{}]",
+  					lhsIters, rhsIters);
   				invokeAll(new RuntimeAverager(serializer,
   						                        	lhsIters,
   						                        	buildTimeSum,
@@ -278,9 +296,9 @@ public class DawgTest {
   			}
   		}
   		catch (final Throwable thrown) {
-  			System.err.println(thrown.getMessage());
-  			thrown.printStackTrace();
-  			throw new RuntimeException("Failed to compute average runtimes", thrown);
+  			final String message = "Failed to benchmark the average runtimes";
+  			log.error(message, thrown);
+  			throw new RuntimeException(message, thrown);
   		}
   	}
   }

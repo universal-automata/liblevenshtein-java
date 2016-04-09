@@ -67,6 +67,9 @@ dependencies {
   compile 'it.unimi.dsi:fastutil:7.0.11'
   compile 'org.apache.commons:commons-lang3:3.4'
   compile 'org.projectlombok:lombok:1.16.8'
+  compile 'org.slf4j:slf4j-api:1.7.21'
+
+  runtime 'ch.qos.logback:logback-classic:1.1.7'
 
   testCompile 'org.testng:testng:6.9.11'
   testCompile 'org.assertj:assertj-core:3.4.0'
@@ -79,6 +82,7 @@ dependencies {
 
   taskCompile 'com.google.code.findbugs:annotations:3.0.1'
   taskCompile 'org.antlr:ST4:4.0.8'
+  testRuntime 'ch.qos.logback:logback-classic:1.1.7'
 }
 
 jacocoTestReport {
