@@ -26,7 +26,7 @@ public class MemoizedDistanceFactoryTest {
   public void setUp() throws IOException {
     try (final BufferedReader reader = new BufferedReader(
           new InputStreamReader(
-            getClass().getResourceAsStream("/wordsEn.txt"),
+            getClass().getResourceAsStream("/top-20-most-common-english-words.txt"),
             StandardCharsets.UTF_8))) {
 
       final List<String> termsList = new ArrayList<>();
