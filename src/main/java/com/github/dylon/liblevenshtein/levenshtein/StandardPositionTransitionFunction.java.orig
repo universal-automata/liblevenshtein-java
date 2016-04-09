@@ -39,100 +39,93 @@ public class StandardPositionTransitionFunction
 
         if (0 == j) {
           return stateFactory.build(
-<<<<<<< f79c66ba903206f001bc8095e41d9430f5c76ad5
+              // [No Error]: Increment the index by one; leave the error alone.
               positionFactory.build(1 + i, e)
           );
-=======
-              // [No Error]: Increment the index by one; leave the error alone.
-              positionFactory.build((1 + i), e));
->>>>>>> Annotates StandardPositionTransitionFunction with descriptions of its transitions; adds AssertJ for unit tests; renames levenshtein.proto to liblevelshtein.proto; replaces tabs in source with two spaces
         }
 
         if (j > 0) {
           return stateFactory.build(
-<<<<<<< f79c66ba903206f001bc8095e41d9430f5c76ad5
-              positionFactory.build(i, e + 1),
-              positionFactory.build(i + 1, e + 1),
-              positionFactory.build(i + j + 1, e + j)
-          );
-=======
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
               // [Insertion|Deletion]: Leave the index alone; increment the
               // error by one.
-              positionFactory.build(i, (e + 1)),
+              positionFactory.build(i, e + 1),
               // [Substitution]: Increment both the index and error by one.
-              positionFactory.build((i + 1), (e + 1)),
+              positionFactory.build(i + 1, e + 1),
               // [Substitution]: Increment the index by one-more than the number
               // of substitutions; increment the error by the number of
               // substitutions.
+              positionFactory.build(i + j + 1, e + j)
+          );
+=======
+              // [Insertion]: Leave the index alone; increment the error by one.
+              positionFactory.build(i, (e + 1)),
+              // [Substitution]: Increment both the index and error by one.
+              positionFactory.build((i + 1), (e + 1)),
+              // [Deletion]: Increment the index by one-more than the number of
+              // deletions; increment the error by the number of deletions.
               positionFactory.build((i + j + 1), (e + j)));
->>>>>>> Annotates StandardPositionTransitionFunction with descriptions of its transitions; adds AssertJ for unit tests; renames levenshtein.proto to liblevelshtein.proto; replaces tabs in source with two spaces
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
         }
 
         // else, j < 0
         return stateFactory.build(
-<<<<<<< f79c66ba903206f001bc8095e41d9430f5c76ad5
-            positionFactory.build(i, e + 1),
-            positionFactory.build(i + 1, e + 1)
-        );
-=======
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
             // [Insertion|Deletion]: Leave the index alone; increment the error
             // by one.
+            positionFactory.build(i, e + 1),
+=======
+            // [Insertion]: Leave the index alone; increment the error by one.
             positionFactory.build(i, (e + 1)),
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
             // [Substitution]: Increment both the index and error by one.
-            positionFactory.build((i + 1), (e + 1)));
->>>>>>> Annotates StandardPositionTransitionFunction with descriptions of its transitions; adds AssertJ for unit tests; renames levenshtein.proto to liblevelshtein.proto; replaces tabs in source with two spaces
+            positionFactory.build(i + 1, e + 1)
+        );
       }
 
       // Consider the last character of the spelling candidate
       if (h == w - 1) {
         if (characteristicVector[h]) {
           return stateFactory.build(
-<<<<<<< f79c66ba903206f001bc8095e41d9430f5c76ad5
+              // [No Error]: Increment the index by one; leave the error alone.
               positionFactory.build(i + 1, e)
           );
         }
 
         return stateFactory.build(
-            positionFactory.build(i, e + 1),
-            positionFactory.build(i + 1, e + 1)
-        );
-=======
-              // [No Error]: Increment the index by one; leave the error alone.
-              positionFactory.build((i + 1), e));
-        }
-
-        return stateFactory.build(
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
             // [Insertion|Deletion]: Leave the index alone; increment the error
             // by one.
+            positionFactory.build(i, e + 1),
+=======
+            // [Insertion]: Leave the index alone; increment the error by one.
             positionFactory.build(i, (e + 1)),
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
             // [Substitution]: Increment both the index and error by one.
-            positionFactory.build((i + 1), (e + 1)));
->>>>>>> Annotates StandardPositionTransitionFunction with descriptions of its transitions; adds AssertJ for unit tests; renames levenshtein.proto to liblevelshtein.proto; replaces tabs in source with two spaces
+            positionFactory.build(i + 1, e + 1)
+        );
       }
 
       // else, h == w
       return stateFactory.build(
-<<<<<<< f79c66ba903206f001bc8095e41d9430f5c76ad5
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
+          // [Insertion|Deletion]: Leave the index alone; increment the error by
+          // one.
           positionFactory.build(i, e + 1)
       );
 =======
-          // [Insertion|Deletion]: Leave the index alone; increment the error by
-          // one.
+          // [Insertion]: Leave the index alone; increment the error by one.
           positionFactory.build(i, (e + 1)));
->>>>>>> Annotates StandardPositionTransitionFunction with descriptions of its transitions; adds AssertJ for unit tests; renames levenshtein.proto to liblevelshtein.proto; replaces tabs in source with two spaces
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
     }
 
     // The edit distance is at its maximum, allowed value.  Only consider this
     // spelling candidate if there is no error at the index of its current term.
     if ((e == n) && (h <= w - 1) && characteristicVector[h]) {
       return stateFactory.build(
-<<<<<<< f79c66ba903206f001bc8095e41d9430f5c76ad5
+          // [No Error]: Increment the index by one; leave the error alone.
           positionFactory.build(i + 1, n)
       );
-=======
-          // [No Error]: Increment the index by one; leave the error alone.
-          positionFactory.build((i + 1), n));
->>>>>>> Annotates StandardPositionTransitionFunction with descriptions of its transitions; adds AssertJ for unit tests; renames levenshtein.proto to liblevelshtein.proto; replaces tabs in source with two spaces
     }
 
     // [Too Many Errors]: The edit distance has exceeded the max distance for

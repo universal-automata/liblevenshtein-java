@@ -39,66 +39,96 @@ public class TranspositionPositionTransitionFunction
         switch (j) {
           case 0:
             return stateFactory.build(
-                // [No Error]: Increment the index by one; leave the error and
-                // special state alone
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
                 positionFactory.build(i + 1, 0, 0)
             );
+=======
+                // [No Error]: Increment the index by one; leave the error and
+                // special state alone
+                positionFactory.build((i + 1), 0, 0));
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
           case 1:
             return stateFactory.build(
                 // [Insertion]: Leave index alone; increment the error by one.
                 positionFactory.build(i, 1, 0),
                 // [Transposition]: Leave index alone; increment error by one.
                 positionFactory.build(i, 1, 1),
-                // [Substitution]: Replace the current character; increment the
-                // index by one; increment the error by one.
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
                 positionFactory.build(i + 1, 1, 0),
-                // [Deletion]: Increment the index by one-more than a single
-                // deletion; increment the error by one.
                 positionFactory.build(i + 2, 1, 0)
             );
+=======
+                // [Substitution]: Replace the current character; increment the
+                // index by one; increment the error by one.
+                positionFactory.build((i + 1), 1, 0),
+                // [Deletion]: Increment the index by one-more than a single
+                // deletion; increment the error by one.
+                positionFactory.build((i + 2), 1, 0));
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
           case -1:
             return stateFactory.build(
                 // [Insertion]: Leave index alone; increment the error by one.
                 positionFactory.build(i, 1, 0),
-                // [Substitution]: Replace the current character; increment the
-                // index by one; increment the error by one.
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
                 positionFactory.build(i + 1, 1, 0)
             );
+=======
+                // [Substitution]: Replace the current character; increment the
+                // index by one; increment the error by one.
+                positionFactory.build((i + 1), 1, 0));
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
           default: // j > 1
             return stateFactory.build(
                 // [Insertion]: Leave index alone; increment the error by one.
                 positionFactory.build(i, 1, 0),
-                // [Substitution]: Replace the current character; increment the
-                // index by one; increment the error by one.
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
                 positionFactory.build(i + 1, 1, 0),
-                // [Deletion]: Increment index by one-more than the number of
-                // deletions; increment error by the number of deletions.
                 positionFactory.build(i + j + 1, j, 0)
             );
+=======
+                // [Substitution]: Replace the current character; increment the
+                // index by one; increment the error by one.
+                positionFactory.build((i + 1), 1, 0),
+                // [Deletion]: Increment index by one-more than the number of
+                // deletions; increment error by the number of deletions.
+                positionFactory.build((i + j + 1), j, 0));
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
         }
       }
 
       if (h == w - 1) {
         if (characteristicVector[h]) {
           return stateFactory.build(
-              // [No Error]: Increment index by one; leave error alone
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
               positionFactory.build(i + 1, 0, 0)
           );
+=======
+              // [No Error]: Increment index by one; leave error alone
+              positionFactory.build((i + 1), 0, 0));
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
         }
 
         return stateFactory.build(
             // [Insertion]: Leave index alone; increment error by one.
             positionFactory.build(i, 1, 0),
-            // [Substitution]: Increment index by one; increment error by one.
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
             positionFactory.build(i + 1, 1, 0)
         );
+=======
+            // [Substitution]: Increment index by one; increment error by one.
+            positionFactory.build((i + 1), 1, 0));
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
       }
 
       // else, h == 2
       return stateFactory.build(
-          // [Insertion]: Leave index alone; increment error by one.
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
           positionFactory.build(i, 1, 0)
       );
+=======
+          // [Insertion]: Leave index alone; increment error by one.
+          positionFactory.build(i, 1, 0));
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
     }
 
     if (1 <= e && e < n) {
@@ -114,49 +144,72 @@ public class TranspositionPositionTransitionFunction
           switch (j) {
             case 0:
               return stateFactory.build(
-                  // [No Error]: Increment index by one; leave error alone.
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
                   positionFactory.build(i + 1, e, 0)
               );
             case 1:
               return stateFactory.build(
-                  // [Insertion]: Leave index alone; increment error by one.
                   positionFactory.build(i, e + 1, 0),
-                  // [Transposition]: Leave index alone; increment error by one.
                   positionFactory.build(i, e + 1, 1),
-                  // [Substitution]: Increment index by one; increment error by
-                  // one.
                   positionFactory.build(i + 1, e + 1, 0),
-                  // [Deletion]: Increment index by one-more than one deletion;
-                  // increment error by one.
                   positionFactory.build(i + 2, e + 1, 0)
               );
             case -1:
               return stateFactory.build(
-                  // [Insertion]: Leave index alone; increment error by one.
                   positionFactory.build(i, e + 1, 0),
-                  // [Substitution]: Increment index by one; increment error by
-                  // one.
                   positionFactory.build(i + 1, e + 1, 0)
               );
             default: // j > 1
               return stateFactory.build(
-                  // [Insertion]: Leave index alone; increment error by one.
                   positionFactory.build(i, e + 1, 0),
-                  // [Substitution]: Increment index by one; increment error by
-                  // one.
                   positionFactory.build(i + 1, e + 1, 0),
-                  // [Deletion]: Increment index by one-more than number of
-                  // deletions; increment error by number of deletions.
                   positionFactory.build(i + j + 1, e + j, 0)
               );
+=======
+                  // [No Error]: Increment index by one; leave error alone.
+                  positionFactory.build((i + 1), e, 0));
+            case 1:
+              return stateFactory.build(
+                  // [Insertion]: Leave index alone; increment error by one.
+                  positionFactory.build(i, (e + 1), 0),
+                  // [Transposition]: Leave index alone; increment error by one.
+                  positionFactory.build(i, (e + 1), 1),
+                  // [Substitution]: Increment index by one; increment error by
+                  // one.
+                  positionFactory.build((i + 1), (e + 1), 0),
+                  // [Deletion]: Increment index by one-more than one deletion;
+                  // increment error by one.
+                  positionFactory.build((i + 2), (e + 1), 0));
+            case -1:
+              return stateFactory.build(
+                  // [Insertion]: Leave index alone; increment error by one.
+                  positionFactory.build(i, (e + 1), 0),
+                  // [Substitution]: Increment index by one; increment error by
+                  // one.
+                  positionFactory.build((i + 1), (e + 1), 0));
+            default: // j > 1
+              return stateFactory.build(
+                  // [Insertion]: Leave index alone; increment error by one.
+                  positionFactory.build(i, (e + 1), 0),
+                  // [Substitution]: Increment index by one; increment error by
+                  // one.
+                  positionFactory.build((i + 1), (e + 1), 0),
+                  // [Deletion]: Increment index by one-more than number of
+                  // deletions; increment error by number of deletions.
+                  positionFactory.build((i + j + 1), (e + j), 0));
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
           }
         }
 
         if (characteristicVector[h]) {
           return stateFactory.build(
-              // [No Error]: Increment index by two; leave error alone.
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
               positionFactory.build(i + 2, e, 0)
           );
+=======
+              // [No Error]: Increment index by two; leave error alone.
+              positionFactory.build((i + 2), e, 0));
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
         }
 
         // [Too Many Errors]: The edit distance has exceeded the max distance
@@ -167,32 +220,49 @@ public class TranspositionPositionTransitionFunction
       if (h == w - 1) {
         if (characteristicVector[h]) {
           return stateFactory.build(
-              // [No Error]: Increment index by one; leave error alone.
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
               positionFactory.build(i + 1, e, 0)
           );
         }
 
         return stateFactory.build(
-            // [Insertion]: Leave index alone; increment error by one.
             positionFactory.build(i, e + 1, 0),
-            // [Substitution]: Increment index by one; leave error alone.
             positionFactory.build(i + 1, e + 1, 0)
         );
+=======
+              // [No Error]: Increment index by one; leave error alone.
+              positionFactory.build((i + 1), e, 0));
+        }
+
+        return stateFactory.build(
+            // [Insertion]: Leave index alone; increment error by one.
+            positionFactory.build(i, (e + 1), 0),
+            // [Substitution]: Increment index by one; leave error alone.
+            positionFactory.build((i + 1), (e + 1), 0));
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
       }
 
       // else, h == w
       return stateFactory.build(
-          // [Insertion]: Leave index alone; increment error by one.
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
           positionFactory.build(i, e + 1, 0)
       );
+=======
+          // [Insertion]: Leave index alone; increment error by one.
+          positionFactory.build(i, (e + 1), 0));
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
     }
 
     if ((h <= w - 1) && (t == 0)) {
       if (characteristicVector[h]) {
         return stateFactory.build(
-            // [No Error]: Increment index by one; leave error alone.
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
             positionFactory.build(i + 1, n, 0)
         );
+=======
+            // [No Error]: Increment index by one; leave error alone.
+            positionFactory.build((i + 1), n, 0));
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
       }
 
       // [Too Many Errors]: The edit distance has exceeded the max distance for
@@ -203,9 +273,13 @@ public class TranspositionPositionTransitionFunction
     if ((h <= w - 2) && (t == 1)) {
       if (characteristicVector[h]) {
         return stateFactory.build(
-            // [No Error]: Increment index by two; leave error alone.
+<<<<<<< 40052a1ff7b065b7f829fabcc631a50bb9e4c735
             positionFactory.build(i + 2, n, 0)
         );
+=======
+            // [No Error]: Increment index by two; leave error alone.
+            positionFactory.build((i + 2), n, 0));
+>>>>>>> Annotates the transition functions with their respective, primitive edit operation descriptions
       }
 
       // [Too Many Errors]: The edit distance has exceeded the max distance for

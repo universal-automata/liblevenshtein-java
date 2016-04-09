@@ -46,22 +46,19 @@ public class StandardPositionTransitionFunction
 
         if (j > 0) {
           return stateFactory.build(
-              // [Insertion|Deletion]: Leave the index alone; increment the
-              // error by one.
+              // [Insertion]: Leave the index alone; increment the error by one.
               positionFactory.build(i, e + 1),
               // [Substitution]: Increment both the index and error by one.
               positionFactory.build(i + 1, e + 1),
-              // [Substitution]: Increment the index by one-more than the number
-              // of substitutions; increment the error by the number of
-              // substitutions.
+              // [Deletion]: Increment the index by one-more than the number of
+              // deletions; increment the error by the number of deletions.
               positionFactory.build(i + j + 1, e + j)
           );
         }
 
         // else, j < 0
         return stateFactory.build(
-            // [Insertion|Deletion]: Leave the index alone; increment the error
-            // by one.
+            // [Insertion]: Leave the index alone; increment the error by one.
             positionFactory.build(i, e + 1),
             // [Substitution]: Increment both the index and error by one.
             positionFactory.build(i + 1, e + 1)
@@ -78,8 +75,7 @@ public class StandardPositionTransitionFunction
         }
 
         return stateFactory.build(
-            // [Insertion|Deletion]: Leave the index alone; increment the error
-            // by one.
+            // [Insertion]: Leave the index alone; increment the error by one.
             positionFactory.build(i, e + 1),
             // [Substitution]: Increment both the index and error by one.
             positionFactory.build(i + 1, e + 1)
@@ -88,8 +84,7 @@ public class StandardPositionTransitionFunction
 
       // else, h == w
       return stateFactory.build(
-          // [Insertion|Deletion]: Leave the index alone; increment the error by
-          // one.
+          // [Insertion]: Leave the index alone; increment the error by one.
           positionFactory.build(i, e + 1)
       );
     }
