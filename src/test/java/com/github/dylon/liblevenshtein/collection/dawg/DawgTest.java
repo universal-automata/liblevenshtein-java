@@ -50,7 +50,7 @@ public class DawgTest {
   public void setUp() throws IOException {
     try (final BufferedReader reader = new BufferedReader(
           new InputStreamReader(
-            getClass().getResourceAsStream("/resources/wordsEn.txt"),
+            getClass().getResourceAsStream("/wordsEn.txt"),
             StandardCharsets.UTF_8))) {
 
       final List<String> termsList = new ArrayList<>();

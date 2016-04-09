@@ -34,7 +34,7 @@ public class MergeAndSplitTransducerTest extends AbstractTransducerTest {
   @BeforeTest
   public void setUp() throws IOException {
     try (final InputStream istream =
-        getClass().getResourceAsStream("/resources/programming-languages.txt")) {
+        getClass().getResourceAsStream("/programming-languages.txt")) {
 
       final Collection<String> dictionary = readLines(istream);
 
