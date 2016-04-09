@@ -261,11 +261,6 @@ public class DawgTest {
       		stopTime = System.nanoTime();
       		final double buildTime = (stopTime - startTime);
 
-					log.info("Recording the benchmarked, build time");
-      		synchronized (buildTimeSum) {
-      			buildTimeSum.set(buildTime + buildTimeSum.get());
-      		}
-
 					log.info("Serializing the DAWG to benchmark its deserialization time");
       		final byte[] bytes = serializer.serialize(dawg);
 
@@ -274,6 +269,11 @@ public class DawgTest {
       		dawg = serializer.deserialize(SortedDawg.class, bytes);
       		stopTime = System.nanoTime();
       		final double deserializationTime = (stopTime - startTime);
+
+					log.info("Recording the benchmarked, build time");
+      		synchronized (buildTimeSum) {
+      			buildTimeSum.set(buildTime + buildTimeSum.get());
+      		}
 
 					log.info("Recording the benchmarked, deserialization time");
       		synchronized (deserializationTimeSum) {
