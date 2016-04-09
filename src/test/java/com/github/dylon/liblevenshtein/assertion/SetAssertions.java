@@ -26,8 +26,8 @@ public class SetAssertions<Type>
   /**
    * Constructs a new {@link SetAssertions} for asserting-against {@link #actual}.
    * @param actual Set to assert-against.
-    * @param <Type> Generic type of the set that is asserted-against.
-    * @return New instance of {@link SetAssertions} to assert-against {@link #param}.
+   * @param <Type> Generic type of the set that is asserted-against.
+   * @return New instance of {@link SetAssertions} to assert-against {@link #param}.
    */
   public static <Type> SetAssertions<Type> assertThat(final Set<Type> actual) {
     return new SetAssertions<Type>(actual);
@@ -144,7 +144,8 @@ public class SetAssertions<Type>
     isNotNull();
 
     if (!actual.equals(expected)) {
-      failWithMessage("Expected sets to be equivalent");
+      failWithMessage("Expected sets to be equivalent: [%s] != [%s]",
+      	expected, actual);
     }
 
     if (actual.hashCode() != expected.hashCode()) {
