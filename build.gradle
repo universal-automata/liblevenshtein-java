@@ -1,11 +1,15 @@
 plugins {
-  id "java"
-  id "findbugs"
-  id "maven-publish"
-  id "jacoco"
-  id "com.github.kt3k.coveralls" version "2.6.3"
-  id "org.standardout.versioneye" version "1.2.0"
-  id "com.google.protobuf" version "0.7.6"
+	// Supported Plugins
+	id 'checkstyle'
+  id 'findbugs'
+  id 'jacoco'
+  id 'java'
+  id 'maven-publish'
+
+	// Third Party Plugins
+  id 'com.github.kt3k.coveralls' version '2.6.3'
+  id 'com.google.protobuf' version '0.7.6'
+  id 'org.standardout.versioneye' version '1.2.0'
 }
 
 repositories {
@@ -15,7 +19,7 @@ repositories {
 
 group = 'com.github.dylon'
 archivesBaseName = name
-version = '2.2.0' // http://semver.org/
+version = '2.2.1' // http://semver.org/
 
 description = 'A library for generating Finite State Transducers based on Levenshtein Automata (keywords: fuzzy search; distance; metric; levenshtein; spelling correction; approximate string matching; automata; information retrieval; transducer).'
 
@@ -64,19 +68,26 @@ dependencies {
   compile 'com.google.guava:guava:19.0'
   compile 'com.google.protobuf:protobuf-java-util:3.0.0-beta-2'
   compile 'com.google.protobuf:protobuf-java:3.0.0-beta-2'
-  compile 'it.unimi.dsi:fastutil:7.0.11'
+  compile 'it.unimi.dsi:fastutil:7.0.12'
   compile 'org.apache.commons:commons-lang3:3.4'
   compile 'org.projectlombok:lombok:1.16.8'
   compile 'org.slf4j:slf4j-api:1.7.21'
 
   taskCompile 'com.google.code.findbugs:annotations:3.0.1'
   taskCompile 'org.antlr:ST4:4.0.8'
-  testCompile 'org.assertj:assertj-core:3.4.0'
+  testCompile 'org.assertj:assertj-core:3.4.1'
   testCompile 'org.mockito:mockito-all:1.10.19'
   testCompile 'org.testng:testng:6.9.11'
 
   testRuntime 'ch.qos.logback:logback-classic:1.1.7'
   testRuntime 'org.codehaus.groovy:groovy-all:2.4.6'
+
+	// JaCoCo (Plugin)
+  jacocoAgent 'org.jacoco:org.jacoco.agent:0.7.6.201602180812'
+  jacocoAnt 'org.jacoco:org.jacoco.ant:0.7.6.201602180812'
+
+  // Checkstyle (Plugin)
+	checkstyle 'com.puppycrawl.tools:checkstyle:6.17'
 
   shell 'commons-cli:commons-cli:1.3.1'
   shell('jline:jline:2.14.1') {
@@ -414,3 +425,12 @@ tasks.javadoc {
   source = new FileNameFinder().getFileNames(srcDelomboked, '**/*.java')
   options.optionFiles << file('javadoc.options')
 }
+
+task checkstyleMainHtml << {
+	ant.xslt(
+		in: checkstyleMain.reports.xml.destination,
+		style: file("${projectDir}/config/checkstyle/checkstyle.xsl"),
+		out: new File(checkstyleMain.reports.xml.destination.parent, 'main.html'))
+}
+
+checkstyleMain.finalizedBy checkstyleMainHtml
