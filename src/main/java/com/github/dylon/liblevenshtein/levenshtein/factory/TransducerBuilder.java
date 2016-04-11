@@ -4,13 +4,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 
-import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 
 import com.github.dylon.liblevenshtein.collection.TakeIterator;
 import com.github.dylon.liblevenshtein.collection.dawg.DawgNode;
@@ -20,10 +17,8 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IDawgFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.PrefixFactory;
-import com.github.dylon.liblevenshtein.collection.dawg.factory.PrefixFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.TransitionFactory;
 import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
-import com.github.dylon.liblevenshtein.levenshtein.Candidate;
 import com.github.dylon.liblevenshtein.levenshtein.ICandidateCollection;
 import com.github.dylon.liblevenshtein.levenshtein.IDistanceFunction;
 import com.github.dylon.liblevenshtein.levenshtein.IState;
@@ -44,22 +39,25 @@ import com.github.dylon.liblevenshtein.levenshtein.XPositionDistanceFunction;
  * @since 2.1.0
  */
 @Slf4j
-@FieldDefaults(level=AccessLevel.PRIVATE)
 public class TransducerBuilder implements ITransducerBuilder, Serializable {
 
   private static final long serialVersionUID = 1L;
-  public static final String UNSUPPORTED_ALGORITHM = "Unsupported Algorithm: ";
+
+  /**
+   * Format of error messages about unsupported algorithms.
+   */
+  private static final String UNSUPPORTED_ALGORITHM = "Unsupported Algorithm: ";
 
   /**
    * Builds and recycles {@link DawgNode} {@link com.github.dylon.liblevenshtein.collection.dawg.Prefix}es.
    */
-  final IPrefixFactory<DawgNode> prefixFactory = new PrefixFactory<>();
+  private final IPrefixFactory<DawgNode> prefixFactory = new PrefixFactory<>();
 
   /**
    * Builds DAWG collections from dictionaries.
    */
   @SuppressWarnings("unchecked")
-  final IDawgFactory<DawgNode, SortedDawg> dawgFactory =
+  private final IDawgFactory<DawgNode, SortedDawg> dawgFactory =
     (IDawgFactory<DawgNode, SortedDawg>)
     (Object)
       new DawgFactory()
@@ -70,7 +68,7 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
   /**
    * Dictionary automaton for seeking spelling candidates.
    */
-  SortedDawg dictionary;
+  private SortedDawg dictionary;
 
   /**
    * Desired Levenshtein algorithm for searching.
@@ -80,8 +78,8 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
    * @return This {@link TransducerBuilder} for fluency.
    */
   @NonNull
-  @Setter(onMethod=@_({@Override}))
-  Algorithm algorithm = Algorithm.STANDARD;
+  @Setter(onMethod = @_({@Override}))
+  private Algorithm algorithm = Algorithm.STANDARD;
 
   /**
    * Default maximum number of errors tolerated between each spelling candidate
@@ -93,8 +91,8 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
    * between each spelling candidate and the query term.
    * @return This {@link TransducerBuilder} for fluency.
    */
-  @Setter(onMethod=@_({@Override}))
-  int defaultMaxDistance = Integer.MAX_VALUE;
+  @Setter(onMethod = @_({@Override}))
+  private int defaultMaxDistance = Integer.MAX_VALUE;
 
   /**
    * Whether the distances between each spelling candidate and the query term
@@ -107,8 +105,8 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
    * spelling candidates.
    * @return This {@link TransducerBuilder} for fluency.
    */
-  @Setter(onMethod=@_({@Override}))
-  boolean includeDistance = true;
+  @Setter(onMethod = @_({@Override}))
+  private boolean includeDistance = true;
 
   /**
    * If desired, the maximum number of elements in the collections of spelling
@@ -130,8 +128,8 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
    * collections of spelling candidates.
    * @return This {@link TransducerBuilder} for fluency.
    */
-  @Setter(onMethod=@_({@Override, @Deprecated}))
-  int maxCandidates = Integer.MAX_VALUE;
+  @Setter(onMethod = @_({@Override, @Deprecated}))
+  private int maxCandidates = Integer.MAX_VALUE;
 
   /**
    * {@inheritDoc}
@@ -165,8 +163,8 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
   @Override
   @SuppressWarnings("unchecked")
   public <CandidateType> ITransducer<CandidateType> build() {
-    log.info("Building transducer out of [{}] terms with algorithm [{}], "+
-        "defaultMaxDistance [{}], includeDistance [{}], and maxCandidates [{}]",
+    log.info("Building transducer out of [{}] terms with algorithm [{}], "
+        + "defaultMaxDistance [{}], includeDistance [{}], and maxCandidates [{}]",
         dictionary.size(), algorithm, defaultMaxDistance, includeDistance,
         maxCandidates);
 
@@ -231,10 +229,10 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
   protected IState buildInitialState(@NonNull final IStateFactory stateFactory) {
     switch (algorithm) {
       case STANDARD:
-        return stateFactory.build(new int[] {0,0});
+        return stateFactory.build(new int[] {0, 0});
       case TRANSPOSITION: // fall through
       case MERGE_AND_SPLIT:
-        return stateFactory.build(new int[] {0,0,0});
+        return stateFactory.build(new int[] {0, 0, 0});
       default:
         throw new IllegalArgumentException(UNSUPPORTED_ALGORITHM + algorithm);
     }

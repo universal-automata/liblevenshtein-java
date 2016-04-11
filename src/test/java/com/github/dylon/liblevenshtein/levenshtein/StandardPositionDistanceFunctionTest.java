@@ -19,9 +19,9 @@ public class StandardPositionDistanceFunctionTest {
     stateFactory.elementFactory(elementFactory);
 
     final IState state = stateFactory.build(
-        positionFactory.build(2,3),
-        positionFactory.build(1,1),
-        positionFactory.build(4,2));
+        positionFactory.build(2, 3),
+        positionFactory.build(1, 1),
+        positionFactory.build(4, 2));
 
     final IDistanceFunction distance = new StandardPositionDistanceFunction();
     assertThat(distance).hasDistance(state, 4, 2);

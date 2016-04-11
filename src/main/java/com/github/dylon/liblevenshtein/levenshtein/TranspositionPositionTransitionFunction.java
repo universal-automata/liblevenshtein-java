@@ -15,6 +15,7 @@ public class TranspositionPositionTransitionFunction
    * {@inheritDoc}
    */
   @Override
+  @SuppressWarnings("checkstyle:methodlength")
   public IState of(
       final int n,
       final int[] position,

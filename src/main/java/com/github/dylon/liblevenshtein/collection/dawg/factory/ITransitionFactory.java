@@ -13,7 +13,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.Transition;
  */
 public interface ITransitionFactory<NodeType extends IDawgNode<NodeType>> extends Serializable {
 
-  static final long serialVersionUID = 1L;
+  long serialVersionUID = 1L;
 
   /**
    * Builds or recycles a {@link Transition} object representing an edge from
@@ -33,7 +33,7 @@ public interface ITransitionFactory<NodeType extends IDawgNode<NodeType>> extend
    * transition has been recycled, you should discard it (like a deleted
    * reference in C++).
    */
-  default void recycle(Transition<NodeType> transition) {
+  default void recycle(final Transition<NodeType> transition) {
     // default behavior is to do nothing
   }
 }

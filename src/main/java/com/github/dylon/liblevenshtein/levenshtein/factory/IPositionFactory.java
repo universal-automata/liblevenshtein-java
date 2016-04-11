@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public interface IPositionFactory extends Serializable {
 
-  static final long serialVersionUID = 1L;
+  long serialVersionUID = 1L;
 
   /**
    * Builds a position vector for the standard, Levenshtein algorihtm.
@@ -17,7 +17,7 @@ public interface IPositionFactory extends Serializable {
    * @param e Number of accumulated errors at index {@code i}.
    * @return New position vector having index {@code i} and error {@code e}.
    */
-  default int[] build(int i, int e) {
+  default int[] build(final int i, final int e) {
     throw new UnsupportedOperationException("build(i,e) is not implemented");
   }
 
@@ -31,7 +31,7 @@ public interface IPositionFactory extends Serializable {
    * @return New position vector having index {@code i}, error {@code e}, and
    * special marker {@code x}.
    */
-  default int[] build(int i, int e, int x) {
+  default int[] build(final int i, final int e, final int x) {
     throw new UnsupportedOperationException("build(i,e,x) is not implemented");
   }
 
@@ -39,7 +39,7 @@ public interface IPositionFactory extends Serializable {
    * Recycles a position vector for re-use.
    * @param position Position vector to recycle.
    */
-  default void recycle(int[] position) {
+  default void recycle(final int[] position) {
     // default behavior is to do nothing
   }
 }

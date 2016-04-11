@@ -7,30 +7,30 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.github.dylon.liblevenshtein.levenshtein.Candidate;
-import com.github.dylon.liblevenshtein.levenshtein.IDistance;
+import com.github.dylon.liblevenshtein.levenshtein.distance.IDistance;
 import static com.github.dylon.liblevenshtein.assertion.CandidateAssertions.assertThat;
 
 public class CandidateAssertionsTest {
 
-  private IDistance<String> distance = null;
+  private final ThreadLocal<IDistance<String>> distance = new ThreadLocal<>();
 
   @BeforeMethod
   @SuppressWarnings("unchecked")
   public void setUp() {
-    this.distance = mock(IDistance.class);
+    distance.set(mock(IDistance.class));
   }
 
   @Test
   public void testHasDistance() {
     final Candidate candidate = new Candidate("bar", 3);
-    when(distance.between("foo", "bar")).thenReturn(3);
-    assertThat(candidate).hasDistance(distance, "foo");
+    when(distance.get().between("foo", "bar")).thenReturn(3);
+    assertThat(candidate).hasDistance(distance.get(), "foo");
   }
 
   @Test(expectedExceptions = AssertionError.class)
   public void testHasDistanceAgainstViolation() {
     final Candidate candidate = new Candidate("bar", 2);
-    when(distance.between("foo", "bar")).thenReturn(3);
-    assertThat(candidate).hasDistance(distance, "foo");
+    when(distance.get().between("foo", "bar")).thenReturn(3);
+    assertThat(candidate).hasDistance(distance.get(), "foo");
   }
 }

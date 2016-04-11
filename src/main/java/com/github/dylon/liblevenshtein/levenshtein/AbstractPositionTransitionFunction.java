@@ -2,9 +2,7 @@ package com.github.dylon.liblevenshtein.levenshtein;
 
 import java.io.Serializable;
 
-import lombok.AccessLevel;
 import lombok.Setter;
-import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.IPositionFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.IStateFactory;
@@ -17,7 +15,7 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IStateFactory;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@FieldDefaults(level=AccessLevel.PROTECTED)
+@Setter
 public abstract class AbstractPositionTransitionFunction
   implements IPositionTransitionFunction, Serializable {
 
@@ -30,7 +28,7 @@ public abstract class AbstractPositionTransitionFunction
    * @param stateFactory Builds and caches states for the transducer.
    * @return This {@link AbstractPositionTransitionFunction} for fluency.
    */
-  @Setter IStateFactory stateFactory;
+  protected IStateFactory stateFactory;
 
   /**
    * Builds and caches positions for states in the transducer.
@@ -39,7 +37,7 @@ public abstract class AbstractPositionTransitionFunction
    * @param positionFactory Builds and caches positions for states in the transducer.
    * @return This {@link AbstractPositionTransitionFunction} for fluency.
    */
-  @Setter IPositionFactory positionFactory;
+  protected IPositionFactory positionFactory;
 
   /**
    * Returns the first index of the characteristic vector between indices, i and

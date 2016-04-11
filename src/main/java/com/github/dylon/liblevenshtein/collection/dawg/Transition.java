@@ -27,19 +27,19 @@ public class Transition<NodeType extends IDawgNode<NodeType>> implements Seriali
    * @param source Node from which the transition is leaving.
    * @return This {@link Transition} for fluency.
    */
-  NodeType source;
+  private NodeType source;
 
   /**
-   * Label mapping {@link #source} to {@link #target}
+   * Label mapping {@link #source} to {@link #target}.
    * -- GETTER --
-   * Label mapping {@link #source} to {@link #target}
-   * @return Label mapping {@link #source} to {@link #target}
+   * Label mapping {@link #source} to {@link #target}.
+   * @return Label mapping {@link #source} to {@link #target}.
    * -- SETTER --
-   * Label mapping {@link #source} to {@link #target}
-   * @param label Label mapping {@link #source} to {@link #target}
+   * Label mapping {@link #source} to {@link #target}.
+   * @param label Label mapping {@link #source} to {@link #target}.
    * @return This {@link Transition} for fluency.
    */
-  char label;
+  private char label;
 
   /**
    * Node to which the transition is going.
@@ -51,5 +51,5 @@ public class Transition<NodeType extends IDawgNode<NodeType>> implements Seriali
    * @param target Node to which the transition is going.
    * @return Node to which the transition is going.
    */
-  NodeType target;
+  private NodeType target;
 }

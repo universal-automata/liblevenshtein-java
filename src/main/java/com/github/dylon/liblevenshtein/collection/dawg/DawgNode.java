@@ -1,13 +1,11 @@
 package com.github.dylon.liblevenshtein.collection.dawg;
 
 import java.io.Serializable;
-import java.util.Iterator;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.val;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 import it.unimi.dsi.fastutil.chars.CharIterator;
@@ -24,13 +22,13 @@ public class DawgNode implements IDawgNode<DawgNode>, Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  /** Outgoing edges of this node */
+  /** Outgoing edges of this node. */
   @NonNull private final Char2ObjectMap<DawgNode> edges;
 
   /**
    * Specifies whether this node represents the last character of some term.
    */
-  @Getter(onMethod=@_(@Override))
+  @Getter(onMethod = @_(@Override))
   private boolean isFinal = false;
 
   /**

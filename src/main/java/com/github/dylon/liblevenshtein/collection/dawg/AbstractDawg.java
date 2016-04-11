@@ -2,28 +2,14 @@ package com.github.dylon.liblevenshtein.collection.dawg;
 
 import java.io.Serializable;
 import java.util.AbstractSet;
-import java.util.ArrayDeque;
 import java.util.Collection;
-import java.util.Deque;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
-import java.util.Queue;
 
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.Getter;
-import lombok.Value;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
-
-import com.google.common.collect.Sets;
 
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
@@ -37,9 +23,10 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
  * @since 2.1.0
  */
 @Slf4j
-@ToString(of={"size", "root"}, callSuper=false)
-@EqualsAndHashCode(of={"size", "root"}, callSuper=false)
-@FieldDefaults(level=AccessLevel.PROTECTED)
+@ToString(of = {"size", "root"},
+          callSuper = false)
+@EqualsAndHashCode(of = {"size", "root"},
+                   callSuper = false)
 public abstract class AbstractDawg
     extends AbstractSet<String>
     implements IDawg<DawgNode>,
@@ -49,34 +36,35 @@ public abstract class AbstractDawg
 
   private static final long serialVersionUID = 1L;
 
-  /** Manages instances of DAWG nodes */
-  volatile IDawgNodeFactory<DawgNode> factory;
+  /** Manages instances of DAWG nodes. */
+  protected IDawgNodeFactory<DawgNode> factory;
 
   /**
    * Builds and recycles prefix objects, which are used to generate terms from
    * the dictionary's root.
    */
-  volatile IPrefixFactory<DawgNode> prefixFactory;
+  protected IPrefixFactory<DawgNode> prefixFactory;
 
   /**
    * Root node of this trie.
    * @return Root node of this trie.
    */
-  @Getter(onMethod=@_({@Override}))
-  final DawgNode root;
+  @Getter(onMethod = @_({@Override}))
+  protected final DawgNode root;
 
   /**
    * Number of terms in this trie.
    * @return Number of terms in this trie.
    */
-  @Getter(onMethod=@_({@Override}))
-  int size = 0;
+  @Getter(onMethod = @_({@Override}))
+  protected int size = 0;
 
   /**
    * Initializes an {@link AbstractDawg}.
    * @param prefixFactory Builds/Caches instances of {@link DawgNode} paths.
    * @param factory Builds/Caches {@link DawgNode} nodes.
    * @param root Root node of this DAWG.
+   * @param size Number of terms in the dictionary.
    */
   protected AbstractDawg(
       final IPrefixFactory<DawgNode> prefixFactory,
@@ -134,13 +122,15 @@ public abstract class AbstractDawg
    * {@inheritDoc}
    */
   @Override
-  public boolean addAll(final Collection<? extends String> terms) {
+  public synchronized boolean addAll(final Collection<? extends String> terms) {
     int counter = 0;
     for (final String term : terms) {
       if (++counter % 10_000 == 0) {
         log.info("Added [{}] of [{}] terms", counter, terms.size());
       }
-      if (!add(term)) return false;
+      if (!add(term)) {
+        return false;
+      }
     }
     return true;
   }
@@ -156,7 +146,9 @@ public abstract class AbstractDawg
    */
   @Override
   public boolean contains(final Object o) {
-    if (!(o instanceof String)) return false;
+    if (!(o instanceof String)) {
+      return false;
+    }
     @SuppressWarnings("unchecked")
     final String term = (String) o;
     DawgNode node = root;
@@ -179,7 +171,7 @@ public abstract class AbstractDawg
    * {@inheritDoc}
    */
   @Override
-  public boolean replace(String current, final String replacement) {
+  public boolean replace(final String current, final String replacement) {
     throw new UnsupportedOperationException("replace is not supported");
   }
 
@@ -187,7 +179,7 @@ public abstract class AbstractDawg
    * {@inheritDoc}
    */
   @Override
-  public boolean replaceAll(Collection<? extends Map.Entry<String,String>> c) {
+  public boolean replaceAll(final Collection<? extends Map.Entry<String, String>> c) {
     throw new UnsupportedOperationException("replaceAll is not supported");
   }
 }

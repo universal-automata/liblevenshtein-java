@@ -34,6 +34,7 @@ public class MergeAndSplitTransducerTest extends AbstractTransducerTest {
   private Set<Candidate> expectedCandidates;
 
   @BeforeTest
+  @SuppressWarnings("checkstyle:methodlength")
   public void setUp() throws IOException {
     try (final InputStream istream =
         getClass().getResourceAsStream("/programming-languages.txt")) {
@@ -449,7 +450,7 @@ public class MergeAndSplitTransducerTest extends AbstractTransducerTest {
     expectedCandidates.add(new Candidate("ZPL", 3));
   }
 
-  @DataProvider(name="serializers")
+  @DataProvider(name = "serializers")
   public Iterator<Object[]> serializers() {
     final List<Object[]> serializers = new LinkedList<>();
     serializers.add(new Object[] {new BytecodeSerializer()});
@@ -457,7 +458,7 @@ public class MergeAndSplitTransducerTest extends AbstractTransducerTest {
     return serializers.iterator();
   }
 
-  @Test(dataProvider="serializers")
+  @Test(dataProvider = "serializers")
   public void testSerialization(final Serializer serializer) throws Exception {
     final byte[] bytes = serializer.serialize(transducer);
     final ITransducer<Candidate> actualTransducer =

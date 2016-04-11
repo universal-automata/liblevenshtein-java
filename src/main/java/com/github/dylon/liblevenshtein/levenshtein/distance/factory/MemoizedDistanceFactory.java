@@ -1,15 +1,14 @@
-package com.github.dylon.liblevenshtein.levenshtein.factory;
+package com.github.dylon.liblevenshtein.levenshtein.distance.factory;
 
 import java.io.Serializable;
 
 import lombok.NonNull;
 
 import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
-import com.github.dylon.liblevenshtein.levenshtein.IDistance;
-import com.github.dylon.liblevenshtein.levenshtein.IDistanceFactory;
+import com.github.dylon.liblevenshtein.levenshtein.distance.IDistance;
+import com.github.dylon.liblevenshtein.levenshtein.distance.MemoizedMergeAndSplit;
 import com.github.dylon.liblevenshtein.levenshtein.distance.MemoizedStandard;
 import com.github.dylon.liblevenshtein.levenshtein.distance.MemoizedTransposition;
-import com.github.dylon.liblevenshtein.levenshtein.distance.MemoizedMergeAndSplit;
 
 /**
  * Builds memoized instances of Levenshtein distance metrics.
@@ -24,19 +23,19 @@ public class MemoizedDistanceFactory implements IDistanceFactory<String>, Serial
    * Computes the distance between two terms using the standard, Levenshtein
    * distance algorithm.
    */
-  private IDistance<String> standard = null;
+  private volatile IDistance<String> standard = null;
 
   /**
    * Computes the distance between two terms using the standard, Levenshtein
    * distance algorithm extended with transpositions.
    */
-  private IDistance<String> transposition = null;
+  private volatile IDistance<String> transposition = null;
 
   /**
    * Computes the distance between two terms using the standard, Levenshtein
    * distance algorithm extended with merges and splits.
    */
-  private IDistance<String> mergeAndSplit = null;
+  private volatile IDistance<String> mergeAndSplit = null;
 
   /**
    * {@inheritDoc}
@@ -45,13 +44,31 @@ public class MemoizedDistanceFactory implements IDistanceFactory<String>, Serial
   public IDistance<String> build(@NonNull final Algorithm algorithm) {
     switch (algorithm) {
       case STANDARD:
-        if (null == standard) standard = new MemoizedStandard();
+        if (null == standard) {
+          synchronized (this) {
+            if (null == standard) {
+              standard = new MemoizedStandard();
+            }
+          }
+        }
         return standard;
       case TRANSPOSITION:
-        if (null == transposition) transposition = new MemoizedTransposition();
+        if (null == transposition) {
+          synchronized (this) {
+            if (null == transposition) {
+              transposition = new MemoizedTransposition();
+            }
+          }
+        }
         return transposition;
       case MERGE_AND_SPLIT:
-        if (null == mergeAndSplit) mergeAndSplit = new MemoizedMergeAndSplit();
+        if (null == mergeAndSplit) {
+          synchronized (this) {
+            if (null == mergeAndSplit) {
+              mergeAndSplit = new MemoizedMergeAndSplit();
+            }
+          }
+        }
         return mergeAndSplit;
       default:
         throw new IllegalArgumentException("Unrecognized algorithm: " + algorithm);

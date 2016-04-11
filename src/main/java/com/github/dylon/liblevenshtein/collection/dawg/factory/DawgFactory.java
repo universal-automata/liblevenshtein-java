@@ -29,10 +29,10 @@ public class DawgFactory implements IDawgFactory<DawgNode, AbstractDawg>, Serial
   private static final long serialVersionUID = 1L;
 
   /**
-   * Builds and recycles Dawg nodes
+   * Builds and recycles Dawg nodes.
    * -- SETTER --
-   * Builds and recycles Dawg nodes
-   * @param dawgNodeFactory Builds and recycles Dawg nodes
+   * Builds and recycles Dawg nodes.
+   * @param dawgNodeFactory Builds and recycles Dawg nodes.
    * @return This {@link DawgFactory} for fluency.
    */
   @Setter private IDawgNodeFactory<DawgNode> dawgNodeFactory;
@@ -50,11 +50,11 @@ public class DawgFactory implements IDawgFactory<DawgNode, AbstractDawg>, Serial
   @Setter private IPrefixFactory<DawgNode> prefixFactory;
 
   /**
-   * Builds (and recycles for memory efficiency) Transition objects
+   * Builds (and recycles for memory efficiency) Transition objects.
    * -- SETTER --
-   * Builds (and recycles for memory efficiency) Transition objects
+   * Builds (and recycles for memory efficiency) Transition objects.
    * @param transitionFactory Builds (and recycles for memory efficiency)
-   * Transition objects
+   * Transition objects.
    * @return This {@link DawgFactory} for fluency.
    */
   @Setter private ITransitionFactory<DawgNode> transitionFactory;

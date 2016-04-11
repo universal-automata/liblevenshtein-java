@@ -13,33 +13,31 @@ import static com.github.dylon.liblevenshtein.assertion.StateTransitionFunctionA
 public class StateTransitionFunctionAssertionsTest {
 
   private final boolean[] characteristicVector = {true, false};
-  private StateTransitionFunction transition;
-  private IState input;
-  private IState output;
+  private final ThreadLocal<StateTransitionFunction> transition = new ThreadLocal<>();
+  private final IState input = mock(IState.class);
+  private final IState output = mock(IState.class);
 
   @BeforeMethod
   public void setUp() {
-    this.transition = mock(StateTransitionFunction.class);
-    this.input = mock(IState.class);
-    this.output = mock(IState.class);
+    transition.set(mock(StateTransitionFunction.class));
   }
 
   @Test
   public void testTransitionsTo() {
-    when(transition.of(input, characteristicVector)).thenReturn(output);
-    assertThat(transition).transitionsTo(output, input, characteristicVector);
-    assertThat(transition).transitionsTo(null, null, characteristicVector);
+    when(transition.get().of(input, characteristicVector)).thenReturn(output);
+    assertThat(transition.get()).transitionsTo(output, input, characteristicVector);
+    assertThat(transition.get()).transitionsTo(null, null, characteristicVector);
   }
 
   @Test(expectedExceptions = AssertionError.class)
   public void testTransitionsToAgainstNonNullTransition() {
-    when(transition.of(input, characteristicVector)).thenReturn(output);
-    assertThat(transition).transitionsTo(null, input, characteristicVector);
+    when(transition.get().of(input, characteristicVector)).thenReturn(output);
+    assertThat(transition.get()).transitionsTo(null, input, characteristicVector);
   }
 
   @Test(expectedExceptions = AssertionError.class)
   public void testTransitionsToAgainstInvalidTransition() {
-    when(transition.of(input, characteristicVector)).thenReturn(output);
-    assertThat(transition).transitionsTo(output, null, characteristicVector);
+    when(transition.get().of(input, characteristicVector)).thenReturn(output);
+    assertThat(transition.get()).transitionsTo(output, null, characteristicVector);
   }
 }

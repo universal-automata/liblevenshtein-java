@@ -3,7 +3,6 @@ package com.github.dylon.liblevenshtein.serialization;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.util.List;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 import it.unimi.dsi.fastutil.chars.Char2ObjectSortedMap;
@@ -22,7 +21,11 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.TransducerBuilder;
  */
 @SuppressWarnings("unchecked")
 public class ProtobufSerializer implements Serializer {
-  public static final String UNKNOWN_TYPE_S = "Unknown type [%s]";
+
+  /**
+   * Format of error messages about unknown types.
+   */
+  private static final String UNKNOWN_TYPE_S = "Unknown type [%s]";
 
   // Serializers
   // ---------------------------------------------------------------------------
@@ -155,6 +158,11 @@ public class ProtobufSerializer implements Serializer {
   // Models
   // ---------------------------------------------------------------------------
 
+  /**
+   * Returns the node of the prototype.
+   * @param proto Prototype of the node.
+   * @return Node of the prototype.
+   */
   protected DawgNode modelOf(final LibLevenshteinProtos.DawgNode proto) {
     final Char2ObjectSortedMap<DawgNode> edges = new Char2ObjectRBTreeMap<>();
     for (final LibLevenshteinProtos.DawgNode.Edge edge : proto.getEdgeList()) {
@@ -164,11 +172,21 @@ public class ProtobufSerializer implements Serializer {
     return new DawgNode(edges, proto.getIsFinal());
   }
 
+  /**
+   * Returns the dictionary of the prototype.
+   * @param proto Prototype of the dictionary.
+   * @return Dictionary of the prototype.
+   */
   protected SortedDawg modelOf(final LibLevenshteinProtos.Dawg proto) {
     final DawgNode root = modelOf(proto.getRoot());
     return new SortedDawg(proto.getSize(), root);
   }
 
+  /**
+   * Returns the transducer of the prototype.
+   * @param proto Prototype of the transducer.
+   * @return Transducer of the prototype.
+   */
   protected Transducer<DawgNode, Object> modelOf(final LibLevenshteinProtos.Transducer proto) {
     return (Transducer<DawgNode, Object>)
       new TransducerBuilder()
@@ -180,6 +198,11 @@ public class ProtobufSerializer implements Serializer {
         .build();
   }
 
+  /**
+   * Returns the Levenshtein algorithm for the prototype.
+   * @param proto Levenshtein algorithm prototype.
+   * @return Levenshtein algorithm for the prototype.
+   */
   protected Algorithm modelOf(final LibLevenshteinProtos.Transducer.Algorithm proto) {
     switch (proto) {
       case STANDARD:
@@ -197,6 +220,11 @@ public class ProtobufSerializer implements Serializer {
   // Prototypes
   // ---------------------------------------------------------------------------
 
+  /**
+   * Returns the prototype of a transducer.
+   * @param transducer Transducer whose prototype is to be returned.
+   * @return Prototype of the transducer.
+   */
   protected LibLevenshteinProtos.Transducer protoOf(final Transducer<DawgNode, Object> transducer) {
     final TransducerAttributes<DawgNode, Object> attributes = transducer.attributes();
     return LibLevenshteinProtos.Transducer.newBuilder()
@@ -208,6 +236,11 @@ public class ProtobufSerializer implements Serializer {
       .build();
   }
 
+  /**
+   * Returns the prototype of the Levenshtein algorithm.
+   * @param algorithm Levenshtein algorithm whose prototype is to be returned.
+   * @return Prototype of the Levenshtein algorithm.
+   */
   protected LibLevenshteinProtos.Transducer.Algorithm protoOf(final Algorithm algorithm) {
     switch (algorithm) {
       case STANDARD:
@@ -222,6 +255,11 @@ public class ProtobufSerializer implements Serializer {
     }
   }
 
+  /**
+   * Returns the prototype of the dictionary.
+   * @param dawg Dictionary whose prototype is to be returned.
+   * @return Prototype of the dictionary.
+   */
   protected LibLevenshteinProtos.Dawg protoOf(final SortedDawg dawg) {
     return LibLevenshteinProtos.Dawg.newBuilder()
       .setSize(dawg.size())
@@ -229,6 +267,11 @@ public class ProtobufSerializer implements Serializer {
       .build();
   }
 
+  /**
+   * Returns the prototype of a node.
+   * @param node Node whose prototype is to be returned.
+   * @return The prototype of the node.
+   */
   protected LibLevenshteinProtos.DawgNode protoOf(final DawgNode node) {
     final LibLevenshteinProtos.DawgNode.Builder builder =
       LibLevenshteinProtos.DawgNode.newBuilder();
@@ -239,6 +282,13 @@ public class ProtobufSerializer implements Serializer {
     return builder.build();
   }
 
+  /**
+   * Returns the prototype of an edge.
+   * @param label Annotation leading out of the current {@link DawgNode} to the
+   * target {@link DawgNode}.
+   * @param node Target {@link DawgNode} for the transition.
+   * @return The prototype of an edge.
+   */
   protected LibLevenshteinProtos.DawgNode.Edge protoOf(
       final char label,
       final DawgNode node) {

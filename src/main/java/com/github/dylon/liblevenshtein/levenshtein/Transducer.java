@@ -34,7 +34,7 @@ public class Transducer<DictionaryNode, CandidateType>
    */
   @Getter
   @NonNull
-  TransducerAttributes<DictionaryNode,CandidateType> attributes;
+  private TransducerAttributes<DictionaryNode, CandidateType> attributes;
 
   /**
    * {@inheritDoc}
@@ -51,7 +51,7 @@ public class Transducer<DictionaryNode, CandidateType>
   public ICandidateCollection<CandidateType> transduce(
       @NonNull final String term,
       final int maxDistance) {
-    return new LazyTransducerCollection<DictionaryNode,CandidateType>(
+    return new LazyTransducerCollection<DictionaryNode, CandidateType>(
         term, maxDistance, attributes);
   }
 }

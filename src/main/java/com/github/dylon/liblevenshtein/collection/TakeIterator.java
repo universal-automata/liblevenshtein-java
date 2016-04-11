@@ -28,7 +28,7 @@ public class TakeIterator<Type> extends AbstractIterator<Type> {
   private final Iterator<Type> iterator;
 
   /**
-   * Number of elements taken from {@link #iterator}
+   * Number of elements taken from {@link #iterator}.
    * @see #iterator
    * @see #elementsToTake
    */

@@ -18,8 +18,9 @@ public class MemoizedMergeAndSplit extends AbstractMemoized {
    * {@inheritDoc}
    */
   @Override
+  @SuppressWarnings("checkstyle:finalparameters")
   public int memoizedDistance(String v, String w) {
-    val key = new SymmetricImmutablePair<String>(v,w);
+    val key = new SymmetricImmutablePair<String>(v, w);
 
     int distance = memo.getInt(key);
     if (distance != DEFAULT_RETURN_VALUE) {
@@ -54,61 +55,61 @@ public class MemoizedMergeAndSplit extends AbstractMemoized {
       return distance;
     }
 
-    distance = memoizedDistance(x,w);
+    distance = memoizedDistance(x, w);
     if (0 == distance) {
       memo.put(key, 1);
       return 1;
     }
 
-    int min_distance = distance;
+    int minDistance = distance;
 
-    distance = memoizedDistance(v,y);
+    distance = memoizedDistance(v, y);
     if (0 == distance) {
       memo.put(key, 1);
       return 1;
     }
 
-    if (distance < min_distance) {
-      min_distance = distance;
+    if (distance < minDistance) {
+      minDistance = distance;
     }
 
-    distance = memoizedDistance(x,y);
+    distance = memoizedDistance(x, y);
     if (0 == distance) {
       memo.put(key, 1);
       return 1;
     }
 
-    if (distance < min_distance) {
-      min_distance = distance;
+    if (distance < minDistance) {
+      minDistance = distance;
     }
 
     if (w.length() > 1) {
-      distance = memoizedDistance(x, f(w,1));
+      distance = memoizedDistance(x, f(w, 1));
 
       if (0 == distance) {
         memo.put(key, 1);
         return 1;
       }
 
-      if (distance < min_distance) {
-        min_distance = distance;
+      if (distance < minDistance) {
+        minDistance = distance;
       }
     }
 
     if (v.length() > 1) {
-      distance = memoizedDistance(f(v,1), y);
+      distance = memoizedDistance(f(v, 1), y);
 
       if (0 == distance) {
         memo.put(key, 1);
         return 1;
       }
 
-      if (distance < min_distance) {
-        min_distance = distance;
+      if (distance < minDistance) {
+        minDistance = distance;
       }
     }
 
-    distance = 1 + min_distance;
+    distance = 1 + minDistance;
     memo.put(key, distance);
     return distance;
   }

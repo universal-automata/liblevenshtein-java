@@ -22,7 +22,7 @@ public class StateAssertions extends AbstractAssert<StateAssertions, State> {
   /**
    * Constructs a new {@link StateAssertions} to assert-against.
    * @param actual {@link State} to assert-against.
-   * @return A new {@link StateAssertions} to assert-against. 
+   * @return A new {@link StateAssertions} to assert-against.
    */
   public static StateAssertions assertThat(final State actual) {
     return new StateAssertions(actual);

@@ -19,11 +19,11 @@ public class Candidate implements Serializable {
    * Candidate term from the dictionary automaton.
    * @return Candidate term from the dictionary automaton.
    */
-  String term;
+  private final String term;
 
   /**
    * Distance between the candidate term and the query term.
    * @return Distance between the candidate term and the query term.
    */
-  int distance;
+  private final int distance;
 }

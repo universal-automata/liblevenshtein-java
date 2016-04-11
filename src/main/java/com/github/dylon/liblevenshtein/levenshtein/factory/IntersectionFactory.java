@@ -1,8 +1,6 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
 import java.io.Serializable;
-import java.util.Queue;
-import java.util.ArrayDeque;
 
 import lombok.val;
 

@@ -2,7 +2,6 @@ package com.github.dylon.liblevenshtein.levenshtein.factory;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Comparator;
 
 import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
 import com.github.dylon.liblevenshtein.levenshtein.ITransducer;

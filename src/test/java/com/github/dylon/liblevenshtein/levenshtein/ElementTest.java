@@ -8,9 +8,9 @@ public class ElementTest {
 
   @Test
   public void testEqualsAndHashCode() {
-    final Element<int[]> e1 = build(1,2, 2,3, 3,4);
-    final Element<int[]> e2 = build(1,2, 2,3, 3,4);
-    final Element<int[]> e3 = build(1,3, 2,4, 3,5);
+    final Element<int[]> e1 = build(1, 2, 2, 3, 3, 4);
+    final Element<int[]> e2 = build(1, 2, 2, 3, 3, 4);
+    final Element<int[]> e3 = build(1, 3, 2, 4, 3, 5);
 
     assertThat(e1)
       .isEqualTo(e1)

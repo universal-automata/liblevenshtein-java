@@ -1,20 +1,20 @@
 plugins {
-	// Supported Plugins
-	id 'checkstyle'
+  // Supported Plugins
+  id 'checkstyle'
   id 'findbugs'
   id 'jacoco'
   id 'java'
   id 'maven-publish'
 
-	// Third Party Plugins
+  // Third Party Plugins
   id 'com.github.kt3k.coveralls' version '2.6.3'
   id 'com.google.protobuf' version '0.7.6'
   id 'org.standardout.versioneye' version '1.2.0'
 }
 
 repositories {
-	mavenCentral()
-	jcenter()
+  mavenCentral()
+  jcenter()
 }
 
 group = 'com.github.dylon'
@@ -74,7 +74,15 @@ dependencies {
   compile 'org.slf4j:slf4j-api:1.7.21'
 
   taskCompile 'com.google.code.findbugs:annotations:3.0.1'
+  taskCompile 'com.google.guava:guava:19.0'
+  taskCompile 'commons-cli:commons-cli:1.3.1'
   taskCompile 'org.antlr:ST4:4.0.8'
+  taskCompile 'org.projectlombok:lombok:1.16.8'
+  taskCompile 'org.slf4j:slf4j-api:1.7.21'
+
+  taskRuntime 'ch.qos.logback:logback-classic:1.1.7'
+  taskRuntime 'org.codehaus.groovy:groovy-all:2.4.6'
+
   testCompile 'org.assertj:assertj-core:3.4.1'
   testCompile 'org.mockito:mockito-all:1.10.19'
   testCompile 'org.testng:testng:6.9.11'
@@ -82,12 +90,12 @@ dependencies {
   testRuntime 'ch.qos.logback:logback-classic:1.1.7'
   testRuntime 'org.codehaus.groovy:groovy-all:2.4.6'
 
-	// JaCoCo (Plugin)
+  // JaCoCo (Plugin)
   jacocoAgent 'org.jacoco:org.jacoco.agent:0.7.6.201602180812'
   jacocoAnt 'org.jacoco:org.jacoco.ant:0.7.6.201602180812'
 
   // Checkstyle (Plugin)
-	checkstyle 'com.puppycrawl.tools:checkstyle:6.17'
+  checkstyle 'com.puppycrawl.tools:checkstyle:6.17'
 
   shell 'commons-cli:commons-cli:1.3.1'
   shell('jline:jline:2.14.1') {
@@ -108,7 +116,11 @@ tasks.withType(JavaCompile) {
 }
 
 test {
-  useTestNG()
+  useTestNG() {
+    // Run as many tests in-parallel as there are CPU cores
+    parallel 'methods'
+    threadCount Runtime.getRuntime().availableProcessors()
+  }
 
   testLogging {
     exceptionFormat "full"
@@ -138,22 +150,18 @@ def exec(classpath, mainClass, args=[]) {
   }
 }
 
-// create syntastic classpath files
-task syntastic(dependsOn: taskClasses) {
-  description = 'Dumps the classpaths a file that can be read by Syntastic.vim'
-  doLast {
-    def classpath = configurations.taskCompile
-    classpath += files(sourceSets.task.output.classesDir)
-    classpath += files(sourceSets.task.output.resourcesDir)
-    sourceSets.each() {classpath += it.runtimeClasspath}
-
-    def configPath = "${projectDir}/.vimrc.local".toString()
-
-    exec(classpath, 'com.github.dylon.liblevenshtein.task.GenerateSyntasticConfig', [
-      classpath.asPath,
-      configPath
-    ])
-  }
+def execTask(mainClass, args=[]) {
+  def classpath = configurations.taskRuntime
+  classpath += files(sourceSets.task.output.classesDir)
+  classpath += files(sourceSets.task.output.resourcesDir)
+  exec(classpath, mainClass, args + [
+    "--group-id", rootProject.group,
+    "--artifact-id", rootProject.name,
+    "--artifact-version", rootProject.version,
+    "--gradle-version", gradle.gradleVersion,
+    "--java-source-version", sourceCompatibility.toString(),
+    "--java-target-version", targetCompatibility.toString()
+  ])
 }
 
 task(shell, dependsOn: classes) {
@@ -169,20 +177,29 @@ task(shell, dependsOn: classes) {
   }
 }
 
+// create syntastic classpath files
+task syntastic(dependsOn: taskClasses) {
+  description = 'Dumps the classpaths a file that can be read by Syntastic.vim'
+  doLast {
+    def classpath = configurations.taskRuntime
+    classpath += files(sourceSets.task.output.classesDir)
+    classpath += files(sourceSets.task.output.resourcesDir)
+    sourceSets.each() {classpath += it.runtimeClasspath}
+
+    def configPath = "${projectDir}/.vimrc.local".toString()
+
+    execTask('com.github.dylon.liblevenshtein.task.GenerateSyntasticConfig', [
+      "--classpath", classpath.asPath,
+      "--config-path", configPath
+    ])
+  }
+}
+
 task wikidoc(dependsOn: taskClasses) {
   description = 'Generates GitHub, wiki documentation'
   doLast {
-    def classpath = configurations.taskCompile
-    classpath += files(sourceSets.task.output.classesDir)
-    classpath += files(sourceSets.task.output.resourcesDir)
-    exec(classpath, 'com.github.dylon.liblevenshtein.task.GenerateWikidoc', [
-      rootProject.group,
-      rootProject.name,
-      rootProject.version,
-      wikidocDir.path,
-      gradle.gradleVersion,
-      sourceCompatibility.toString(),
-      targetCompatibility.toString()
+    execTask('com.github.dylon.liblevenshtein.task.GenerateWikidoc', [
+      "--wiki-path", wikidocDir.path
     ])
   }
 }
@@ -190,17 +207,8 @@ task wikidoc(dependsOn: taskClasses) {
 task readme(dependsOn: taskClasses) {
   description = 'Keeps the README.md up-to-date'
   doLast {
-    def classpath = configurations.taskCompile
-    classpath += files(sourceSets.task.output.classesDir)
-    classpath += files(sourceSets.task.output.resourcesDir)
-    exec(classpath, 'com.github.dylon.liblevenshtein.task.GenerateReadme', [
-      rootProject.group,
-      rootProject.name,
-      rootProject.version,
-      "$projectDir/README.md".toString(),
-      gradle.gradleVersion,
-      sourceCompatibility.toString(),
-      targetCompatibility.toString()
+    execTask('com.github.dylon.liblevenshtein.task.GenerateReadme', [
+      "--readme-path", "$projectDir/README.md".toString()
     ])
   }
 }
@@ -427,10 +435,26 @@ tasks.javadoc {
 }
 
 task checkstyleMainHtml << {
-	ant.xslt(
-		in: checkstyleMain.reports.xml.destination,
-		style: file("${projectDir}/config/checkstyle/checkstyle.xsl"),
-		out: new File(checkstyleMain.reports.xml.destination.parent, 'main.html'))
+  ant.xslt(
+    in: checkstyleMain.reports.xml.destination,
+    style: file("${projectDir}/config/checkstyle/checkstyle.xsl"),
+    out: new File(checkstyleMain.reports.xml.destination.parent, 'main.html'))
+}
+
+task checkstyleTaskHtml << {
+  ant.xslt(
+    in: checkstyleTask.reports.xml.destination,
+    style: file("${projectDir}/config/checkstyle/checkstyle.xsl"),
+    out: new File(checkstyleTask.reports.xml.destination.parent, 'task.html'))
+}
+
+task checkstyleTestHtml << {
+  ant.xslt(
+    in: checkstyleTest.reports.xml.destination,
+    style: file("${projectDir}/config/checkstyle/checkstyle.xsl"),
+    out: new File(checkstyleTest.reports.xml.destination.parent, 'test.html'))
 }
 
 checkstyleMain.finalizedBy checkstyleMainHtml
+checkstyleTask.finalizedBy checkstyleTaskHtml
+checkstyleTest.finalizedBy checkstyleTestHtml

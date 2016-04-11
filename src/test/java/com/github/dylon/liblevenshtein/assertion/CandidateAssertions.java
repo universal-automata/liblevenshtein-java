@@ -3,7 +3,7 @@ package com.github.dylon.liblevenshtein.assertion;
 import org.assertj.core.api.AbstractAssert;
 
 import com.github.dylon.liblevenshtein.levenshtein.Candidate;
-import com.github.dylon.liblevenshtein.levenshtein.IDistance;
+import com.github.dylon.liblevenshtein.levenshtein.distance.IDistance;
 
 /**
  * AssertJ-style assertions for {@link Candidate}s.

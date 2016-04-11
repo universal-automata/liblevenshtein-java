@@ -1,11 +1,6 @@
 package com.github.dylon.liblevenshtein.collection.dawg.factory;
 
 import java.io.Serializable;
-import java.util.ArrayDeque;
-import java.util.Queue;
-
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.collection.dawg.IDawgNode;
 import com.github.dylon.liblevenshtein.collection.dawg.Transition;
@@ -16,7 +11,6 @@ import com.github.dylon.liblevenshtein.collection.dawg.Transition;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@FieldDefaults(level=AccessLevel.PRIVATE, makeFinal=true)
 public class TransitionFactory<NodeType extends IDawgNode<NodeType>>
   implements ITransitionFactory<NodeType>, Serializable {
 

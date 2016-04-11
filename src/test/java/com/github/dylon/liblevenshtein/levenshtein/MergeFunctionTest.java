@@ -21,23 +21,23 @@ public class MergeFunctionTest {
     init(elementFactory, stateFactory, positionFactory, merge);
 
     final IState s1 = stateFactory.build(
-        positionFactory.build(2,3),
-        positionFactory.build(1,2));
+        positionFactory.build(2, 3),
+        positionFactory.build(1, 2));
 
     final IState s2 = stateFactory.build(
-        positionFactory.build(3,3),
-        positionFactory.build(2,3),
-        positionFactory.build(3,2),
-        positionFactory.build(2,2),
-        positionFactory.build(0,2));
+        positionFactory.build(3, 3),
+        positionFactory.build(2, 3),
+        positionFactory.build(3, 2),
+        positionFactory.build(2, 2),
+        positionFactory.build(0, 2));
 
     final IState s3 = stateFactory.build(
-        positionFactory.build(3,3),
-        positionFactory.build(2,3),
-        positionFactory.build(3,2),
-        positionFactory.build(2,2),
-        positionFactory.build(1,2),
-        positionFactory.build(0,2));
+        positionFactory.build(3, 3),
+        positionFactory.build(2, 3),
+        positionFactory.build(3, 2),
+        positionFactory.build(2, 2),
+        positionFactory.build(1, 2),
+        positionFactory.build(0, 2));
 
     merge.into(s1, s2);
     assertThat(s1).isEqualTo(s3);
@@ -52,23 +52,23 @@ public class MergeFunctionTest {
     init(elementFactory, stateFactory, positionFactory, merge);
 
     final IState s1 = stateFactory.build(
-        positionFactory.build(2,3,1),
-        positionFactory.build(2,3,0),
-        positionFactory.build(1,2,0));
+        positionFactory.build(2, 3, 1),
+        positionFactory.build(2, 3, 0),
+        positionFactory.build(1, 2, 0));
 
     final IState s2 = stateFactory.build(
-        positionFactory.build(2,4,0),
-        positionFactory.build(2,3,0),
-        positionFactory.build(2,2,1),
-        positionFactory.build(3,0,0));
+        positionFactory.build(2, 4, 0),
+        positionFactory.build(2, 3, 0),
+        positionFactory.build(2, 2, 1),
+        positionFactory.build(3, 0, 0));
 
     final IState s3 = stateFactory.build(
-        positionFactory.build(2,4,0),
-        positionFactory.build(2,3,1),
-        positionFactory.build(2,3,0),
-        positionFactory.build(2,2,1),
-        positionFactory.build(1,2,0),
-        positionFactory.build(3,0,0));
+        positionFactory.build(2, 4, 0),
+        positionFactory.build(2, 3, 1),
+        positionFactory.build(2, 3, 0),
+        positionFactory.build(2, 2, 1),
+        positionFactory.build(1, 2, 0),
+        positionFactory.build(3, 0, 0));
 
     merge.into(s1, s2);
     assertThat(s1).isEqualTo(s3);

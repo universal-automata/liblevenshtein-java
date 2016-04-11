@@ -6,6 +6,7 @@ import org.assertj.core.api.AbstractAssert;
 
 /**
  * AssertJ-style assertions for {@link Iterator}s.
+ * @param <Type> Kind of elements in the {@link Iterator}.
  */
 public class IteratorAssertions<Type>
     extends AbstractAssert<IteratorAssertions<Type>, Iterator<Type>> {
@@ -21,6 +22,7 @@ public class IteratorAssertions<Type>
   /**
    * Constructs a new {@link IteratorAssertions} to assert-against.
    * @param actual {@link Iterator} to assert-against.
+   * @param <Type> Kind of elements in the {@link Iterator}.
    * @return A new {@link IteratorAssertions} to assert-against.
    */
   public static <Type> IteratorAssertions<Type> assertThat(

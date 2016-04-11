@@ -126,8 +126,8 @@ public class ComparatorAssertions<Type>
 
     if (comparison < 0) {
       failWithMessage(
-        "Expected lhs [%s] to be [greater-than-or-equal-to] rhs [%s], "+
-        "but was [less than]", lhs, rhs);
+        "Expected lhs [%s] to be [greater-than-or-equal-to] rhs [%s], "
+        + "but was [less than]", lhs, rhs);
     }
 
     return this;
@@ -151,8 +151,8 @@ public class ComparatorAssertions<Type>
 
     if (comparison > 0) {
       failWithMessage(
-        "Expected lhs [%s] to be [less-than-or-equal-to] rhs [%s], "+
-        "but was [greater-than]", lhs, rhs);
+        "Expected lhs [%s] to be [less-than-or-equal-to] rhs [%s], "
+        + "but was [greater-than]", lhs, rhs);
     }
 
     return this;

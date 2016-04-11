@@ -2,9 +2,7 @@ package com.github.dylon.liblevenshtein.levenshtein.factory;
 
 import java.io.Serializable;
 
-import lombok.AccessLevel;
 import lombok.Setter;
-import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.levenshtein.Candidate;
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
@@ -17,7 +15,6 @@ import com.github.dylon.liblevenshtein.levenshtein.ICandidateCollection;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@FieldDefaults(level=AccessLevel.PROTECTED)
 public abstract class CandidateCollectionBuilder<Type>
   implements ICandidateCollectionBuilder<Type>, Serializable {
 
@@ -31,8 +28,8 @@ public abstract class CandidateCollectionBuilder<Type>
    * collection.
    * @return This {@link CandidateCollectionBuilder} for fluency.
    */
-  @Setter(onMethod=@_({@Override}))
-  int maxCandidates = Integer.MAX_VALUE;
+  @Setter(onMethod = @_({@Override}))
+  protected int maxCandidates = Integer.MAX_VALUE;
 
   /**
    * Implementation of {@link CandidateCollectionBuilder} when spelling

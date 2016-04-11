@@ -7,7 +7,6 @@ import com.github.dylon.liblevenshtein.collection.dawg.IDawg;
 import com.github.dylon.liblevenshtein.collection.dawg.IDawgNode;
 import com.github.dylon.liblevenshtein.collection.dawg.IFinalFunction;
 import com.github.dylon.liblevenshtein.collection.dawg.ITransitionFunction;
-import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
 
 /**
  * Constructs instances of {@link IDawgNode}, optionally using an object pool.

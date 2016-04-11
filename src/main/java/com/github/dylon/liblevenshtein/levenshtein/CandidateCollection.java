@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -32,7 +29,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @since 2.1.0
  */
 @Deprecated
-@FieldDefaults(level=AccessLevel.PROTECTED, makeFinal=true)
 public abstract class CandidateCollection<Type>
   implements ICandidateCollection<Type>, Serializable {
 
@@ -42,12 +38,12 @@ public abstract class CandidateCollection<Type>
    * Maximum number of correction candidates that may be added to this
    * ICandidateCollection.
    */
-  int maxCandidates;
+  protected final int maxCandidates;
 
   /**
-   * Correction candidates that have been added to this ICandidateCollection
+   * Correction candidates that have been added to this ICandidateCollection.
    */
-  Collection<Type> candidates;
+  protected final Collection<Type> candidates;
 
   /**
    * Constructs a new instance of ICandidateCollection, with a maximum threshold
@@ -104,7 +100,7 @@ public abstract class CandidateCollection<Type>
      * {@inheritDoc}
      */
     @Override
-    public boolean offer(String term, int distance) {
+    public boolean offer(final String term, final int distance) {
       if (candidates.size() == maxCandidates) {
         return false;
       }
@@ -138,7 +134,7 @@ public abstract class CandidateCollection<Type>
      * {@inheritDoc}
      */
     @Override
-    public boolean offer(String term, int distance) {
+    public boolean offer(final String term, final int distance) {
       if (candidates.size() == maxCandidates) {
         return false;
       }

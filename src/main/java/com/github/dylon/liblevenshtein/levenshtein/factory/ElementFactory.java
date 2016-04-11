@@ -1,8 +1,6 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
 import java.io.Serializable;
-import java.util.ArrayDeque;
-import java.util.Queue;
 
 import com.github.dylon.liblevenshtein.levenshtein.Element;
 

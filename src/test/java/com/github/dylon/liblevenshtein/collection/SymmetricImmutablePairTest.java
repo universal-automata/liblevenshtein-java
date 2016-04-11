@@ -16,14 +16,14 @@ public class SymmetricImmutablePairTest {
     return new Object[][] {
       {build("a", "a"), build("a", "a")},
       {build("a", "b"), build("b", "a")},
-      {build("b", "a"), build("a", "b")}
+      {build("b", "a"), build("a", "b")},
     };
   }
 
   @DataProvider(name = "inequivalentPairs")
   public Object[][] inequivalentPairs() {
     return new Object[][] {
-      {build("a", "b"), build("a", "c")}
+      {build("a", "b"), build("a", "c")},
     };
   }
 

@@ -19,8 +19,9 @@ public class MemoizedStandard extends AbstractMemoized {
    * {@inheritDoc}
    */
   @Override
+  @SuppressWarnings("checkstyle:finalparameters")
   public int memoizedDistance(String v, String w) {
-    val key = new SymmetricImmutablePair<String>(v,w);
+    val key = new SymmetricImmutablePair<String>(v, w);
 
     int distance = memo.getInt(key);
     if (distance != DEFAULT_RETURN_VALUE) {
@@ -55,35 +56,35 @@ public class MemoizedStandard extends AbstractMemoized {
       return distance;
     }
 
-    distance = memoizedDistance(s,w);
+    distance = memoizedDistance(s, w);
     if (0 == distance) {
       memo.put(key, 1);
       return 1;
     }
 
-    int min_distance = distance;
+    int minDistance = distance;
 
-    distance = memoizedDistance(v,t);
+    distance = memoizedDistance(v, t);
     if (0 == distance) {
       memo.put(key, 1);
       return 1;
     }
 
-    if (distance < min_distance) {
-      min_distance = distance;
+    if (distance < minDistance) {
+      minDistance = distance;
     }
 
-    distance = memoizedDistance(s,t);
+    distance = memoizedDistance(s, t);
     if (0 == distance) {
       memo.put(key, 1);
       return 1;
     }
 
-    if (distance < min_distance) {
-      min_distance = distance;
+    if (distance < minDistance) {
+      minDistance = distance;
     }
 
-    distance = 1 + min_distance;
+    distance = 1 + minDistance;
     memo.put(key, distance);
     return distance;
   }

@@ -15,7 +15,7 @@ import it.unimi.dsi.fastutil.chars.CharIterator;
 public interface IDawgNode<Node extends IDawgNode<Node>> extends Serializable {
 
   /**
-   * Returns the labels of the outgoing edges of this node
+   * Returns the labels of the outgoing edges of this node.
    * @return Labels of the outgoing edges of this node.
    */
   CharIterator labels();
@@ -42,7 +42,7 @@ public interface IDawgNode<Node extends IDawgNode<Node>> extends Serializable {
   Node addEdge(char label, Node target);
 
   /**
-   * Removes all outoing-edges
+   * Removes all outoing-edges.
    */
   void clear();
 }

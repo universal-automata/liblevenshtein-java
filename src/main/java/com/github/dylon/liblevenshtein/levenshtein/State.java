@@ -3,12 +3,10 @@ package com.github.dylon.liblevenshtein.levenshtein;
 import java.io.Serializable;
 import java.util.Comparator;
 
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.IElementFactory;
 
@@ -20,9 +18,8 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IElementFactory;
  * @since 2.1.0
  */
 @RequiredArgsConstructor
-@ToString(of={"size", "head", "tail"})
-@EqualsAndHashCode(of={"size", "head", "tail"})
-@FieldDefaults(level=AccessLevel.PRIVATE)
+@ToString(of = {"size", "head", "tail"})
+@EqualsAndHashCode(of = {"size", "head", "tail"})
 public class State implements IState, Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -37,44 +34,44 @@ public class State implements IState, Serializable {
    * specific locations.
    * @return Number of positions in this state.
    */
-  @Getter(onMethod=@_({@Override}))
-  int size = 0;
+  @Getter(onMethod = @_({@Override}))
+  private int size = 0;
 
   /**
    * Builds and recycles the linked-list nodes that hold this state's
    * Levenshtein positions.
    */
-  final IElementFactory<int[]> factory;
+  private final IElementFactory<int[]> factory;
 
   /**
    * Index of the cursor for the outer loop of the merge function.
    */
-  int outerIndex = 0;
+  private int outerIndex = 0;
 
   /**
    * Cursor of the outer loop of the merge function.
    */
-  Element<int[]> outer = null;
+  private Element<int[]> outer = null;
 
   /**
    * Index of the cursor for the inner loop of the merge function.
    */
-  int innerIndex = 0;
+  private int innerIndex = 0;
 
   /**
    * Cursor of the inner loop of the merge function.
    */
-  Element<int[]> inner = null;
+  private Element<int[]> inner = null;
 
   /**
    * Head (first element) of the linked-list of Levenshtein positions.
    */
-  Element<int[]> head = null;
+  private Element<int[]> head = null;
 
   /**
    * Tail (last element) of the linked-list of Levenshtein positions.
    */
-  Element<int[]> tail = null;
+  private Element<int[]> tail = null;
 
   /**
    * {@inheritDoc}
@@ -271,7 +268,9 @@ public class State implements IState, Serializable {
   private Element<int[]> mergeSort(
       final Comparator<int[]> comparator,
       final Element<int[]> lhsHead) {
-    if (null == lhsHead || null == lhsHead.next()) return lhsHead;
+    if (null == lhsHead || null == lhsHead.next()) {
+      return lhsHead;
+    }
     final Element<int[]> middle = middle(lhsHead);
     final Element<int[]> rhsHead = middle.next();
     middle.next(null);
@@ -288,6 +287,7 @@ public class State implements IState, Serializable {
    * @param rhsHead First element of the second sublist.
    * @return Head of the merged and sorted, sublist.
    */
+  @SuppressWarnings("checkstyle:finalparameters")
   private Element<int[]> merge(
       final Comparator<int[]> comparator,
       Element<int[]> lhsHead,
@@ -333,7 +333,9 @@ public class State implements IState, Serializable {
    * @return Middle element of the sublist.
    */
   private Element<int[]> middle(final Element<int[]> head) {
-    if (null == head) return null;
+    if (null == head) {
+      return null;
+    }
     Element<int[]> slow = head;
     Element<int[]> fast = head;
     while (null != fast.next() && null != fast.next().next()) {

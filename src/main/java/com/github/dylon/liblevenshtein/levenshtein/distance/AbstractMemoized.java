@@ -8,7 +8,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 
 import com.github.dylon.liblevenshtein.collection.SymmetricImmutablePair;
-import com.github.dylon.liblevenshtein.levenshtein.IDistance;
 
 /**
  * Common, initialization logic for memoized, distance metrics.
@@ -45,7 +44,7 @@ public abstract class AbstractMemoized implements IDistance<String>, Serializabl
    */
   public String f(final String u, final int t) {
     if (t < u.length()) {
-      return u.substring(1+t);
+      return u.substring(1 + t);
     }
 
     return "";
@@ -55,7 +54,7 @@ public abstract class AbstractMemoized implements IDistance<String>, Serializabl
    * {@inheritDoc}
    */
   @Override
-  public int between(@NonNull final String v, @NonNull final String w) {
+  public synchronized int between(@NonNull final String v, @NonNull final String w) {
     // Don't want to check for nullity on each recursion ...
     return memoizedDistance(v, w);
   }

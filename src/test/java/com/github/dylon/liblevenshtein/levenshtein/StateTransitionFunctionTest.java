@@ -14,7 +14,7 @@ import static com.github.dylon.liblevenshtein.assertion.StateTransitionFunctionA
 
 /**
  * These tests were taken from the transition tables on page 29 of "Fast String
- * Correction with Levenshtein Automata"
+ * Correction with Levenshtein Automata".
  */
 public class StateTransitionFunctionTest {
   private static final int N = 1;
@@ -42,9 +42,11 @@ public class StateTransitionFunctionTest {
     unsubsume.subsumes(subsumes);
     unsubsume.positionFactory(positionFactory);
 
-    transition.comparator((a,b) -> {
+    transition.comparator((a, b) -> {
       final int i = a[1] - b[1];
-      if (0 != i) return i;
+      if (0 != i) {
+        return i;
+      }
       return a[0] - b[0];
     });
 
@@ -55,11 +57,11 @@ public class StateTransitionFunctionTest {
     transition.maxDistance(N);
   }
 
-  @DataProvider(name="is")
+  @DataProvider(name = "is")
   public Object[][] is() {
-    final Object[][] is = new Object[1+W-3][1];
+    final Object[][] is = new Object[1 + W - 3][1];
     for (int i = 0; i <= W - 3; ++i) {
-      is[i] = new Object[] { i };
+      is[i] = new Object[] {i};
     }
     return is;
   }
@@ -81,20 +83,20 @@ public class StateTransitionFunctionTest {
     characteristicVector[0] = true;
     characteristicVector[1] = false;
     characteristicVector[2] = false;
-    validate(a(i), a(1+i), characteristicVector);
-    validate(b(i), b(1+i), characteristicVector);
-    validate(c(i), b(1+i), characteristicVector);
-    validate(d(i), b(1+i), characteristicVector);
-    validate(e(i), b(1+i), characteristicVector);
+    validate(a(i), a(1 + i), characteristicVector);
+    validate(b(i), b(1 + i), characteristicVector);
+    validate(c(i), b(1 + i), characteristicVector);
+    validate(d(i), b(1 + i), characteristicVector);
+    validate(e(i), b(1 + i), characteristicVector);
 
     characteristicVector[0] = false;
     characteristicVector[1] = true;
     characteristicVector[2] = false;
     validate(a(i), e(i), characteristicVector);
     validate(b(i), null, characteristicVector);
-    validate(c(i), b(2+i), characteristicVector);
+    validate(c(i), b(2 + i), characteristicVector);
     validate(d(i), null, characteristicVector);
-    validate(e(i), b(2+i), characteristicVector);
+    validate(e(i), b(2 + i), characteristicVector);
 
     characteristicVector[0] = false;
     characteristicVector[1] = false;
@@ -102,44 +104,44 @@ public class StateTransitionFunctionTest {
     validate(a(i), c(i), characteristicVector);
     validate(b(i), null, characteristicVector);
     validate(c(i), null, characteristicVector);
-    validate(d(i), b(3+i), characteristicVector);
-    validate(e(i), b(3+i), characteristicVector);
+    validate(d(i), b(3 + i), characteristicVector);
+    validate(e(i), b(3 + i), characteristicVector);
 
     characteristicVector[0] = true;
     characteristicVector[1] = true;
     characteristicVector[2] = false;
-    validate(a(i), a(1+i), characteristicVector);
-    validate(b(i), b(1+i), characteristicVector);
-    validate(c(i), c(1+i), characteristicVector);
-    validate(d(i), b(1+i), characteristicVector);
-    validate(e(i), c(1+i), characteristicVector);
+    validate(a(i), a(1 + i), characteristicVector);
+    validate(b(i), b(1 + i), characteristicVector);
+    validate(c(i), c(1 + i), characteristicVector);
+    validate(d(i), b(1 + i), characteristicVector);
+    validate(e(i), c(1 + i), characteristicVector);
 
     characteristicVector[0] = true;
     characteristicVector[1] = false;
     characteristicVector[2] = true;
-    validate(a(i), a(1+i), characteristicVector);
-    validate(b(i), b(1+i), characteristicVector);
-    validate(c(i), b(1+i), characteristicVector);
-    validate(d(i), d(1+i), characteristicVector);
-    validate(e(i), d(1+i), characteristicVector);
+    validate(a(i), a(1 + i), characteristicVector);
+    validate(b(i), b(1 + i), characteristicVector);
+    validate(c(i), b(1 + i), characteristicVector);
+    validate(d(i), d(1 + i), characteristicVector);
+    validate(e(i), d(1 + i), characteristicVector);
 
     characteristicVector[0] = false;
     characteristicVector[1] = true;
     characteristicVector[2] = true;
     validate(a(i), e(i), characteristicVector);
     validate(b(i), null, characteristicVector);
-    validate(c(i), b(2+i), characteristicVector);
-    validate(d(i), b(3+i), characteristicVector);
-    validate(e(i), c(2+i), characteristicVector);
+    validate(c(i), b(2 + i), characteristicVector);
+    validate(d(i), b(3 + i), characteristicVector);
+    validate(e(i), c(2 + i), characteristicVector);
 
     characteristicVector[0] = true;
     characteristicVector[1] = true;
     characteristicVector[2] = true;
-    validate(a(i), a(1+i), characteristicVector);
-    validate(b(i), b(1+i), characteristicVector);
-    validate(c(i), c(1+i), characteristicVector);
-    validate(d(i), d(1+i), characteristicVector);
-    validate(e(i), e(1+i), characteristicVector);
+    validate(a(i), a(1 + i), characteristicVector);
+    validate(b(i), b(1 + i), characteristicVector);
+    validate(c(i), c(1 + i), characteristicVector);
+    validate(d(i), d(1 + i), characteristicVector);
+    validate(e(i), e(1 + i), characteristicVector);
   }
 
   @Test
@@ -160,27 +162,27 @@ public class StateTransitionFunctionTest {
 
     characteristicVector[0] = true;
     characteristicVector[1] = false;
-    validate(a(i), a(1+i), characteristicVector);
-    validate(b(i), b(1+i), characteristicVector);
-    validate(c(i), b(1+i), characteristicVector);
-    validate(d(i), b(1+i), characteristicVector);
-    validate(e(i), b(1+i), characteristicVector);
+    validate(a(i), a(1 + i), characteristicVector);
+    validate(b(i), b(1 + i), characteristicVector);
+    validate(c(i), b(1 + i), characteristicVector);
+    validate(d(i), b(1 + i), characteristicVector);
+    validate(e(i), b(1 + i), characteristicVector);
 
     characteristicVector[0] = false;
     characteristicVector[1] = true;
     validate(a(i), e(i), characteristicVector);
     validate(b(i), null, characteristicVector);
-    validate(c(i), b(2+i), characteristicVector);
+    validate(c(i), b(2 + i), characteristicVector);
     validate(d(i), null, characteristicVector);
-    validate(e(i), b(2+i), characteristicVector);
+    validate(e(i), b(2 + i), characteristicVector);
 
     characteristicVector[0] = true;
     characteristicVector[1] = true;
-    validate(a(i), a(1+i), characteristicVector);
-    validate(b(i), b(1+i), characteristicVector);
-    validate(c(i), c(1+i), characteristicVector);
-    validate(d(i), b(1+i), characteristicVector);
-    validate(e(i), c(1+i), characteristicVector);
+    validate(a(i), a(1 + i), characteristicVector);
+    validate(b(i), b(1 + i), characteristicVector);
+    validate(c(i), c(1 + i), characteristicVector);
+    validate(d(i), b(1 + i), characteristicVector);
+    validate(e(i), c(1 + i), characteristicVector);
 
     i = W - 1;
     Arrays.fill(characteristicVector, false);
@@ -191,9 +193,9 @@ public class StateTransitionFunctionTest {
     validate(c(i), null, characteristicVector);
 
     characteristicVector[0] = true;
-    validate(a(i), a(1+i), characteristicVector);
-    validate(b(i), b(1+i), characteristicVector);
-    validate(c(i), b(1+i), characteristicVector);
+    validate(a(i), a(1 + i), characteristicVector);
+    validate(b(i), b(1 + i), characteristicVector);
+    validate(c(i), b(1 + i), characteristicVector);
 
     i = W;
     Arrays.fill(characteristicVector, false);
@@ -219,7 +221,7 @@ public class StateTransitionFunctionTest {
   private IState a(final int i) {
     if (0 <= i && i <= W) {
       return stateFactory.build(
-          positionFactory.build(i,0));
+          positionFactory.build(i, 0));
     }
 
     return null;
@@ -228,7 +230,7 @@ public class StateTransitionFunctionTest {
   private IState b(final int i) {
     if (0 <= i && i <= W) {
       return stateFactory.build(
-          positionFactory.build(i,1));
+          positionFactory.build(i, 1));
     }
 
     return null;
@@ -243,8 +245,8 @@ public class StateTransitionFunctionTest {
     //
     //if (0 <= i && i <= W - 1) {
       return stateFactory.build(
-          positionFactory.build(i,1),
-          positionFactory.build(1+i,1));
+          positionFactory.build(i, 1),
+          positionFactory.build(1 + i, 1));
     //}
 
     //return null;
@@ -253,8 +255,8 @@ public class StateTransitionFunctionTest {
   private IState d(final int i) {
     if (0 <= i && i <= W - 2) {
       return stateFactory.build(
-          positionFactory.build(i,1),
-          positionFactory.build(2+i,1));
+          positionFactory.build(i, 1),
+          positionFactory.build(2 + i, 1));
     }
 
     return null;
@@ -263,9 +265,9 @@ public class StateTransitionFunctionTest {
   private IState e(final int i) {
     if (0 <= i && i <= W - 2) {
       return stateFactory.build(
-          positionFactory.build(i,1),
-          positionFactory.build(1+i,1),
-          positionFactory.build(2+i,1));
+          positionFactory.build(i, 1),
+          positionFactory.build(1 + i, 1),
+          positionFactory.build(2 + i, 1));
     }
 
     return null;

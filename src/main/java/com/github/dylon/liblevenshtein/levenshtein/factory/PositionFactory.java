@@ -2,16 +2,17 @@ package com.github.dylon.liblevenshtein.levenshtein.factory;
 
 import java.io.Serializable;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * Builds position vectors for the given algorithm.
  * @author Dylon Edwards
  * @since 2.1.0
  */
+@RequiredArgsConstructor
 public abstract class PositionFactory implements IPositionFactory, Serializable {
 
   private static final long serialVersionUID = 1L;
-
-  private PositionFactory() {}
 
   /**
    * Builds position vectors for the standard algorithm.
@@ -27,7 +28,7 @@ public abstract class PositionFactory implements IPositionFactory, Serializable 
      */
     @Override
     public int[] build(final int i, final int e) {
-      return new int[] { i, e };
+      return new int[] {i, e};
     }
   }
 
@@ -46,7 +47,7 @@ public abstract class PositionFactory implements IPositionFactory, Serializable 
      */
     @Override
     public int[] build(final int i, final int e, final int x) {
-      return new int[] { i, e, x };
+      return new int[] {i, e, x};
     }
   }
 }

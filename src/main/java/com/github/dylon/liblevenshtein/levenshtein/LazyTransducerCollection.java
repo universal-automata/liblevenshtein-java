@@ -6,10 +6,7 @@ import java.util.Iterator;
 
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
-import lombok.AccessLevel;
-import lombok.experimental.NonFinal;
 import lombok.NonNull;
-import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.collection.AbstractIterator;
 
@@ -47,7 +44,6 @@ import com.github.dylon.liblevenshtein.collection.AbstractIterator;
  * @author Dylon Edwards
  * @since 2.1.2
  */
-@FieldDefaults(level=AccessLevel.PRIVATE, makeFinal=true)
 public class LazyTransducerCollection<DictionaryNode, CandidateType>
     extends AbstractIterator<CandidateType>
     implements ICandidateCollection<CandidateType> {
@@ -55,48 +51,50 @@ public class LazyTransducerCollection<DictionaryNode, CandidateType>
   /**
    * Query term whose spelling should be corrected.
    */
-  @NonNull String term;
+  @NonNull
+  private final String term;
 
   /**
    * Maximum number of spelling errors candidates may have from the query term.
    */
-  int maxDistance;
+  private final int maxDistance;
 
   /**
    * Attributes required for this transducer to search the dictionary.
    */
-  @NonNull TransducerAttributes<DictionaryNode,CandidateType> attributes;
+  @NonNull
+  private final TransducerAttributes<DictionaryNode, CandidateType> attributes;
 
   /**
    * Breadth-first traversal of the dictionary automaton.
    */
-  Deque<Intersection<DictionaryNode>> pendingQueue = new ArrayDeque<>();
+  private final Deque<Intersection<DictionaryNode>> pendingQueue = new ArrayDeque<>();
 
   /**
    * Transitions one state to another.
    */
-  IStateTransitionFunction stateTransition;
+  private final IStateTransitionFunction stateTransition;
 
   /**
    * Helper variable used when determining the length of a characteristic
    * vector.
    */
-  int a;
+  private final int a;
 
   /**
    * Length of the next characteristic vector to return.
    */
-  @NonFinal int k;
+  private int k;
 
   /**
    * Offset of where to begin traversing the next characteristic vector.
    */
-  @NonFinal int i;
+  private int i;
 
   /**
    * Labels of the outgoing transitions for a dictionary state.
    */
-  @NonFinal CharIterator labels = null;
+  private CharIterator labels = null;
 
   /**
    * Dictionary node represented by the current intersection between the
@@ -104,7 +102,7 @@ public class LazyTransducerCollection<DictionaryNode, CandidateType>
    * @see #levenshteinState
    * @see #candidate
    */
-  @NonFinal DictionaryNode dictionaryNode = null;
+  private DictionaryNode dictionaryNode = null;
 
   /**
    * Levenshtein state represented by the current intersection between the
@@ -112,14 +110,14 @@ public class LazyTransducerCollection<DictionaryNode, CandidateType>
    * @see #dictionaryNode
    * @see #candidate
    */
-  @NonFinal IState levenshteinState = null;
+  private IState levenshteinState = null;
 
   /**
    * Prefix of the dictionary, from its root to {@link #dictionaryNode}.
    * @see #dictionaryNode
    * @see #levenshteinState
    */
-  @NonFinal String candidate = null;
+  private String candidate = null;
 
   /**
    * Initializes a new LazyTransducerCollection with a query against the
@@ -133,7 +131,7 @@ public class LazyTransducerCollection<DictionaryNode, CandidateType>
   public LazyTransducerCollection(
       @NonNull final String term,
       final int maxDistance,
-      @NonNull final TransducerAttributes<DictionaryNode,CandidateType> attributes) {
+      @NonNull final TransducerAttributes<DictionaryNode, CandidateType> attributes) {
 
     this.term = term;
     this.maxDistance = maxDistance;
@@ -176,8 +174,8 @@ public class LazyTransducerCollection<DictionaryNode, CandidateType>
    */
   @Override
   protected void advance() {
-    while (null == next &&
-        (null != labels && labels.hasNext() || ! pendingQueue.isEmpty())) {
+    while (null == next
+        && (null != labels && labels.hasNext() || !pendingQueue.isEmpty())) {
 
       if (null != labels && labels.hasNext()) {
         final char label = labels.nextChar();

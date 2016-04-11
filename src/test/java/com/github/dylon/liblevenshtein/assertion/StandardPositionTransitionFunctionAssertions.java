@@ -29,7 +29,7 @@ public class StandardPositionTransitionFunctionAssertions
    * assert-against.
    * @param actual {@link StandardPositionTransitionFunction} to assert-against.
    * @return A new {@link StandardPositionTransitionFunctionAssertions} to
-   * assert-against. 
+   * assert-against.
    */
   public static StandardPositionTransitionFunctionAssertions assertThat(
       final StandardPositionTransitionFunction actual) {

@@ -12,7 +12,7 @@ import com.github.dylon.liblevenshtein.levenshtein.IPositionTransitionFunction;
  */
 public interface IPositionTransitionFactory extends Serializable {
 
-  static final long serialVersionUID = 1L;
+  long serialVersionUID = 1L;
 
   /**
    * Builds a new position-transition function.
@@ -25,7 +25,7 @@ public interface IPositionTransitionFactory extends Serializable {
    * @param transition {@link IPositionTransitionFunction} to recycle.  You must
    * discard your reference to {@code transition} once it's been recycled.
    */
-  default void recycle(IPositionTransitionFunction transition) {
+  default void recycle(final IPositionTransitionFunction transition) {
     // default behavior is to do nothing
   }
 }

@@ -12,7 +12,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.Prefix;
  */
 public interface IPrefixFactory<DictionaryNode> extends Serializable {
 
-  static final long serialVersionUID = 1L;
+  long serialVersionUID = 1L;
 
   /**
    * Builds or recycles a {@link Prefix} instance, representing {@code node} and
@@ -31,7 +31,7 @@ public interface IPrefixFactory<DictionaryNode> extends Serializable {
    * @param prefix The {@link Prefix} to recycle.  Note that once you recycle
    * {@code prefix}, you should discard it.
    */
-  default void recycle(Prefix<DictionaryNode> prefix) {
+  default void recycle(final Prefix<DictionaryNode> prefix) {
     // default behavior is to do nothing
   }
 }

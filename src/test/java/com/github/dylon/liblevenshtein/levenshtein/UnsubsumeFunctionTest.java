@@ -48,20 +48,20 @@ public class UnsubsumeFunctionTest {
   @DataProvider(name = "forStandardPositions")
   public Object[][] forStandardPositions() {
     return new Object[][] {
-      {4,2, 1,4, false}
-    , {4,2, 1,5, true}
-    , {4,2, 2,0, false}
-    , {4,2, 2,5, true}
+      {4, 2, 1, 4, false},
+      {4, 2, 1, 5, true},
+      {4, 2, 2, 0, false},
+      {4, 2, 2, 5, true},
     };
   }
 
   @DataProvider(name = "forXPositions")
   public Object[][] forXPositions() {
     return new Object[][] {
-      {1,1,0, 0,1,0, false}
-    , {1,1,0, 1,2,0, true}
-    , {3,1,0, 0,2,1, false}
-    , {1,1,0, 0,2,1, true}
+      {1, 1, 0, 0, 1, 0, false},
+      {1, 1, 0, 1, 2, 0, true},
+      {3, 1, 0, 0, 2, 1, false},
+      {1, 1, 0, 0, 2, 1, true},
     };
   }
 
@@ -72,15 +72,15 @@ public class UnsubsumeFunctionTest {
       final boolean shouldSubsume) {
 
     final IState actualOutput = stateFactory.build(
-        standardPositionFactory.build(i,e),
-        standardPositionFactory.build(j,f));
+        standardPositionFactory.build(i, e),
+        standardPositionFactory.build(j, f));
 
     final IState expectedOutput = shouldSubsume
       ? stateFactory.build(
-          standardPositionFactory.build(i,e))
+          standardPositionFactory.build(i, e))
       : stateFactory.build(
-          standardPositionFactory.build(i,e),
-          standardPositionFactory.build(j,f));
+          standardPositionFactory.build(i, e),
+          standardPositionFactory.build(j, f));
 
     standardPositionUnsubsume.at(actualOutput);
     assertThat(actualOutput).isEqualTo(expectedOutput);
@@ -93,15 +93,15 @@ public class UnsubsumeFunctionTest {
       final boolean shouldSubsume) {
 
     final IState actualOutput = stateFactory.build(
-        xPositionFactory.build(i,e,s),
-        xPositionFactory.build(j,f,t));
+        xPositionFactory.build(i, e, s),
+        xPositionFactory.build(j, f, t));
 
     final IState expectedOutput = shouldSubsume
       ? stateFactory.build(
-          xPositionFactory.build(i,e,s))
+          xPositionFactory.build(i, e, s))
       : stateFactory.build(
-          xPositionFactory.build(i,e,s),
-          xPositionFactory.build(j,f,t));
+          xPositionFactory.build(i, e, s),
+          xPositionFactory.build(j, f, t));
 
     xPositionUnsubsume.at(actualOutput);
     assertThat(actualOutput).isEqualTo(expectedOutput);

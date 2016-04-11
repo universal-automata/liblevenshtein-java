@@ -1,4 +1,4 @@
-package com.github.dylon.liblevenshtein.levenshtein.factory;
+package com.github.dylon.liblevenshtein.levenshtein.distance.factory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -13,8 +13,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
-import com.github.dylon.liblevenshtein.levenshtein.IDistance;
-import com.github.dylon.liblevenshtein.levenshtein.IDistanceFactory;
+import com.github.dylon.liblevenshtein.levenshtein.distance.IDistance;
 import static com.github.dylon.liblevenshtein.assertion.DistanceAssertions.assertThat;
 
 public class MemoizedDistanceFactoryTest {
@@ -65,7 +64,7 @@ public class MemoizedDistanceFactoryTest {
     return new Object[][] {
       {Algorithm.STANDARD, factory.build(Algorithm.STANDARD), 2, 2, 2},
       {Algorithm.TRANSPOSITION, factory.build(Algorithm.TRANSPOSITION), 1, 2, 2},
-      {Algorithm.MERGE_AND_SPLIT, factory.build(Algorithm.MERGE_AND_SPLIT), 2, 1, 1}
+      {Algorithm.MERGE_AND_SPLIT, factory.build(Algorithm.MERGE_AND_SPLIT), 2, 1, 1},
     };
   }
 
@@ -73,37 +72,37 @@ public class MemoizedDistanceFactoryTest {
   public void testEqualSelfSimilarity(
       final Algorithm algorithm,
       final IDistance<String> distance,
-      final String term_1,
-      final String term_2) {
-    assertThat(distance).satisfiesEqualSelfSimilarity(term_1, term_2);
+      final String term1,
+      final String term2) {
+    assertThat(distance).satisfiesEqualSelfSimilarity(term1, term2);
   }
 
   @Test(dataProvider = "minimalityData")
   public void testSatisfyMinimality(
       final Algorithm algorithm,
       final IDistance<String> distance,
-      final String term_1,
-      final String term_2) {
-    assertThat(distance).satisfiesMinimality(term_1, term_2);
+      final String term1,
+      final String term2) {
+    assertThat(distance).satisfiesMinimality(term1, term2);
   }
 
   @Test(dataProvider = "symmetryData")
   public void testSymmetry(
       final Algorithm algorithm,
       final IDistance<String> distance,
-      final String term_1,
-      final String term_2) {
-    assertThat(distance).satisfiesSymmetry(term_1, term_2);
+      final String term1,
+      final String term2) {
+    assertThat(distance).satisfiesSymmetry(term1, term2);
   }
 
   @Test(dataProvider = "triangleInequalityData")
   public void testTriangleInequality(
       final Algorithm algorithm,
       final IDistance<String> distance,
-      final String term_1,
-      final String term_2,
-      final String term_3) {
-    assertThat(distance).satisfiesTriangleInequality(term_1, term_2, term_3);
+      final String term1,
+      final String term2,
+      final String term3) {
+    assertThat(distance).satisfiesTriangleInequality(term1, term2, term3);
   }
 
   @Test(dataProvider = "penaltyData")
@@ -129,7 +128,7 @@ public class MemoizedDistanceFactoryTest {
       .hasDistance(splitPenalty, "dog", "clog");
   }
 
-  private static abstract class AbstractDataIterator implements Iterator<Object[]> {
+  private abstract static class AbstractDataIterator implements Iterator<Object[]> {
     protected final Algorithm[] algorithms = Algorithm.values();
     protected Object[] params;
 
@@ -163,12 +162,12 @@ public class MemoizedDistanceFactoryTest {
     private int j = 0;
     private int k = 0;
 
-    public EqualSelfSimilarityDataIterator(
+    EqualSelfSimilarityDataIterator(
         final IDistanceFactory<String> factory,
         final List<String> terms) {
       this.factory = factory;
       this.terms = terms;
-      final Algorithm algorithm = algorithms[k ++];
+      final Algorithm algorithm = algorithms[k++];
       buffer[0] = algorithm;
       buffer[1] = factory.build(algorithm);
     }
@@ -208,12 +207,12 @@ public class MemoizedDistanceFactoryTest {
     private int j = 0;
     private int k = 0;
 
-    public MinimalityDataIterator(
+    MinimalityDataIterator(
         final IDistanceFactory<String> factory,
         final List<String> terms) {
       this.factory = factory;
       this.terms = terms;
-      final Algorithm algorithm = algorithms[k ++];
+      final Algorithm algorithm = algorithms[k++];
       buffer[0] = algorithm;
       buffer[1] = factory.build(algorithm);
     }
@@ -257,12 +256,12 @@ public class MemoizedDistanceFactoryTest {
     private int j = 0;
     private int k = 0;
 
-    public SymmetryDataIterator(
+    SymmetryDataIterator(
         final IDistanceFactory<String> factory,
         final List<String> terms) {
       this.factory = factory;
       this.terms = terms;
-      final Algorithm algorithm = algorithms[k ++];
+      final Algorithm algorithm = algorithms[k++];
       buffer[0] = algorithm;
       buffer[1] = factory.build(algorithm);
     }
@@ -303,12 +302,12 @@ public class MemoizedDistanceFactoryTest {
     private int k = 0;
     private int l = 0;
 
-    public TriangleInequalityDataIterator(
+    TriangleInequalityDataIterator(
         final IDistanceFactory<String> factory,
         final List<String> terms) {
       this.factory = factory;
       this.terms = terms;
-      final Algorithm algorithm = algorithms[l ++];
+      final Algorithm algorithm = algorithms[l++];
       buffer[0] = algorithm;
       buffer[1] = factory.build(algorithm);
     }

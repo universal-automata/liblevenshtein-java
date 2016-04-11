@@ -11,7 +11,7 @@ import java.util.Set;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public interface IDawg <Node extends IDawgNode<Node>> extends Set<String>, Serializable {
+public interface IDawg<Node extends IDawgNode<Node>> extends Set<String>, Serializable {
 
   /**
    * [Optional Operation] Replaces the String, current, with another.
@@ -27,7 +27,7 @@ public interface IDawg <Node extends IDawgNode<Node>> extends Set<String>, Seria
    * @param c Replacment mappings.
    * @return Whether all replacements were successful.
    */
-  boolean replaceAll(Collection<? extends Map.Entry<String,String>> c);
+  boolean replaceAll(Collection<? extends Map.Entry<String, String>> c);
 
   /**
    * Returns the root node of this DAWG.

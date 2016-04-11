@@ -11,7 +11,7 @@ import com.github.dylon.liblevenshtein.levenshtein.IStateTransitionFunction;
  */
 public interface IStateTransitionFactory extends Serializable {
 
-  static final long serialVersionUID = 1L;
+  long serialVersionUID = 1L;
 
   /**
    * Builds a new state-transition function that only considers spelling
@@ -29,7 +29,7 @@ public interface IStateTransitionFactory extends Serializable {
    * @param transition {@link IStateTransitionFunction} to recycle.  You must
    * discard your reference to {@code transition} once you've recycled it.
    */
-  default void recycle(IStateTransitionFunction transition) {
+  default void recycle(final IStateTransitionFunction transition) {
     // default behavior is to do nothing
   }
 }

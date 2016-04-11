@@ -1,9 +1,10 @@
-package com.github.dylon.liblevenshtein.levenshtein;
+package com.github.dylon.liblevenshtein.levenshtein.distance;
 
 import java.io.Serializable;
 
 /**
  * Specifies the interface that all distance functions must implement.
+ * @param <Term> Type of the term whose distance is being determined.
  * @author Dylon Edwards
  * @since 2.1.0
  */

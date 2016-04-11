@@ -38,7 +38,7 @@ public class Element<Type> implements Serializable {
    * @param prev Reference to the previous node in this linked-list.
    * @return This {@link Element} for fluency.
    */
-  Element<Type> prev;
+  private Element<Type> prev;
 
   /**
    * Reference to the next node in this linked-list.  The next node may be null
@@ -53,7 +53,7 @@ public class Element<Type> implements Serializable {
    * @param next Reference to the next node in this linked-list.
    * @return This {@link Element} for fluency.
    */
-  Element<Type> next;
+  private Element<Type> next;
 
   /**
    * Value of this linked-list node.
@@ -65,7 +65,7 @@ public class Element<Type> implements Serializable {
    * @param value Value of this linked-list node.
    * @return This {@link Element} for fluency.
    */
-  Type value;
+  private Type value;
 
   /**
    * {@inheritDoc}
@@ -80,9 +80,15 @@ public class Element<Type> implements Serializable {
    */
   @Override
   public boolean equals(final Object object) {
-    if (null == object) return false;
-    if (this == object) return true;
-    if ( ! (object instanceof Element)) return false;
+    if (null == object) {
+      return false;
+    }
+    if (this == object) {
+      return true;
+    }
+    if (!(object instanceof Element)) {
+      return false;
+    }
 
     Element<?> lhs = this;
     while (null != lhs.prev()) {
@@ -95,7 +101,7 @@ public class Element<Type> implements Serializable {
     }
 
     while (rhs != null && lhs != null) {
-      if ( ! EqualsBuilder.reflectionEquals(rhs.value(), lhs.value())) {
+      if (!EqualsBuilder.reflectionEquals(rhs.value(), lhs.value())) {
         return false;
       }
 

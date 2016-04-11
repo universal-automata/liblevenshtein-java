@@ -52,7 +52,7 @@ public abstract class SubsumesFunction implements ISubsumesFunction, Serializabl
         final int i, final int e,
         final int j, final int f) {
 
-      return ((i < j) ? (j - i) : (i -j)) <= (f - e);
+      return ((i < j) ? (j - i) : (i - j)) <= (f - e);
     }
   }
 

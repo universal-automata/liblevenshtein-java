@@ -2,6 +2,8 @@ package com.github.dylon.liblevenshtein.levenshtein.factory;
 
 import java.io.Serializable;
 
+import lombok.RequiredArgsConstructor;
+
 import com.github.dylon.liblevenshtein.levenshtein.Candidate;
 
 /**
@@ -11,12 +13,11 @@ import com.github.dylon.liblevenshtein.levenshtein.Candidate;
  * @author Dylon Edwards
  * @since 2.1.2
  */
+@RequiredArgsConstructor
 public abstract class CandidateFactory<CandidateType>
     implements ICandidateFactory<CandidateType>, Serializable {
 
   private static final long serialVersionUID = 1L;
-
-  private CandidateFactory() {}
 
   /**
    * Builds instances of {@link Candidate}, with the dictionary term and its

@@ -1,7 +1,5 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
-import java.util.Iterator;
-
 import lombok.val;
 
 import org.testng.annotations.Test;

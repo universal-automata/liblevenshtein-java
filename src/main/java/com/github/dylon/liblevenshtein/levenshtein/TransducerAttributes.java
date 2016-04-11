@@ -2,13 +2,11 @@ package com.github.dylon.liblevenshtein.levenshtein;
 
 import java.io.Serializable;
 
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.FieldDefaults;
 
 import com.github.dylon.liblevenshtein.collection.dawg.IFinalFunction;
 import com.github.dylon.liblevenshtein.collection.dawg.ITransitionFunction;
@@ -26,14 +24,13 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.IStateTransitionFacto
  */
 @Data
 @NoArgsConstructor
-@FieldDefaults(level=AccessLevel.PROTECTED)
-@ToString(of={
+@ToString(of = {
   "maxDistance",
   "dictionary",
   "algorithm",
   "maxCandidates",
   "includeDistance"})
-@EqualsAndHashCode(of={
+@EqualsAndHashCode(of = {
   "maxDistance",
   "dictionary",
   "algorithm",
@@ -54,7 +51,7 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * from the query term.
    * @return This {@link TransducerAttributes} for fluency.
    */
-  int maxDistance = Integer.MAX_VALUE;
+  protected int maxDistance = Integer.MAX_VALUE;
 
   /**
    * Generates spelling candidates of the requested type. The candidates  which
@@ -72,20 +69,22 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * @param candidateFactory Generates spelling candidates of the requested type.
    * @return This {@link TransducerAttributes} for fluency.
    */
-  @NonNull ICandidateFactory<CandidateType> candidateFactory;
+  @NonNull
+  protected ICandidateFactory<CandidateType> candidateFactory;
 
   /**
-   * Returns state-transition functions for specific, max edit distances
+   * Returns state-transition functions for specific, max edit distances.
    * -- GETTER --
-   * Returns state-transition functions for specific, max edit distances
-   * @return Returns state-transition functions for specific, max edit distances
+   * Returns state-transition functions for specific, max edit distances.
+   * @return Returns state-transition functions for specific, max edit distances.
    * -- SETTER --
-   * Returns state-transition functions for specific, max edit distances
+   * Returns state-transition functions for specific, max edit distances.
    * @param stateTransitionFactory Returns state-transition functions for
-   * specific, max edit distances
+   * specific, max edit distances.
    * @return This {@link TransducerAttributes} for fluency.
    */
-  @NonNull IStateTransitionFactory stateTransitionFactory;
+  @NonNull
+  protected IStateTransitionFactory stateTransitionFactory;
 
   /**
    * Returns instances of a data structure used for maintaining information
@@ -107,7 +106,8 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * automaton with the Levenshtein automaton.
    * @return This {@link TransducerAttributes} for fluency.
    */
-  @NonNull IIntersectionFactory<DictionaryNode> intersectionFactory;
+  @NonNull
+  protected IIntersectionFactory<DictionaryNode> intersectionFactory;
 
   /**
    * Determines the minimum distance at which a Levenshtein state may be
@@ -124,7 +124,8 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * state may be considered from the query term, based on its length.
    * @return This {@link TransducerAttributes} for fluency.
    */
-  @NonNull IDistanceFunction minDistance;
+  @NonNull
+  protected IDistanceFunction minDistance;
 
   /**
    * Returns whether a dictionary node is the final character in some term.
@@ -138,7 +139,8 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * some term.
    * @return This {@link TransducerAttributes} for fluency.
    */
-  @NonNull IFinalFunction<DictionaryNode> isFinal;
+  @NonNull
+  protected IFinalFunction<DictionaryNode> isFinal;
 
   /**
    * Transition function for dictionary nodes.
@@ -150,7 +152,8 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * @param dictionaryTransition Transition function for dictionary nodes.
    * @return This {@link TransducerAttributes} for fluency.
    */
-  @NonNull ITransitionFunction<DictionaryNode> dictionaryTransition;
+  @NonNull
+  protected ITransitionFunction<DictionaryNode> dictionaryTransition;
 
   /**
    * State at which to begin traversing the Levenshtein automaton.
@@ -163,7 +166,8 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * automaton.
    * @return This {@link TransducerAttributes} for fluency.
    */
-  @NonNull IState initialState;
+  @NonNull
+  protected IState initialState;
 
   /**
    * Root node of the dictionary, at which to begin searching for spelling
@@ -178,7 +182,8 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * searching for spelling candidates.
    * @return This {@link TransducerAttributes} for fluency.
    */
-  @NonNull DictionaryNode dictionaryRoot;
+  @NonNull
+  protected DictionaryNode dictionaryRoot;
 
   /**
    * Dictionary of this transducer.
@@ -190,7 +195,8 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * @param dictionary Dictionary of this transducer.
    * @return This {@link TransducerAttributes} for fluency.
    */
-  @NonNull SortedDawg dictionary;
+  @NonNull
+  protected SortedDawg dictionary;
 
   /**
    * Transduction algorithm.
@@ -202,7 +208,8 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * @param algorithm Transduction algorithm.
    * @return This {@link TransducerAttributes} for fluency.
    */
-  @NonNull Algorithm algorithm;
+  @NonNull
+  protected Algorithm algorithm;
 
   /**
    * Maximum number of candidates to match.
@@ -214,7 +221,7 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * @param maxCandidates Maximum number of candidates to match.
    * @return This {@link TransducerAttributes} for fluency.
    */
-  int maxCandidates;
+  protected int maxCandidates;
 
   /**
    * Whether to include the number of errors from the query term with the
@@ -231,5 +238,5 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * query term with the candidate terms.
    * @return This {@link TransducerAttributes} for fluency.
    */
-  boolean includeDistance;
+  protected boolean includeDistance;
 }

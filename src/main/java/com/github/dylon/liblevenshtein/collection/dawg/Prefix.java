@@ -2,9 +2,7 @@ package com.github.dylon.liblevenshtein.collection.dawg;
 
 import java.io.Serializable;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.experimental.FieldDefaults;
 
 /**
  * Creates a linked list that can be used to traverse an {@link IDawg}
@@ -14,7 +12,6 @@ import lombok.experimental.FieldDefaults;
  * @since 2.1.0
  */
 @Data
-@FieldDefaults(level=AccessLevel.PRIVATE)
 public class Prefix<DictionaryNode> implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -29,7 +26,7 @@ public class Prefix<DictionaryNode> implements Serializable {
    * @param node Current node in the trie.
    * @return This {@link Prefix} for fluency.
    */
-  DictionaryNode node;
+  private DictionaryNode node;
 
   /**
    * Value of the string built by traversing the DAWG from its root node to this
@@ -48,5 +45,5 @@ public class Prefix<DictionaryNode> implements Serializable {
    * the way.
    * @return This {@link Prefix} for fluency.
    */
-  String value;
+  private String value;
 }

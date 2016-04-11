@@ -68,22 +68,22 @@ public class DawgTest {
     }
   }
 
-  @DataProvider(name="terms")
+  @DataProvider(name = "terms")
   public Iterator<Object[]> terms() {
     return new TermIterator(terms.iterator());
   }
 
-  @Test(dataProvider="terms")
+  @Test(dataProvider = "terms")
   public void emptyDawgAcceptsNothing(final String term) {
     assertThat(emptyDawg).doesNotContain(term);
   }
 
-  @Test(dataProvider="terms")
+  @Test(dataProvider = "terms")
   public void dawgAcceptsAllItsTerms(final String term) {
     assertThat(fullDawg).contains(term);
   }
 
-  @DataProvider(name="serializers")
+  @DataProvider(name = "serializers")
   public Iterator<Object[]> serializers() {
     final List<Object[]> serializers = new LinkedList<>();
     serializers.add(new Object[] {new BytecodeSerializer()});
@@ -91,7 +91,7 @@ public class DawgTest {
     return serializers.iterator();
   }
 
-  @Test(dataProvider="serializers")
+  @Test(dataProvider = "serializers")
   public void testSerialization(final Serializer serializer) throws Exception {
     byte[] bytes;
 
@@ -144,7 +144,7 @@ public class DawgTest {
     }
   }
 
-  @Test(expectedExceptions=IllegalArgumentException.class)
+  @Test(expectedExceptions = IllegalArgumentException.class)
   public void insertingTermsOutOfOrderShouldThrowAnException() {
     final List<String> termsList = new ArrayList<>(3);
     termsList.add("a");
@@ -155,7 +155,7 @@ public class DawgTest {
 
   @Test
   public void equivalentDawgsShouldBeEqual() {
-    final AbstractDawg other = dawgFactory.build(terms);
+    final AbstractDawg other = dawgFactory.build(new ArrayList<>(terms));
     assertThat(fullDawg).isEqualTo(other);
   }
 

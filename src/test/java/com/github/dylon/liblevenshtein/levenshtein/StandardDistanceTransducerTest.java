@@ -84,7 +84,7 @@ public class StandardDistanceTransducerTest extends AbstractTransducerTest {
     expectedCandidates.add(new Candidate("Vvvv", 3));
   }
 
-  @DataProvider(name="serializers")
+  @DataProvider(name = "serializers")
   public Iterator<Object[]> serializers() {
     final List<Object[]> serializers = new LinkedList<>();
     serializers.add(new Object[] {new BytecodeSerializer()});
@@ -92,7 +92,7 @@ public class StandardDistanceTransducerTest extends AbstractTransducerTest {
     return serializers.iterator();
   }
 
-  @Test(dataProvider="serializers")
+  @Test(dataProvider = "serializers")
   public void testSerialization(final Serializer serializer) throws Exception {
     final byte[] bytes = serializer.serialize(transducer);
     final ITransducer<Candidate> actualTransducer =

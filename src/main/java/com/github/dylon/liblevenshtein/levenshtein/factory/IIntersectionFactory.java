@@ -14,7 +14,7 @@ import com.github.dylon.liblevenshtein.levenshtein.IState;
  */
 public interface IIntersectionFactory<DictionaryNode> extends Serializable {
 
-  static final long serialVersionUID = 1L;
+  long serialVersionUID = 1L;
 
   /**
    * Constructs a new Intersection between two states: one from the dictionary
@@ -38,7 +38,7 @@ public interface IIntersectionFactory<DictionaryNode> extends Serializable {
    * longer be used and may be recycled for reuse.
    * @param intersection Value to recycle.
    */
-  default void recycle(Intersection<DictionaryNode> intersection) {
+  default void recycle(final Intersection<DictionaryNode> intersection) {
     // default behavior is to do nothing
   }
 }

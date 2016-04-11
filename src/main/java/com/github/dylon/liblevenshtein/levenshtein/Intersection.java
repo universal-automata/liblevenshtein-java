@@ -32,7 +32,7 @@ public class Intersection<DictionaryNode> implements Serializable {
    * @param candidate Spelling candidate from the dictionary automaton
    * @return This {@link Intersection} for fluency.
    */
-  String candidate;
+  private String candidate;
 
   /**
    * Current node in the dictionary, along the intersection's path.
@@ -45,7 +45,7 @@ public class Intersection<DictionaryNode> implements Serializable {
    * intersection's path.
    * @return This {@link Intersection} for fluency.
    */
-  DictionaryNode dictionaryNode;
+  private DictionaryNode dictionaryNode;
 
   /**
    * Current node in the Levenshtein automaton, along the intersection's path.
@@ -59,5 +59,5 @@ public class Intersection<DictionaryNode> implements Serializable {
    * the intersection's path.
    * @return This {@link Intersection} for fluency.
    */
-  IState levenshteinState;
+  private IState levenshteinState;
 }

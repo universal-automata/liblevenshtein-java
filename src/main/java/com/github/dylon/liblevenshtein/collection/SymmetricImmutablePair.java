@@ -21,17 +21,17 @@ public class SymmetricImmutablePair<Type extends Comparable<Type>>
   private static final long serialVersionUID = 1L;
 
   /**
-   * First element of this pair
+   * First element of this pair.
    */
   private final Type first;
 
   /**
-   * Second element of this pair
+   * Second element of this pair.
    */
   private final Type second;
 
   /**
-   * Returned from {@link #hashCode()}
+   * Returned from {@link #hashCode()}.
    */
   private final int hashCode;
 
@@ -71,7 +71,9 @@ public class SymmetricImmutablePair<Type extends Comparable<Type>>
   @Override
   public int compareTo(final SymmetricImmutablePair<Type> other) {
     final int c = first.compareTo(other.first());
-    if (0 == c) return second.compareTo(other.second());
+    if (0 == c) {
+      return second.compareTo(other.second());
+    }
     return c;
   }
 

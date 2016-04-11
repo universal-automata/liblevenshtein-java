@@ -70,7 +70,7 @@ public abstract class UnsubsumeFunction implements IUnsubsumeFunction, Serializa
           final int j = inner[0];
           final int f = inner[1];
 
-          if (subsumes.at(i,e, j,f)) {
+          if (subsumes.at(i, e, j, f)) {
             state.removeInner();
           }
           else {
@@ -118,7 +118,7 @@ public abstract class UnsubsumeFunction implements IUnsubsumeFunction, Serializa
           final int f = inner[1];
           final int t = inner[2];
 
-          if (subsumes.at(i,e,s, j,f,t, n)) {
+          if (subsumes.at(i, e, s, j, f, t, n)) {
             state.removeInner();
           }
           else {

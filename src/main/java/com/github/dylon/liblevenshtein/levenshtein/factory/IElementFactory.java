@@ -12,7 +12,7 @@ import com.github.dylon.liblevenshtein.levenshtein.Element;
  */
 public interface IElementFactory<Type> extends Serializable {
 
-  static final long serialVersionUID = 1L;
+  long serialVersionUID = 1L;
 
   /**
    * Builds a new linked-list node with the given value.
@@ -26,7 +26,7 @@ public interface IElementFactory<Type> extends Serializable {
    * @param element {@link Element} to recycle.  Once you've recycled an element
    * you should discard its reference.
    */
-  default void recycle(Element<Type> element) {
+  default void recycle(final Element<Type> element) {
     // default behavior is to do nothing
   }
 }

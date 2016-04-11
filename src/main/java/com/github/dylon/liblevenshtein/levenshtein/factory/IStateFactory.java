@@ -11,7 +11,7 @@ import com.github.dylon.liblevenshtein.levenshtein.IState;
  */
 public interface IStateFactory extends Serializable {
 
-  static final long serialVersionUID = 1L;
+  long serialVersionUID = 1L;
 
   /**
    * Builds a new, Levenshtein state with the given position vectors.
@@ -25,7 +25,7 @@ public interface IStateFactory extends Serializable {
    * @param state {@link IState} to recycle.  You must discard the state once
    * you've recycled it.
    */
-  default void recycle(IState state) {
+  default void recycle(final IState state) {
     // default behavior is to do nothing
   }
 }

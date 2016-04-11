@@ -6,6 +6,7 @@ import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
 
 /**
  * AssertJ-style assertions for {@link CandidateCollection}.
+ * @param <Type> Generic type of the {@link CandidateCollection}.
  */
 public class CandidateCollectionAssertions<Type>
     extends AbstractAssert<CandidateCollectionAssertions<Type>, CandidateCollection<Type>> {
@@ -21,6 +22,7 @@ public class CandidateCollectionAssertions<Type>
   /**
    * Builds a new {@link CandidateCollectionAssertions} to assert-against.
    * @param actual {@link CandidateCollection} to assert-against.
+   * @param <Type> Generic type of the {@link CandidateCollection}.
    * @return A new {@link CandidateCollectionAssertions} to assert-against.
    */
   public static <Type> CandidateCollectionAssertions<Type> assertThat(

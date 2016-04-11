@@ -138,8 +138,8 @@ public class SubsumesFunctionAssertions
 
     if (!actual.at(i, e, s, j, f, t, n)) {
       failWithMessage(
-        "Expected position [%d,%d,%d] to subsume position [%d,%d,%d], "+
-        "under the constaint [n <= %d]",
+        "Expected position [%d,%d,%d] to subsume position [%d,%d,%d], "
+        + "under the constaint [n <= %d]",
         i, e, s, j, f, t, n);
     }
 
@@ -175,8 +175,8 @@ public class SubsumesFunctionAssertions
 
     if (actual.at(i, e, s, j, f, t, n)) {
       failWithMessage(
-        "Did not expect position [%d,%d,%d] to subsume position [%d,%d,%d], "+
-        "under the constaint [n <= %d]",
+        "Did not expect position [%d,%d,%d] to subsume position [%d,%d,%d], "
+        + "under the constaint [n <= %d]",
         i, e, s, j, f, t, n);
     }
 
@@ -203,6 +203,7 @@ public class SubsumesFunctionAssertions
    * @param shouldSubsume Whether {@code (i,e,s)} should subsume {@code (j,f,t)}.
    * @return This {@link SubsumesFunctionAssertions} for fluency.
    */
+  @SuppressWarnings("checkstyle:parameternumber")
   public SubsumesFunctionAssertions subsumesAt(
       final int i, final int e, final int s,
       final int j, final int f, final int t,
