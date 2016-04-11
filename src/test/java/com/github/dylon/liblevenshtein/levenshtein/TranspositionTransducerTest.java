@@ -116,6 +116,6 @@ public class TranspositionTransducerTest extends AbstractTransducerTest {
       expectedCandidates.remove(actualCandidate);
     }
 
-		assertThat(expectedCandidates).isEmpty();
+    assertThat(expectedCandidates).isEmpty();
   }
 }

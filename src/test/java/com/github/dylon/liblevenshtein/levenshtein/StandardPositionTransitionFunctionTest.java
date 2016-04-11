@@ -52,7 +52,7 @@ public class StandardPositionTransitionFunctionTest {
 
   private void check(boolean... characteristicVector) {
     assertThat(transition)
-    	.transitionsTo(null, N, new int[] {i,e}, characteristicVector, 0);
+      .transitionsTo(null, N, new int[] {i,e}, characteristicVector, 0);
   }
 
   private void check(
@@ -61,7 +61,7 @@ public class StandardPositionTransitionFunctionTest {
     final int[] position = positionFactory.build(i1, e1);
     final IState expectedState = stateFactory.build(position);
     assertThat(transition)
-    	.transitionsTo(expectedState, N, new int[] {i,e}, characteristicVector, 0);
+      .transitionsTo(expectedState, N, new int[] {i,e}, characteristicVector, 0);
   }
 
   private void check(
@@ -72,7 +72,7 @@ public class StandardPositionTransitionFunctionTest {
     final int[] p2 = positionFactory.build(i2,e2);
     final IState expectedState = stateFactory.build(p1,p2);
     assertThat(transition)
-    	.transitionsTo(expectedState, N, new int[] {i,e}, characteristicVector, 0);
+      .transitionsTo(expectedState, N, new int[] {i,e}, characteristicVector, 0);
   }
 
   private void check(
@@ -85,6 +85,6 @@ public class StandardPositionTransitionFunctionTest {
     final int[] p3 = positionFactory.build(i3,e3);
     final IState expectedState = stateFactory.build(p1,p2,p3);
     assertThat(transition)
-    	.transitionsTo(expectedState, N, new int[] {i,e}, characteristicVector, 0);
+      .transitionsTo(expectedState, N, new int[] {i,e}, characteristicVector, 0);
   }
 }

@@ -17,10 +17,10 @@ public class CandidateCollectionTest {
     enqueueCandidates(candidates);
 
     assertThat(candidates).iterator()
-    	.hasNext("foo")
-    	.hasNext("bar")
-    	.hasNext("baz")
-    	.doesNotHaveNext();
+      .hasNext("foo")
+      .hasNext("bar")
+      .hasNext("baz")
+      .doesNotHaveNext();
   }
 
   @Test
@@ -29,17 +29,17 @@ public class CandidateCollectionTest {
     enqueueCandidates(candidates);
 
     assertThat(candidates).iterator()
-    	.hasNext(new Candidate("foo", 1))
-    	.hasNext(new Candidate("bar", 2))
-    	.hasNext(new Candidate("baz", 3))
-    	.doesNotHaveNext();
+      .hasNext(new Candidate("foo", 1))
+      .hasNext(new Candidate("bar", 2))
+      .hasNext(new Candidate("baz", 3))
+      .doesNotHaveNext();
   }
 
   private void enqueueCandidates(final CandidateCollection<?> candidates) {
-  	assertThat(candidates)
-    	.offers("foo", 1)
-    	.offers("bar", 2)
-    	.offers("baz", 3)
-    	.doesNotOffer("qux", 4);
+    assertThat(candidates)
+      .offers("foo", 1)
+      .offers("bar", 2)
+      .offers("baz", 3)
+      .doesNotOffer("qux", 4);
   }
 }

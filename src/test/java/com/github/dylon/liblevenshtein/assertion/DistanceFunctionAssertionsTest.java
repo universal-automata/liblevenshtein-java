@@ -12,24 +12,24 @@ import static com.github.dylon.liblevenshtein.assertion.DistanceFunctionAssertio
 
 public class DistanceFunctionAssertionsTest {
 
-	private IDistanceFunction distance = null;
-	private IState state = null;
+  private IDistanceFunction distance = null;
+  private IState state = null;
 
-	@BeforeMethod
-	public void setUp() {
-		this.distance = mock(IDistanceFunction.class);
-		this.state = mock(IState.class);
-	}
+  @BeforeMethod
+  public void setUp() {
+    this.distance = mock(IDistanceFunction.class);
+    this.state = mock(IState.class);
+  }
 
-	@Test
-	public void testHasDistance() {
-		when(distance.at(state, 4)).thenReturn(2);
-		assertThat(distance).hasDistance(state, 4, 2);
-	}
+  @Test
+  public void testHasDistance() {
+    when(distance.at(state, 4)).thenReturn(2);
+    assertThat(distance).hasDistance(state, 4, 2);
+  }
 
-	@Test(expectedExceptions = AssertionError.class)
-	public void testHasDistanceAgainstViolation() {
-		when(distance.at(state, 4)).thenReturn(2);
-		assertThat(distance).hasDistance(state, 4, 3);
-	}
+  @Test(expectedExceptions = AssertionError.class)
+  public void testHasDistanceAgainstViolation() {
+    when(distance.at(state, 4)).thenReturn(2);
+    assertThat(distance).hasDistance(state, 4, 3);
+  }
 }

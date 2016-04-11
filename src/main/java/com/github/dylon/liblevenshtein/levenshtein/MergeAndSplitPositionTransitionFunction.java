@@ -31,13 +31,13 @@ public class MergeAndSplitPositionTransitionFunction
       if (h <= w - 2) {
         if (characteristicVector[h]) {
           return stateFactory.build(
-          		// [No Error]: Increment index by one; leave error alone
+              // [No Error]: Increment index by one; leave error alone
               positionFactory.build(i + 1, e, 0)
           );
         }
 
         return stateFactory.build(
-        		// [Insertion]: Leave index alone; incrmeent error by one.
+            // [Insertion]: Leave index alone; incrmeent error by one.
             positionFactory.build(i, e + 1, 0),
             // [Split]: Leave index alone; increment error by one.
             positionFactory.build(i, e + 1, 1),
@@ -51,13 +51,13 @@ public class MergeAndSplitPositionTransitionFunction
       if (h == w - 1) {
         if (characteristicVector[h]) {
           return stateFactory.build(
-          		// [No Error]: Increment index by one; leave error alone.
+              // [No Error]: Increment index by one; leave error alone.
               positionFactory.build(i + 1, e, 0)
           );
         }
 
         return stateFactory.build(
-        		// [Insertion]: Leave index alone; increment error by one.
+            // [Insertion]: Leave index alone; increment error by one.
             positionFactory.build(i, e + 1, 0),
             // [Split]: Leave index alone; increment error by one.
             positionFactory.build(i, e + 1, 1),
@@ -68,7 +68,7 @@ public class MergeAndSplitPositionTransitionFunction
 
       // else, h == w
       return stateFactory.build(
-      		// [Insertion]: Leave index alone; increment error by one.
+          // [Insertion]: Leave index alone; increment error by one.
           positionFactory.build(i, e + 1, 0)
       );
     }
@@ -78,13 +78,13 @@ public class MergeAndSplitPositionTransitionFunction
         if (s == 0) {
           if (characteristicVector[h]) {
             return stateFactory.build(
-            		// [No Error]: Increment index by one; leave error alone.
+                // [No Error]: Increment index by one; leave error alone.
                 positionFactory.build(i + 1, e, 0)
             );
           }
 
           return stateFactory.build(
-          		// [Insertion]: Leave index alone; increment index by one.
+              // [Insertion]: Leave index alone; increment index by one.
               positionFactory.build(i, e + 1, 0),
               // [Split]: Leave index alone; increment error by one.
               positionFactory.build(i, e + 1, 1),
@@ -96,7 +96,7 @@ public class MergeAndSplitPositionTransitionFunction
         }
 
         return stateFactory.build(
-        		// [No Error]: Increment index by one; leave error alone.
+            // [No Error]: Increment index by one; leave error alone.
             positionFactory.build(i + 1, e, 0)
         );
       }
@@ -105,13 +105,13 @@ public class MergeAndSplitPositionTransitionFunction
         if (s == 0) {
           if (characteristicVector[h]) {
             return stateFactory.build(
-            		// [No Error]: Increment index by one; leave error alone.
+                // [No Error]: Increment index by one; leave error alone.
                 positionFactory.build(i + 1, e, 0)
             );
           }
 
           return stateFactory.build(
-          		// [Insertion]: Leave index alone; increment error by one.
+              // [Insertion]: Leave index alone; increment error by one.
               positionFactory.build(i, e + 1, 0),
               // [Split]: Leave index alone; increment error by one.
               positionFactory.build(i, e + 1, 1),
@@ -121,14 +121,14 @@ public class MergeAndSplitPositionTransitionFunction
         }
 
         return stateFactory.build(
-        		// [No Error]: Increment index by one; leave error alone.
+            // [No Error]: Increment index by one; leave error alone.
             positionFactory.build(i + 1, e, 0)
         );
       }
 
       // else, h == w
       return stateFactory.build(
-      		// [Insertion]: Leave index alone; increment error by one.
+          // [Insertion]: Leave index alone; increment error by one.
           positionFactory.build(i, e + 1, 0)
       );
     }
@@ -137,7 +137,7 @@ public class MergeAndSplitPositionTransitionFunction
       if (s == 0) {
         if (characteristicVector[h]) {
           return stateFactory.build(
-          		// [No Error]: Increment index by one; leave error alone.
+              // [No Error]: Increment index by one; leave error alone.
               positionFactory.build(i + 1, n, 0)
           );
         }

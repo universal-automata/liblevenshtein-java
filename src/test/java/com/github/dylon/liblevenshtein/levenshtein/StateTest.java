@@ -15,17 +15,17 @@ public class StateTest {
     val elementFactory = new ElementFactory<int[]>();
     val state = new State(elementFactory);
 
-		assertThat(state).hasSize(0);
+    assertThat(state).hasSize(0);
 
     state.add(arr(1,2));
-		assertThat(state)
-			.hasSize(1)
-			.hasInner(0, arr(1,2))
-			.hasOuter(0, arr(1,2));
+    assertThat(state)
+      .hasSize(1)
+      .hasInner(0, arr(1,2))
+      .hasOuter(0, arr(1,2));
 
-		assertThat(state)
-			.removeInner(arr(1,2))
-			.hasSize(0);
+    assertThat(state)
+      .removeInner(arr(1,2))
+      .hasSize(0);
 
     state.add(new int[] {1,2});
     assertThat(state).hasSize(1);
@@ -43,26 +43,26 @@ public class StateTest {
     assertThat(state).hasSize(5);
 
     assertThat(state)
-    	// Inner Values
-    	.hasInner(0, arr(1,2))
-    	.hasInner(1, arr(3,2))
-    	.hasInner(2, arr(4,5))
-    	.hasInner(3, arr(3,5))
-    	.hasInner(4, arr(0,2))
-    	.hasInner(3, arr(3,5))
-    	.hasInner(2, arr(4,5))
-    	.hasInner(1, arr(3,2))
-    	.hasInner(0, arr(1,2))
-    	// Outer Values
-    	.hasOuter(0, arr(1,2))
-    	.hasOuter(1, arr(3,2))
-    	.hasOuter(2, arr(4,5))
-    	.hasOuter(3, arr(3,5))
-    	.hasOuter(4, arr(0,2))
-    	.hasOuter(3, arr(3,5))
-    	.hasOuter(2, arr(4,5))
-    	.hasOuter(1, arr(3,2))
-    	.hasOuter(0, arr(1,2));
+      // Inner Values
+      .hasInner(0, arr(1,2))
+      .hasInner(1, arr(3,2))
+      .hasInner(2, arr(4,5))
+      .hasInner(3, arr(3,5))
+      .hasInner(4, arr(0,2))
+      .hasInner(3, arr(3,5))
+      .hasInner(2, arr(4,5))
+      .hasInner(1, arr(3,2))
+      .hasInner(0, arr(1,2))
+      // Outer Values
+      .hasOuter(0, arr(1,2))
+      .hasOuter(1, arr(3,2))
+      .hasOuter(2, arr(4,5))
+      .hasOuter(3, arr(3,5))
+      .hasOuter(4, arr(0,2))
+      .hasOuter(3, arr(3,5))
+      .hasOuter(2, arr(4,5))
+      .hasOuter(1, arr(3,2))
+      .hasOuter(0, arr(1,2));
 
     state.sort((a,b) -> {
       final int x = a[1] - b[1];
@@ -71,42 +71,42 @@ public class StateTest {
     });
 
     assertThat(state)
-    	// Inner Values
-    	.hasInner(0, arr(0,2))
-    	.hasInner(1, arr(1,2))
-    	.hasInner(2, arr(3,2))
-    	.hasInner(3, arr(3,5))
-    	.hasInner(4, arr(4,5))
-    	.hasInner(3, arr(3,5))
-    	.hasInner(2, arr(3,2))
-    	.hasInner(1, arr(1,2))
-    	.hasInner(0, arr(0,2))
-    	// Outer Values
-    	.hasOuter(0, arr(0,2))
-    	.hasOuter(1, arr(1,2))
-    	.hasOuter(2, arr(3,2))
-    	.hasOuter(3, arr(3,5))
-    	.hasOuter(4, arr(4,5))
-    	.hasOuter(3, arr(3,5))
-    	.hasOuter(2, arr(3,2))
-    	.hasOuter(1, arr(1,2))
-    	.hasOuter(0, arr(0,2));
+      // Inner Values
+      .hasInner(0, arr(0,2))
+      .hasInner(1, arr(1,2))
+      .hasInner(2, arr(3,2))
+      .hasInner(3, arr(3,5))
+      .hasInner(4, arr(4,5))
+      .hasInner(3, arr(3,5))
+      .hasInner(2, arr(3,2))
+      .hasInner(1, arr(1,2))
+      .hasInner(0, arr(0,2))
+      // Outer Values
+      .hasOuter(0, arr(0,2))
+      .hasOuter(1, arr(1,2))
+      .hasOuter(2, arr(3,2))
+      .hasOuter(3, arr(3,5))
+      .hasOuter(4, arr(4,5))
+      .hasOuter(3, arr(3,5))
+      .hasOuter(2, arr(3,2))
+      .hasOuter(1, arr(1,2))
+      .hasOuter(0, arr(0,2));
 
-		assertThat(state)
-			.hasSize(5)
-			.hasInner(2, arr(3,2))
-			.removeInner(arr(3,2))
-			.hasSize(4)
-			// Inner Values
-    	.hasInner(0, arr(0,2))
-    	.hasInner(1, arr(1,2))
-    	.hasInner(2, arr(3,5))
-    	.hasInner(3, arr(4,5))
-			// Outer Values
-    	.hasOuter(0, arr(0,2))
-    	.hasOuter(1, arr(1,2))
-    	.hasOuter(2, arr(3,5))
-    	.hasOuter(3, arr(4,5));
+    assertThat(state)
+      .hasSize(5)
+      .hasInner(2, arr(3,2))
+      .removeInner(arr(3,2))
+      .hasSize(4)
+      // Inner Values
+      .hasInner(0, arr(0,2))
+      .hasInner(1, arr(1,2))
+      .hasInner(2, arr(3,5))
+      .hasInner(3, arr(4,5))
+      // Outer Values
+      .hasOuter(0, arr(0,2))
+      .hasOuter(1, arr(1,2))
+      .hasOuter(2, arr(3,5))
+      .hasOuter(3, arr(4,5));
 
     state.clear();
     assertThat(state).hasSize(0);

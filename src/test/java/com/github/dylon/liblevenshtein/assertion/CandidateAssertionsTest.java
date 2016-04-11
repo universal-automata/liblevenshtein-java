@@ -12,25 +12,25 @@ import static com.github.dylon.liblevenshtein.assertion.CandidateAssertions.asse
 
 public class CandidateAssertionsTest {
 
-	private IDistance<String> distance = null;
+  private IDistance<String> distance = null;
 
-	@BeforeMethod
-	@SuppressWarnings("unchecked")
-	public void setUp() {
-		this.distance = mock(IDistance.class);
-	}
+  @BeforeMethod
+  @SuppressWarnings("unchecked")
+  public void setUp() {
+    this.distance = mock(IDistance.class);
+  }
 
-	@Test
-	public void testHasDistance() {
-		final Candidate candidate = new Candidate("bar", 3);
-		when(distance.between("foo", "bar")).thenReturn(3);
-		assertThat(candidate).hasDistance(distance, "foo");
-	}
+  @Test
+  public void testHasDistance() {
+    final Candidate candidate = new Candidate("bar", 3);
+    when(distance.between("foo", "bar")).thenReturn(3);
+    assertThat(candidate).hasDistance(distance, "foo");
+  }
 
-	@Test(expectedExceptions = AssertionError.class)
-	public void testHasDistanceAgainstViolation() {
-		final Candidate candidate = new Candidate("bar", 2);
-		when(distance.between("foo", "bar")).thenReturn(3);
-		assertThat(candidate).hasDistance(distance, "foo");
-	}
+  @Test(expectedExceptions = AssertionError.class)
+  public void testHasDistanceAgainstViolation() {
+    final Candidate candidate = new Candidate("bar", 2);
+    when(distance.between("foo", "bar")).thenReturn(3);
+    assertThat(candidate).hasDistance(distance, "foo");
+  }
 }

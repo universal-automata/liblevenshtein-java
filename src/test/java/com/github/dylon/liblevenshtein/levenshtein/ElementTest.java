@@ -13,13 +13,13 @@ public class ElementTest {
     final Element<int[]> e3 = build(1,3, 2,4, 3,5);
 
     assertThat(e1)
-    	.isEqualTo(e1)
-    	.isEqualTo(e2)
-    	.isNotEqualTo(e3);
+      .isEqualTo(e1)
+      .isEqualTo(e2)
+      .isNotEqualTo(e3);
 
     assertThat(e1.hashCode())
-    	.isEqualTo(e2.hashCode())
-    	.isNotEqualTo(e3.hashCode());
+      .isEqualTo(e2.hashCode())
+      .isNotEqualTo(e3.hashCode());
   }
 
   private Element<int[]> build(

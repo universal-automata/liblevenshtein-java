@@ -145,7 +145,7 @@ public class SetAssertions<Type>
 
     if (!actual.equals(expected)) {
       failWithMessage("Expected sets to be equivalent: [%s] != [%s]",
-      	expected, actual);
+        expected, actual);
     }
 
     if (actual.hashCode() != expected.hashCode()) {

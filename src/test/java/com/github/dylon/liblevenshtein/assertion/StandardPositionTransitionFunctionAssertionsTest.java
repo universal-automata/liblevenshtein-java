@@ -11,42 +11,42 @@ import com.github.dylon.liblevenshtein.levenshtein.StandardPositionTransitionFun
 import static com.github.dylon.liblevenshtein.assertion.StandardPositionTransitionFunctionAssertions.assertThat;
 
 public class StandardPositionTransitionFunctionAssertionsTest {
-	private static final int N = 2;
-	private static final int[] POSITION = {0,0};
-	private static final boolean[] CHARACTERISTIC_VECTOR = {true, false};
-	private static final int OFFSET = 0;
+  private static final int N = 2;
+  private static final int[] POSITION = {0,0};
+  private static final boolean[] CHARACTERISTIC_VECTOR = {true, false};
+  private static final int OFFSET = 0;
 
-	private StandardPositionTransitionFunction transition = null;
-	private IState output = null;
+  private StandardPositionTransitionFunction transition = null;
+  private IState output = null;
 
-	@BeforeMethod
-	public void setUp() {
-		this.transition = mock(StandardPositionTransitionFunction.class);
-		this.output = mock(IState.class);
-	}
+  @BeforeMethod
+  public void setUp() {
+    this.transition = mock(StandardPositionTransitionFunction.class);
+    this.output = mock(IState.class);
+  }
 
-	@Test
-	public void testTransitionsTo() {
-		when(transition.of(N, POSITION, CHARACTERISTIC_VECTOR, OFFSET))
-			.thenReturn(output);
-		assertThat(transition)
-			.transitionsTo(output, N, POSITION, CHARACTERISTIC_VECTOR, OFFSET);
-	}
+  @Test
+  public void testTransitionsTo() {
+    when(transition.of(N, POSITION, CHARACTERISTIC_VECTOR, OFFSET))
+      .thenReturn(output);
+    assertThat(transition)
+      .transitionsTo(output, N, POSITION, CHARACTERISTIC_VECTOR, OFFSET);
+  }
 
-	@Test(expectedExceptions = AssertionError.class)
-	public void testTransitionsToAgainstNonNullTransition() {
-		when(transition.of(N, POSITION, CHARACTERISTIC_VECTOR, OFFSET))
-			.thenReturn(null);
-		assertThat(transition)
-			.transitionsTo(output, N, POSITION, CHARACTERISTIC_VECTOR, OFFSET);
-	}
+  @Test(expectedExceptions = AssertionError.class)
+  public void testTransitionsToAgainstNonNullTransition() {
+    when(transition.of(N, POSITION, CHARACTERISTIC_VECTOR, OFFSET))
+      .thenReturn(null);
+    assertThat(transition)
+      .transitionsTo(output, N, POSITION, CHARACTERISTIC_VECTOR, OFFSET);
+  }
 
-	@Test(expectedExceptions = AssertionError.class)
-	public void testTransitionsToAgainstInvalidTransition() {
-		final IState invalid = mock(IState.class);
-		when(transition.of(N, POSITION, CHARACTERISTIC_VECTOR, OFFSET))
-			.thenReturn(invalid);
-		assertThat(transition)
-			.transitionsTo(output, N, POSITION, CHARACTERISTIC_VECTOR, OFFSET);
-	}
+  @Test(expectedExceptions = AssertionError.class)
+  public void testTransitionsToAgainstInvalidTransition() {
+    final IState invalid = mock(IState.class);
+    when(transition.of(N, POSITION, CHARACTERISTIC_VECTOR, OFFSET))
+      .thenReturn(invalid);
+    assertThat(transition)
+      .transitionsTo(output, N, POSITION, CHARACTERISTIC_VECTOR, OFFSET);
+  }
 }

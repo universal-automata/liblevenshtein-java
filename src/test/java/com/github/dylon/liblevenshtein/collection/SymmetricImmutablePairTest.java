@@ -22,9 +22,9 @@ public class SymmetricImmutablePairTest {
 
   @DataProvider(name = "inequivalentPairs")
   public Object[][] inequivalentPairs() {
-  	return new Object[][] {
-  		{build("a", "b"), build("a", "c")}
-  	};
+    return new Object[][] {
+      {build("a", "b"), build("a", "c")}
+    };
   }
 
   @Test(dataProvider = "equivalentPairs")
@@ -32,19 +32,19 @@ public class SymmetricImmutablePairTest {
       final SymmetricImmutablePair<String> lhs,
       final SymmetricImmutablePair<String> rhs) {
 
-		assertThat(lhs).isEqualByComparingTo(lhs);
-		assertThat(rhs).isEqualByComparingTo(rhs);
-		assertThat(lhs).isEqualByComparingTo(rhs);
-		assertThat(rhs).isEqualByComparingTo(lhs);
+    assertThat(lhs).isEqualByComparingTo(lhs);
+    assertThat(rhs).isEqualByComparingTo(rhs);
+    assertThat(lhs).isEqualByComparingTo(rhs);
+    assertThat(rhs).isEqualByComparingTo(lhs);
 
-		assertThat(lhs).isEqualTo(lhs);
-		assertThat(rhs).isEqualTo(rhs);
-		assertThat(lhs).isEqualTo(rhs);
-		assertThat(rhs).isEqualTo(lhs);
+    assertThat(lhs).isEqualTo(lhs);
+    assertThat(rhs).isEqualTo(rhs);
+    assertThat(lhs).isEqualTo(rhs);
+    assertThat(rhs).isEqualTo(lhs);
 
-		assertThat(lhs.hashCode()).isEqualTo(rhs.hashCode());
+    assertThat(lhs.hashCode()).isEqualTo(rhs.hashCode());
 
-		Object2IntMap<SymmetricImmutablePair<String>> map;
+    Object2IntMap<SymmetricImmutablePair<String>> map;
 
     map = new Object2IntOpenHashMap<>(2);
 
@@ -72,17 +72,17 @@ public class SymmetricImmutablePairTest {
       final SymmetricImmutablePair<String> lhs,
       final SymmetricImmutablePair<String> rhs) {
 
-		assertThat(lhs).isEqualByComparingTo(lhs);
-		assertThat(rhs).isEqualByComparingTo(rhs);
-		assertThat(lhs).isLessThan(rhs);
-		assertThat(rhs).isGreaterThan(lhs);
+    assertThat(lhs).isEqualByComparingTo(lhs);
+    assertThat(rhs).isEqualByComparingTo(rhs);
+    assertThat(lhs).isLessThan(rhs);
+    assertThat(rhs).isGreaterThan(lhs);
 
-		assertThat(lhs).isEqualTo(lhs);
-		assertThat(rhs).isEqualTo(rhs);
-		assertThat(lhs).isNotEqualTo(rhs);
-		assertThat(rhs).isNotEqualTo(lhs);
+    assertThat(lhs).isEqualTo(lhs);
+    assertThat(rhs).isEqualTo(rhs);
+    assertThat(lhs).isNotEqualTo(rhs);
+    assertThat(rhs).isNotEqualTo(lhs);
 
-		assertThat(lhs.hashCode()).isNotEqualTo(rhs.hashCode());
+    assertThat(lhs.hashCode()).isNotEqualTo(rhs.hashCode());
   }
 
   public SymmetricImmutablePair<String> build(

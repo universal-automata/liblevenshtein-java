@@ -115,6 +115,6 @@ public class StandardDistanceTransducerTest extends AbstractTransducerTest {
       expectedCandidates.remove(actualCandidate);
     }
 
-		assertThat(expectedCandidates).isEmpty();
+    assertThat(expectedCandidates).isEmpty();
   }
 }

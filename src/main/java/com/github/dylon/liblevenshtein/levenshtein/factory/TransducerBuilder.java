@@ -165,10 +165,10 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
   @Override
   @SuppressWarnings("unchecked")
   public <CandidateType> ITransducer<CandidateType> build() {
-  	log.info("Building transducer out of [{}] terms with algorithm [{}], "+
-  			"defaultMaxDistance [{}], includeDistance [{}], and maxCandidates [{}]",
-  			dictionary.size(), algorithm, defaultMaxDistance, includeDistance,
-  			maxCandidates);
+    log.info("Building transducer out of [{}] terms with algorithm [{}], "+
+        "defaultMaxDistance [{}], includeDistance [{}], and maxCandidates [{}]",
+        dictionary.size(), algorithm, defaultMaxDistance, includeDistance,
+        maxCandidates);
 
     final IStateFactory stateFactory =
       new StateFactory().elementFactory(new ElementFactory<int[]>());
@@ -194,15 +194,15 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
         .includeDistance(includeDistance);
 
     final Transducer<DawgNode, CandidateType> transducer =
-    	new Transducer<>(attributes);
+      new Transducer<>(attributes);
 
     if (maxCandidates == Integer.MAX_VALUE) {
       return transducer;
     }
 
     return new DeprecatedTransducerForLimitingNumberOfCandidates<>(
-    		maxCandidates,
-    		transducer);
+        maxCandidates,
+        transducer);
   }
 
   /**

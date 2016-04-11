@@ -84,7 +84,7 @@ public class MemoizedDistanceFactoryTest {
       final IDistance<String> distance,
       final String term_1,
       final String term_2) {
-		assertThat(distance).satisfiesMinimality(term_1, term_2);
+    assertThat(distance).satisfiesMinimality(term_1, term_2);
   }
 
   @Test(dataProvider = "symmetryData")
@@ -114,19 +114,19 @@ public class MemoizedDistanceFactoryTest {
       final int mergePenalty,
       final int splitPenalty) {
     assertThat(distance)
-    	.hasDistance(0, "foo", "foo")
-    	.hasDistance(1, "foo", "food")
-    	.hasDistance(1, "foo", "fodo")
-    	.hasDistance(1, "foo", "fdoo")
-    	.hasDistance(1, "foo", "dfoo")
-    	.hasDistance(1, "foo", "oo")
-    	.hasDistance(1, "foo", "fo")
-    	.hasDistance(1, "foo", "boo")
-    	.hasDistance(1, "foo", "fbo")
-    	.hasDistance(1, "foo", "fob")
-    	.hasDistance(transpositionPenalty, "foo", "ofo")
-    	.hasDistance(mergePenalty, "clog", "dog")
-    	.hasDistance(splitPenalty, "dog", "clog");
+      .hasDistance(0, "foo", "foo")
+      .hasDistance(1, "foo", "food")
+      .hasDistance(1, "foo", "fodo")
+      .hasDistance(1, "foo", "fdoo")
+      .hasDistance(1, "foo", "dfoo")
+      .hasDistance(1, "foo", "oo")
+      .hasDistance(1, "foo", "fo")
+      .hasDistance(1, "foo", "boo")
+      .hasDistance(1, "foo", "fbo")
+      .hasDistance(1, "foo", "fob")
+      .hasDistance(transpositionPenalty, "foo", "ofo")
+      .hasDistance(mergePenalty, "clog", "dog")
+      .hasDistance(splitPenalty, "dog", "clog");
   }
 
   private static abstract class AbstractDataIterator implements Iterator<Object[]> {

@@ -138,7 +138,7 @@ public abstract class AbstractDawg
     int counter = 0;
     for (final String term : terms) {
       if (++counter % 10_000 == 0) {
-      	log.info("Added [{}] of [{}] terms", counter, terms.size());
+        log.info("Added [{}] of [{}] terms", counter, terms.size());
       }
       if (!add(term)) return false;
     }
