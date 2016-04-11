@@ -24,9 +24,6 @@ public class XPositionDistanceFunctionTest {
         positionFactory.build(4,2,1));
 
     final IDistanceFunction distance = new XPositionDistanceFunction();
-
-    final int w = 4;
-    final int d = distance.at(state, w);
     assertThat(distance).hasDistance(state, 4, 4);
   }
 }
