@@ -10,11 +10,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.RecursiveAction;
-import java.util.concurrent.atomic.AtomicReference;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -103,22 +99,6 @@ public class DawgTest {
     final AbstractDawg actualDawg =
       serializer.deserialize(SortedDawg.class, bytes);
     assertThat(actualDawg).isEqualTo(fullDawg);
-
-		final RuntimeAverager average = new RuntimeAverager(serializer);
-    final ForkJoinPool pool = new ForkJoinPool();
-    log.info("Benchmarking the average runtimes to build and deserialize a DAWG");
-    pool.invoke(average);
-
-    final double buildTime = average.buildTime();
-    final double deserializationTime = average.deserializationTime();
-
-    log.info(
-      "Deserialized DAWG in [{}] % the average time required to build it, "+
-      "after [{}] iterations, using deserializer [{}]%n",
-      String.format("%.5f", (100.0 * deserializationTime / buildTime)),
-      RuntimeAverager.NUM_ITERS, serializer.getClass());
-
-    assertThat(deserializationTime).isLessThan(buildTime);
   }
 
   @Test
@@ -210,96 +190,5 @@ public class DawgTest {
         params = buffer;
       }
     }
-  }
-
-	@RequiredArgsConstructor
-  private class RuntimeAverager extends RecursiveAction {
-  	private static final long serialVersionUID = 1L;
-  	private static final int NUM_ITERS = 50;
-
-		private final Serializer serializer;
-  	private final int numIters;
-		private final AtomicReference<Double> buildTimeSum;
-		private final AtomicReference<Double> deserializationTimeSum;
-
-  	public RuntimeAverager(final Serializer serializer) {
-  		this(serializer, NUM_ITERS,
-  				 new AtomicReference<Double>(0.0),
-  				 new AtomicReference<Double>(0.0));
-  	}
-
-  	public double buildTime() {
-  		return buildTimeSum.get() / NUM_ITERS;
-  	}
-
-  	public double deserializationTime() {
-  		return deserializationTimeSum.get() / NUM_ITERS;
-  	}
-
-  	@Override
-  	protected void compute() {
-  		try {
-  			if (1 == numIters) {
-      		long startTime;
-      		long stopTime;
-      		AbstractDawg dawg;
-
-					log.info(
-						"Copying terms to avoid ConcurrentModificationException in "+
-						"Collections.sort(List)");
-
-					final long seed = 58073L;
-					final Random random = new Random(seed);
-					final List<String> unsortedTerms = new ArrayList<>(terms);
-
-					log.info("Shuffling terms with random seed [{}]", seed);
-					Collections.shuffle(unsortedTerms, random);
-
-					log.info("Benchmarking the time to build a DAWG from an unsorted list");
-      		startTime = System.nanoTime();
-      		dawg = dawgFactory.build(unsortedTerms);
-      		stopTime = System.nanoTime();
-      		final double buildTime = (stopTime - startTime);
-
-					log.info("Serializing the DAWG to benchmark its deserialization time");
-      		final byte[] bytes = serializer.serialize(dawg);
-
-      		log.info("Benchmarking the time to deserialize a DAWG");
-      		startTime = System.nanoTime();
-      		dawg = serializer.deserialize(SortedDawg.class, bytes);
-      		stopTime = System.nanoTime();
-      		final double deserializationTime = (stopTime - startTime);
-
-					log.info("Recording the benchmarked, build time: [{}] nanoseconds", buildTime);
-      		synchronized (buildTimeSum) {
-      			buildTimeSum.set(buildTime + buildTimeSum.get());
-      		}
-
-					log.info("Recording the benchmarked, deserialization time: [{}] nanoseconds", deserializationTime);
-      		synchronized (deserializationTimeSum) {
-      			deserializationTimeSum.set(deserializationTime + deserializationTimeSum.get());
-      		}
-  			}
-  			else if (numIters > 0) {
-  				final int lhsIters = numIters >> 1;
-  				final int rhsIters = numIters - lhsIters;
-  				log.info("Splitting benchmark into two, subtasks of sizes [{}] and [{}]",
-  					lhsIters, rhsIters);
-  				invokeAll(new RuntimeAverager(serializer,
-  						                        	lhsIters,
-  						                        	buildTimeSum,
-  						                        	deserializationTimeSum),
-  					      	new RuntimeAverager(serializer,
-  					      	                  	rhsIters,
-  					      	                  	buildTimeSum,
-  					      	                  	deserializationTimeSum));
-  			}
-  		}
-  		catch (final Throwable thrown) {
-  			final String message = "Failed to benchmark the average runtimes";
-  			log.error(message, thrown);
-  			throw new RuntimeException(message, thrown);
-  		}
-  	}
   }
 }
