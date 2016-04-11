@@ -11,12 +11,11 @@ import java.util.List;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
 import com.github.dylon.liblevenshtein.levenshtein.IDistance;
 import com.github.dylon.liblevenshtein.levenshtein.IDistanceFactory;
+import static com.github.dylon.liblevenshtein.assertion.DistanceAssertions.assertThat;
 
 public class MemoizedDistanceFactoryTest {
   private List<String> terms;
@@ -76,9 +75,7 @@ public class MemoizedDistanceFactoryTest {
       final IDistance<String> distance,
       final String term_1,
       final String term_2) {
-    final int d_1 = distance.between(term_1, term_1);
-    final int d_2 = distance.between(term_2, term_2);
-    assertEquals(d_1, d_2);
+    assertThat(distance).satisfiesEqualSelfSimilarity(term_1, term_2);
   }
 
   @Test(dataProvider = "minimalityData")
@@ -87,12 +84,7 @@ public class MemoizedDistanceFactoryTest {
       final IDistance<String> distance,
       final String term_1,
       final String term_2) {
-
-    final int d_11 = distance.between(term_1, term_1);
-    final int d_12 = distance.between(term_1, term_2);
-    final int d_21 = distance.between(term_2, term_1);
-    assertTrue(d_12 > d_11);
-    assertTrue(d_21 > d_11);
+		assertThat(distance).satisfiesMinimality(term_1, term_2);
   }
 
   @Test(dataProvider = "symmetryData")
@@ -101,9 +93,7 @@ public class MemoizedDistanceFactoryTest {
       final IDistance<String> distance,
       final String term_1,
       final String term_2) {
-    final int d_12 = distance.between(term_1, term_2);
-    final int d_21 = distance.between(term_2, term_1);
-    assertEquals(d_12, d_21);
+    assertThat(distance).satisfiesSymmetry(term_1, term_2);
   }
 
   @Test(dataProvider = "triangleInequalityData")
@@ -113,13 +103,7 @@ public class MemoizedDistanceFactoryTest {
       final String term_1,
       final String term_2,
       final String term_3) {
-
-    final int d_12 = distance.between(term_1, term_2);
-    final int d_13 = distance.between(term_1, term_3);
-    final int d_23 = distance.between(term_2, term_3);
-    assertTrue(d_12 + d_13 >= d_23);
-    assertTrue(d_12 + d_23 >= d_13);
-    assertTrue(d_13 + d_23 >= d_12);
+    assertThat(distance).satisfiesTriangleInequality(term_1, term_2, term_3);
   }
 
   @Test(dataProvider = "penaltyData")
@@ -129,19 +113,20 @@ public class MemoizedDistanceFactoryTest {
       final int transpositionPenalty,
       final int mergePenalty,
       final int splitPenalty) {
-    assertEquals(distance.between("foo", "foo"), 0);
-    assertEquals(distance.between("foo", "food"), 1);
-    assertEquals(distance.between("foo", "fodo"), 1);
-    assertEquals(distance.between("foo", "fdoo"), 1);
-    assertEquals(distance.between("foo", "dfoo"), 1);
-    assertEquals(distance.between("foo", "oo"), 1);
-    assertEquals(distance.between("foo", "fo"), 1);
-    assertEquals(distance.between("foo", "boo"), 1);
-    assertEquals(distance.between("foo", "fbo"), 1);
-    assertEquals(distance.between("foo", "fob"), 1);
-    assertEquals(distance.between("foo", "ofo"), transpositionPenalty);
-    assertEquals(distance.between("clog", "dog"), mergePenalty);
-    assertEquals(distance.between("dog", "clog"), splitPenalty);
+    assertThat(distance)
+    	.hasDistance(0, "foo", "foo")
+    	.hasDistance(1, "foo", "food")
+    	.hasDistance(1, "foo", "fodo")
+    	.hasDistance(1, "foo", "fdoo")
+    	.hasDistance(1, "foo", "dfoo")
+    	.hasDistance(1, "foo", "oo")
+    	.hasDistance(1, "foo", "fo")
+    	.hasDistance(1, "foo", "boo")
+    	.hasDistance(1, "foo", "fbo")
+    	.hasDistance(1, "foo", "fob")
+    	.hasDistance(transpositionPenalty, "foo", "ofo")
+    	.hasDistance(mergePenalty, "clog", "dog")
+    	.hasDistance(splitPenalty, "dog", "clog");
   }
 
   private static abstract class AbstractDataIterator implements Iterator<Object[]> {

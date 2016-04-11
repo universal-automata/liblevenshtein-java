@@ -2,7 +2,8 @@ package com.github.dylon.liblevenshtein.levenshtein;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import static org.testng.Assert.assertEquals;
+
+import static com.github.dylon.liblevenshtein.assertion.SubsumesFunctionAssertions.assertThat;
 
 public class SubsumesFunctionTest {
 
@@ -111,7 +112,7 @@ public class SubsumesFunctionTest {
       final int i, final int e,
       final int j, final int f,
       final boolean shouldSubsume) {
-    assertEquals(standardSubsumes.at(i,e, j,f), shouldSubsume);
+    assertThat(standardSubsumes).subsumesAt(i,e, j,f, shouldSubsume);
   }
 
   @Test(dataProvider = "forTransposition")
@@ -120,7 +121,7 @@ public class SubsumesFunctionTest {
       final int j, final int f, final int t,
       final int n,
       final boolean shouldSubsume) {
-    assertEquals(transpositionSubsumes.at(i,e,s, j,f,t, n), shouldSubsume);
+    assertThat(transpositionSubsumes).subsumesAt(i,e,s, j,f,t, n, shouldSubsume);
   }
 
   @Test(dataProvider = "forMergeAndSplit")
@@ -129,6 +130,6 @@ public class SubsumesFunctionTest {
       final int j, final int f, final int t,
       final int n,
       final boolean shouldSubsume) {
-    assertEquals(mergeAndSplitSubsumes.at(i,e,s, j,f,t, n), shouldSubsume);
+    assertThat(mergeAndSplitSubsumes).subsumesAt(i,e,s, j,f,t, n, shouldSubsume);
   }
 }

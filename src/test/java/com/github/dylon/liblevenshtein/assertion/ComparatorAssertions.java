@@ -3,9 +3,6 @@ package com.github.dylon.liblevenshtein.assertion;
 import java.util.Comparator;
 
 import org.assertj.core.api.AbstractAssert;
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.assertj.core.api.AbstractAssert;
 
 /**
  * AssertJ-quality assertions for Comparator objects.
@@ -42,6 +39,7 @@ public class ComparatorAssertions<Type>
 	 * @param lhs Parameter for the left side of the omparison.
 	 * @param rhs Parameter for the right side of the comparator.
 	 * @return This {@link ComparatorAssertions} for fluency.
+	 * @throws AssertionError When the comparison is not equals-to.
 	 */
   public ComparatorAssertions<Type> comparesEqualTo(
   		final Type lhs,
@@ -66,6 +64,7 @@ public class ComparatorAssertions<Type>
 	 * @param lhs Parameter for the left side of the omparison.
 	 * @param rhs Parameter for the right side of the comparator.
 	 * @return This {@link ComparatorAssertions} for fluency.
+	 * @throws AssertionError When the comparison is not greater-than.
 	 */
   public ComparatorAssertions<Type> comparesGreaterThan(
   		final Type lhs,
@@ -90,6 +89,7 @@ public class ComparatorAssertions<Type>
 	 * @param lhs Parameter for the left side of the omparison.
 	 * @param rhs Parameter for the right side of the comparator.
 	 * @return This {@link ComparatorAssertions} for fluency.
+	 * @throws AssertionError When the comparison is not less-than.
 	 */
   public ComparatorAssertions<Type> comparesLessThan(
   		final Type lhs,
@@ -114,6 +114,7 @@ public class ComparatorAssertions<Type>
 	 * @param lhs Parameter for the left side of the omparison.
 	 * @param rhs Parameter for the right side of the comparator.
 	 * @return This {@link ComparatorAssertions} for fluency.
+	 * @throws AssertionError When the comparison is not greater-than-or-equal-to.
 	 */
   public ComparatorAssertions<Type> comparesGreaterThanOrEqualTo(
   		final Type lhs,
@@ -125,8 +126,8 @@ public class ComparatorAssertions<Type>
 
   	if (comparison < 0) {
   		failWithMessage(
-  			"Expected lhs [%s] to be [greater-than-or-equal-to] rhs [%s], but was [less than]",
-  			lhs, rhs);
+  			"Expected lhs [%s] to be [greater-than-or-equal-to] rhs [%s], "+
+  			"but was [less than]", lhs, rhs);
   	}
 
   	return this;
@@ -138,6 +139,7 @@ public class ComparatorAssertions<Type>
 	 * @param lhs Parameter for the left side of the omparison.
 	 * @param rhs Parameter for the right side of the comparator.
 	 * @return This {@link ComparatorAssertions} for fluency.
+	 * @throws AssertionError When the comparison is not less-than-or-equal-to.
 	 */
   public ComparatorAssertions<Type> comparesLessThanOrEqualTo(
   		final Type lhs,
@@ -149,8 +151,8 @@ public class ComparatorAssertions<Type>
 
   	if (comparison > 0) {
   		failWithMessage(
-  			"Expected lhs [%s] to be [less-than-or-equal-to] rhs [%s], but was [greater-than]",
-  			lhs, rhs);
+  			"Expected lhs [%s] to be [less-than-or-equal-to] rhs [%s], "+
+  			"but was [greater-than]", lhs, rhs);
   	}
 
   	return this;

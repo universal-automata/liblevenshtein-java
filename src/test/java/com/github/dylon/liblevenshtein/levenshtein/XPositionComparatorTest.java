@@ -3,6 +3,7 @@ package com.github.dylon.liblevenshtein.levenshtein;
 import org.testng.annotations.Test;
 
 import static com.github.dylon.liblevenshtein.assertion.ComparatorAssertions.assertThat;
+import static com.github.dylon.liblevenshtein.utils.ArrayUtils.arr;
 
 public class XPositionComparatorTest {
   private final XPositionComparator comparator = new XPositionComparator();
@@ -17,9 +18,5 @@ public class XPositionComparatorTest {
   		.comparesLessThan(arr(1,3,3), arr(2,3,3))
   		.comparesLessThan(arr(2,3,3), arr(2,4,3))
   		.comparesLessThan(arr(2,4,3), arr(2,4,4));
-  }
-
-  private int[] arr(final int... is) {
-  	return is;
   }
 }

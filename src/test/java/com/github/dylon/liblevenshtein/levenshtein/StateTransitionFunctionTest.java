@@ -5,12 +5,12 @@ import java.util.Arrays;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import static org.testng.Assert.assertEquals;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.ElementFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.PositionFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.PositionTransitionFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.StateFactory;
+import static com.github.dylon.liblevenshtein.assertion.StateTransitionFunctionAssertions.assertThat;
 
 /**
  * These tests were taken from the transition tables on page 29 of "Fast String
@@ -213,8 +213,7 @@ public class StateTransitionFunctionTest {
       final IState input,
       final IState expectedOutput,
       final boolean... characteristicVector) {
-    final IState actualOutput = transition.of(input, characteristicVector);
-    assertEquals(actualOutput, expectedOutput);
+    assertThat(transition).transitionsTo(expectedOutput, input, characteristicVector);
   }
 
   private IState a(final int i) {

@@ -1,7 +1,6 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.ElementFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.PositionFactory;
@@ -31,7 +30,7 @@ public abstract class AbstractXPositionTransitionFunctionTest {
 
   protected void check(boolean... characteristicVector) {
     final IState actualState = transition.of(N, new int[] {i,e,x}, characteristicVector, 0);
-    assertNull(actualState);
+    assertThat(actualState).isNull();
   }
 
   protected void check(
@@ -40,7 +39,7 @@ public abstract class AbstractXPositionTransitionFunctionTest {
     final IState actualState = transition.of(N, new int[] {i,e,x}, characteristicVector, 0);
     final int[] position = positionFactory.build(i1,e1,t1);
     final IState expectedState = stateFactory.build(position);
-    assertEquals(actualState, expectedState);
+    assertThat(actualState).isEqualTo(expectedState);
   }
 
   protected void check(
@@ -51,7 +50,7 @@ public abstract class AbstractXPositionTransitionFunctionTest {
     final int[] p1 = positionFactory.build(i1,e1,t1);
     final int[] p2 = positionFactory.build(i2,e2,t2);
     final IState expectedState = stateFactory.build(p1,p2);
-    assertEquals(actualState, expectedState);
+    assertThat(actualState).isEqualTo(expectedState);
   }
 
   protected void check(
@@ -64,7 +63,7 @@ public abstract class AbstractXPositionTransitionFunctionTest {
     final int[] p2 = positionFactory.build(i2,e2,t2);
     final int[] p3 = positionFactory.build(i3,e3,t3);
     final IState expectedState = stateFactory.build(p1,p2,p3);
-    assertEquals(actualState, expectedState);
+    assertThat(actualState).isEqualTo(expectedState);
   }
 
   protected void check(
@@ -79,6 +78,6 @@ public abstract class AbstractXPositionTransitionFunctionTest {
     final int[] p3 = positionFactory.build(i3,e3,t3);
     final int[] p4 = positionFactory.build(i4,e4,t4);
     final IState expectedState = stateFactory.build(p1,p2,p3,p4);
-    assertEquals(actualState, expectedState);
+    assertThat(actualState).isEqualTo(expectedState);
   }
 }

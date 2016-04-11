@@ -72,6 +72,7 @@ dependencies {
   taskCompile 'com.google.code.findbugs:annotations:3.0.1'
   taskCompile 'org.antlr:ST4:4.0.8'
   testCompile 'org.assertj:assertj-core:3.4.0'
+  testCompile 'org.mockito:mockito-all:1.10.19'
   testCompile 'org.testng:testng:6.9.11'
 
   testRuntime 'ch.qos.logback:logback-classic:1.1.7'

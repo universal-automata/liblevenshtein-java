@@ -1,9 +1,8 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
 import org.testng.annotations.Test;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ElementTest {
 
@@ -13,12 +12,14 @@ public class ElementTest {
     final Element<int[]> e2 = build(1,2, 2,3, 3,4);
     final Element<int[]> e3 = build(1,3, 2,4, 3,5);
 
-    assertTrue(e1.equals(e1));
-    assertTrue(e1.equals(e2));
-    assertFalse(e1.equals(e3));
+    assertThat(e1)
+    	.isEqualTo(e1)
+    	.isEqualTo(e2)
+    	.isNotEqualTo(e3);
 
-    assertEquals(e1.hashCode(), e2.hashCode());
-    assertFalse(e1.hashCode() == e3.hashCode());
+    assertThat(e1.hashCode())
+    	.isEqualTo(e2.hashCode())
+    	.isNotEqualTo(e3.hashCode());
   }
 
   private Element<int[]> build(

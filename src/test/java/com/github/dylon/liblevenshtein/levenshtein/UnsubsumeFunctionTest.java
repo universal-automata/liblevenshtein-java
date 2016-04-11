@@ -3,7 +3,8 @@ package com.github.dylon.liblevenshtein.levenshtein;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import static org.testng.Assert.assertEquals;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.ElementFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.PositionFactory;
@@ -82,7 +83,7 @@ public class UnsubsumeFunctionTest {
           standardPositionFactory.build(j,f));
 
     standardPositionUnsubsume.at(actualOutput);
-    assertEquals(actualOutput, expectedOutput);
+    assertThat(actualOutput).isEqualTo(expectedOutput);
   }
 
   @Test(dataProvider = "forXPositions")
@@ -103,6 +104,6 @@ public class UnsubsumeFunctionTest {
           xPositionFactory.build(j,f,t));
 
     xPositionUnsubsume.at(actualOutput);
-    assertEquals(actualOutput, expectedOutput);
+    assertThat(actualOutput).isEqualTo(expectedOutput);
   }
 }

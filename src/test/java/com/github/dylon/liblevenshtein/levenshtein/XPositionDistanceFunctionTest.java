@@ -3,11 +3,11 @@ package com.github.dylon.liblevenshtein.levenshtein;
 import lombok.val;
 
 import org.testng.annotations.Test;
-import static org.testng.Assert.assertEquals;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.ElementFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.PositionFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.StateFactory;
+import static com.github.dylon.liblevenshtein.assertion.DistanceFunctionAssertions.assertThat;
 
 public class XPositionDistanceFunctionTest {
 
@@ -27,6 +27,6 @@ public class XPositionDistanceFunctionTest {
 
     final int w = 4;
     final int d = distance.at(state, w);
-    assertEquals(d, 4);
+    assertThat(distance).hasDistance(state, 4, 4);
   }
 }

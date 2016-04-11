@@ -2,12 +2,11 @@ package com.github.dylon.liblevenshtein.levenshtein;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.ElementFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.PositionFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.StateFactory;
+import static com.github.dylon.liblevenshtein.assertion.StandardPositionTransitionFunctionAssertions.assertThat;
 
 public class StandardPositionTransitionFunctionTest {
   private static final int N = 2; // max number of errors
@@ -52,28 +51,28 @@ public class StandardPositionTransitionFunctionTest {
   }
 
   private void check(boolean... characteristicVector) {
-    final IState actualState = transition.of(N, new int[] {i,e}, characteristicVector, 0);
-    assertNull(actualState);
+    assertThat(transition)
+    	.transitionsTo(null, N, new int[] {i,e}, characteristicVector, 0);
   }
 
   private void check(
       final int i1, final int e1,
       final boolean... characteristicVector) {
-    final IState actualState = transition.of(N, new int[] {i,e}, characteristicVector, 0);
     final int[] position = positionFactory.build(i1, e1);
     final IState expectedState = stateFactory.build(position);
-    assertEquals(actualState, expectedState);
+    assertThat(transition)
+    	.transitionsTo(expectedState, N, new int[] {i,e}, characteristicVector, 0);
   }
 
   private void check(
       final int i1, final int e1,
       final int i2, final int e2,
       final boolean... characteristicVector) {
-    final IState actualState = transition.of(N, new int[] {i,e}, characteristicVector, 0);
     final int[] p1 = positionFactory.build(i1,e1);
     final int[] p2 = positionFactory.build(i2,e2);
     final IState expectedState = stateFactory.build(p1,p2);
-    assertEquals(actualState, expectedState);
+    assertThat(transition)
+    	.transitionsTo(expectedState, N, new int[] {i,e}, characteristicVector, 0);
   }
 
   private void check(
@@ -81,11 +80,11 @@ public class StandardPositionTransitionFunctionTest {
       final int i2, final int e2,
       final int i3, final int e3,
       final boolean... characteristicVector) {
-    final IState actualState = transition.of(N, new int[] {i,e}, characteristicVector, 0);
     final int[] p1 = positionFactory.build(i1,e1);
     final int[] p2 = positionFactory.build(i2,e2);
     final int[] p3 = positionFactory.build(i3,e3);
     final IState expectedState = stateFactory.build(p1,p2,p3);
-    assertEquals(actualState, expectedState);
+    assertThat(transition)
+    	.transitionsTo(expectedState, N, new int[] {i,e}, characteristicVector, 0);
   }
 }

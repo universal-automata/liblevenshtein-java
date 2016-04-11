@@ -270,12 +270,12 @@ public class DawgTest {
       		stopTime = System.nanoTime();
       		final double deserializationTime = (stopTime - startTime);
 
-					log.info("Recording the benchmarked, build time");
+					log.info("Recording the benchmarked, build time: [{}] nanoseconds", buildTime);
       		synchronized (buildTimeSum) {
       			buildTimeSum.set(buildTime + buildTimeSum.get());
       		}
 
-					log.info("Recording the benchmarked, deserialization time");
+					log.info("Recording the benchmarked, deserialization time: [{}] nanoseconds", deserializationTime);
       		synchronized (deserializationTimeSum) {
       			deserializationTimeSum.set(deserializationTime + deserializationTimeSum.get());
       		}

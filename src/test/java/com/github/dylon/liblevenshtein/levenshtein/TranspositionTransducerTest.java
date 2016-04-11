@@ -12,8 +12,8 @@ import java.util.Set;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import lombok.val;
 
@@ -22,6 +22,8 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.TransducerBuilder;
 import com.github.dylon.liblevenshtein.serialization.BytecodeSerializer;
 import com.github.dylon.liblevenshtein.serialization.ProtobufSerializer;
 import com.github.dylon.liblevenshtein.serialization.Serializer;
+import static com.github.dylon.liblevenshtein.assertion.CandidateAssertions.assertThat;
+import static com.github.dylon.liblevenshtein.assertion.SetAssertions.assertThat;
 
 @SuppressWarnings("unchecked")
 public class TranspositionTransducerTest extends AbstractTransducerTest {
@@ -97,7 +99,7 @@ public class TranspositionTransducerTest extends AbstractTransducerTest {
     final ITransducer<Candidate> actualTransducer =
       (ITransducer<Candidate>)
         serializer.deserialize(Transducer.class, bytes);
-    assertEquals(actualTransducer, transducer);
+    assertThat(actualTransducer).isEqualTo(transducer);
   }
 
   @Test
@@ -109,17 +111,11 @@ public class TranspositionTransducerTest extends AbstractTransducerTest {
 
     while (actualIter.hasNext()) {
       final Candidate actualCandidate = actualIter.next();
-      final String actualTerm = actualCandidate.term();
-      final int actualDistance = actualCandidate.distance();
-      final int expectedDistance = distance.between(actualTerm, QUERY_TERM);
-      assertEquals(actualDistance, expectedDistance,
-        String.format("Expected d(%s, %s) = %d, but was %d",
-          actualTerm, QUERY_TERM, expectedDistance, actualDistance));
-      assertTrue(expectedCandidates.contains(actualCandidate),
-          "expectedCandidates does not contain ["+actualCandidate+"]");
+      assertThat(actualCandidate).hasDistance(distance, QUERY_TERM);
+      assertThat(expectedCandidates).contains(actualCandidate);
       expectedCandidates.remove(actualCandidate);
     }
 
-    assertTrue(expectedCandidates.isEmpty());
+		assertThat(expectedCandidates).isEmpty();
   }
 }

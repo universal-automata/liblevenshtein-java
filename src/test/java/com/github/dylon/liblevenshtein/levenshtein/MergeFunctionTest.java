@@ -3,7 +3,8 @@ package com.github.dylon.liblevenshtein.levenshtein;
 import lombok.val;
 
 import org.testng.annotations.Test;
-import static org.testng.Assert.assertEquals;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.github.dylon.liblevenshtein.levenshtein.factory.ElementFactory;
 import com.github.dylon.liblevenshtein.levenshtein.factory.PositionFactory;
@@ -39,7 +40,7 @@ public class MergeFunctionTest {
         positionFactory.build(0,2));
 
     merge.into(s1, s2);
-    assertEquals(s1, s3);
+    assertThat(s1).isEqualTo(s3);
   }
 
   @Test
@@ -70,7 +71,7 @@ public class MergeFunctionTest {
         positionFactory.build(3,0,0));
 
     merge.into(s1, s2);
-    assertEquals(s1, s3);
+    assertThat(s1).isEqualTo(s3);
   }
 
   private void init(
