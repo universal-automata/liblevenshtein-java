@@ -26,6 +26,9 @@ public class Transducer<DictionaryNode, CandidateType>
 
   /**
    * Attributes required for this transducer to search the dictionary.
+   * -- GETTER --
+   * Attributes required for this transducer to search the dictionary.
+   * @return Attributes required for this transducer to search the dictionary.
    * -- SETTER --
    * Attributes required for this transducer to search the dictionary.
    * @param attributes Attributes required for this transducer to search the

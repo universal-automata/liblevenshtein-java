@@ -22,11 +22,23 @@ public class DawgNode implements IDawgNode<DawgNode>, Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  /** Outgoing edges of this node. */
+  /**
+   * Outgoing edges of this node.
+   * -- GETTER --
+   * Outgoing edges of this node.
+   * @return Outgoing edges of this node.
+   */
   @NonNull private final Char2ObjectMap<DawgNode> edges;
 
   /**
    * Specifies whether this node represents the last character of some term.
+   * -- GETTER --
+   * Whether this node represents the last character of some term.
+   * @return Whether this node represents the last character of some term.
+   * -- SETTER --
+   * Specifies whether this node represents the last character of some term.
+   * @param isFinal Whether this node represents the last character of some term.
+   * @return This {@link DawgNode} for fluency.
    */
   @Getter(onMethod = @_(@Override))
   private boolean isFinal = false;

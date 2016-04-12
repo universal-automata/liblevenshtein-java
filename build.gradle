@@ -440,7 +440,7 @@ task delombok {
 
 tasks.javadoc {
   dependsOn delombok
-  source = new FileNameFinder().getFileNames(srcDelomboked, '**/*.java')
+  source = new FileNameFinder().getFileNames("$buildDir", '**/*.java')
   options.optionFiles << file('javadoc.options')
 }
 
