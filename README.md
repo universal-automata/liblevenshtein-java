@@ -39,12 +39,20 @@ will be porting it to other languages, soon.  If you have a specific language
 you would like to see it in, or package-management system you would like it
 deployed to, let me know.
 
+### Branches
+
+| Branch      | Description                         |
+| -----------:| ----------------------------------- |
+| master      | Latest, development source.         |
+| release     | Latest, release source.             |
+| release-2.x | Latest, release from the 2.x series |
+
 ### Documentation
 
 When it comes to documentation, you have several options:
 - [Wiki](https://github.com/universal-automata/liblevenshtein/wiki)
 - [Javadoc](http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/2.2.1/index.html)
-- [Source Code](https://github.com/universal-automata/liblevenshtein-java/tree/master/src)
+- [Source Code](https://github.com/universal-automata/liblevenshtein-java/tree/2.2.1/src)
 
 ### Basic Usage:
 
