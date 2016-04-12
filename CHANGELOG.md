@@ -19,7 +19,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Removes the `shared` submodule.
 
 ### Security
-- Changes and drops the VersionEye, API key from [gradle.properties](https://github.com/universal-automata/liblevenshtein-java/blob/master/gradle.properties).
+- Changes and drops the VersionEye, API key from [gradle.properties](https://github.com/universal-automata/liblevenshtein-java/blob/2.2.1/gradle.properties).
 
 ## [2.2.0] - Tuesday, April 5, 2016
 
