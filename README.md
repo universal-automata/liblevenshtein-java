@@ -41,11 +41,11 @@ deployed to, let me know.
 
 ### Branches
 
-| Branch      | Description                         |
-| -----------:| ----------------------------------- |
-| master      | Latest, development source.         |
-| release     | Latest, release source.             |
-| release-2.x | Latest, release from the 2.x series |
+| Branch                                                                                    | Description                         |
+| -----------------------------------------------------------------------------------------:| ----------------------------------- |
+| [master](https://github.com/universal-automata/liblevenshtein-java/tree/master)           | Latest, development source.         |
+| [release](https://github.com/universal-automata/liblevenshtein-java/tree/release)         | Latest, release source.             |
+| [release-2.x](https://github.com/universal-automata/liblevenshtein-java/tree/release-2.x) | Latest, release from the 2.x series |
 
 ### Documentation
 
