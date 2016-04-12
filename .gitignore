@@ -1,0 +1,12 @@
+# Blacklist everything by default, so nothing is accidentally committed:
+*
+
+# Whitelist directories so we may recurse into them
+!*/
+
+# Whitelist the following files and directories:
+!.gitignore
+!docs/**/*.css
+!docs/**/*.html
+!docs/**/*.js
+!docs/**/package-list
