@@ -43,7 +43,7 @@ deployed to, let me know.
 
 When it comes to documentation, you have several options:
 - [Wiki](https://github.com/universal-automata/liblevenshtein/wiki)
-- [Javadoc](http://universal-automata.github.io/liblevenshtein/docs/javadoc/)
+- [Javadoc](http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/2.2.1/index.html)
 - [Source Code](https://github.com/universal-automata/liblevenshtein-java/tree/master/src)
 
 ### Basic Usage:
