@@ -167,7 +167,7 @@ def execTask(mainClass, args=[]) {
   exec(classpath, mainClass, args + [
     "--group-id", rootProject.group,
     "--artifact-id", rootProject.name,
-    "--artifact-version", rootProject.version,
+    "--version", rootProject.version,
     "--gradle-version", gradle.gradleVersion,
     "--java-source-version", sourceCompatibility.toString(),
     "--java-target-version", targetCompatibility.toString()

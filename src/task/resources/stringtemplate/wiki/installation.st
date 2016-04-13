@@ -1,21 +1,21 @@
-installation(groupId, artifactId, version, gradleVersion, javaSourceVersion, javaTargetVersion) ::= <<
+installation(project) ::= <<
 [Home](Home) > [Installation](installation) > Java
 
 # Gradle
 
-Add a dependency on $groupId$:$artifactId$:$version$ to your project's <code>build.gradle</code>:
+Add a dependency on $project.maven.groupId$:$project.maven.artifactId$:$project.maven.version$ to your project's <code>build.gradle</code>:
 
 ```groovy
 // ...
 dependencies {
-  compile '$groupId$:$artifactId$:$version$'
+  compile '$project.maven.groupId$:$project.maven.artifactId$:$project.maven.version$'
 }
 // ...
 ```
 
 # Maven
 
-Add a dependency on $groupId$:$artifactId$:$version$ to your project's POM:
+Add a dependency on $project.maven.groupId$:$project.maven.artifactId$:$project.maven.version$ to your project's POM:
 
 ```xml
 <project>
@@ -23,9 +23,9 @@ Add a dependency on $groupId$:$artifactId$:$version$ to your project's POM:
   <dependencies>
     <!-- ... -->
     <dependency>
-      <groupId>$groupId$</groupId>
-      <artifactId>$artifactId$</artifactId>
-      <version>$version$</version>
+      <groupId>$project.maven.groupId$</groupId>
+      <artifactId>$project.maven.artifactId$</artifactId>
+      <version>$project.maven.version$</version>
     </dependency>
     <!-- ... -->
   </dependencies>
@@ -35,7 +35,7 @@ Add a dependency on $groupId$:$artifactId$:$version$ to your project's POM:
 
 # Git
 
-Install Gradle >= $gradleVersion$ and checkout the Java repository:
+Install Gradle >= $project.gradle.version$ and checkout the Java repository:
 
 ```
 % git clone https://github.com/universal-automata/liblevenshtein-java.git

@@ -1,9 +1,9 @@
-usage(groupId, artifactId, version, gradleVersion, javaSourceVersion, javaTargetVersion) ::= <<
+usage(project) ::= <<
 [Home](Home) > [Usage](usage) > Java
 
 If you've [installed the Maven artifact](installation.java), just use it in your project as any other dependency.  If you've [built liblevenshtein from Git](building.java), add it and the other dependencies listed in the [`build.gradle`](https://github.com/universal-automata/liblevenshtein-java/blob/master/build.gradle) file to your Java classpath.
 
-Note that liblevenshtein has been developed against Java >= $javaTargetVersion$.  It will not work with prior versions.
+Note that liblevenshtein has been developed against Java >= $project.java.targetVersion$.  It will not work with prior versions.
 
 The easiest way to use the library is through the [`TransducerBuilder`](https://github.com/universal-automata/liblevenshtein-java/blob/master/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/TransducerBuilder.java).  Its primary API is defined as follows:
 

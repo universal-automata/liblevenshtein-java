@@ -1,5 +1,13 @@
 package com.github.dylon.liblevenshtein.task;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Map;
+import java.util.TreeMap;
+
 import org.apache.commons.cli.AlreadySelectedException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
@@ -11,7 +19,12 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
 
+import org.stringtemplate.v4.STGroup;
+import org.stringtemplate.v4.STGroupDir;
+import org.stringtemplate.v4.ST;
+
 import com.google.common.base.Joiner;
+import com.google.common.collect.ImmutableMap;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -57,6 +70,29 @@ public abstract class Action implements Runnable {
   private final String helpFooter = "";
 
   /**
+   * Common, project attributes.
+   */
+  @Getter(
+  	lazy = true,
+  	value = AccessLevel.PROTECTED,
+  	onMethod = @_(@SuppressWarnings("unchecked")))
+  private final Map<String, Object> projectArgs =
+  	new ImmutableMap.Builder<String, Object>()
+  		.put("maven", new ImmutableMap.Builder<String, Object>()
+  			.put("groupId", cli.getOptionValue("group-id"))
+  			.put("artifactId", cli.getOptionValue("artifact-id"))
+  			.put("version", cli.getOptionValue("version"))
+  			.build())
+  		.put("gradle", new ImmutableMap.Builder<String, Object>()
+  			.put("version", cli.getOptionValue("gradle-version"))
+  			.build())
+  		.put("java", new ImmutableMap.Builder<String, Object>()
+  			.put("sourceVersion", cli.getOptionValue("java-source-version"))
+  			.put("targetVersion", cli.getOptionValue("java-target-version"))
+  			.build())
+  		.build();
+
+  /**
    * Command-line parameters of this action.
    */
   protected final CommandLine cli;
@@ -98,6 +134,41 @@ public abstract class Action implements Runnable {
       log.error(message, thrown);
       exit(EXIT_FATAL);
     }
+  }
+
+	/**
+	 * Renders a Stringtemplate to some specified path.
+	 * @param groupName Name of the Stringtempalte group containing the template.
+	 * @param templateName Name of the template to render.
+	 * @param path Path render the template.
+	 * @throws IOException When the template cannot be rendered to {@link #path}.
+	 */
+  protected void renderTemplate(
+  		final String groupName,
+  		final String templateName,
+  		final Path path) throws IOException {
+
+    final STGroup group = new STGroupDir(groupName, '$', '$');
+    final ST template = group.getInstanceOf(templateName);
+
+    if (null == template) {
+      final String message = String.format("Cannot find template [%s/%s]",
+        groupName, templateName);
+      throw new IllegalStateException(message);
+    }
+
+    log.info("Rendering template [{}/{}] to [{}]",
+      groupName, templateName, path);
+    final String rendition = template.render() + "\n";
+    Files.write(path, rendition.getBytes(StandardCharsets.UTF_8));
+  }
+
+	/**
+	 * Initializes a template with the project arguments.
+	 * @param template Stringtemplate to render.
+	 */
+  protected void initTemplate(final ST template) {
+		template.add("project", projectArgs());
   }
 
   /**
@@ -176,7 +247,7 @@ public abstract class Action implements Runnable {
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("artifact-version")
+        .longOpt("version")
         .desc("Maven, Artifact Version")
         .hasArg()
         .required()

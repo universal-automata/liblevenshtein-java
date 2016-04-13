@@ -1,4 +1,31 @@
-*.sw?
-/.gradle
-/build
-.vimrc.local
+# Blacklist everything by default, so nothing is accidentally committed:
+*
+
+# Whitelist directories so we may recurse into them
+!*/
+
+# Ignore submodules
+gh-pages/
+
+# Whitelist the following files and directories:
+!/.gitignore
+!/CHANGELOG.md
+!/LICENSE
+!/README.md
+!/build.gradle
+!/config/**/*.xml
+!/config/**/*.xsl
+!/gradle.properties
+!/gradle/wrapper/gradle-wrapper.jar
+!/gradle/wrapper/gradle-wrapper.properties
+!/gradlew
+!/gradlew.bat
+!/javadoc.options
+!/settings.gradle
+!/src/main/java/**/*.java
+!/src/main/java/**/lombok.config
+!/src/main/proto/**/*.proto
+!/src/task/java/**/*.java
+!/src/task/java/**/lombok.config
+!/src/task/resources/logback.groovy
+!/src/task/resources/stringtemplate/**/*.st
