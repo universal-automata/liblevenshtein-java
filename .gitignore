@@ -5,8 +5,9 @@
 !*/
 
 # Whitelist the following files and directories:
-!.gitignore
-!docs/**/*.css
-!docs/**/*.html
-!docs/**/*.js
-!docs/**/package-list
+!/.gitignore
+!/docs/javadoc/**/*.css
+!/docs/javadoc/**/*.html
+!/docs/javadoc/**/*.js
+!/docs/javadoc/**/package-list
+!/docs/wiki/**/*.md
