@@ -28,3 +28,4 @@ gh-pages/
 !/src/main/proto/**/*.proto
 !/src/task/resources/stringtemplate/**/*.st
 !/src/test/resources/**/*.txt
+!/src/test/resources/**/*.bytes

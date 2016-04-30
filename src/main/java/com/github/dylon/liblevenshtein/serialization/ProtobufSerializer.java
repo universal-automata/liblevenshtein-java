@@ -10,6 +10,7 @@ import it.unimi.dsi.fastutil.chars.Char2ObjectSortedMap;
 import it.unimi.dsi.fastutil.chars.Char2ObjectRBTreeMap;
 
 import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,8 +47,8 @@ public class ProtobufSerializer extends AbstractSerializer {
    */
   @Override
   public void serialize(
-      final Serializable object,
-      final OutputStream stream) throws Exception {
+      @NonNull final Serializable object,
+      @NonNull final OutputStream stream) throws Exception {
 
     log.info("Deserializing an instance of [{}] from a stream", object.getClass());
 
@@ -74,7 +75,7 @@ public class ProtobufSerializer extends AbstractSerializer {
    * {@inheritDoc}
    */
   @Override
-  public byte[] serialize(final Serializable object) throws Exception {
+  public byte[] serialize(@NonNull final Serializable object) throws Exception {
     log.info("Serializing an instance of [{}] to a byte array", object.getClass());
 
     if (object instanceof SortedDawg) {
@@ -102,8 +103,8 @@ public class ProtobufSerializer extends AbstractSerializer {
    */
   @Override
   public <Type extends Serializable> Type deserialize(
-      final Class<Type> type,
-      final InputStream stream) throws Exception {
+      @NonNull final Class<Type> type,
+      @NonNull final InputStream stream) throws Exception {
 
     log.info("Deserializing an instance of [{}] from a stream", type);
 
@@ -132,8 +133,8 @@ public class ProtobufSerializer extends AbstractSerializer {
    */
   @Override
   public <Type extends Serializable> Type deserialize(
-      final Class<Type> type,
-      final byte[] bytes) throws Exception {
+      @NonNull final Class<Type> type,
+      @NonNull final byte[] bytes) throws Exception {
     log.info("Deserializing an instance of [{}] from a byte array", type);
     try (final InputStream stream = new ByteArrayInputStream(bytes)) {
       return deserialize(type, stream);

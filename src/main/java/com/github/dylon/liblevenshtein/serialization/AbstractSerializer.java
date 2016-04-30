@@ -39,8 +39,8 @@ public abstract class AbstractSerializer implements Serializer {
    */
   @Override
   public void serialize(
-      final Serializable object,
-      final Path path) throws Exception {
+      @NonNull final Serializable object,
+      @NonNull final Path path) throws Exception {
     log.info("Serializing instance of class [{}] to path [{}]",
       object.getClass(), path);
     try (final OutputStream stream = Files.newOutputStream(path)) {
@@ -53,8 +53,8 @@ public abstract class AbstractSerializer implements Serializer {
    */
   @Override
   public void serialize(
-      final Serializable object,
-      final File file) throws Exception {
+      @NonNull final Serializable object,
+      @NonNull final File file) throws Exception {
     log.info("Serializing instance of class [{}] to file [{}]",
       object.getClass(), file);
     serialize(object, file.toPath());
@@ -65,8 +65,8 @@ public abstract class AbstractSerializer implements Serializer {
    */
   @Override
   public void serialize(
-      final Serializable object,
-      final String path) throws Exception {
+      @NonNull final Serializable object,
+      @NonNull final String path) throws Exception {
     log.info("Serializing instance of class [{}] to path [{}]",
       object.getClass(), path);
     serialize(object, fileSystem.getPath(path));
@@ -80,8 +80,8 @@ public abstract class AbstractSerializer implements Serializer {
    */
   @Override
   public <Type extends Serializable> Type deserialize(
-      final Class<Type> type,
-      final Path path) throws Exception {
+      @NonNull final Class<Type> type,
+      @NonNull final Path path) throws Exception {
     log.info("Deserilizing instance of [{}] from path [{}]",
       type, path);
     try (final InputStream stream = Files.newInputStream(path)) {
@@ -94,8 +94,8 @@ public abstract class AbstractSerializer implements Serializer {
    */
   @Override
   public <Type extends Serializable> Type deserialize(
-      final Class<Type> type,
-      final File file) throws Exception {
+      @NonNull final Class<Type> type,
+      @NonNull final File file) throws Exception {
     log.info("Deserilizing instance of [{}] from file [{}]",
       type, file);
     return deserialize(type, file.toPath());
@@ -106,8 +106,8 @@ public abstract class AbstractSerializer implements Serializer {
    */
   @Override
   public <Type extends Serializable> Type deserialize(
-      final Class<Type> type,
-      final URL url) throws Exception {
+      @NonNull final Class<Type> type,
+      @NonNull final URL url) throws Exception {
     log.info("Deserilizing instance of [{}] from url [{}]",
       type, url);
     return deserialize(type, url.openStream());
@@ -118,8 +118,8 @@ public abstract class AbstractSerializer implements Serializer {
    */
   @Override
   public <Type extends Serializable> Type deserialize(
-      final Class<Type> type,
-      final URI uri) throws Exception {
+      @NonNull final Class<Type> type,
+      @NonNull final URI uri) throws Exception {
     log.info("Deserilizing instance of [{}] from uri [{}]",
       type, uri);
     return deserialize(type, uri.toURL());
@@ -130,8 +130,8 @@ public abstract class AbstractSerializer implements Serializer {
    */
   @Override
   public <Type extends Serializable> Type deserialize(
-      final Class<Type> type,
-      final String pathOrUri) throws Exception {
+      @NonNull final Class<Type> type,
+      @NonNull final String pathOrUri) throws Exception {
     try {
       log.info("Attempting to deserialize instance of [{}] from uri [{}]",
         type, pathOrUri);
