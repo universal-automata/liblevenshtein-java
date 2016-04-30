@@ -113,9 +113,9 @@ public class PlainTextSerializer extends AbstractSerializer {
   }
 
   /**
-   * Returns a sorted {@link Collection} of the {@link #dictionary}.
+   * Returns a sorted {@link Collection} of the dictionary.
    * @param dictionary {@link Collection} to sort.
-   * @return Sorted version of {@link #dictionary}.
+   * @return Sorted version of dictionary.
    */
   private Collection<String> dictionaryFor(final SortedDawg dictionary) {
     return isSorted
@@ -221,12 +221,11 @@ public class PlainTextSerializer extends AbstractSerializer {
   public static class PropertiesExtensions {
 
     /**
-     * Returns the property mapped-to by {@link #key}.
+     * Returns the property mapped-to by key.
      * @param self Contains the property value to return.
      * @param key Name of the property to return.
-     * @return Property value mapped-to by {@link #key}.
-     * @throws IllegalArgumentException When no value is mapped-to by
-     * {@link #key}.
+     * @return Property value mapped-to by key.
+     * @throws IllegalArgumentException When no value is mapped-to by key.
      */
     public static String getValue(final Properties self, final String key) {
       final String value = self.getProperty(key);
@@ -239,7 +238,7 @@ public class PlainTextSerializer extends AbstractSerializer {
      * @param self Contains the integer property.
      * @param key Name of the integer property.
      * @param value Integer value to set.
-     * @return {@link #self} for fluency.
+     * @return self for fluency.
      */
     public static Properties setInteger(
         final Properties self,
@@ -253,9 +252,9 @@ public class PlainTextSerializer extends AbstractSerializer {
      * Returns an integer property.
      * @param self Contains the integer property.
      * @param key Name of the integer property.
-     * @return Integer mapped-to by {@link #key}.
+     * @return Integer mapped-to by key.
      * @throws IllegalArgumentException When no valid integer is mapped-to by
-     * {@link #key}.
+     * key.
      */
     public static int getInteger(final Properties self, final String key) {
       final String value = getValue(self, key);
@@ -275,7 +274,7 @@ public class PlainTextSerializer extends AbstractSerializer {
      * @param self Contains the boolean property.
      * @param key Name of the boolean property.
      * @param value Boolean to set.
-     * @return {@link #self} for fluency.
+     * @return self for fluency.
      */
     public static Properties setBoolean(
         final Properties self,
@@ -289,9 +288,9 @@ public class PlainTextSerializer extends AbstractSerializer {
      * Returns a boolean property.
      * @param self Contains the boolean property.
      * @param key Name of the boolean property.
-     * @return Boolean mapped-to by {@link #key}.
+     * @return Boolean mapped-to by key.
      * @throws IllegalArgumentException When no valid boolean is mapped-to by
-     * {@link #key}.
+     * key.
      */
     public static boolean getBoolean(final Properties self, final String key) {
       final String value = getValue(self, key);
@@ -312,7 +311,7 @@ public class PlainTextSerializer extends AbstractSerializer {
      * @param self Contains the {@link Collection} property.
      * @param key Name of the {@link Collection} property.
      * @param collection {@link Collection} to set.
-     * @return {@link #self} for fluency.
+     * @return self for fluency.
      */
     public static Properties setCollection(
         final Properties self,
@@ -326,9 +325,9 @@ public class PlainTextSerializer extends AbstractSerializer {
      * Returns a {@link Collection} property.
      * @param self Contains the {@link Collection} property.
      * @param key Name of the {@link Collection} property.
-     * @return {@link Collection} mapped-to by {@link #key}.
+     * @return {@link Collection} mapped-to by key.
      * @throws IllegalArgumentException When no {@link Collection} is mapped-to
-     * by {@link #key}.
+     * by key.
      */
     public static Collection<String> getCollection(
         final Properties self,
@@ -343,7 +342,7 @@ public class PlainTextSerializer extends AbstractSerializer {
      * @param self Contains the {@link Algorithm} property.
      * @param key Name of the {@link Algorithm} property.
      * @param algorithm {@link Algorithm} to set.
-     * @return {@link #self} for fluency.
+     * @return self for fluency.
      */
     public static Properties setAlgorithm(
         final Properties self,
@@ -357,9 +356,9 @@ public class PlainTextSerializer extends AbstractSerializer {
      * Returns an {@link Algorithm} property.
      * @param self Contains the {@link Algorithm} property.
      * @param key Name of the {@link Algorithm} property.
-     * @return {@link Algorithm} mapped-to by {@link #key}.
+     * @return {@link Algorithm} mapped-to by key.
      * @throws IllegalArgumentException When no {@link Algorithm} is mapped-to
-     * by {@link #key}.
+     * by key.
      */
     public static Algorithm getAlgorithm(
         final Properties self,
@@ -369,7 +368,7 @@ public class PlainTextSerializer extends AbstractSerializer {
     }
 
     /**
-     * Asserts that {@link #value} is not null.
+     * Asserts that value is not null.
      * @param key Identifier for the value.
      * @param value Value to assert-against.
      * @throws IllegalArgumentException When value is null.

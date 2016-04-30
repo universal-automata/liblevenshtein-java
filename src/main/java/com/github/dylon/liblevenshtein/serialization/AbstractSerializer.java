@@ -25,7 +25,7 @@ public abstract class AbstractSerializer implements Serializer {
    * Operates on filesystem paths.
    * -- SETTER --
    * Operates on filesystem paths.
-   * @param filesystem Operates on filesystem paths.
+   * @param fileSystem Operates on filesystem paths.
    */
   @Setter
   @NonNull
