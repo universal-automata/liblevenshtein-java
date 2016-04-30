@@ -330,7 +330,7 @@ For more information, please see the [wiki][wiki].
 [master-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/master
 [release-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/release
 
-[wiki]: http://universal-automata.github.io/liblevenshtein-java/docs/wiki/2.2.2/index.md "liblevenshtein 2.2.2 Wiki"
+[wiki]: https://github.com/universal-automata/liblevenshtein-java/blob/gh-pages/docs/wiki/2.2.2/index.md "liblevenshtein 2.2.2 Wiki"
 [javadoc]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/2.2.2/index.html "liblevenshtein 2.2.2 API"
 [tagged-source]: https://github.com/universal-automata/liblevenshtein-java/tree/2.2.2/src "liblevenshtein 2.2.2"
 
