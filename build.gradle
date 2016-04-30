@@ -53,10 +53,6 @@ ext {
   sonatypePassword = ""
 
   wikidocDir = file("${projectDir}/gh-pages/docs/wiki/${version}")
-  if (wikidocDir.exists() && !wikidocDir.deleteDir()) {
-    throw new IOException("Failed to delete wikidoc dir [${wikidocDir}]")
-  }
-  wikidocDir.mkdirs()
 }
 
 configurations {
@@ -238,6 +234,12 @@ task syntastic(dependsOn: taskClasses) {
 
 task wikidoc(dependsOn: taskClasses) {
   description = 'Generates GitHub, wiki documentation'
+  doFirst {
+    if (wikidocDir.exists() && !wikidocDir.deleteDir()) {
+      throw new IOException("Failed to delete wikidoc dir [${wikidocDir}]")
+    }
+    wikidocDir.mkdirs()
+  }
   doLast {
     execTask('com.github.dylon.liblevenshtein.task.GenerateWikidoc', [
       "--wiki-path", wikidocDir.path
@@ -472,11 +474,13 @@ task delombok {
 tasks.javadoc {
   dependsOn delombok
   source = new FileNameFinder().getFileNames("${buildDir}", '**/*.java')
-  destinationDir = file("${projectDir}/gh-pages/docs/javadoc/${version}")
-  if (destinationDir.exists() && !destinationDir.deleteDir()) {
-    throw new IOException("Failed to delete javadoc dir [${destinationDir}]")
+  doFirst {
+    destinationDir = file("${projectDir}/gh-pages/docs/javadoc/${version}")
+    if (destinationDir.exists() && !destinationDir.deleteDir()) {
+      throw new IOException("Failed to delete javadoc dir [${destinationDir}]")
+    }
+    destinationDir.mkdirs()
   }
-  destinationDir.mkdirs()
   options.optionFiles << file('javadoc.options')
 }
 

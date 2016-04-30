@@ -184,8 +184,6 @@ public abstract class Action implements Runnable {
       .directory(dir.toFile())
       .start();
 
-    proc.waitFor();
-
     final StringBuilder buffer = new StringBuilder();
 
     try (final BufferedReader reader =
@@ -193,6 +191,24 @@ public abstract class Action implements Runnable {
           new InputStreamReader(proc.getInputStream(), StandardCharsets.UTF_8))) {
 
       final StringBuilder line = new StringBuilder();
+
+      while (proc.isAlive()) {
+        for (int c = reader.read(); -1 != c; c = reader.read()) {
+          if ('\r' == c) {
+            line.setLength(0);
+          }
+          else {
+            if ('\n' == c) {
+              log.info(line.toString());
+              buffer.append(line).append('\n');
+              line.setLength(0);
+            }
+            else {
+              line.append((char) c);
+            }
+          }
+        }
+      }
 
       for (int c = reader.read(); -1 != c; c = reader.read()) {
         if ('\r' == c) {
