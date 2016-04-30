@@ -164,8 +164,8 @@ public class SortedDawg extends AbstractDawg {
       final char label = term.charAt(i);
       final DawgNode nextNode = factory.build(true);
       uncheckedTransitions.addFirst(transitionFactory.build(node, label, nextNode));
-      node = nextNode;
-      i += 1;
+      //node = nextNode;
+      //i += 1;
     }
 
     previousTerm = term;

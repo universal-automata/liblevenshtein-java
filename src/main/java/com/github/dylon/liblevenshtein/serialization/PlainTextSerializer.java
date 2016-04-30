@@ -4,22 +4,16 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
-import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Properties;
 import java.util.TreeSet;
 
@@ -118,6 +112,11 @@ public class PlainTextSerializer extends AbstractSerializer {
     throw new IllegalArgumentException(message);
   }
 
+  /**
+   * Returns a sorted {@link Collection} of the {@link #dictionary}.
+   * @param dictionary {@link Collection} to sort.
+   * @return Sorted version of {@link #dictionary}.
+   */
   private Collection<String> dictionaryFor(final SortedDawg dictionary) {
     return isSorted
       ? new TreeSet<>(dictionary)
@@ -216,14 +215,32 @@ public class PlainTextSerializer extends AbstractSerializer {
     }
   }
 
+  /**
+   * Extension methods for {@link Properties}.
+   */
   public static class PropertiesExtensions {
 
+    /**
+     * Returns the property mapped-to by {@link #key}.
+     * @param self Contains the property value to return.
+     * @param key Name of the property to return.
+     * @return Property value mapped-to by {@link #key}.
+     * @throws IllegalArgumentException When no value is mapped-to by
+     * {@link #key}.
+     */
     public static String getValue(final Properties self, final String key) {
       final String value = self.getProperty(key);
       assertNotNull(key, value);
       return value;
     }
 
+    /**
+     * Sets an integer property.
+     * @param self Contains the integer property.
+     * @param key Name of the integer property.
+     * @param value Integer value to set.
+     * @return {@link #self} for fluency.
+     */
     public static Properties setInteger(
         final Properties self,
         final String key,
@@ -232,6 +249,14 @@ public class PlainTextSerializer extends AbstractSerializer {
       return self;
     }
 
+    /**
+     * Returns an integer property.
+     * @param self Contains the integer property.
+     * @param key Name of the integer property.
+     * @return Integer mapped-to by {@link #key}.
+     * @throws IllegalArgumentException When no valid integer is mapped-to by
+     * {@link #key}.
+     */
     public static int getInteger(final Properties self, final String key) {
       final String value = getValue(self, key);
       try {
@@ -245,6 +270,13 @@ public class PlainTextSerializer extends AbstractSerializer {
       }
     }
 
+    /**
+     * Sets a boolean property.
+     * @param self Contains the boolean property.
+     * @param key Name of the boolean property.
+     * @param value Boolean to set.
+     * @return {@link #self} for fluency.
+     */
     public static Properties setBoolean(
         final Properties self,
         final String key,
@@ -253,6 +285,14 @@ public class PlainTextSerializer extends AbstractSerializer {
       return self;
     }
 
+    /**
+     * Returns a boolean property.
+     * @param self Contains the boolean property.
+     * @param key Name of the boolean property.
+     * @return Boolean mapped-to by {@link #key}.
+     * @throws IllegalArgumentException When no valid boolean is mapped-to by
+     * {@link #key}.
+     */
     public static boolean getBoolean(final Properties self, final String key) {
       final String value = getValue(self, key);
       if ("true".equals(value)) {
@@ -267,6 +307,13 @@ public class PlainTextSerializer extends AbstractSerializer {
       throw new IllegalArgumentException(message);
     }
 
+    /**
+     * Sets a {@link Collection} property.
+     * @param self Contains the {@link Collection} property.
+     * @param key Name of the {@link Collection} property.
+     * @param collection {@link Collection} to set.
+     * @return {@link #self} for fluency.
+     */
     public static Properties setCollection(
         final Properties self,
         final String key,
@@ -275,6 +322,14 @@ public class PlainTextSerializer extends AbstractSerializer {
       return self;
     }
 
+    /**
+     * Returns a {@link Collection} property.
+     * @param self Contains the {@link Collection} property.
+     * @param key Name of the {@link Collection} property.
+     * @return {@link Collection} mapped-to by {@link #key}.
+     * @throws IllegalArgumentException When no {@link Collection} is mapped-to
+     * by {@link #key}.
+     */
     public static Collection<String> getCollection(
         final Properties self,
         final String key) {
@@ -283,6 +338,13 @@ public class PlainTextSerializer extends AbstractSerializer {
       return Arrays.asList(collection);
     }
 
+    /**
+     * Sets an {@link Algorithm} property.
+     * @param self Contains the {@link Algorithm} property.
+     * @param key Name of the {@link Algorithm} property.
+     * @param algorithm {@link Algorithm} to set.
+     * @return {@link #self} for fluency.
+     */
     public static Properties setAlgorithm(
         final Properties self,
         final String key,
@@ -291,6 +353,14 @@ public class PlainTextSerializer extends AbstractSerializer {
       return self;
     }
 
+    /**
+     * Returns an {@link Algorithm} property.
+     * @param self Contains the {@link Algorithm} property.
+     * @param key Name of the {@link Algorithm} property.
+     * @return {@link Algorithm} mapped-to by {@link #key}.
+     * @throws IllegalArgumentException When no {@link Algorithm} is mapped-to
+     * by {@link #key}.
+     */
     public static Algorithm getAlgorithm(
         final Properties self,
         final String key) {
@@ -298,6 +368,12 @@ public class PlainTextSerializer extends AbstractSerializer {
       return Algorithm.valueOf(value);
     }
 
+    /**
+     * Asserts that {@link #value} is not null.
+     * @param key Identifier for the value.
+     * @param value Value to assert-against.
+     * @throws IllegalArgumentException When value is null.
+     */
     private static void assertNotNull(final String key, final String value) {
       if (null == value) {
         final String message =

@@ -1,13 +1,11 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -139,26 +137,6 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
   @Override
   public ITransducerBuilder dictionary(@NonNull final Collection<String> dictionary) {
     return dictionary(dictionary, false);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public ITransducerBuilder dictionary(
-      @NonNull final InputStream stream,
-      final boolean isSorted) throws IOException {
-    this.dictionary = dawgFactory.build(stream, isSorted);
-    return this;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public ITransducerBuilder dictionary(
-      @NonNull final InputStream stream) throws IOException {
-    return dictionary(stream, false);
   }
 
   /**
@@ -335,6 +313,7 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
    * @since 2.1.2
    */
   @Deprecated
+  @EqualsAndHashCode(callSuper = false)
   private static class DeprecatedTransducerForLimitingNumberOfCandidates<CandidateType>
       extends Transducer<DawgNode, CandidateType> {
 
@@ -350,7 +329,13 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
      */
     @NonNull private final ITransducer<CandidateType> transducer;
 
-    public DeprecatedTransducerForLimitingNumberOfCandidates(
+    /**
+     * Constructs a new transducer that limits the number of spelling candidates
+     * it returns.
+     * @param elementsToTake Limit of spelling candidates to return.
+     * @param transducer Generates the spelling candidates which are limited.
+     */
+    DeprecatedTransducerForLimitingNumberOfCandidates(
         final int elementsToTake,
         final ITransducer<CandidateType> transducer) {
       super(((Transducer<DawgNode, CandidateType>) transducer).attributes());

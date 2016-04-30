@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased] - Currently in development
 
-## [2.2.1] - Friday, April 29, 2016
+## [2.2.2] - Saturday, April 30, 2016
 
 ### Added
 - Adds a plain text serializer that serializes dictionaries to

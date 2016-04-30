@@ -2,15 +2,12 @@ package com.github.dylon.liblevenshtein.task;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.InputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.AbstractMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.apache.commons.cli.AlreadySelectedException;
 import org.apache.commons.cli.CommandLine;
@@ -32,6 +29,8 @@ import org.stringtemplate.v4.ST;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -41,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
  * Boilerplate logic for task actions.
  */
 @Slf4j
+@SuppressWarnings("unchecked")
 public abstract class Action implements Runnable {
 
   /**
@@ -81,8 +81,7 @@ public abstract class Action implements Runnable {
    */
   @Getter(
     lazy = true,
-    value = AccessLevel.PROTECTED,
-    onMethod = @_(@SuppressWarnings("unchecked")))
+    value = AccessLevel.PROTECTED)
   private final Map<String, Object> projectArgs =
     new ImmutableMap.Builder<String, Object>()
       .put("meta", new ImmutableMap.Builder<String, Object>()
@@ -111,10 +110,15 @@ public abstract class Action implements Runnable {
         .build())
       .build();
 
+  /**
+   * Mapping of commands to their outputs.
+   * -- GETTER --
+   * Mapping of commands to their outputs.
+   * @return Mapping of commands to their outputs.
+   */
   @Getter(
     lazy = true,
-    value = AccessLevel.PROTECTED,
-    onMethod = @_(@SuppressWarnings("unchecked")))
+    value = AccessLevel.PROTECTED)
   private final Map<String, Map.Entry<String, String>> cmdArgs = buildCmdArgs();
 
   /**
@@ -166,6 +170,9 @@ public abstract class Action implements Runnable {
    * @param dir Where to execute the command
    * @param cmd Command to execute
    * @return Output of the command, with STDOUT and STDERR combined.
+   * @throws IOException When the output of the command cannot be read.
+   * @throws InterruptedException When interrupted while waiting for the command
+   * to finish executing.
    */
   protected Map.Entry<String, String> exec(final Path dir, final String... cmd)
       throws IOException, InterruptedException {
@@ -182,7 +189,8 @@ public abstract class Action implements Runnable {
     final StringBuilder buffer = new StringBuilder();
 
     try (final BufferedReader reader =
-        new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
+        new BufferedReader(
+          new InputStreamReader(proc.getInputStream(), StandardCharsets.UTF_8))) {
 
       final StringBuilder line = new StringBuilder();
 
@@ -281,6 +289,7 @@ public abstract class Action implements Runnable {
    * @param path Path render the template.
    * @throws IOException When the template cannot be rendered to {@link #path}.
    */
+  @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
   protected void renderTemplate(
       final String groupName,
       final String templateName,
@@ -288,13 +297,6 @@ public abstract class Action implements Runnable {
 
     STGroup.verbose = true; // debugging
     final STGroup group = new STGroupDir(groupName, '$', '$');
-
-    if (null == group) {
-    	final String message = String.format("Cannot find template group [%s]",
-    	  groupName);
-    	throw new IllegalStateException(message);
-    }
-
     final ST template = group.getInstanceOf(templateName);
 
     if (null == template) {
@@ -318,6 +320,10 @@ public abstract class Action implements Runnable {
     }
   }
 
+  /**
+   * Returns map of commands to their outputs.
+   * @return Map of commands to their outputs.
+   */
   @SneakyThrows({IOException.class, InterruptedException.class})
   private Map<String, Map.Entry<String, String>> buildCmdArgs() {
     final String githubRepo = cli.getOptionValue("github-repo");

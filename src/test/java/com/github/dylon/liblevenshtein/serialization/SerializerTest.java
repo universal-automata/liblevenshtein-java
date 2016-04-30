@@ -1,22 +1,17 @@
 package com.github.dylon.liblevenshtein.serialization;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -31,22 +26,15 @@ import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.github.dylon.liblevenshtein.collection.dawg.DawgNode;
 import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
-import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
-import com.github.dylon.liblevenshtein.collection.dawg.factory.PrefixFactory;
-import com.github.dylon.liblevenshtein.collection.dawg.factory.TransitionFactory;
 import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
 import com.github.dylon.liblevenshtein.levenshtein.Transducer;
-import com.github.dylon.liblevenshtein.levenshtein.TransducerAttributes;
 import com.github.dylon.liblevenshtein.levenshtein.factory.TransducerBuilder;
 
 import static com.github.dylon.liblevenshtein.assertion.SetAssertions.assertThat;
@@ -256,17 +244,6 @@ public class SerializerTest {
     final Path dictionaryPath = createTempFile("dictionary");
     try {
       final String dictionaryPathString = dictionaryPath.toString();
-      // FIXME: Cannot read from JimFS, path string ...
-      // java.nio.file.NoSuchFileException: /jimfs/dictionary-0de9501f-2fa8-4f44-8747-9bb73b81cee2.tmp
-      //    at sun.nio.fs.UnixException.translateToIOException(UnixException.java:86)
-      //    at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102)
-      //    at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107)
-      //    at sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:214)
-      //    at java.nio.file.spi.FileSystemProvider.newOutputStream(FileSystemProvider.java:434)
-      //    at java.nio.file.Files.newOutputStream(Files.java:216)
-      //    at com.github.dylon.liblevenshtein.serialization.AbstractSerializer.serialize(AbstractSerializer.java:33)
-      //    at com.github.dylon.liblevenshtein.serialization.AbstractSerializer.serialize(AbstractSerializer.java:59)
-      //    at com.github.dylon.liblevenshtein.serialization.SerializerTest.testSerializePathString(SerializerTest.java:258)
       serializer.serialize(dictionary, dictionaryPathString);
       final SortedDawg deserializedDictionary =
         serializer.deserialize(SortedDawg.class, dictionaryPathString);

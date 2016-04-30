@@ -3,7 +3,6 @@ package com.github.dylon.liblevenshtein.collection.dawg;
 import java.io.Serializable;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NonNull;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
@@ -14,8 +13,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
- * Element of a DAWG structure (Directed Acyclic Word Graph).  Currently, this
- * is tightly-coupled with character-node types.
+ * Non-final element of a DAWG structure (Directed Acyclic Word Graph).
+ * Currently, this is tightly-coupled with character-node types.
  * @author Dylon Edwards
  * @since 2.1.0
  */

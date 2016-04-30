@@ -21,6 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class AbstractSerializer implements Serializer {
 
+  /**
+   * Operates on filesystem paths.
+   * -- SETTER --
+   * Operates on filesystem paths.
+   * @param filesystem Operates on filesystem paths.
+   */
   @Setter
   @NonNull
   private FileSystem fileSystem = FileSystems.getDefault();

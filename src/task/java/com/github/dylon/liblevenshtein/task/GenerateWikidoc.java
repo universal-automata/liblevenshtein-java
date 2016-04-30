@@ -2,19 +2,13 @@ package com.github.dylon.liblevenshtein.task;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Map;
-import java.util.TreeMap;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import com.google.common.base.Joiner;
-
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
-
-import org.stringtemplate.v4.ST;
 
 /**
  * Generates the Wiki for this project.
@@ -23,6 +17,8 @@ import org.stringtemplate.v4.ST;
 public class GenerateWikidoc extends Action {
 
   /**
+   * Name of this action.
+   * -- GETTER --
    * {@inheritDoc}
    */
   @Getter(onMethod = @_(@Override), value = AccessLevel.PROTECTED)

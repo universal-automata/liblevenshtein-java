@@ -1,17 +1,11 @@
 package com.github.dylon.liblevenshtein.levenshtein;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -10,8 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
-import org.stringtemplate.v4.ST;
-
 /**
  * Generates the README.md for this project.
  */

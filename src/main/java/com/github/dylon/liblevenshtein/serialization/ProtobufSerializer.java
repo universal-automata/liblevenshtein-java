@@ -20,7 +20,6 @@ import com.github.dylon.liblevenshtein.collection.dawg.FinalDawgNode;
 import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
 import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
 import com.github.dylon.liblevenshtein.levenshtein.LibLevenshteinProtos;
-import com.github.dylon.liblevenshtein.levenshtein.ITransducer;
 import com.github.dylon.liblevenshtein.levenshtein.Transducer;
 import com.github.dylon.liblevenshtein.levenshtein.TransducerAttributes;
 import com.github.dylon.liblevenshtein.levenshtein.factory.TransducerBuilder;

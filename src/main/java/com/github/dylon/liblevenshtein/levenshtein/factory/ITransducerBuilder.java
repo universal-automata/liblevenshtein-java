@@ -1,7 +1,5 @@
 package com.github.dylon.liblevenshtein.levenshtein.factory;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -33,24 +31,6 @@ public interface ITransducerBuilder extends Serializable {
    * @return This {@link ITransducerBuilder} or an equivalent one, for fluency.
    */
   ITransducerBuilder dictionary(Collection<String> dictionary, boolean isSorted);
-
-  /**
-   * Specifies the collection of dictionary terms for the dictionary automaton,
-   * as an {@link InputStream}.
-   * @param stream {@link InputStream} containing the dictionary terms.
-   * @param isSorted Whether the dictionary is sorted.  If it is not sorted then
-   * it will probably be sorted.
-   * @return This {@link ITransducerBuilder} or an equivalent one, for fluency.
-   */
-  ITransducerBuilder dictionary(InputStream stream, boolean isSorted) throws IOException;
-
-  /**
-   * Specifies the collection of dictionary terms for the dictionary automaton,
-   * as an {@link InputStream}.
-   * @param stream {@link InputStream} containing the dictionary terms.
-   * @return This {@link ITransducerBuilder} or an equivalent one, for fluency.
-   */
-  ITransducerBuilder dictionary(InputStream stream) throws IOException;
 
   /**
    * Specifies what Levenshtein algorithm to use for the transducer.

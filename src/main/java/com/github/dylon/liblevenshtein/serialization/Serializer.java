@@ -6,9 +6,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.URI;
 import java.net.URL;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * (De)Serialization utilities for various interchange formats.
@@ -39,7 +37,7 @@ public interface Serializer {
   byte[] serialize(Serializable object) throws Exception;
 
   /**
-   * Serializes an object to some {@link Path}
+   * Serializes an object to some {@link Path}.
    * @param object Object to serialize.
    * @param path Where the serialized object should be written.
    * @throws Exception When the object cannot be serialized
@@ -50,7 +48,7 @@ public interface Serializer {
       Path path) throws Exception;
 
   /**
-   * Serializes an object to some {@link File}
+   * Serializes an object to some {@link File}.
    * @param object Object to serialize.
    * @param file Where the serialized object should be written.
    * @throws Exception When the object cannot be serialized
@@ -61,7 +59,7 @@ public interface Serializer {
       File file) throws Exception;
 
   /**
-   * Serializes an object to some {@link Path}
+   * Serializes an object to some {@link Path}.
    * @param object Object to serialize.
    * @param path Where the serialized object should be written.
    * @throws Exception When the object cannot be serialized
