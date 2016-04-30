@@ -2,13 +2,16 @@ package com.github.dylon.liblevenshtein.collection.dawg;
 
 import java.io.Serializable;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NonNull;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 import it.unimi.dsi.fastutil.chars.CharIterator;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * Element of a DAWG structure (Directed Acyclic Word Graph).  Currently, this
@@ -17,7 +20,6 @@ import it.unimi.dsi.fastutil.chars.CharIterator;
  * @since 2.1.0
  */
 @Data
-@AllArgsConstructor
 public class DawgNode implements IDawgNode<DawgNode>, Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -28,20 +30,16 @@ public class DawgNode implements IDawgNode<DawgNode>, Serializable {
    * Outgoing edges of this node.
    * @return Outgoing edges of this node.
    */
-  @NonNull private final Char2ObjectMap<DawgNode> edges;
+  @NonNull
+  protected final Char2ObjectMap<DawgNode> edges;
 
   /**
-   * Specifies whether this node represents the last character of some term.
-   * -- GETTER --
-   * Whether this node represents the last character of some term.
-   * @return Whether this node represents the last character of some term.
-   * -- SETTER --
-   * Specifies whether this node represents the last character of some term.
-   * @param isFinal Whether this node represents the last character of some term.
-   * @return This {@link DawgNode} for fluency.
+   * {@inheritDoc}
    */
-  @Getter(onMethod = @_(@Override))
-  private boolean isFinal = false;
+  @Override
+  public boolean isFinal() {
+    return false;
+  }
 
   /**
    * {@inheritDoc}
@@ -74,5 +72,52 @@ public class DawgNode implements IDawgNode<DawgNode>, Serializable {
   @Override
   public void clear() {
     edges.clear();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean equals(final Object object) {
+    if (null == object) {
+      return false;
+    }
+
+    if (this == object) {
+      return true;
+    }
+
+    if (!(object instanceof DawgNode)) {
+      return false;
+    }
+
+    final DawgNode other = (DawgNode) object;
+
+    return new EqualsBuilder()
+      .append(edges, other.edges)
+      .append(isFinal(), other.isFinal())
+      .isEquals();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public int hashCode() {
+    return new HashCodeBuilder(419, 181)
+      .append(edges)
+      .append(isFinal())
+      .toHashCode();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String toString() {
+    return new ToStringBuilder(this)
+      .append("edges", edges)
+      .append("isFinal", isFinal())
+      .toString();
   }
 }

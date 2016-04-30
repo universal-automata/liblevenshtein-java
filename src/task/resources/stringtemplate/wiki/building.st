@@ -1,28 +1,12 @@
-building(project) ::= <<
-[Home](Home) > [Building](building) > Java
+building(project, cmd) ::= <<
+[Index](index) > [Building](building)
 
-Run `gradle jar`.  That's it!  Gradle will download the required dependencies,
+Run `$cmd.gradleJar.key$`.  That's it!  Gradle will download the required dependencies,
 compile the sources and zip them into a Jar.  You may find the Jar at the
 following location: `build/libs/$project.maven.artifactId$-$project.maven.version$.jar`
 
-```
-% gradle jar
-:compileJava
-:processResources UP-TO-DATE
-:classes
-:jar
+$shell(project, cmd, ["gradleJar", "treeBuildLibs"])$
 
-BUILD SUCCESSFUL
-
-Total time: 4.116 secs
-
-% tree build/libs
-build/libs
-└── liblevenshtein-$project.maven.version$.jar
-
-0 directories, 1 file
-```
-
-[liblevenshtein](https://github.com/universal-automata/liblevenshtein) is maintained by [@dylon](https://github.com/dylon)
+$footer(project, cmd)$
 >>
 /* vim: set ft=ghmarkdown: */

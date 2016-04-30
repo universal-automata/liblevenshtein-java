@@ -1,5 +1,6 @@
 package com.github.dylon.liblevenshtein.serialization;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
@@ -8,10 +9,18 @@ import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 import it.unimi.dsi.fastutil.chars.Char2ObjectSortedMap;
 import it.unimi.dsi.fastutil.chars.Char2ObjectRBTreeMap;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+
+import com.google.protobuf.CodedInputStream;
+
 import com.github.dylon.liblevenshtein.collection.dawg.DawgNode;
+import com.github.dylon.liblevenshtein.collection.dawg.FinalDawgNode;
 import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
 import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
 import com.github.dylon.liblevenshtein.levenshtein.LibLevenshteinProtos;
+import com.github.dylon.liblevenshtein.levenshtein.ITransducer;
 import com.github.dylon.liblevenshtein.levenshtein.Transducer;
 import com.github.dylon.liblevenshtein.levenshtein.TransducerAttributes;
 import com.github.dylon.liblevenshtein.levenshtein.factory.TransducerBuilder;
@@ -19,8 +28,11 @@ import com.github.dylon.liblevenshtein.levenshtein.factory.TransducerBuilder;
 /**
  * (De)Serializer for Google's Protocol Buffer, data interchange format.
  */
+@Slf4j
+@ToString(callSuper = false)
 @SuppressWarnings("unchecked")
-public class ProtobufSerializer implements Serializer {
+@EqualsAndHashCode(callSuper = false)
+public class ProtobufSerializer extends AbstractSerializer {
 
   /**
    * Format of error messages about unknown types.
@@ -38,12 +50,7 @@ public class ProtobufSerializer implements Serializer {
       final Serializable object,
       final OutputStream stream) throws Exception {
 
-    if (object instanceof DawgNode) {
-      final DawgNode node = (DawgNode) object;
-      final LibLevenshteinProtos.DawgNode proto = protoOf(node);
-      proto.writeTo(stream);
-      return;
-    }
+    log.info("Deserializing an instance of [{}] from a stream", object.getClass());
 
     if (object instanceof SortedDawg) {
       final SortedDawg dawg = (SortedDawg) object;
@@ -69,11 +76,7 @@ public class ProtobufSerializer implements Serializer {
    */
   @Override
   public byte[] serialize(final Serializable object) throws Exception {
-    if (object instanceof DawgNode) {
-      final DawgNode node = (DawgNode) object;
-      final LibLevenshteinProtos.DawgNode proto = protoOf(node);
-      return proto.toByteArray();
-    }
+    log.info("Serializing an instance of [{}] to a byte array", object.getClass());
 
     if (object instanceof SortedDawg) {
       final SortedDawg dawg = (SortedDawg) object;
@@ -99,25 +102,25 @@ public class ProtobufSerializer implements Serializer {
    * {@inheritDoc}
    */
   @Override
-  public <Type> Type deserialize(
+  public <Type extends Serializable> Type deserialize(
       final Class<Type> type,
       final InputStream stream) throws Exception {
 
-    if (DawgNode.class.isAssignableFrom(type)) {
-      final LibLevenshteinProtos.DawgNode proto =
-        LibLevenshteinProtos.DawgNode.parseFrom(stream);
-      return (Type) modelOf(proto);
-    }
+    log.info("Deserializing an instance of [{}] from a stream", type);
+
+    final CodedInputStream protoStream = CodedInputStream.newInstance(stream);
+    protoStream.setRecursionLimit(Integer.MAX_VALUE);
+    protoStream.setSizeLimit(Integer.MAX_VALUE);
 
     if (SortedDawg.class.isAssignableFrom(type)) {
       final LibLevenshteinProtos.Dawg proto =
-        LibLevenshteinProtos.Dawg.parseFrom(stream);
+        LibLevenshteinProtos.Dawg.parseFrom(protoStream);
       return (Type) modelOf(proto);
     }
 
     if (Transducer.class.isAssignableFrom(type)) {
       final LibLevenshteinProtos.Transducer proto =
-        LibLevenshteinProtos.Transducer.parseFrom(stream);
+        LibLevenshteinProtos.Transducer.parseFrom(protoStream);
       return (Type) modelOf(proto);
     }
 
@@ -129,30 +132,13 @@ public class ProtobufSerializer implements Serializer {
    * {@inheritDoc}
    */
   @Override
-  public <Type> Type deserialize(
+  public <Type extends Serializable> Type deserialize(
       final Class<Type> type,
       final byte[] bytes) throws Exception {
-
-    if (DawgNode.class.isAssignableFrom(type)) {
-      final LibLevenshteinProtos.DawgNode proto =
-        LibLevenshteinProtos.DawgNode.parseFrom(bytes);
-      return (Type) modelOf(proto);
+    log.info("Deserializing an instance of [{}] from a byte array", type);
+    try (final InputStream stream = new ByteArrayInputStream(bytes)) {
+      return deserialize(type, stream);
     }
-
-    if (SortedDawg.class.isAssignableFrom(type)) {
-      final LibLevenshteinProtos.Dawg proto =
-        LibLevenshteinProtos.Dawg.parseFrom(bytes);
-      return (Type) modelOf(proto);
-    }
-
-    if (Transducer.class.isAssignableFrom(type)) {
-      final LibLevenshteinProtos.Transducer proto =
-        LibLevenshteinProtos.Transducer.parseFrom(bytes);
-      return (Type) modelOf(proto);
-    }
-
-    final String message = String.format(UNKNOWN_TYPE_S, type);
-    throw new IllegalArgumentException(message);
   }
 
   // Models
@@ -169,7 +155,10 @@ public class ProtobufSerializer implements Serializer {
       final char label = (char) edge.getCharKey();
       edges.put(label, modelOf(edge.getValue()));
     }
-    return new DawgNode(edges, proto.getIsFinal());
+    if (proto.getIsFinal()) {
+      return new FinalDawgNode(edges);
+    }
+    return new DawgNode(edges);
   }
 
   /**
@@ -226,7 +215,8 @@ public class ProtobufSerializer implements Serializer {
    * @return Prototype of the transducer.
    */
   protected LibLevenshteinProtos.Transducer protoOf(final Transducer<DawgNode, Object> transducer) {
-    final TransducerAttributes<DawgNode, Object> attributes = transducer.attributes();
+    final TransducerAttributes<DawgNode, Object> attributes =
+      transducer.attributes();
     return LibLevenshteinProtos.Transducer.newBuilder()
       .setDefaultMaxDistance(attributes.maxDistance())
       .setIncludeDistance(attributes.includeDistance())

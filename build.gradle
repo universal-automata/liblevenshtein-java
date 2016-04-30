@@ -19,9 +19,9 @@ repositories {
 
 group = 'com.github.dylon'
 archivesBaseName = name
-version = '2.2.1' // http://semver.org/
+version = '2.2.2' // http://semver.org/
 
-description = 'A library for generating Finite State Transducers based on Levenshtein Automata (keywords: fuzzy search; distance; metric; levenshtein; spelling correction; approximate string matching; automata; information retrieval; transducer).'
+description = 'A library for spelling-correction based on Levenshtein Automata.'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -29,6 +29,17 @@ targetCompatibility = 1.8
 ext {
   srcJava = "$projectDir/src/main/java"
   srcDelomboked = "$buildDir/src-delomboked/main/java"
+
+  githubOrg = 'universal-automata'
+  githubRepo = "liblevenshtein-java"
+  gitUri = "git@github.com:${githubOrg}/${githubRepo}.git"
+  gitBranch = "master"
+  //gitBranch = version
+  projectUrl = "https://github.com/${githubOrg}/${githubRepo}/"
+  projectAuthor = 'Dylon Edwards'
+  authorUsername = 'dylon'
+  authorEmail = "dylon.devo+${githubRepo}@gmail.com"
+  demoUrl = "http://${githubOrg}.github.io/${rootProject.name}/"
 
   def groupPart = group.replaceAll('\\.', '/')
   def pomFileName = "${name}-${version}.pom"
@@ -41,7 +52,11 @@ ext {
   sonatypeUsername = ""
   sonatypePassword = ""
 
-  wikidocDir = file("${projectDir}/wiki")
+  wikidocDir = file("${projectDir}/gh-pages/docs/wiki/${version}")
+  if (wikidocDir.exists() && !wikidocDir.deleteDir()) {
+    throw new IOException("Failed to delete wikidoc dir [${wikidocDir}]")
+  }
+  wikidocDir.mkdirs()
 }
 
 configurations {
@@ -76,19 +91,29 @@ dependencies {
   taskCompile 'com.google.code.findbugs:annotations:3.0.1'
   taskCompile 'com.google.guava:guava:19.0'
   taskCompile 'commons-cli:commons-cli:1.3.1'
+  taskCompile 'commons-io:commons-io:2.4'
   taskCompile 'org.antlr:ST4:4.0.8'
   taskCompile 'org.projectlombok:lombok:1.16.8'
   taskCompile 'org.slf4j:slf4j-api:1.7.21'
 
   taskRuntime 'ch.qos.logback:logback-classic:1.1.7'
   taskRuntime 'org.codehaus.groovy:groovy-all:2.4.6'
+  taskRuntime 'org.slf4j:jcl-over-slf4j:1.7.21'
+  taskRuntime 'org.slf4j:jul-to-slf4j:1.7.21'
+  taskRuntime 'org.slf4j:log4j-over-slf4j:1.7.21'
+  taskRuntime 'org.slf4j:osgi-over-slf4j:1.7.21'
 
+  testCompile 'com.google.jimfs:jimfs:1.1'
   testCompile 'org.assertj:assertj-core:3.4.1'
   testCompile 'org.mockito:mockito-all:1.10.19'
   testCompile 'org.testng:testng:6.9.11'
 
   testRuntime 'ch.qos.logback:logback-classic:1.1.7'
   testRuntime 'org.codehaus.groovy:groovy-all:2.4.6'
+  testRuntime 'org.slf4j:jcl-over-slf4j:1.7.21'
+  testRuntime 'org.slf4j:jul-to-slf4j:1.7.21'
+  testRuntime 'org.slf4j:log4j-over-slf4j:1.7.21'
+  testRuntime 'org.slf4j:osgi-over-slf4j:1.7.21'
 
   // JaCoCo (Plugin)
   jacocoAgent 'org.jacoco:org.jacoco.agent:0.7.6.201602180812'
@@ -133,6 +158,8 @@ test {
   }
 
   testLogging {
+    //events "passed", "skipped", "failed"
+    events "skipped", "failed"
     exceptionFormat "full"
     showStandardStreams true
     showExceptions true
@@ -147,12 +174,7 @@ def exec(classpath, mainClass, args=[]) {
     mainClass
   ] + args
 
-  def proc = new ProcessBuilder(command)
-    .redirectOutput(ProcessBuilder.Redirect.INHERIT)
-    .redirectInput(ProcessBuilder.Redirect.INHERIT)
-    .redirectError(ProcessBuilder.Redirect.INHERIT)
-    .start()
-
+  def proc = new ProcessBuilder(command).inheritIO().start()
   proc.waitFor()
 
   if (0 != proc.exitValue()) {
@@ -165,12 +187,21 @@ def execTask(mainClass, args=[]) {
   classpath += files(sourceSets.task.output.classesDir)
   classpath += files(sourceSets.task.output.resourcesDir)
   exec(classpath, mainClass, args + [
-    "--group-id", rootProject.group,
-    "--artifact-id", rootProject.name,
-    "--version", rootProject.version,
-    "--gradle-version", gradle.gradleVersion,
-    "--java-source-version", sourceCompatibility.toString(),
-    "--java-target-version", targetCompatibility.toString()
+    '--group-id', rootProject.group,
+    '--artifact-id', rootProject.name,
+    '--version', rootProject.version,
+    '--gradle-version', gradle.gradleVersion,
+    '--java-source-version', sourceCompatibility.toString(),
+    '--java-target-version', targetCompatibility.toString(),
+    '--github-org', githubOrg.toString(),
+    '--github-repo', githubRepo.toString(),
+    '--git-uri', gitUri.toString(),
+    '--git-branch', gitBranch.toString(),
+    '--project-url', projectUrl.toString(),
+    '--project-author', projectAuthor.toString(),
+    '--author-username', authorUsername.toString(),
+    '--author-email', authorEmail.toString(),
+    '--demo-url', demoUrl.toString()
   ])
 }
 
@@ -385,12 +416,12 @@ publishing {
           name rootProject.name
           inceptionYear '2014'
           description rootProject.description
-          url 'https://github.com/universal-automata/liblevenshtein-java/'
+          url projectUrl
           packaging 'jar'
           licenses {
             license {
               name 'MIT License'
-              url 'http://www.opensource.org/licenses/mit-license.php'
+              url "https://raw.githubusercontent.com/${githubOrg}/${githubRepo}/master/LICENSE"
               distribution 'repo'
             }
           }
@@ -404,12 +435,12 @@ publishing {
           }
           issueManagement {
             system 'GitHub Issues'
-            url 'https://github.com/universal-automata/liblevenshtein-java/issues'
+            url "${projectUrl}/issues"
           }
           scm {
-            url 'https://github.com/universal-automata/liblevenshtein-java'
-            connection 'scm:git:https://github.com/universal-automata/liblevenshtein-java.git'
-            developerConnection 'scm:git:git@github.com:universal-automata/liblevenshtein-java.git'
+            url projectUrl
+            connection "scm:git:https://github.com/${githubOrg}/${githubRepo}.git"
+            developerConnection "scm:git:git@github.com:${githubOrg}/${githubRepo}.git"
           }
         }
       }
@@ -440,7 +471,12 @@ task delombok {
 
 tasks.javadoc {
   dependsOn delombok
-  source = new FileNameFinder().getFileNames("$buildDir", '**/*.java')
+  source = new FileNameFinder().getFileNames("${buildDir}", '**/*.java')
+  destinationDir = file("${projectDir}/gh-pages/docs/javadoc/${version}")
+  if (destinationDir.exists() && !destinationDir.deleteDir()) {
+    throw new IOException("Failed to delete javadoc dir [${destinationDir}]")
+  }
+  destinationDir.mkdirs()
   options.optionFiles << file('javadoc.options')
 }
 

@@ -1,23 +1,24 @@
-testing(project) ::= <<
-[Home](Home) > [Testing](testing) > Java
+testing(project, cmd) ::= <<
+[Index](index) > [Testing](testing)
 
-Just run `gradle test`:
+# Testing
 
-```
-% gradle test
-:compileJava UP-TO-DATE
-:processResources UP-TO-DATE
-:classes UP-TO-DATE
-:compileTestJava
-:processTestResources
-:testClasses
-:test
+Run `gradle test`:
 
-BUILD SUCCESSFUL
+$shell(project, cmd, ["gradleTest"])$
 
-Total time: 6.173 secs
-```
+Note that if you want to ensure you are not testing against build artifacts,
+please run `gradle clean test`, instead.  It will be a little slower on
+successive runs, but will ensure no old, Java classes are left in the `build`
+directory.
 
-[liblevenshtein](https://github.com/universal-automata/liblevenshtein) is maintained by [@dylon](https://github.com/dylon)
+# Preparing for release
+
+Before releasing your code, or checking it back into the shared repositories,
+you should run all the checks against it and clean up any errors:
+
+$shell(project, cmd, ["gradleCheck"])$
+
+$footer(project, cmd)$
 >>
 /* vim: set ft=ghmarkdown: */

@@ -71,6 +71,22 @@ public class SortedDawg extends AbstractDawg {
    * @param factory Manages instances of DAWG nodes
    * @param transitionFactory Builds transitions that link {@link DawgNode}s
    * together.
+   */
+  public SortedDawg(
+      final IPrefixFactory<DawgNode> prefixFactory,
+      final IDawgNodeFactory<DawgNode> factory,
+      @NonNull final ITransitionFactory<DawgNode> transitionFactory) {
+    super(prefixFactory, factory);
+    this.transitionFactory = transitionFactory;
+  }
+
+  /**
+   * Constructs a new SortedDawg instance.
+   * @param prefixFactory Builds {@link DawgNode} prefixes for traversing the
+   * trie.
+   * @param factory Manages instances of DAWG nodes
+   * @param transitionFactory Builds transitions that link {@link DawgNode}s
+   * together.
    * @param terms Collection of terms to add to this dictionary. This is assumed
    * to be sorted ascendingly, in lexicographical order (case-sensitive),
    * because the behavior of the current DAWG implementation is unstable if it
@@ -81,8 +97,7 @@ public class SortedDawg extends AbstractDawg {
       final IDawgNodeFactory<DawgNode> factory,
       @NonNull final ITransitionFactory<DawgNode> transitionFactory,
       @NonNull final Collection<String> terms) {
-    super(prefixFactory, factory);
-    this.transitionFactory = transitionFactory;
+    this(prefixFactory, factory, transitionFactory);
     if (!addAll(terms)) {
       throw new IllegalStateException("Failed to add all terms");
     }
@@ -112,6 +127,12 @@ public class SortedDawg extends AbstractDawg {
           + "inserted in ascending order");
     }
 
+    // Special Case: Empty String
+    if (term.isEmpty()) {
+      root = factory.build(true);
+      return true;
+    }
+
     final int upperBound = (term.length() < previousTerm.length())
       ? term.length()
       : previousTerm.length();
@@ -132,15 +153,21 @@ public class SortedDawg extends AbstractDawg {
       ? root
       : uncheckedTransitions.peekFirst().target();
 
-    while (i < term.length()) {
+    for (int k = term.length() - 1; i < k; i += 1) {
       final char label = term.charAt(i);
       final DawgNode nextNode = factory.build();
+      uncheckedTransitions.addFirst(transitionFactory.build(node, label, nextNode));
+      node = nextNode;
+    }
+
+    if (i < term.length()) {
+      final char label = term.charAt(i);
+      final DawgNode nextNode = factory.build(true);
       uncheckedTransitions.addFirst(transitionFactory.build(node, label, nextNode));
       node = nextNode;
       i += 1;
     }
 
-    node.isFinal(true);
     previousTerm = term;
     size += 1;
     return true;
@@ -149,7 +176,7 @@ public class SortedDawg extends AbstractDawg {
   /**
    * Finishes processing the pending transitions.
    */
-  private void finish() {
+  public void finish() {
     minimize(0);
   }
 

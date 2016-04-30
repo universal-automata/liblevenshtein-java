@@ -1,5 +1,7 @@
 package com.github.dylon.liblevenshtein.collection.dawg.factory;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -33,6 +35,21 @@ public interface IDawgFactory
    * @return A new DAWG, containing the terms.
    */
   Dawg build(Collection<String> terms, boolean isSorted);
+
+  /**
+   * Returns a new DAWG.
+   * @param stream {@link InputStream} of terms.
+   * @return A new DAWG, containing the terms.
+   */
+  Dawg build(InputStream stream) throws IOException;
+
+  /**
+   * Returns a new DAWG.
+   * @param stream {@link InputStream} of terms.
+   * @param isSorted Whether terms has been sorted
+   * @return A new DAWG, containing the terms.
+   */
+  Dawg build(InputStream stream, boolean isSorted) throws IOException;
 
   /**
    * Returns the final function of the dictionary.

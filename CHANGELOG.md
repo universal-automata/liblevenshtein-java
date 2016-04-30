@@ -4,6 +4,27 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased] - Currently in development
 
+## [2.2.1] - Friday, April 29, 2016
+
+### Added
+- Adds a plain text serializer that serializes dictionaries to
+newline-delimited, text files and transducers to property files.
+- Adds support for reading dictionaries from streams, paths, files, URIs, and
+URLs.
+- Adds reference to liblevenshtein CLI.
+
+### Changed
+- Restores the sparsity to `DawgNode.isFinal()` by replacing the corresponding
+field with a method that always returns `false`, and adding a subclass,
+`FinalDawgNode`, that overrides `DawgNode.isFinal()` to always return `true`.
+- Moves the generated wiki to `gh-pages`
+- Improves the generated, wiki pages.
+- Converts the .gitignore to a whitelist from a blacklist
+
+### Fixed
+- Issue #40: ProtobufSerializer throws InvalidProtocolBufferException when
+  dictionary depth &gt; 100
+
 ## [2.2.1] - Monday, April 11, 2016
 
 ### Added
@@ -19,7 +40,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Removes the `shared` submodule.
 
 ### Security
-- Changes and drops the VersionEye, API key from [gradle.properties](https://github.com/universal-automata/liblevenshtein-java/blob/2.2.1/gradle.properties).
+- Changes and drops the VersionEye, API key from
+[gradle.properties][gradle-properties-2.2.1].
 
 ## [2.2.0] - Tuesday, April 5, 2016
 
@@ -29,9 +51,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [2.1.4] - Tuesday, April 5, 2016
 
 ### Added
-- Adds Gradle wrapper, `gradlew`, which should be used instead of the system `gradle`.
+- Adds Gradle wrapper, `gradlew`, which should be used instead of the system
+`gradle`.
 - Adds support for Coverity, VersionEye, Coveralls.
-- Adds Github badges for Coverity, VersionEye, Coveralls, Maven Central, and the MIT license.
+- Adds Github badges for Coverity, VersionEye, Coveralls, Maven Central, and the
+MIT license.
 
 ## [2.1.3] - Monday, April 4, 2016
 
@@ -64,9 +88,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Bugfixes and minor changes.
 
 ## [2.1.0] - Friday, July 3, 2015
-- Initial release of the Java port of [liblevenshtein](https://github.com/universal-automata/liblevenshtein).
+- Initial release of the Java port of [liblevenshtein][liblevenshtein].
 
-[unreleased]: https://github.com/universal-automata/liblevenshtein-java/compare/2.2.1...master
+[unreleased]: https://github.com/universal-automata/liblevenshtein-java/compare/2.2.2...master
+[2.2.2]: https://github.com/universal-automata/liblevenshtein-java/compare/2.2.1...2.2.2
 [2.2.1]: https://github.com/universal-automata/liblevenshtein-java/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/universal-automata/liblevenshtein-java/compare/2.1.4...2.2.0
 [2.1.4]: https://github.com/universal-automata/liblevenshtein-java/compare/2.1.3...2.1.4
@@ -74,3 +99,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [2.1.2]: https://github.com/universal-automata/liblevenshtein-java/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/universal-automata/liblevenshtein-java/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/universal-automata/liblevenshtein-java/compare/bdca39b3261a510095e12daf9af2f1bde846fee4...2.1.0
+
+[liblevenshtein]: https://github.com/universal-automata/liblevenshtein "liblevenshtein"
+
+[gradle-properties-2.2.1]: https://github.com/universal-automata/liblevenshtein-java/blob/2.2.1/gradle.properties "gradle.properties"

@@ -27,9 +27,7 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.PrefixFactory;
 import com.github.dylon.liblevenshtein.collection.dawg.factory.TransitionFactory;
-import com.github.dylon.liblevenshtein.serialization.BytecodeSerializer;
-import com.github.dylon.liblevenshtein.serialization.ProtobufSerializer;
-import com.github.dylon.liblevenshtein.serialization.Serializer;
+
 import static com.github.dylon.liblevenshtein.assertion.SetAssertions.assertThat;
 
 @Slf4j
@@ -81,24 +79,6 @@ public class DawgTest {
   @Test(dataProvider = "terms")
   public void dawgAcceptsAllItsTerms(final String term) {
     assertThat(fullDawg).contains(term);
-  }
-
-  @DataProvider(name = "serializers")
-  public Iterator<Object[]> serializers() {
-    final List<Object[]> serializers = new LinkedList<>();
-    serializers.add(new Object[] {new BytecodeSerializer()});
-    serializers.add(new Object[] {new ProtobufSerializer()});
-    return serializers.iterator();
-  }
-
-  @Test(dataProvider = "serializers")
-  public void testSerialization(final Serializer serializer) throws Exception {
-    byte[] bytes;
-
-    bytes = serializer.serialize(fullDawg);
-    final AbstractDawg actualDawg =
-      serializer.deserialize(SortedDawg.class, bytes);
-    assertThat(actualDawg).isEqualTo(fullDawg);
   }
 
   @Test

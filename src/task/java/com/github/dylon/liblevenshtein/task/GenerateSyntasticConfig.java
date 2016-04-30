@@ -41,11 +41,12 @@ public class GenerateSyntasticConfig extends Action {
     renderTemplate("stringtemplate", "syntastic", configPath);
   }
 
-	/**
-	 * {@inheritDoc}
-	 */
+  /**
+   * {@inheritDoc}
+   */
   @Override
-  protected void initTemplate(final ST template) {
+  protected void initTemplate(final ST template) throws Exception {
+    super.initTemplate(template);
     template.add("classpath", cli.getOptionValue("classpath"));
   }
 

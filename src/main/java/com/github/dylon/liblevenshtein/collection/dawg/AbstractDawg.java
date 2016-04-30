@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,8 +22,6 @@ import com.github.dylon.liblevenshtein.collection.dawg.factory.IPrefixFactory;
  * @since 2.1.0
  */
 @Slf4j
-@ToString(of = {"size", "root"},
-          callSuper = false)
 @EqualsAndHashCode(of = {"size", "root"},
                    callSuper = false)
 public abstract class AbstractDawg
@@ -50,7 +47,7 @@ public abstract class AbstractDawg
    * @return Root node of this trie.
    */
   @Getter(onMethod = @_({@Override}))
-  protected final DawgNode root;
+  protected DawgNode root = null;
 
   /**
    * Number of terms in this trie.
@@ -125,11 +122,11 @@ public abstract class AbstractDawg
   public synchronized boolean addAll(final Collection<? extends String> terms) {
     int counter = 0;
     for (final String term : terms) {
-      if (++counter % 10_000 == 0) {
-        log.info("Added [{}] of [{}] terms", counter, terms.size());
-      }
       if (!add(term)) {
         return false;
+      }
+      if (++counter % 10_000 == 0) {
+        log.info("Added [{}] of [{}] terms", counter, terms.size());
       }
     }
     return true;
@@ -181,5 +178,10 @@ public abstract class AbstractDawg
   @Override
   public boolean replaceAll(final Collection<? extends Map.Entry<String, String>> c) {
     throw new UnsupportedOperationException("replaceAll is not supported");
+  }
+
+  @Override
+  public String toString() {
+    return String.format("%s(size=%d)", getClass().getSimpleName(), size);
   }
 }

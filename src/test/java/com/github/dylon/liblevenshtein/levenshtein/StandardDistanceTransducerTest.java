@@ -2,6 +2,7 @@ package com.github.dylon.liblevenshtein.levenshtein;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -17,16 +18,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import lombok.val;
 
+import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
 import com.github.dylon.liblevenshtein.levenshtein.distance.MemoizedStandard;
 import com.github.dylon.liblevenshtein.levenshtein.factory.TransducerBuilder;
-import com.github.dylon.liblevenshtein.serialization.BytecodeSerializer;
 import com.github.dylon.liblevenshtein.serialization.ProtobufSerializer;
 import com.github.dylon.liblevenshtein.serialization.Serializer;
 import static com.github.dylon.liblevenshtein.assertion.CandidateAssertions.assertThat;
 import static com.github.dylon.liblevenshtein.assertion.SetAssertions.assertThat;
 
 @SuppressWarnings("unchecked")
-public class StandardDistanceTransducerTest extends AbstractTransducerTest {
+public class StandardDistanceTransducerTest {
   private static final int MAX_DISTANCE = 3;
   private static final String QUERY_TERM = "Jvaa";
 
@@ -34,17 +35,17 @@ public class StandardDistanceTransducerTest extends AbstractTransducerTest {
   private Set<Candidate> expectedCandidates;
 
   @BeforeTest
-  public void setUp() throws IOException {
-    try (final InputStream istream =
-        getClass().getResourceAsStream("/programming-languages.txt")) {
+  public void setUp() throws Exception {
+    final URL dictionaryUrl =
+      getClass().getResource("/programming-languages.protobuf.bytes");
+    final Serializer serializer = new ProtobufSerializer();
+    final SortedDawg dictionary =
+      serializer.deserialize(SortedDawg.class, dictionaryUrl);
 
-      final Collection<String> dictionary = readLines(istream);
-
-      this.transducer = new TransducerBuilder()
-        .defaultMaxDistance(MAX_DISTANCE)
-        .dictionary(dictionary, true)
-        .build();
-    }
+    this.transducer = new TransducerBuilder()
+      .defaultMaxDistance(MAX_DISTANCE)
+      .dictionary(dictionary, true)
+      .build();
 
     this.expectedCandidates = new HashSet<>();
     expectedCandidates.add(new Candidate("Java", 2));
@@ -82,23 +83,6 @@ public class StandardDistanceTransducerTest extends AbstractTransducerTest {
     expectedCandidates.add(new Candidate("Trac", 3));
     expectedCandidates.add(new Candidate("Vala", 3));
     expectedCandidates.add(new Candidate("Vvvv", 3));
-  }
-
-  @DataProvider(name = "serializers")
-  public Iterator<Object[]> serializers() {
-    final List<Object[]> serializers = new LinkedList<>();
-    serializers.add(new Object[] {new BytecodeSerializer()});
-    serializers.add(new Object[] {new ProtobufSerializer()});
-    return serializers.iterator();
-  }
-
-  @Test(dataProvider = "serializers")
-  public void testSerialization(final Serializer serializer) throws Exception {
-    final byte[] bytes = serializer.serialize(transducer);
-    final ITransducer<Candidate> actualTransducer =
-      (ITransducer<Candidate>)
-        serializer.deserialize(Transducer.class, bytes);
-    assertThat(actualTransducer).isEqualTo(transducer);
   }
 
   @Test

@@ -6,6 +6,7 @@ import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 import it.unimi.dsi.fastutil.chars.Char2ObjectRBTreeMap;
 
 import com.github.dylon.liblevenshtein.collection.dawg.DawgNode;
+import com.github.dylon.liblevenshtein.collection.dawg.FinalDawgNode;
 
 /**
  * Builds nodes for use in DAWG structures. This implementation uses an object
@@ -32,6 +33,11 @@ public class DawgNodeFactory implements IDawgNodeFactory<DawgNode>, Serializable
   @Override
   public DawgNode build(final boolean isFinal) {
     final Char2ObjectMap<DawgNode> edges = new Char2ObjectRBTreeMap<>();
-    return new DawgNode(edges, isFinal);
+
+    if (isFinal) {
+      return new FinalDawgNode(edges);
+    }
+
+    return new DawgNode(edges);
   }
 }

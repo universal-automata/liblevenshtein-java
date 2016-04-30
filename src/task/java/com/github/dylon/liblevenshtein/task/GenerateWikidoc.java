@@ -2,10 +2,14 @@ package com.github.dylon.liblevenshtein.task;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
+import java.util.TreeMap;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+
+import com.google.common.base.Joiner;
 
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -19,7 +23,7 @@ import org.stringtemplate.v4.ST;
 public class GenerateWikidoc extends Action {
 
   /**
-   * Name of this action.
+   * {@inheritDoc}
    */
   @Getter(onMethod = @_(@Override), value = AccessLevel.PROTECTED)
   private final String name = "GenerateWikidoc";
@@ -39,17 +43,19 @@ public class GenerateWikidoc extends Action {
   public void runInternal() throws Exception {
     final Path wikidocDir = Paths.get(cli.getOptionValue("wiki-path"));
 
-    final String groupName = "stringtemplate/wiki/";
+    final String groupName = "stringtemplate";
 
-    final String[] templateNames = {
+    final String[] wikiNames = {
+      "index",
       "installation",
       "building",
       "testing",
       "usage",
     };
 
-    for (final String templateName : templateNames) {
-      final Path wikidocPath = wikidocDir.resolve(templateName + ".java.md");
+    for (final String wikiName : wikiNames) {
+      final String templateName = String.format("/wiki/%s", wikiName);
+      final Path wikidocPath = wikidocDir.resolve(wikiName + ".md");
       renderTemplate(groupName, templateName, wikidocPath);
     }
   }

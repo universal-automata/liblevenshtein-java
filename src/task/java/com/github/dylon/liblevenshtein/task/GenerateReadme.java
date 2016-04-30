@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
+import org.stringtemplate.v4.ST;
+
 /**
  * Generates the README.md for this project.
  */
@@ -36,7 +38,7 @@ public class GenerateReadme extends Action {
   @Override
   public void runInternal() throws Exception {
     final Path readmePath = Paths.get(cli.getOptionValue("readme-path"));
-    renderTemplate("stringtemplate", "README", readmePath);
+    renderTemplate("stringtemplate", "readme", readmePath);
   }
 
   /**
