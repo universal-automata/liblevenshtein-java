@@ -62,5 +62,7 @@ bibliography(project, cmd) ::= <<
 [src/ITransducer]: https://github.com/universal-automata/liblevenshtein-java/blob/$project.maven.version$/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/TransducerBuilder.java "TransducerBuilder.java"
 [src/TransducerBuilder.java]: https://github.com/universal-automata/liblevenshtein-java/blob/$project.maven.version$/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/TransducerBuilder.java "TransducerBuilder.java"
 [src/build.gradle]: https://github.com/universal-automata/liblevenshtein-java/blob/$project.maven.version$/build.gradle "build.gradle"
+
+[top-20-most-common-english-words.txt]: https://raw.githubusercontent.com/universal-automata/liblevenshtein-java/$project.maven.version$/src/test/resources/top-20-most-common-english-words.txt "top-20-most-common-english-words.txt"
 >>
 /* vim: set ft=ghmarkdown: */

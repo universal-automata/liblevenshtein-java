@@ -1,5 +1,5 @@
 testing(project, cmd) ::= <<
-[Index](index) > [Testing](testing)
+[Index](index.md) > [Testing](testing.md)
 
 # Testing
 

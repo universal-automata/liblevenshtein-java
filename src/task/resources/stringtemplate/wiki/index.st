@@ -1,5 +1,5 @@
 index(project, cmd) ::= <<
-[Index](index)
+[Index](index.md)
 
 ### A library for generating Finite State Transducers based on Levenshtein Automata.
 
@@ -22,7 +22,7 @@ of appearing together).
 
 For a quick demonstration, please visit the [Github Page, here][github-demo].
 
-[Installation](installation)
+[Installation](installation.md)
 ----------------------------
 
 Below, you will find instructions for how to clone
@@ -31,20 +31,20 @@ submodules, which include the source code for all supported languages:
 
 $/installation/all(project, cmd, "###")$
 
-[Building](building)
+[Building](building.md)
 --------------------
 
 $/wiki/shell(project, cmd, ["gradleJar"])$
 
-[Testing](testing)
+[Testing](testing.md)
 ------------------
 
 $/wiki/shell(project, cmd, ["gradleCheck"])$
 
-[Usage](usage)
+[Usage](usage.md)
 --------------
 
-[History](history)
+History
 ------------------
 
 Based largely on the works of [Stoyan Mihov][stoyan-mihov],

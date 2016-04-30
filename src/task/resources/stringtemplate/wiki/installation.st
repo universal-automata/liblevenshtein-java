@@ -1,9 +1,9 @@
 installation(project, cmd) ::= <<
-[Index](index) > [Installation](installation)
+[Index](index.md) > [Installation](installation.md)
 
 $/installation/all(project, cmd, "")$
 
-Then, [build the library](building).
+Then, [build the library](building.md).
 
 $footer(project, cmd)$
 >>

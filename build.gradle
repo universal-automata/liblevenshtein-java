@@ -53,6 +53,7 @@ ext {
   sonatypePassword = ""
 
   wikidocDir = file("${projectDir}/gh-pages/docs/wiki/${version}")
+  latestWikidocDir = file("${projectDir}/gh-pages/docs/wiki/latest")
 }
 
 configurations {
@@ -244,6 +245,10 @@ task wikidoc(dependsOn: taskClasses) {
     execTask('com.github.dylon.liblevenshtein.task.GenerateWikidoc', [
       "--wiki-path", wikidocDir.path
     ])
+    copy {
+      from wikidocDir
+      into latestWikidocDir
+    }
   }
 }
 
