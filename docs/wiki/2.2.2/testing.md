@@ -1,4 +1,4 @@
-[Index](index) > [Testing](testing)
+[Index](index.md) > [Testing](testing.md)
 
 # Testing
 

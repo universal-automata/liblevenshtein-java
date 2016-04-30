@@ -1,4 +1,4 @@
-[Index](index) > [Installation](installation)
+[Index](index.md) > [Installation](installation.md)
 
 # Installation
 
@@ -86,7 +86,7 @@ HEAD is now at 231d34b... Updates git version to 2.2.2 in build.gradle
 
 ```
 
-Then, [build the library](building).
+Then, [build the library](building.md).
 
 [liblevenshtein-java][github-repo] is maintained by[@dylon][github-author] ([dylon.devo+liblevenshtein-java@gmail.com][github-email])
 

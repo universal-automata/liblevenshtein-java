@@ -1,4 +1,4 @@
-[Index](index)
+[Index](index.md)
 
 ### A library for generating Finite State Transducers based on Levenshtein Automata.
 
@@ -21,7 +21,7 @@ of appearing together).
 
 For a quick demonstration, please visit the [Github Page, here][github-demo].
 
-[Installation](installation)
+[Installation](installation.md)
 ----------------------------
 
 Below, you will find instructions for how to clone
@@ -114,7 +114,7 @@ HEAD is now at 231d34b... Updates git version to 2.2.2 in build.gradle
 
 ```
 
-[Building](building)
+[Building](building.md)
 --------------------
 
 ```
@@ -144,7 +144,7 @@ This build could be faster, please consider using the Gradle Daemon: https://doc
 
 ```
 
-[Testing](testing)
+[Testing](testing.md)
 ------------------
 
 ```
@@ -280,10 +280,10 @@ Total time: 53.276 secs
 This build could be faster, please consider using the Gradle Daemon: https://docs.gradle.org/2.12/userguide/gradle_daemon.html
 ```
 
-[Usage](usage)
+[Usage](usage.md)
 --------------
 
-[History](history)
+History
 ------------------
 
 Based largely on the works of [Stoyan Mihov][stoyan-mihov],

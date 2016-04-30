@@ -1,8 +1,8 @@
-[Index](index) > [Usage](usage)
+[Index](index.md) > [Usage](usage.md)
 
-If you've [installed the Maven artifact](installation), just use it in your
+If you've [installed the Maven artifact](installation.md), just use it in your
 project as any other dependency.  If you've
-[built liblevenshtein from Git](building), add it and the other dependencies
+[built liblevenshtein from Git](building.md), add it and the other dependencies
 listed in the [`build.gradle`][src/build.gradle] file to your Java classpath.
 
 Note that liblevenshtein has been developed against
