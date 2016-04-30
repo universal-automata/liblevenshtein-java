@@ -10,10 +10,10 @@ following location: `build/libs/liblevenshtein-2.2.2.jar`
 :extractProto
 :generateProto
 :compileJavawarning: No processor claimed any of these annotations: lombok.Setter,lombok.experimental.ExtensionMethod,lombok.Getter,lombok.NonNull,lombok.RequiredArgsConstructor,lombok.EqualsAndHashCode,lombok.Value,lombok.extern.slf4j.Slf4j,lombok.ToString,lombok.Data,lombok.AllArgsConstructor,lombok.NoArgsConstructor
-/tmp/GenerateWikidoc-3258287159297476061/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:50: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-9159085470689403334/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:50: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
       return new CandidateCollection.WithDistance(maxCandidates);
                  ^
-/tmp/GenerateWikidoc-3258287159297476061/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:70: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-9159085470689403334/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:70: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
       return new CandidateCollection.WithoutDistance(maxCandidates);
                  ^
 3 warnings
@@ -24,7 +24,7 @@ following location: `build/libs/liblevenshtein-2.2.2.jar`
 
 BUILD SUCCESSFUL
 
-Total time: 6.743 secs
+Total time: 6.84 secs
 
 This build could be faster, please consider using the Gradle Daemon: https://docs.gradle.org/2.12/userguide/gradle_daemon.html
 

@@ -55,11 +55,11 @@ libraryDependencies += "com.github.dylon" % "liblevenshtein" % "2.2.2"
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-remote: Counting objects: 3437, done.        
-remote: Compressing objects: 100% (85/85), done.        
-remote: Total 3437 (delta 31), reused 0 (delta 0), pack-reused 3317        
-Receiving objects: 100% (3437/3437), 1.58 MiB | 2.25 MiB/s, done.
-Resolving deltas: 100% (1646/1646), done.
+remote: Counting objects: 3670, done.        
+remote: Compressing objects: 100% (310/310), done.        
+remote: Total 3670 (delta 212), reused 0 (delta 0), pack-reused 3317        
+Receiving objects: 100% (3670/3670), 2.27 MiB | 2.92 MiB/s, done.
+Resolving deltas: 100% (1827/1827), done.
 Checking connectivity... done.
 
 % cd liblevenshtein-java
@@ -67,9 +67,19 @@ Checking connectivity... done.
 Already up-to-date.
 
 % git fetch --progress --tags
-% git checkout --progress master
-Already on 'master'
-Your branch is up-to-date with 'origin/master'.
+% git checkout --progress 2.2.2
+Note: checking out '2.2.2'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at 231d34b... Updates git version to 2.2.2 in build.gradle
 
 % git submodule init
 % git submodule update
