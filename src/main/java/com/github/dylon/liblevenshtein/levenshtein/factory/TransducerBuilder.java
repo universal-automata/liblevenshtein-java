@@ -335,6 +335,7 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
      * @param elementsToTake Limit of spelling candidates to return.
      * @param transducer Generates the spelling candidates which are limited.
      */
+    @SuppressWarnings("unchecked")
     DeprecatedTransducerForLimitingNumberOfCandidates(
         final int elementsToTake,
         final ITransducer<CandidateType> transducer) {

@@ -84,7 +84,7 @@ public class DawgFactory implements IDawgFactory<DawgNode, AbstractDawg>, Serial
         Collections.sort((List<String>) terms);
       }
       else if (!(terms instanceof SortedDawg)) {
-        return build(new ArrayList<String>(terms), false);
+        return build(new ArrayList<>(terms), false);
       }
     }
 

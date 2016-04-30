@@ -11,9 +11,12 @@ import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.TreeSet;
 
@@ -119,9 +122,13 @@ public class PlainTextSerializer extends AbstractSerializer {
    * @return Sorted version of dictionary.
    */
   private Collection<String> dictionaryFor(@NonNull final SortedDawg dictionary) {
-    return isSorted
-      ? new TreeSet<>(dictionary)
-      : dictionary;
+    if (!isSorted) {
+      return dictionary;
+    }
+
+    final List<String> sorted = new ArrayList<>(dictionary);
+    Collections.sort(sorted);
+    return sorted;
   }
 
   /**

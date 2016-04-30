@@ -379,7 +379,8 @@ public class SerializerTest {
   }
 
   private SortedDawg buildDictionary() throws Exception {
-    final URL dictionaryUrl = getClass().getResource("/wordsEn.protobuf.bytes");
+    final URL dictionaryUrl = getClass()
+      .getResource("/top-20-most-common-english-words.protobuf.bytes");
     final Serializer serializer = new ProtobufSerializer();
     return serializer.deserialize(SortedDawg.class, dictionaryUrl);
   }
