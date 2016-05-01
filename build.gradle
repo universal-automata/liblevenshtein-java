@@ -33,8 +33,8 @@ ext {
   githubOrg = 'universal-automata'
   githubRepo = "liblevenshtein-java"
   gitUri = "git@github.com:${githubOrg}/${githubRepo}.git"
-  //gitBranch = "master"
-  gitBranch = version
+  gitBranch = "master"
+  //gitBranch = version
   projectUrl = "https://github.com/${githubOrg}/${githubRepo}/"
   projectAuthor = 'Dylon Edwards'
   authorUsername = 'dylon'
