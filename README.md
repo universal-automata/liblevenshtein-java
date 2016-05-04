@@ -116,11 +116,11 @@ libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "2.2
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-remote: Counting objects: 3879, done.        
-remote: Compressing objects: 100% (511/511), done.        
-remote: Total 3879 (delta 373), reused 0 (delta 0), pack-reused 3317        
-Receiving objects: 100% (3879/3879), 2.83 MiB | 1.81 MiB/s, done.
-Resolving deltas: 100% (1988/1988), done.
+remote: Counting objects: 4325, done.        
+remote: Compressing objects: 100% (941/941), done.        
+remote: Total 4325 (delta 730), reused 0 (delta 0), pack-reused 3317        
+Receiving objects: 100% (4325/4325), 2.95 MiB | 2.06 MiB/s, done.
+Resolving deltas: 100% (2345/2345), done.
 Checking connectivity... done.
 
 % cd liblevenshtein-java
@@ -331,7 +331,7 @@ For more information, please see the [wiki][wiki].
 [master-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/master
 [release-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/release
 
-[wiki]: http://universal-automata.github.io/liblevenshtein-java/docs/wiki/2.2.3-alpha.9/index.md "liblevenshtein 2.2.3-alpha.9 Wiki"
+[wiki]: https://github.com/universal-automata/liblevenshtein-java/blob/gh-pages/docs/wiki/2.2.3-alpha.9/index.md "liblevenshtein 2.2.3-alpha.9 Wiki"
 [javadoc]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/2.2.3-alpha.9/index.html "liblevenshtein 2.2.3-alpha.9 API"
 [tagged-source]: https://github.com/universal-automata/liblevenshtein-java/tree/2.2.3-alpha.9/src "liblevenshtein 2.2.3-alpha.9"
 

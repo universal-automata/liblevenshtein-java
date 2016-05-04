@@ -28,7 +28,7 @@ bibliography(project, cmd) ::= <<
 [master-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/master
 [release-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/release
 
-[wiki]: http://universal-automata.github.io/liblevenshtein-java/docs/wiki/$project.maven.version$/index.md "$project.maven.artifactId$ $project.maven.version$ Wiki"
+[wiki]: https://github.com/universal-automata/liblevenshtein-java/blob/gh-pages/docs/wiki/$project.maven.version$/index.md "$project.maven.artifactId$ $project.maven.version$ Wiki"
 [javadoc]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/$project.maven.version$/index.html "$project.maven.artifactId$ $project.maven.version$ API"
 [tagged-source]: https://github.com/universal-automata/liblevenshtein-java/tree/$project.maven.version$/src "$project.maven.artifactId$ $project.maven.version$"
 
