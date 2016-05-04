@@ -107,7 +107,7 @@ MIT license.
 - Initial release of the Java port of [liblevenshtein][liblevenshtein].
 
 [unreleased]: https://github.com/universal-automata/liblevenshtein-java/compare/2.2.3...master
-[2.2.2]: https://github.com/universal-automata/liblevenshtein-java/compare/2.2.2...2.2.3
+[2.2.3]: https://github.com/universal-automata/liblevenshtein-java/compare/2.2.2...2.2.3
 [2.2.2]: https://github.com/universal-automata/liblevenshtein-java/compare/2.2.1...2.2.2
 [2.2.1]: https://github.com/universal-automata/liblevenshtein-java/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/universal-automata/liblevenshtein-java/compare/2.1.4...2.2.0
