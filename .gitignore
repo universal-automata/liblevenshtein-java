@@ -21,11 +21,12 @@ gh-pages/
 !/gradlew
 !/gradlew.bat
 !/javadoc.options
+!/scripts/release
 !/settings.gradle
 !/src/*/java/**/*.java
 !/src/*/java/**/lombok.config
 !/src/*/resources/logback.groovy
 !/src/main/proto/**/*.proto
 !/src/task/resources/stringtemplate/**/*.st
-!/src/test/resources/**/*.txt
 !/src/test/resources/**/*.bytes
+!/src/test/resources/**/*.txt

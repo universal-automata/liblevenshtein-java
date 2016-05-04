@@ -1,0 +1,63 @@
+#!/bin/env bash
+
+set -ev
+
+declare -r PROJECT_VERSION="$(./gradlew printVersion --quiet)"
+
+if [[ ! "${PROJECT_VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+  echo "Expected a release version (version =~ ^[0-9]+\.[0-9]+\.[0-9]+$), not the development version ${PROJECT_VERSION}" 1>&2
+  exit 1
+fi
+
+echo "Doing a clean+check to make sure code quality is up-to-par ..."
+./gradlew clean check
+
+echo "Generating readme ..."
+
+./gradlew readme
+
+declare -r GENDOC_MESSAGE="Automatically-generated documentation for version ${PROJECT_VERSION}"
+
+git add -A
+git commit -m "${GENDOC_MESSAGE}"
+git push origin master
+
+echo "Generating wiki and Java documentation ..."
+
+./gradlew wikidoc javadoc
+
+pushd gh-pages
+git add -A
+git commit -m "${GENDOC_MESSAGE}"
+git push origin gh-pages
+popd
+
+echo "Merging master into release ..."
+git checkout release
+git merge master
+git push origin release
+
+echo "Tagging new release ${PROJECT_VERSION} ..."
+git tag "${PROJECT_VERSION}"
+git push --tags
+
+git checkout master
+
+echo "Updating submodules in universal-automata/liblevenshtein ..."
+declare -r TMP_DIR="$(mktemp -d)"
+pushd "${TMP_DIR}"
+git clone 'git@github.com:universal-automata/liblevenshtein.git'
+cd liblevenshtein
+git submodule init
+git submodule update
+pushd java
+git fetch
+git checkout release
+popd
+git add -A
+git commit -m "Updating the java, submodule to version ${PROJECT_VERSION}"
+git push origin master
+popd
+rm -rf "${TMP_DIR}"
+
+# vim: set et sta:
