@@ -80,12 +80,12 @@ For more information, please see the [wiki][wiki].
 
 [top-20-most-common-english-words.txt]: https://raw.githubusercontent.com/universal-automata/liblevenshtein-java/$project.maven.version$/src/test/resources/top-20-most-common-english-words.txt "top-20-most-common-english-words.txt"
 
-[maven-version-badge]: https://maven-badges.herokuapp.com/maven-central/com.github.dylon/liblevenshtein/badge.svg
-[maven-repo]: https://maven-badges.herokuapp.com/maven-central/com.github.dylon/liblevenshtein
+[maven-version-badge]: https://maven-badges.herokuapp.com/maven-central/$project.maven.groupId$/$project.maven.artifactId$/badge.svg
+[maven-repo]: https://maven-badges.herokuapp.com/maven-central/$project.maven.groupId$/$project.maven.artifactId$
 [bintray-repo]: https://bintray.com/universal-automata/liblevenshtein/liblevenshtein-java/_latestVersion
 [bintray-badge]: https://api.bintray.com/packages/universal-automata/liblevenshtein/liblevenshtein-java/images/download.svg
-[maven-refs-badge]: https://www.versioneye.com/java/com.github.dylon:liblevenshtein/reference_badge.svg
-[maven-refs]: https://www.versioneye.com/java/com.github.dylon:liblevenshtein/references
+[maven-refs-badge]: https://www.versioneye.com/java/$project.maven.groupId$:$project.maven.artifactId$/reference_badge.svg
+[maven-refs]: https://www.versioneye.com/java/$project.maven.groupId$:$project.maven.artifactId$/references
 [license-badge]: https://img.shields.io/github/license/universal-automata/liblevenshtein-java.svg
 [license]: https://raw.githubusercontent.com/universal-automata/liblevenshtein-java/master/LICENSE
 [build-status-badge]: https://travis-ci.org/universal-automata/liblevenshtein-java.svg?branch=master

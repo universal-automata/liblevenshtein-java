@@ -116,11 +116,11 @@ libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "2.2
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-remote: Counting objects: 4325, done.        
-remote: Compressing objects: 100% (941/941), done.        
-remote: Total 4325 (delta 730), reused 0 (delta 0), pack-reused 3317        
-Receiving objects: 100% (4325/4325), 2.95 MiB | 2.06 MiB/s, done.
-Resolving deltas: 100% (2345/2345), done.
+remote: Counting objects: 4344, done.        
+remote: Compressing objects: 100% (960/960), done.        
+remote: Total 4344 (delta 739), reused 0 (delta 0), pack-reused 3317        
+Receiving objects: 100% (4344/4344), 3.13 MiB | 2.34 MiB/s, done.
+Resolving deltas: 100% (2354/2354), done.
 Checking connectivity... done.
 
 % cd liblevenshtein-java
@@ -281,12 +281,12 @@ For more information, please see the [wiki][wiki].
 
 [top-20-most-common-english-words.txt]: https://raw.githubusercontent.com/universal-automata/liblevenshtein-java/2.2.3-alpha.9/src/test/resources/top-20-most-common-english-words.txt "top-20-most-common-english-words.txt"
 
-[maven-version-badge]: https://maven-badges.herokuapp.com/maven-central/com.github.dylon/liblevenshtein/badge.svg
-[maven-repo]: https://maven-badges.herokuapp.com/maven-central/com.github.dylon/liblevenshtein
+[maven-version-badge]: https://maven-badges.herokuapp.com/maven-central/com.github.universal-automata/liblevenshtein/badge.svg
+[maven-repo]: https://maven-badges.herokuapp.com/maven-central/com.github.universal-automata/liblevenshtein
 [bintray-repo]: https://bintray.com/universal-automata/liblevenshtein/liblevenshtein-java/_latestVersion
 [bintray-badge]: https://api.bintray.com/packages/universal-automata/liblevenshtein/liblevenshtein-java/images/download.svg
-[maven-refs-badge]: https://www.versioneye.com/java/com.github.dylon:liblevenshtein/reference_badge.svg
-[maven-refs]: https://www.versioneye.com/java/com.github.dylon:liblevenshtein/references
+[maven-refs-badge]: https://www.versioneye.com/java/com.github.universal-automata:liblevenshtein/reference_badge.svg
+[maven-refs]: https://www.versioneye.com/java/com.github.universal-automata:liblevenshtein/references
 [license-badge]: https://img.shields.io/github/license/universal-automata/liblevenshtein-java.svg
 [license]: https://raw.githubusercontent.com/universal-automata/liblevenshtein-java/master/LICENSE
 [build-status-badge]: https://travis-ci.org/universal-automata/liblevenshtein-java.svg?branch=master
