@@ -40,6 +40,8 @@ will be porting it to other languages, soon.  If you have a specific language
 you would like to see it in, or package-management system you would like it
 deployed to, let me know.
 
+[![][bintray-watch-img]][bintray-watch-link]
+
 ### Branches
 
 |                            Branch | Description                                 |
@@ -116,11 +118,11 @@ libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "2.2
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-remote: Counting objects: 4344, done.        
-remote: Compressing objects: 100% (960/960), done.        
-remote: Total 4344 (delta 739), reused 0 (delta 0), pack-reused 3317        
-Receiving objects: 100% (4344/4344), 3.13 MiB | 2.34 MiB/s, done.
-Resolving deltas: 100% (2354/2354), done.
+remote: Counting objects: 4352, done.        
+remote: Compressing objects: 100% (968/968), done.        
+remote: Total 4352 (delta 743), reused 0 (delta 0), pack-reused 3317        
+Receiving objects: 100% (4352/4352), 3.13 MiB | 5.02 MiB/s, done.
+Resolving deltas: 100% (2358/2358), done.
 Checking connectivity... done.
 
 % cd liblevenshtein-java
@@ -299,6 +301,8 @@ For more information, please see the [wiki][wiki].
 [versioneye]: https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99
 [gitter-badge]: https://badges.gitter.im/universal-automata/liblevenshtein-java.svg
 [gitter-channel]: https://gitter.im/universal-automata/liblevenshtein-java?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+[bintray-watch-img]: https://www.bintray.com/docs/images/bintray_badge_color.png 'Get automatic notifications about new "liblevenshtein-java" versions'
+[bintray-watch-link]: https://bintray.com/universal-automata/liblevenshtein/liblevenshtein-java/view?source=watch 'Get automatic notifications about new "liblevenshtein-java" versions'
 
 [liblevenshtein-java][github-repo] is maintained by[@dylon][github-author] ([dylon.devo+liblevenshtein-java@gmail.com][github-email])
 

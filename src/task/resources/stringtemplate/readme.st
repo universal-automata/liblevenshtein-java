@@ -41,6 +41,8 @@ will be porting it to other languages, soon.  If you have a specific language
 you would like to see it in, or package-management system you would like it
 deployed to, let me know.
 
+[![][bintray-watch-img]][bintray-watch-link]
+
 ### Branches
 
 |                            Branch | Description                                 |
@@ -98,6 +100,8 @@ For more information, please see the [wiki][wiki].
 [versioneye]: https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99
 [gitter-badge]: https://badges.gitter.im/universal-automata/liblevenshtein-java.svg
 [gitter-channel]: https://gitter.im/universal-automata/liblevenshtein-java?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+[bintray-watch-img]: https://www.bintray.com/docs/images/bintray_badge_color.png 'Get automatic notifications about new "liblevenshtein-java" versions'
+[bintray-watch-link]: https://bintray.com/universal-automata/liblevenshtein/liblevenshtein-java/view?source=watch 'Get automatic notifications about new "liblevenshtein-java" versions'
 
 $/wiki/footer(project, cmd)$
 >>
