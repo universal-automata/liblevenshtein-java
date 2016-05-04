@@ -6,14 +6,15 @@ following location: `build/libs/liblevenshtein-2.2.3-alpha.9.jar`
 
 ```
 % gradle jar
+[buildinfo] Not using buildInfo properties file for this build.
 :extractIncludeProto
 :extractProto
 :generateProto
 :compileJavawarning: No processor claimed any of these annotations: lombok.Setter,lombok.experimental.ExtensionMethod,lombok.Getter,lombok.NonNull,lombok.RequiredArgsConstructor,lombok.EqualsAndHashCode,lombok.Value,lombok.extern.slf4j.Slf4j,lombok.ToString,lombok.Data,lombok.AllArgsConstructor,lombok.NoArgsConstructor
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:50: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:50: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
       return new CandidateCollection.WithDistance(maxCandidates);
                  ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:70: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:70: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
       return new CandidateCollection.WithoutDistance(maxCandidates);
                  ^
 3 warnings
@@ -24,13 +25,13 @@ following location: `build/libs/liblevenshtein-2.2.3-alpha.9.jar`
 
 BUILD SUCCESSFUL
 
-Total time: 6.421 secs
+Total time: 6.523 secs
 
 This build could be faster, please consider using the Gradle Daemon: https://docs.gradle.org/2.13/userguide/gradle_daemon.html
 
 % tree build/libs
 build/libs
-└── liblevenshtein-2.2.2.jar
+└── liblevenshtein-2.2.3-alpha.9.jar
 
 0 directories, 1 file
 
@@ -68,7 +69,7 @@ build/libs
 [master-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/master
 [release-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/release
 
-[wiki]: http://universal-automata.github.io/liblevenshtein-java/docs/wiki/2.2.3-alpha.9/index.md "liblevenshtein 2.2.3-alpha.9 Wiki"
+[wiki]: https://github.com/universal-automata/liblevenshtein-java/blob/gh-pages/docs/wiki/2.2.3-alpha.9/index.md "liblevenshtein 2.2.3-alpha.9 Wiki"
 [javadoc]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/2.2.3-alpha.9/index.html "liblevenshtein 2.2.3-alpha.9 API"
 [tagged-source]: https://github.com/universal-automata/liblevenshtein-java/tree/2.2.3-alpha.9/src "liblevenshtein 2.2.3-alpha.9"
 

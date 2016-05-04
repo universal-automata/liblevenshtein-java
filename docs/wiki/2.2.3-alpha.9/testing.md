@@ -6,6 +6,7 @@ Run `gradle test`:
 
 ```
 % gradle test
+[buildinfo] Not using buildInfo properties file for this build.
 :extractIncludeProto UP-TO-DATE
 :extractProto UP-TO-DATE
 :generateProto UP-TO-DATE
@@ -15,47 +16,46 @@ Run `gradle test`:
 :extractIncludeTestProto
 :extractTestProto
 :generateTestProto UP-TO-DATE
-:compileTestJava/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+:compileTestJava/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
                                                   ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
                                                   ^
 warning: No processor claimed any of these annotations: lombok.extern.slf4j.Slf4j,org.testng.annotations.BeforeTest,lombok.Getter,org.testng.annotations.DataProvider,org.testng.annotations.BeforeClass,lombok.RequiredArgsConstructor,org.testng.annotations.BeforeMethod,org.testng.annotations.Test
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
                                                   ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
                                                   ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
                                                   ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
                                                   ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
                                                   ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
                                                   ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
     extends AbstractAssert<CandidateCollectionAssertions<Type>, CandidateCollection<Type>> {
                                                                 ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:18: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:18: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
   public CandidateCollectionAssertions(final CandidateCollection<Type> actual) {
                                              ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:29: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:29: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
       final CandidateCollection<Type> actual) {
             ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/levenshtein/CandidateCollectionTest.java:14: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/levenshtein/CandidateCollectionTest.java:14: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
     val candidates = new CandidateCollection.WithoutDistance(3);
     ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/levenshtein/CandidateCollectionTest.java:14: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/levenshtein/CandidateCollectionTest.java:14: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
     val candidates = new CandidateCollection.WithoutDistance(3);
                          ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/levenshtein/CandidateCollectionTest.java:26: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 ...
 
 
@@ -73,31 +73,31 @@ you should run all the checks against it and clean up any errors:
 
 ```
 % gradle clean check
+[buildinfo] Not using buildInfo properties file for this build.
 :clean
 :extractIncludeProto
 :extractProto UP-TO-DATE
 :generateProto
 :compileJavawarning: No processor claimed any of these annotations: lombok.Setter,lombok.experimental.ExtensionMethod,lombok.Getter,lombok.NonNull,lombok.RequiredArgsConstructor,lombok.EqualsAndHashCode,lombok.Value,lombok.extern.slf4j.Slf4j,lombok.ToString,lombok.Data,lombok.AllArgsConstructor,lombok.NoArgsConstructor
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:50: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:50: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
       return new CandidateCollection.WithDistance(maxCandidates);
                  ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:70: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:70: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
       return new CandidateCollection.WithoutDistance(maxCandidates);
                  ^
 3 warnings
 
 :processResources
 :classes
-:checkstyleMain[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/collection/dawg/factory/DawgFactory.java:82: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/CandidateCollection.java:56: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/LazyTransducerCollection.java:235:20: 'term' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/LazyTransducerCollection.java:236:17: 'k' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/LazyTransducerCollection.java:237:17: 'i' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/State.java:335:54: 'head' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/TransducerBuilder.java:138:74: 'dictionary' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/TransducerBuilder.java:147:41: 'dictionary' hides a field. [HiddenField]
+:checkstyleMain[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/collection/dawg/factory/DawgFactory.java:82: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/CandidateCollection.java:56: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/LazyTransducerCollection.java:235:20: 'term' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/LazyTransducerCollection.java:236:17: 'k' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/LazyTransducerCollection.java:237:17: 'i' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/State.java:335:54: 'head' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/TransducerBuilder.java:138:74: 'dictionary' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/TransducerBuilder.java:147:41: 'dictionary' hides a field. [HiddenField]
 
-:checkstyleMainHtml
 :extractIncludeTaskProto
 :extractTaskProto
 :generateTaskProto UP-TO-DATE
@@ -106,23 +106,23 @@ you should run all the checks against it and clean up any errors:
 
 :processTaskResources
 :taskClasses
-:checkstyleTask[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/task/java/com/github/dylon/liblevenshtein/task/Action.java:387:25: 'cli' hides a field. [HiddenField]
+:checkstyleTask[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/task/java/com/github/dylon/liblevenshtein/task/Action.java:441:25: 'cli' hides a field. [HiddenField]
 
-:checkstyleTaskHtml
 :extractIncludeTestProto
 :extractTestProto UP-TO-DATE
 :generateTestProto UP-TO-DATE
-:compileTestJava/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+:compileTestJava/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
                                                   ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
                                                   ^
 warning: No processor claimed any of these annotations: lombok.extern.slf4j.Slf4j,org.testng.annotations.BeforeTest,lombok.Getter,org.testng.annotations.DataProvider,org.testng.annotations.BeforeClass,lombok.RequiredArgsConstructor,org.testng.annotations.BeforeMethod,org.testng.annotations.Test
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
                                                   ^
-/tmp/GenerateWikidoc-4637311574847560973/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-7204713923102073639/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
 ...
 
 
@@ -159,7 +159,7 @@ import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
 [master-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/master
 [release-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/release
 
-[wiki]: http://universal-automata.github.io/liblevenshtein-java/docs/wiki/2.2.3-alpha.9/index.md "liblevenshtein 2.2.3-alpha.9 Wiki"
+[wiki]: https://github.com/universal-automata/liblevenshtein-java/blob/gh-pages/docs/wiki/2.2.3-alpha.9/index.md "liblevenshtein 2.2.3-alpha.9 Wiki"
 [javadoc]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/2.2.3-alpha.9/index.html "liblevenshtein 2.2.3-alpha.9 API"
 [tagged-source]: https://github.com/universal-automata/liblevenshtein-java/tree/2.2.3-alpha.9/src "liblevenshtein 2.2.3-alpha.9"
 
