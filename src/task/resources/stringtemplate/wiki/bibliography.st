@@ -7,7 +7,7 @@ bibliography(project, cmd) ::= <<
 [fast-easy-correct-trie-2011]: http://stevehanov.ca/blog/index.php?id=114 "Steve Hanov (2011)"
 [fast-string-correction-2002]: http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.16.652 "Klaus Schulz and Stoyan Mihov (2002)"
 [incremental-construction-dawg-2000]: http://dl.acm.org/citation.cfm?id=971842 "Jan Daciuk, Bruce W. Watson, Stoyan Mihov, and Richard E. Watson (2000)"
-[klaus-schulz]: http://www.klaus-schulze.com/ "Klaus Schulz"
+[klaus-schulz]: http://www.cis.uni-muenchen.de/people/schulz.html "Klaus Schulz"
 [lucene-fuzzy-2011]: http://blog.mikemccandless.com/2011/03/lucenes-fuzzyquery-is-100-times-faster.html "Michael McCandless (2011)"
 [moman]: https://sites.google.com/site/rrettesite/moman "Moman"
 [rao-li]: http://www.usca.edu/math/~mathdept/rli/ "Dr. Rao Li"

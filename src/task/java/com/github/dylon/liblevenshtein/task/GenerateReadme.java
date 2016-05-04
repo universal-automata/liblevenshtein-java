@@ -3,8 +3,6 @@ package com.github.dylon.liblevenshtein.task;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.cli.Option;
@@ -15,12 +13,6 @@ import org.apache.commons.cli.Options;
  */
 @Slf4j
 public class GenerateReadme extends Action {
-
-  /**
-   * Name of this action.
-   */
-  @Getter(onMethod = @_(@Override), value = AccessLevel.PROTECTED)
-  private final String name = "GenerateReadme";
 
   /**
    * Constructs a new {@link GenerateReadme} from the command-line args.

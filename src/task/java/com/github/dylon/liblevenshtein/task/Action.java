@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.AbstractMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.cli.AlreadySelectedException;
 import org.apache.commons.cli.CommandLine;
@@ -62,7 +63,9 @@ public abstract class Action implements Runnable {
    * Returns the name of this action.
    * @return Name of this action.
    */
-  protected abstract String name();
+  protected String name() {
+    return getClass().getSimpleName();
+  }
 
   /**
    * Header for the help text.
@@ -167,6 +170,7 @@ public abstract class Action implements Runnable {
 
   /**
    * Executes a command in the given directory.
+   * @param maxLines Maximum number of lines to keep from the command
    * @param dir Where to execute the command
    * @param cmd Command to execute
    * @return Output of the command, with STDOUT and STDERR combined.
@@ -174,8 +178,10 @@ public abstract class Action implements Runnable {
    * @throws InterruptedException When interrupted while waiting for the command
    * to finish executing.
    */
-  protected Map.Entry<String, String> exec(final Path dir, final String... cmd)
-      throws IOException, InterruptedException {
+  protected Map.Entry<String, String> exec(
+      final int maxLines,
+      final Path dir,
+      final String... cmd) throws IOException, InterruptedException {
 
     log.info("Executing cmd [{}] in dir [{}]", Joiner.on(" ").join(cmd), dir);
 
@@ -185,6 +191,7 @@ public abstract class Action implements Runnable {
       .start();
 
     final StringBuilder buffer = new StringBuilder();
+    int numLines = 0;
 
     try (final BufferedReader reader =
         new BufferedReader(
@@ -192,13 +199,23 @@ public abstract class Action implements Runnable {
 
       final StringBuilder line = new StringBuilder();
 
-      while (proc.isAlive()) {
-        for (int c = reader.read(); -1 != c; c = reader.read()) {
+      while (numLines <= maxLines && proc.isAlive()) {
+        for (int c = reader.read(); numLines <= maxLines && -1 != c; c = reader.read()) {
           if ('\r' == c) {
             line.setLength(0);
           }
           else {
             if ('\n' == c) {
+              numLines += 1;
+              if (numLines > maxLines) {
+                log.info("...");
+                buffer.append("...\n");
+                log.info("Exceeded the maximum number of lines [{}], terminating early ...",
+                  maxLines);
+                proc.destroyForcibly();
+                break;
+              }
+
               log.info(line.toString());
               buffer.append(line).append('\n');
               line.setLength(0);
@@ -210,29 +227,52 @@ public abstract class Action implements Runnable {
         }
       }
 
-      for (int c = reader.read(); -1 != c; c = reader.read()) {
-        if ('\r' == c) {
-          line.setLength(0);
-        }
-        else {
-          if ('\n' == c) {
-            log.info(line.toString());
-            buffer.append(line).append('\n');
+      if (numLines <= maxLines) {
+        for (int c = reader.read(); numLines <= maxLines && -1 != c; c = reader.read()) {
+          if ('\r' == c) {
             line.setLength(0);
           }
           else {
-            line.append((char) c);
+            if ('\n' == c) {
+              numLines += 1;
+              if (numLines > maxLines) {
+                log.info("...");
+                buffer.append("...\n");
+                log.info("Exceeded the maximum number of lines [{}], terminating early ...",
+                  maxLines);
+                proc.destroyForcibly();
+                break;
+              }
+
+              log.info(line.toString());
+              buffer.append(line).append('\n');
+              line.setLength(0);
+            }
+            else {
+              line.append((char) c);
+            }
+          }
+        }
+
+        if (0 != line.length()) {
+          if (numLines < maxLines) {
+            log.info(line.toString());
+            buffer.append(line);
+          }
+          else {
+            buffer.append("...\n");
+            log.info("Exceeded the maximum number of lines [{}]",
+              maxLines);
           }
         }
       }
-
-      if (0 != line.length()) {
-        log.info(line.toString());
-        buffer.append(line);
-      }
     }
 
-    if (0 != proc.exitValue()) {
+    while (!proc.waitFor(5L, TimeUnit.SECONDS)) {
+      log.info("Waiting for command to terminate ...");
+    }
+
+    if (numLines <= maxLines && 0 != proc.exitValue()) {
       exit(EXIT_ERROR, "%s\ncommand [%s] exited with status [%d] in dir [%s]",
         buffer.toString(), Joiner.on(" ").join(cmd), proc.exitValue(), dir);
     }
@@ -245,6 +285,20 @@ public abstract class Action implements Runnable {
     }
 
     return new AbstractMap.SimpleImmutableEntry<>(command, output);
+  }
+
+  /**
+   * Executes a command in the given directory.
+   * @param dir Where to execute the command
+   * @param cmd Command to execute
+   * @return Output of the command, with STDOUT and STDERR combined.
+   * @throws IOException When the output of the command cannot be read.
+   * @throws InterruptedException When interrupted while waiting for the command
+   * to finish executing.
+   */
+  protected Map.Entry<String, String> exec(final Path dir, final String... cmd)
+      throws IOException, InterruptedException {
+    return exec(Integer.MAX_VALUE, dir, cmd);
   }
 
   /**
@@ -359,8 +413,8 @@ public abstract class Action implements Runnable {
       .put("gitSubmoduleUpdate", exec(projDir, "git", "submodule", "update"))
       .put("gradleJar", exec(projDir, "gradle", "jar"))
       .put("treeBuildLibs", exec(projDir, "tree", "build/libs"))
-      .put("gradleTest", exec(projDir, "gradle", "test"))
-      .put("gradleCheck", exec(projDir, "gradle", "clean", "check"))
+      .put("gradleTest", exec(50, projDir, "gradle", "test"))
+      .put("gradleCheck", exec(50, projDir, "gradle", "clean", "check"))
       .build();
   }
 

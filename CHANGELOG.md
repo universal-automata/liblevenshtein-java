@@ -4,6 +4,20 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased] - Currently in development
 
+### Added
+- Adds automated-integration with Artifactory for development snapshots
+- Adds automated-integration with Bintray for releases
+- Adds automated-integration with Sonatype for releases
+- Adds automated-integration with Maven Central for releases
+- Adds script to execute boilerplate, release commands
+
+### Changed
+- Changes the Maven, groupId from `com.github.dylon` to `com.github.universal-automata`
+- Updates dependencies before each release
+- Upgrades Gradle from 2.12 to 2.13
+- Makes the Travis CI matrix more CI-complete
+- Limits the length of the testing output in the documentation
+
 ## [2.2.2] - Saturday, April 30, 2016
 
 ### Added

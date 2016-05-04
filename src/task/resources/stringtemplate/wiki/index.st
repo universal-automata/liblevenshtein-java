@@ -46,6 +46,8 @@ $/wiki/shell(project, cmd, ["gradleCheck"])$
 [Usage](usage.md)
 --------------
 
+$/wiki/sample(project, cmd)$
+
 History
 ------------------
 

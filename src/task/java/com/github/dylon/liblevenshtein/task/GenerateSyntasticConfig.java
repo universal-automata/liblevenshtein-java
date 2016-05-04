@@ -3,8 +3,6 @@ package com.github.dylon.liblevenshtein.task;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.cli.Option;
@@ -17,12 +15,6 @@ import org.stringtemplate.v4.ST;
  */
 @Slf4j
 public class GenerateSyntasticConfig extends Action {
-
-  /**
-   * Name of this action.
-   */
-  @Getter(onMethod = @_(@Override), value = AccessLevel.PROTECTED)
-  private final String name = "GenerateSyntasticConfig";
 
   /**
    * Constructs a new {@link GenerateSyntasticConfig} from the command-line args.

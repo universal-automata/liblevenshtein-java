@@ -3,8 +3,6 @@ package com.github.dylon.liblevenshtein.task;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.cli.Option;
@@ -15,14 +13,6 @@ import org.apache.commons.cli.Options;
  */
 @Slf4j
 public class GenerateWikidoc extends Action {
-
-  /**
-   * Name of this action.
-   * -- GETTER --
-   * {@inheritDoc}
-   */
-  @Getter(onMethod = @_(@Override), value = AccessLevel.PROTECTED)
-  private final String name = "GenerateWikidoc";
 
   /**
    * Constructs a new {@link GenerateWikidoc} from the command-line args.

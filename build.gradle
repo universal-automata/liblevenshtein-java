@@ -1,5 +1,20 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
+    classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.+'
+    classpath 'com.google.protobuf:protobuf-gradle-plugin:0.+'
+  }
+}
+
 plugins {
+
   // Supported Plugins
+  // ---------------------------------------------------------------------------
+
   id 'checkstyle'
   id 'findbugs'
   id 'jacoco'
@@ -7,9 +22,19 @@ plugins {
   id 'maven-publish'
 
   // Third Party Plugins
+  // ---------------------------------------------------------------------------
+
+  // Checks unit test coverage
   id 'com.github.kt3k.coveralls' version '2.6.3'
-  id 'com.google.protobuf' version '0.7.6'
-  id 'org.standardout.versioneye' version '1.2.0'
+
+  // Checks for newer versions of dependencies
+  id 'org.standardout.versioneye' version '1.3.0'
+}
+
+allprojects {
+  apply plugin: 'com.google.protobuf'
+  apply plugin: 'com.jfrog.artifactory'
+  apply plugin: 'com.jfrog.bintray'
 }
 
 repositories {
@@ -17,9 +42,9 @@ repositories {
   jcenter()
 }
 
-group = 'com.github.dylon'
+group = 'com.github.universal-automata'
 archivesBaseName = name
-version = '2.2.2' // http://semver.org/
+version = '2.2.3-alpha.9' // http://semver.org/
 
 description = 'A library for spelling-correction based on Levenshtein Automata.'
 
@@ -33,32 +58,25 @@ ext {
   githubOrg = 'universal-automata'
   githubRepo = "liblevenshtein-java"
   gitUri = "git@github.com:${githubOrg}/${githubRepo}.git"
+  vcsUrl = "https://github.com/${githubOrg}/${githubRepo}.git"
   gitBranch = "master"
   //gitBranch = version
   projectUrl = "https://github.com/${githubOrg}/${githubRepo}/"
+  issuesUrl = "${projectUrl}/issues"
   projectAuthor = 'Dylon Edwards'
   authorUsername = 'dylon'
   authorEmail = "dylon.devo+${githubRepo}@gmail.com"
   demoUrl = "http://${githubOrg}.github.io/${rootProject.name}/"
 
-  def groupPart = group.replaceAll('\\.', '/')
-  def pomFileName = "${name}-${version}.pom"
-  localRepo = file("$buildDir/repo")
-  localRepoArtifactDir = file("${localRepo}/${groupPart}/${name}/${version}")
-  pomFile = file("${localRepoArtifactDir}/${pomFileName}")
-
-  //def sonatypeUrl = "https://oss.sonatype.org/content/repositories/snapshots"
-  //def sonatypeUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
-  sonatypeUsername = ""
-  sonatypePassword = ""
-
   wikidocDir = file("${projectDir}/gh-pages/docs/wiki/${version}")
   latestWikidocDir = file("${projectDir}/gh-pages/docs/wiki/latest")
+
+  isReleaseVersion = version ==~ /^\d+\.\d+\.\d+$/
+  isDevelopmentVersion = !isReleaseVersion
 }
 
 configurations {
   shell
-  pom
 }
 
 sourceSets {
@@ -66,7 +84,7 @@ sourceSets {
 }
 
 findbugs {
-  excludeFilter = file("$rootProject.projectDir/config/findbugs/exclude-filter.xml")
+  excludeFilter = file("${rootProject.projectDir}/config/findbugs/exclude-filter.xml")
 }
 
 protobuf {
@@ -76,54 +94,54 @@ protobuf {
 }
 
 dependencies {
-  compile 'com.google.code.findbugs:annotations:3.0.1'
-  compile 'com.google.guava:guava:19.0'
-  compile 'com.google.protobuf:protobuf-java-util:3.0.0-beta-2'
-  compile 'com.google.protobuf:protobuf-java:3.0.0-beta-2'
-  compile 'it.unimi.dsi:fastutil:7.0.12'
-  compile 'org.apache.commons:commons-lang3:3.4'
-  compile 'org.projectlombok:lombok:1.16.8'
-  compile 'org.slf4j:slf4j-api:1.7.21'
+  compile 'com.google.code.findbugs:annotations:3.+'
+  compile 'com.google.guava:guava:19.+'
+  compile 'com.google.protobuf:protobuf-java-util:3.+'
+  compile 'com.google.protobuf:protobuf-java:3.+'
+  compile 'it.unimi.dsi:fastutil:7.+'
+  compile 'org.apache.commons:commons-lang3:3.+'
+  compile 'org.projectlombok:lombok:1.+'
+  compile 'org.slf4j:slf4j-api:1.+'
 
-  taskCompile 'com.google.code.findbugs:annotations:3.0.1'
-  taskCompile 'com.google.guava:guava:19.0'
-  taskCompile 'commons-cli:commons-cli:1.3.1'
-  taskCompile 'commons-io:commons-io:2.4'
-  taskCompile 'org.antlr:ST4:4.0.8'
-  taskCompile 'org.projectlombok:lombok:1.16.8'
-  taskCompile 'org.slf4j:slf4j-api:1.7.21'
+  taskCompile 'com.google.code.findbugs:annotations:3.+'
+  taskCompile 'com.google.guava:guava:19.+'
+  taskCompile 'commons-cli:commons-cli:1.+'
+  taskCompile 'commons-io:commons-io:2.+'
+  taskCompile 'org.antlr:ST4:4.+'
+  taskCompile 'org.projectlombok:lombok:1.+'
+  taskCompile 'org.slf4j:slf4j-api:1.+'
 
-  taskRuntime 'ch.qos.logback:logback-classic:1.1.7'
-  taskRuntime 'org.codehaus.groovy:groovy-all:2.4.6'
-  taskRuntime 'org.slf4j:jcl-over-slf4j:1.7.21'
-  taskRuntime 'org.slf4j:jul-to-slf4j:1.7.21'
-  taskRuntime 'org.slf4j:log4j-over-slf4j:1.7.21'
-  taskRuntime 'org.slf4j:osgi-over-slf4j:1.7.21'
+  taskRuntime 'ch.qos.logback:logback-classic:1.+'
+  taskRuntime 'org.codehaus.groovy:groovy-all:2.+'
+  taskRuntime 'org.slf4j:jcl-over-slf4j:1.+'
+  taskRuntime 'org.slf4j:jul-to-slf4j:1.+'
+  taskRuntime 'org.slf4j:log4j-over-slf4j:1.+'
+  taskRuntime 'org.slf4j:osgi-over-slf4j:1.+'
 
-  testCompile 'com.google.jimfs:jimfs:1.1'
-  testCompile 'org.assertj:assertj-core:3.4.1'
-  testCompile 'org.mockito:mockito-all:1.10.19'
-  testCompile 'org.testng:testng:6.9.11'
+  testCompile 'com.google.jimfs:jimfs:1.+'
+  testCompile 'org.assertj:assertj-core:3.+'
+  testCompile 'org.mockito:mockito-all:1.+'
+  testCompile 'org.testng:testng:6.+'
 
-  testRuntime 'ch.qos.logback:logback-classic:1.1.7'
-  testRuntime 'org.codehaus.groovy:groovy-all:2.4.6'
-  testRuntime 'org.slf4j:jcl-over-slf4j:1.7.21'
-  testRuntime 'org.slf4j:jul-to-slf4j:1.7.21'
-  testRuntime 'org.slf4j:log4j-over-slf4j:1.7.21'
-  testRuntime 'org.slf4j:osgi-over-slf4j:1.7.21'
+  testRuntime 'ch.qos.logback:logback-classic:1.+'
+  testRuntime 'org.codehaus.groovy:groovy-all:2.+'
+  testRuntime 'org.slf4j:jcl-over-slf4j:1.+'
+  testRuntime 'org.slf4j:jul-to-slf4j:1.+'
+  testRuntime 'org.slf4j:log4j-over-slf4j:1.+'
+  testRuntime 'org.slf4j:osgi-over-slf4j:1.+'
 
   // JaCoCo (Plugin)
-  jacocoAgent 'org.jacoco:org.jacoco.agent:0.7.6.201602180812'
-  jacocoAnt 'org.jacoco:org.jacoco.ant:0.7.6.201602180812'
+  jacocoAgent 'org.jacoco:org.jacoco.agent:0.+'
+  jacocoAnt 'org.jacoco:org.jacoco.ant:0.+'
 
   // Checkstyle (Plugin)
-  checkstyle 'com.puppycrawl.tools:checkstyle:6.17'
+  checkstyle 'com.puppycrawl.tools:checkstyle:6.+'
 
-  shell 'commons-cli:commons-cli:1.3.1'
-  shell('jline:jline:2.14.1') {
+  shell 'commons-cli:commons-cli:1.+'
+  shell('jline:jline:2.+') {
     exclude(group: 'junit', module: 'junit')
   }
-  shell 'org.codehaus.groovy:groovy-groovysh:2.4.6'
+  shell 'org.codehaus.groovy:groovy-groovysh:2.+'
 }
 
 jacocoTestReport {
@@ -151,7 +169,7 @@ test {
   useTestNG() {
     // Run as many tests in-parallel as there are CPU cores
     parallel 'methods'
-    threadCount Runtime.getRuntime().availableProcessors()
+    threadCount Runtime.runtime.availableProcessors()
   }
 
   testLogging {
@@ -200,6 +218,12 @@ def execTask(mainClass, args=[]) {
     '--author-email', authorEmail.toString(),
     '--demo-url', demoUrl.toString()
   ])
+}
+
+task printVersion {
+  doLast {
+    println("${rootProject.version}")
+  }
 }
 
 task(shell, dependsOn: classes) {
@@ -268,9 +292,113 @@ tasks.withType(FindBugs) {
   }
 }
 
-task sourceJar(type: Jar) {
-  classifier = 'sources'
-  from file(srcDelomboked)
+artifactory {
+  contextUrl = 'https://oss.jfrog.org/artifactory'
+  publish {
+    repository {
+      repoKey = 'oss-release-local'
+      username = System.env['BINTRAY_USER']
+      password = System.env['BINTRAY_API_KEY']
+      maven = true
+    }
+    defaults {
+      publications('mavenJava')
+    }
+  }
+  resolve {
+    repository {
+      repoKey = 'libs-release'
+      username = System.env['BINTRAY_USER']
+      password = System.env['BINTRAY_API_KEY']
+      maven = true
+    }
+  }
+}
+
+bintray {
+  user = System.env['BINTRAY_USER']
+  key = System.env['BINTRAY_API_KEY']
+  publications = ['mavenJava']
+  dryRun = rootProject.ext.isDevelopmentVersion
+  publish = true
+  pkg {
+    userOrg = 'universal-automata'
+    repo = 'liblevenshtein'
+    name = 'liblevenshtein-java'
+    desc = rootProject.description
+    websiteUrl = rootProject.ext.projectUrl
+    githubRepo = "${rootProject.ext.githubOrg}/${rootProject.ext.githubRepo}"
+    githubReleaseNotesFile = 'CHANGELOG.md'
+    issueTrackerUrl = rootProject.ext.issuesUrl
+    licenses = ['MIT']
+    vcsUrl = rootProject.ext.vcsUrl
+    labels = [
+      'approximate string matching',
+      'automata',
+      'computational biology',
+      'computer science',
+      'dawg',
+      'dictionary',
+      'distance measure',
+      'distance metric',
+      'edit distance',
+      'finite state automata',
+      'finite state automaton',
+      'finite state transducer',
+      'fuzzy search',
+      'fuzzy searching',
+      'genomics',
+      'information retrieval',
+      'levenshtein automata',
+      'levenshtein distance',
+      'maching learning',
+      'mafsa',
+      'search engine',
+      'spelling correction',
+      'transducer',
+      'trie',
+      'universal automata'
+    ]
+    publicDownloadNumbers = true
+    version {
+      desc = rootProject.description
+      released = new Date()
+      vcsTag = rootProject.version
+      mavenCentralSync {
+        sync = true
+        user = System.env['SONATYPE_USERNAME']
+        password = System.env['SONATYPE_PASSWORD']
+        close = '1'
+      }
+    }
+  }
+}
+
+def pomConfig = {
+  licenses {
+    license {
+      name 'MIT License'
+      url "https://raw.githubusercontent.com/${githubOrg}/${githubRepo}/master/LICENSE"
+      distribution 'repo'
+    }
+  }
+  developers {
+    developer {
+      id 'dylon'
+      name 'Dylon Edwards'
+      email "dylon.devo+${githubRepo}@gmail.com"
+      url 'https://github.com/dylon'
+    }
+  }
+  issueManagement {
+    system 'GitHub Issues'
+    url "${projectUrl}/issues"
+  }
+  scm {
+    url projectUrl
+    connection "scm:git:https://github.com/${githubOrg}/${githubRepo}.git"
+    developerConnection "scm:git:git@github.com:${githubOrg}/${githubRepo}.git"
+  }
 }
 
 task javadocJar(type: Jar, dependsOn: [javadoc, classes]) {
@@ -278,178 +406,45 @@ task javadocJar(type: Jar, dependsOn: [javadoc, classes]) {
   from javadoc.destinationDir
 }
 
-artifacts {
-  archives sourceJar
-  archives javadocJar
-  if (pomFile.exists()) {
-    pom pomFile
-  }
+task sourcesJar(type: Jar) {
+  classifier = 'sources'
+  from file(srcDelomboked)
 }
-
-def getPomSignature() {
-  return configurations.pom.allArtifacts
-    .collect{ file("${it.file.path}.asc") }[0]
-}
-
-def getSignatureFiles() {
-  def allFiles = configurations.archives.allArtifacts
-    .collect { file("${it.file.path}.asc") }
-    .findAll { it.exists() }
-
-  def retval = []
-
-  def signedSources = allFiles.find { it.name.contains("-sources") }
-  if (null != signedSources) {
-    retval << [archive: signedSources, classifier: 'sources', extension: 'jar.asc']
-  }
-
-  def signedJavadoc = allFiles.find { it.name.contains('-javadoc') }
-  if (null != signedJavadoc) {
-    retval << [archive: signedJavadoc, classifier: 'javadoc', extension: 'jar.asc']
-  }
-
-  def signedJars = (allFiles - [signedSources, signedJavadoc])
-  if ( ! signedJars.isEmpty()) {
-    retval << [archive: signedJars[0], classifier: null, extension: 'jar.asc']
-  }
-
-  return retval
-}
-
-def artifactTaskName(artifact) {
-  return "sign:${artifact.file}"
-}
-
-def signArtifact(artifact) {
-  def taskName = artifactTaskName(artifact)
-  task "$taskName" (type: Exec) {
-    commandLine 'gpg2', '--batch', '--yes', '-ab', artifact.file
-    doFirst { println commandLine }
-    doLast {
-      def signature = file("${artifact.file}.asc")
-      if (localRepoArtifactDir.exists() && signature.exists()) {
-        ant.copy(
-          file: signature,
-          todir: localRepoArtifactDir)
-      }
-    }
-  }
-}
-
-def jarFilter = {it.file.name =~ /\.jar$/}
-
-configurations.archives.allArtifacts
-  .findAll(jarFilter)
-  .each(this.&signArtifact)
-
-configurations.pom.allArtifacts.each(this.&signArtifact)
-
-task signPom << {
-  configurations.pom.allArtifacts
-    .collect(this.&artifactTaskName)
-    .each { tasks."$it".execute() }
-}
-
-task signJars(dependsOn: [jar, javadocJar, sourceJar]) << {
-  configurations.archives.allArtifacts
-    .findAll(jarFilter)
-    .collect(this.&artifactTaskName)
-    .each { tasks."$it".execute() }
-}
-
-if (project.ext.pomFile.exists()) {
-  tasks.publish.dependsOn signJars
-  tasks.publish.dependsOn signPom
-}
-else {
-  tasks.publish.dependsOn signJars
-}
-
-def pomSignature = getPomSignature()
-
-//if (project.gradle.startParameter.taskNames.contains('publish')
-    //&& pomFile.exists()
-    //&& pomSignature.exists()) {
-  //def console = System.console()
-  //console.printf("\nSonatype OSSRH Credentials:\n")
-  //sonatypeUsername = console.readLine("Username: ")
-  //sonatypePassword = console.readPassword("Password: ")
-//}
 
 publishing {
-  repositories {
-    maven {
-      //if (pomFile.exists() && pomSignature.exists()) {
-        //println("Uploading to $sonatypeUrl")
-        //url sonatypeUrl
-        //credentials {
-          //username = sonatypeUsername
-          //password = sonatypePassword
-        //}
-      //}
-      //else {
-        url localRepo
-      //}
-    }
-  }
   publications {
-    gpgJars (MavenPublication) {
-      getSignatureFiles().each { signature ->
-        artifact (signature.archive) {
-          classifier = signature.classifier
-          extension  = signature.extension
-        }
-      }
-    }
-    if (pomFile.exists() && pomSignature.exists()) {
-      gpgPom (MavenPublication) {
-        artifact (pomSignature) {
-          classifier = null
-          extension = 'pom.asc'
-        }
-      }
-    }
-    jar (MavenPublication) {
+    mavenJava(MavenPublication) {
       from components.java
-      artifact (javadocJar) {
-        classifier = 'javadoc'
-      }
-      artifact (sourceJar) {
-        classifier = 'sources'
-      }
+      artifact sourcesJar
+      artifact javadocJar
+
       pom.withXml {
-        asNode().children().last() + {
-          resolveStrategy = Closure.DELEGATE_FIRST
-          name rootProject.name
-          inceptionYear '2014'
-          description rootProject.description
-          url projectUrl
-          packaging 'jar'
-          licenses {
-            license {
-              name 'MIT License'
-              url "https://raw.githubusercontent.com/${githubOrg}/${githubRepo}/master/LICENSE"
-              distribution 'repo'
-            }
-          }
-          developers {
-            developer {
-              id 'dylon'
-              name 'Dylon Edwards'
-              email 'dylon.edwards@gmail.com'
-              url 'https://github.com/dylon'
-            }
-          }
-          issueManagement {
-            system 'GitHub Issues'
-            url "${projectUrl}/issues"
-          }
-          scm {
-            url projectUrl
-            connection "scm:git:https://github.com/${githubOrg}/${githubRepo}.git"
-            developerConnection "scm:git:git@github.com:${githubOrg}/${githubRepo}.git"
-          }
+        def root = asNode()
+        root.appendNode('name', rootProject.name)
+        root.appendNode('description', rootProject.description)
+        root.appendNode('url', rootProject.ext.projectUrl)
+        root.appendNode('inceptionYear', '2012')
+        root.appendNode('packaging', 'jar')
+
+        // Generate map of resolved versions
+        Map resolvedVersionMap = [:]
+        Set<ResolvedArtifact> resolvedArtifacts =
+          configurations.compile.getResolvedConfiguration().getResolvedArtifacts()
+        resolvedArtifacts.addAll(
+          configurations.testCompile.getResolvedConfiguration().getResolvedArtifacts())
+        resolvedArtifacts.each {
+          ModuleVersionIdentifier mvi = it.getModuleVersion().getId();
+          resolvedVersionMap.put("${mvi.getGroup()}:${mvi.getName()}", mvi.getVersion())
         }
+
+        // Update dependencies with resolved versions
+        root.dependencies.first().each {
+          def groupId = it.get("groupId").first().value().first()
+          def artifactId = it.get("artifactId").first().value().first()
+          it.get("version").first().value = resolvedVersionMap.get("${groupId}:${artifactId}")
+        }
+
+        root.children().last() + pomConfig
       }
     }
   }
@@ -489,27 +484,10 @@ tasks.javadoc {
   options.optionFiles << file('javadoc.options')
 }
 
-task checkstyleMainHtml << {
-  ant.xslt(
-    in: checkstyleMain.reports.xml.destination,
-    style: file("${projectDir}/config/checkstyle/checkstyle.xsl"),
-    out: new File(checkstyleMain.reports.xml.destination.parent, 'main.html'))
+tasks.withType(Checkstyle) {
+  reports {
+    xml.enabled true
+    html.enabled true
+    html.stylesheet resources.text.fromFile('config/checkstyle/checkstyle.xsl')
+  }
 }
-
-task checkstyleTaskHtml << {
-  ant.xslt(
-    in: checkstyleTask.reports.xml.destination,
-    style: file("${projectDir}/config/checkstyle/checkstyle.xsl"),
-    out: new File(checkstyleTask.reports.xml.destination.parent, 'task.html'))
-}
-
-task checkstyleTestHtml << {
-  ant.xslt(
-    in: checkstyleTest.reports.xml.destination,
-    style: file("${projectDir}/config/checkstyle/checkstyle.xsl"),
-    out: new File(checkstyleTest.reports.xml.destination.parent, 'test.html'))
-}
-
-checkstyleMain.finalizedBy checkstyleMainHtml
-checkstyleTask.finalizedBy checkstyleTaskHtml
-checkstyleTest.finalizedBy checkstyleTestHtml
