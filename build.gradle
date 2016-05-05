@@ -336,6 +336,7 @@ bintray {
       'automata',
       'computational biology',
       'computer science',
+      'data science',
       'dawg',
       'dictionary',
       'distance measure',
@@ -490,3 +491,5 @@ tasks.withType(Checkstyle) {
     html.stylesheet resources.text.fromFile('config/checkstyle/checkstyle.xsl')
   }
 }
+
+// vim: set ft=groovy ts=2 sw=2 et sta:

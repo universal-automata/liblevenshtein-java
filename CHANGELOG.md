@@ -4,6 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased] - Currently in development
 
+### Changed
+- Improves the wiki documentation.
+- Checks for the presence of release version and date in the CHANGELOG, before
+  releasing a version.
+
 ## [2.2.3] - Wednesday, May 4, 2016
 
 ### Added

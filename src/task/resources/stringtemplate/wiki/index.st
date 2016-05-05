@@ -33,20 +33,28 @@ submodules, which include the source code for all supported languages:
 
 $/installation/all(project, cmd, "###")$
 
+Please see [Installation](installation.md) for more details.
+
 [Building](building.md)
 --------------------
 
 $/wiki/shell(project, cmd, ["gradleJar"])$
+
+Please see [Building](building.md) for more details.
 
 [Testing](testing.md)
 ------------------
 
 $/wiki/shell(project, cmd, ["gradleCheck"])$
 
+Please see [Testing](testing.md) for more details.
+
 [Usage](usage.md)
 --------------
 
 $/wiki/sample(project, cmd)$
+
+Please see [Usage](usage.md) for more details.
 
 History
 ------------------

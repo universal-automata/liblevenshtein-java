@@ -9,6 +9,16 @@ if [[ ! "${PROJECT_VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   exit 1
 fi
 
+declare -r RELEASE_DATE="$(date +'%A, %B %e, %Y' | sed -e 's/ \+/ /g')"
+declare -r CHANGELOG='CHANGELOG.md'
+
+if ! grep "^## \[${PROJECT_VERSION}] - ${RELEASE_DATE}$" "$CHANGELOG"; then
+  echo "Either version [${PROJECT_VERSION}] has not been described in the" \
+       "CHANGELOG [${CHANGELOG}], or the release date is not today" \
+       "[${RELEASE_DATE}]." 1>&2
+  exit 1
+fi
+
 echo "Doing a clean+check to make sure code quality is up-to-par ..."
 ./gradlew clean check
 
@@ -22,9 +32,11 @@ git add -A
 git commit -m "${GENDOC_MESSAGE}"
 git push origin master
 
-echo "Generating wiki and Java documentation ..."
+echo "Generating the wiki documentation ..."
+./gradlew wikidoc
 
-./gradlew wikidoc javadoc
+echo "Generating the Java documentation ..."
+./gradlew javadoc
 
 pushd gh-pages
 git add -A
