@@ -44,6 +44,11 @@ import lombok.extern.slf4j.Slf4j;
 @SuppressWarnings("unchecked")
 public abstract class Action implements Runnable {
 
+	/**
+	 * Replaces the trailing output of a truncated command.
+	 */
+  private static final String TRUNCATED = "# ... TRUNCATED ...";
+
   /**
    * Process exit code for success.
    */
@@ -210,8 +215,8 @@ public abstract class Action implements Runnable {
             if ('\n' == c) {
               numLines += 1;
               if (numLines > maxLines) {
-                log.info("# ... TRUNCATED ...");
-                buffer.append("# ... TRUNCATED ...\n");
+                log.info(TRUNCATED);
+                buffer.append(TRUNCATED).append('\n');
                 log.info("Exceeded the maximum number of lines [{}], terminating early ...",
                   maxLines);
                 proc.destroyForcibly();
@@ -238,8 +243,8 @@ public abstract class Action implements Runnable {
             if ('\n' == c) {
               numLines += 1;
               if (numLines > maxLines) {
-                log.info("# ... TRUNCATED ...");
-                buffer.append("# ... TRUNCATED ...\n");
+                log.info(TRUNCATED);
+                buffer.append(TRUNCATED).append('\n');
                 log.info("Exceeded the maximum number of lines [{}], terminating early ...",
                   maxLines);
                 proc.destroyForcibly();
