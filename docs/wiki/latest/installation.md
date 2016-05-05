@@ -55,11 +55,11 @@ libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "2.2
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-remote: Counting objects: 4371, done.        
-remote: Compressing objects: 100% (986/986), done.        
-remote: Total 4371 (delta 753), reused 0 (delta 0), pack-reused 3317        
-Receiving objects: 100% (4371/4371), 3.13 MiB | 2.00 MiB/s, done.
-Resolving deltas: 100% (2368/2368), done.
+remote: Counting objects: 4661, done.        
+remote: Compressing objects: 100% (1258/1258), done.        
+remote: Total 4661 (delta 984), reused 0 (delta 0), pack-reused 3317        
+Receiving objects: 100% (4661/4661), 3.17 MiB | 309.00 KiB/s, done.
+Resolving deltas: 100% (2599/2599), done.
 Checking connectivity... done.
 
 % cd liblevenshtein-java
@@ -117,10 +117,10 @@ Then, [build the library](building.md).
 [java-cli]: https://github.com/universal-automata/liblevenshtein-java-cli "liblevenshtein-java-cli"
 [java-cli-readme]: https://github.com/universal-automata/liblevenshtein-java-cli/blob/master/README.md "liblevenshtein-java-cli, README.md"
 
-[javadoc/Iterable]: https://docs.oracle.com/javase/1.8/docs/api/java/lang/Iterable.html?is-external=true "java.lang.Iterable"
-[javadoc/Iterator.next()]: https://docs.oracle.com/javase/1.8/docs/api/java/util/Iterator.html#next-- "java.util.Iterator.next()"
-[javadoc/Iterator]: https://docs.oracle.com/javase/1.8/docs/api/java/util/Iterator.html "java.util.Iterator"
-[javadoc/String]: https://docs.oracle.com/javase/1.8/docs/api/java/lang/String.html "java.lang.String"
+[javadoc/Iterable]: https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html?is-external=true "java.lang.Iterable"
+[javadoc/Iterator.next()]: https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html#next-- "java.util.Iterator.next()"
+[javadoc/Iterator]: https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html "java.util.Iterator"
+[javadoc/String]: https://docs.oracle.com/javase/8/docs/api/java/lang/String.html "java.lang.String"
 
 [javadoc/Algorithm.MERGE_AND_SPLIT]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/2.2.3/com/github/dylon/liblevenshtein/levenshtein/Algorithm.html#MERGE_AND_SPLIT "Algorithm.MERGE_AND_SPLIT"
 [javadoc/Algorithm.STANDARD]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/2.2.3/com/github/dylon/liblevenshtein/levenshtein/Algorithm.html#STANDARD "Algorithm.STANDARD"

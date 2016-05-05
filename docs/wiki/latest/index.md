@@ -85,11 +85,11 @@ libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "2.2
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-remote: Counting objects: 4371, done.        
-remote: Compressing objects: 100% (986/986), done.        
-remote: Total 4371 (delta 753), reused 0 (delta 0), pack-reused 3317        
-Receiving objects: 100% (4371/4371), 3.13 MiB | 2.00 MiB/s, done.
-Resolving deltas: 100% (2368/2368), done.
+remote: Counting objects: 4661, done.        
+remote: Compressing objects: 100% (1258/1258), done.        
+remote: Total 4661 (delta 984), reused 0 (delta 0), pack-reused 3317        
+Receiving objects: 100% (4661/4661), 3.17 MiB | 309.00 KiB/s, done.
+Resolving deltas: 100% (2599/2599), done.
 Checking connectivity... done.
 
 % cd liblevenshtein-java
@@ -106,6 +106,8 @@ Your branch is up-to-date with 'origin/master'.
 
 ```
 
+Please see [Installation](installation.md) for more details.
+
 [Building](building.md)
 --------------------
 
@@ -116,10 +118,10 @@ Your branch is up-to-date with 'origin/master'.
 :extractProto
 :generateProto
 :compileJavawarning: No processor claimed any of these annotations: lombok.Setter,lombok.experimental.ExtensionMethod,lombok.Getter,lombok.NonNull,lombok.RequiredArgsConstructor,lombok.EqualsAndHashCode,lombok.Value,lombok.extern.slf4j.Slf4j,lombok.ToString,lombok.Data,lombok.AllArgsConstructor,lombok.NoArgsConstructor
-/tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:50: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:50: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
       return new CandidateCollection.WithDistance(maxCandidates);
                  ^
-/tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:70: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:70: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
       return new CandidateCollection.WithoutDistance(maxCandidates);
                  ^
 3 warnings
@@ -130,12 +132,14 @@ Your branch is up-to-date with 'origin/master'.
 
 BUILD SUCCESSFUL
 
-Total time: 6.785 secs
+Total time: 6.607 secs
 
 This build could be faster, please consider using the Gradle Daemon: https://docs.gradle.org/2.13/userguide/gradle_daemon.html
 
 
 ```
+
+Please see [Building](building.md) for more details.
 
 [Testing](testing.md)
 ------------------
@@ -148,24 +152,24 @@ This build could be faster, please consider using the Gradle Daemon: https://doc
 :extractProto UP-TO-DATE
 :generateProto
 :compileJavawarning: No processor claimed any of these annotations: lombok.Setter,lombok.experimental.ExtensionMethod,lombok.Getter,lombok.NonNull,lombok.RequiredArgsConstructor,lombok.EqualsAndHashCode,lombok.Value,lombok.extern.slf4j.Slf4j,lombok.ToString,lombok.Data,lombok.AllArgsConstructor,lombok.NoArgsConstructor
-/tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:50: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:50: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
       return new CandidateCollection.WithDistance(maxCandidates);
                  ^
-/tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:70: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:70: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
       return new CandidateCollection.WithoutDistance(maxCandidates);
                  ^
 3 warnings
 
 :processResources
 :classes
-:checkstyleMain[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/collection/dawg/factory/DawgFactory.java:82: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/CandidateCollection.java:56: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/LazyTransducerCollection.java:235:20: 'term' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/LazyTransducerCollection.java:236:17: 'k' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/LazyTransducerCollection.java:237:17: 'i' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/State.java:335:54: 'head' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/TransducerBuilder.java:138:74: 'dictionary' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/TransducerBuilder.java:147:41: 'dictionary' hides a field. [HiddenField]
+:checkstyleMain[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/collection/dawg/factory/DawgFactory.java:82: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/CandidateCollection.java:56: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/LazyTransducerCollection.java:235:20: 'term' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/LazyTransducerCollection.java:236:17: 'k' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/LazyTransducerCollection.java:237:17: 'i' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/State.java:335:54: 'head' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/TransducerBuilder.java:138:74: 'dictionary' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/TransducerBuilder.java:147:41: 'dictionary' hides a field. [HiddenField]
 
 :extractIncludeTaskProto
 :extractTaskProto
@@ -175,27 +179,29 @@ This build could be faster, please consider using the Gradle Daemon: https://doc
 
 :processTaskResources
 :taskClasses
-:checkstyleTask[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/task/java/com/github/dylon/liblevenshtein/task/Action.java:441:25: 'cli' hides a field. [HiddenField]
+:checkstyleTask[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/task/java/com/github/dylon/liblevenshtein/task/Action.java:441:25: 'cli' hides a field. [HiddenField]
 
 :extractIncludeTestProto
 :extractTestProto UP-TO-DATE
 :generateTestProto UP-TO-DATE
-:compileTestJava/tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+:compileTestJava/tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
                                                   ^
-/tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
                                                   ^
 warning: No processor claimed any of these annotations: lombok.extern.slf4j.Slf4j,org.testng.annotations.BeforeTest,lombok.Getter,org.testng.annotations.DataProvider,org.testng.annotations.BeforeClass,lombok.RequiredArgsConstructor,org.testng.annotations.BeforeMethod,org.testng.annotations.Test
-/tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertions.java:5: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
                                                   ^
-/tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/test/java/com/github/dylon/liblevenshtein/assertion/CandidateCollectionAssertionsTest.java:12: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
 import com.github.dylon.liblevenshtein.levenshtein.CandidateCollection;
-...
+# ... TRUNCATED ...
 
 
 ```
+
+Please see [Testing](testing.md) for more details.
 
 [Usage](usage.md)
 --------------
@@ -330,6 +336,8 @@ try (final InputStream stream = Files.newInputStream(serializedDictionaryPath)) 
 Serialization is not restricted to dictionaries, you may also (de)serialize
 transducers.
 
+Please see [Usage](usage.md) for more details.
+
 History
 ------------------
 
@@ -436,10 +444,10 @@ that course if you are in the area.
 [java-cli]: https://github.com/universal-automata/liblevenshtein-java-cli "liblevenshtein-java-cli"
 [java-cli-readme]: https://github.com/universal-automata/liblevenshtein-java-cli/blob/master/README.md "liblevenshtein-java-cli, README.md"
 
-[javadoc/Iterable]: https://docs.oracle.com/javase/1.8/docs/api/java/lang/Iterable.html?is-external=true "java.lang.Iterable"
-[javadoc/Iterator.next()]: https://docs.oracle.com/javase/1.8/docs/api/java/util/Iterator.html#next-- "java.util.Iterator.next()"
-[javadoc/Iterator]: https://docs.oracle.com/javase/1.8/docs/api/java/util/Iterator.html "java.util.Iterator"
-[javadoc/String]: https://docs.oracle.com/javase/1.8/docs/api/java/lang/String.html "java.lang.String"
+[javadoc/Iterable]: https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html?is-external=true "java.lang.Iterable"
+[javadoc/Iterator.next()]: https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html#next-- "java.util.Iterator.next()"
+[javadoc/Iterator]: https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html "java.util.Iterator"
+[javadoc/String]: https://docs.oracle.com/javase/8/docs/api/java/lang/String.html "java.lang.String"
 
 [javadoc/Algorithm.MERGE_AND_SPLIT]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/2.2.3/com/github/dylon/liblevenshtein/levenshtein/Algorithm.html#MERGE_AND_SPLIT "Algorithm.MERGE_AND_SPLIT"
 [javadoc/Algorithm.STANDARD]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/2.2.3/com/github/dylon/liblevenshtein/levenshtein/Algorithm.html#STANDARD "Algorithm.STANDARD"

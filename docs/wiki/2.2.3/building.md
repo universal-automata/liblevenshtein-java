@@ -11,10 +11,10 @@ following location: `build/libs/liblevenshtein-2.2.3.jar`
 :extractProto
 :generateProto
 :compileJavawarning: No processor claimed any of these annotations: lombok.Setter,lombok.experimental.ExtensionMethod,lombok.Getter,lombok.NonNull,lombok.RequiredArgsConstructor,lombok.EqualsAndHashCode,lombok.Value,lombok.extern.slf4j.Slf4j,lombok.ToString,lombok.Data,lombok.AllArgsConstructor,lombok.NoArgsConstructor
-/tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:50: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:50: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
       return new CandidateCollection.WithDistance(maxCandidates);
                  ^
-/tmp/GenerateWikidoc-47478249466610710/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:70: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
+/tmp/GenerateWikidoc-520655217555399208/liblevenshtein-java/src/main/java/com/github/dylon/liblevenshtein/levenshtein/factory/CandidateCollectionBuilder.java:70: warning: [deprecation] CandidateCollection in com.github.dylon.liblevenshtein.levenshtein has been deprecated
       return new CandidateCollection.WithoutDistance(maxCandidates);
                  ^
 3 warnings
@@ -25,13 +25,13 @@ following location: `build/libs/liblevenshtein-2.2.3.jar`
 
 BUILD SUCCESSFUL
 
-Total time: 6.785 secs
+Total time: 6.607 secs
 
 This build could be faster, please consider using the Gradle Daemon: https://docs.gradle.org/2.13/userguide/gradle_daemon.html
 
 % tree build/libs
 build/libs
-└── liblevenshtein-2.2.3.jar
+└── liblevenshtein-2.2.4-alpha.1.jar
 
 0 directories, 1 file
 
@@ -77,10 +77,10 @@ build/libs
 [java-cli]: https://github.com/universal-automata/liblevenshtein-java-cli "liblevenshtein-java-cli"
 [java-cli-readme]: https://github.com/universal-automata/liblevenshtein-java-cli/blob/master/README.md "liblevenshtein-java-cli, README.md"
 
-[javadoc/Iterable]: https://docs.oracle.com/javase/1.8/docs/api/java/lang/Iterable.html?is-external=true "java.lang.Iterable"
-[javadoc/Iterator.next()]: https://docs.oracle.com/javase/1.8/docs/api/java/util/Iterator.html#next-- "java.util.Iterator.next()"
-[javadoc/Iterator]: https://docs.oracle.com/javase/1.8/docs/api/java/util/Iterator.html "java.util.Iterator"
-[javadoc/String]: https://docs.oracle.com/javase/1.8/docs/api/java/lang/String.html "java.lang.String"
+[javadoc/Iterable]: https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html?is-external=true "java.lang.Iterable"
+[javadoc/Iterator.next()]: https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html#next-- "java.util.Iterator.next()"
+[javadoc/Iterator]: https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html "java.util.Iterator"
+[javadoc/String]: https://docs.oracle.com/javase/8/docs/api/java/lang/String.html "java.lang.String"
 
 [javadoc/Algorithm.MERGE_AND_SPLIT]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/2.2.3/com/github/dylon/liblevenshtein/levenshtein/Algorithm.html#MERGE_AND_SPLIT "Algorithm.MERGE_AND_SPLIT"
 [javadoc/Algorithm.STANDARD]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/2.2.3/com/github/dylon/liblevenshtein/levenshtein/Algorithm.html#STANDARD "Algorithm.STANDARD"
