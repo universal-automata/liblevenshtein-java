@@ -110,6 +110,8 @@ public abstract class Action implements Runnable {
       .put("java", new ImmutableMap.Builder<String, Object>()
         .put("sourceVersion", cli.getOptionValue("java-source-version"))
         .put("targetVersion", cli.getOptionValue("java-target-version"))
+        .put("version",
+          cli.getOptionValue("java-target-version").replaceFirst("^1\\.", ""))
         .build())
       .build();
 
@@ -208,8 +210,8 @@ public abstract class Action implements Runnable {
             if ('\n' == c) {
               numLines += 1;
               if (numLines > maxLines) {
-                log.info("...");
-                buffer.append("...\n");
+                log.info("# ... TRUNCATED ...");
+                buffer.append("# ... TRUNCATED ...\n");
                 log.info("Exceeded the maximum number of lines [{}], terminating early ...",
                   maxLines);
                 proc.destroyForcibly();
@@ -236,8 +238,8 @@ public abstract class Action implements Runnable {
             if ('\n' == c) {
               numLines += 1;
               if (numLines > maxLines) {
-                log.info("...");
-                buffer.append("...\n");
+                log.info("# ... TRUNCATED ...");
+                buffer.append("# ... TRUNCATED ...\n");
                 log.info("Exceeded the maximum number of lines [{}], terminating early ...",
                   maxLines);
                 proc.destroyForcibly();
