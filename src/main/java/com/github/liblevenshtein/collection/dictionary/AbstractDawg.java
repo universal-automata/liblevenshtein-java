@@ -1,4 +1,4 @@
-package com.github.liblevenshtein.collection.dawg;
+package com.github.liblevenshtein.collection.dictionary;
 
 import java.io.Serializable;
 import java.util.AbstractSet;
@@ -12,8 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
-import com.github.liblevenshtein.collection.dawg.factory.IDawgNodeFactory;
-import com.github.liblevenshtein.collection.dawg.factory.IPrefixFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.IDawgNodeFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.IPrefixFactory;
 
 /**
  * Provides common logic for all my Dawg implementations.  Currently, there is

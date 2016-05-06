@@ -1,10 +1,10 @@
-package com.github.liblevenshtein.collection.dawg.factory;
+package com.github.liblevenshtein.collection.dictionary.factory;
 
 import java.io.Serializable;
 
 import lombok.val;
 
-import com.github.liblevenshtein.collection.dawg.Prefix;
+import com.github.liblevenshtein.collection.dictionary.Prefix;
 
 /**
  * Builds {@link Prefix}es that build the terms in a DAWG structure.

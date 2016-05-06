@@ -30,11 +30,11 @@ import lombok.ToString;
 import lombok.experimental.ExtensionMethod;
 import lombok.extern.slf4j.Slf4j;
 
-import com.github.liblevenshtein.collection.dawg.DawgNode;
-import com.github.liblevenshtein.collection.dawg.SortedDawg;
-import com.github.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
-import com.github.liblevenshtein.collection.dawg.factory.PrefixFactory;
-import com.github.liblevenshtein.collection.dawg.factory.TransitionFactory;
+import com.github.liblevenshtein.collection.dictionary.DawgNode;
+import com.github.liblevenshtein.collection.dictionary.SortedDawg;
+import com.github.liblevenshtein.collection.dictionary.factory.DawgNodeFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.PrefixFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.TransitionFactory;
 import com.github.liblevenshtein.transducer.Algorithm;
 import com.github.liblevenshtein.transducer.Transducer;
 import com.github.liblevenshtein.transducer.TransducerAttributes;

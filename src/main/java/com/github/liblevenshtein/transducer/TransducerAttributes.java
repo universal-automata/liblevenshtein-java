@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.ToString;
 
-import com.github.liblevenshtein.collection.dawg.IFinalFunction;
-import com.github.liblevenshtein.collection.dawg.ITransitionFunction;
-import com.github.liblevenshtein.collection.dawg.SortedDawg;
+import com.github.liblevenshtein.collection.dictionary.IFinalFunction;
+import com.github.liblevenshtein.collection.dictionary.ITransitionFunction;
+import com.github.liblevenshtein.collection.dictionary.SortedDawg;
 import com.github.liblevenshtein.transducer.factory.ICandidateFactory;
 import com.github.liblevenshtein.transducer.factory.IIntersectionFactory;
 import com.github.liblevenshtein.transducer.factory.IStateTransitionFactory;

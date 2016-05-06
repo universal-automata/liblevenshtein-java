@@ -16,9 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.google.protobuf.CodedInputStream;
 
-import com.github.liblevenshtein.collection.dawg.DawgNode;
-import com.github.liblevenshtein.collection.dawg.FinalDawgNode;
-import com.github.liblevenshtein.collection.dawg.SortedDawg;
+import com.github.liblevenshtein.collection.dictionary.DawgNode;
+import com.github.liblevenshtein.collection.dictionary.FinalDawgNode;
+import com.github.liblevenshtein.collection.dictionary.SortedDawg;
 import com.github.liblevenshtein.proto.LibLevenshteinProtos;
 import com.github.liblevenshtein.transducer.Algorithm;
 import com.github.liblevenshtein.transducer.Transducer;

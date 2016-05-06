@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Drops `dylon` from package names
   - Renames `com.github.liblevenshtein.levenshtein.distance` to `com.github.liblevenshtein.distance`
   - Renames `com.github.liblevenshtein.levenshtein` to `com.github.liblevenshtein.transducer`
+  - Renames `com.github.liblevenshtein.collection.dawg` to `com.github.liblevenshtein.collection.dictionary`
   - Moves `com.github.liblevenshtein.levenshtein.LibLevenshteinProtos` to `com.github.liblevenshtein.proto.LibLevenshteinProtos`
 
 ## [2.2.3] - Wednesday, May 4, 2016

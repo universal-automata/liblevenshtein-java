@@ -1,4 +1,4 @@
-package com.github.liblevenshtein.collection.dawg;
+package com.github.liblevenshtein.collection.dictionary;
 
 import java.util.ArrayDeque;
 import java.util.Collection;
@@ -8,12 +8,12 @@ import java.util.Map;
 
 import lombok.NonNull;
 
-import com.github.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
-import com.github.liblevenshtein.collection.dawg.factory.IDawgNodeFactory;
-import com.github.liblevenshtein.collection.dawg.factory.IPrefixFactory;
-import com.github.liblevenshtein.collection.dawg.factory.ITransitionFactory;
-import com.github.liblevenshtein.collection.dawg.factory.PrefixFactory;
-import com.github.liblevenshtein.collection.dawg.factory.TransitionFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.DawgNodeFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.IDawgNodeFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.IPrefixFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.ITransitionFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.PrefixFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.TransitionFactory;
 
 /**
  * <p>

@@ -10,14 +10,14 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import com.github.liblevenshtein.collection.TakeIterator;
-import com.github.liblevenshtein.collection.dawg.DawgNode;
-import com.github.liblevenshtein.collection.dawg.SortedDawg;
-import com.github.liblevenshtein.collection.dawg.factory.DawgFactory;
-import com.github.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
-import com.github.liblevenshtein.collection.dawg.factory.IDawgFactory;
-import com.github.liblevenshtein.collection.dawg.factory.IPrefixFactory;
-import com.github.liblevenshtein.collection.dawg.factory.PrefixFactory;
-import com.github.liblevenshtein.collection.dawg.factory.TransitionFactory;
+import com.github.liblevenshtein.collection.dictionary.DawgNode;
+import com.github.liblevenshtein.collection.dictionary.SortedDawg;
+import com.github.liblevenshtein.collection.dictionary.factory.DawgFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.DawgNodeFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.IDawgFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.IPrefixFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.PrefixFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.TransitionFactory;
 import com.github.liblevenshtein.transducer.Algorithm;
 import com.github.liblevenshtein.transducer.ICandidateCollection;
 import com.github.liblevenshtein.transducer.IDistanceFunction;
@@ -49,7 +49,7 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
   private static final String UNSUPPORTED_ALGORITHM = "Unsupported Algorithm: ";
 
   /**
-   * Builds and recycles {@link DawgNode} {@link com.github.liblevenshtein.collection.dawg.Prefix}es.
+   * Builds and recycles {@link DawgNode} {@link com.github.liblevenshtein.collection.dictionary.Prefix}es.
    */
   private final IPrefixFactory<DawgNode> prefixFactory = new PrefixFactory<>();
 

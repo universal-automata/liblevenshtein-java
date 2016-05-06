@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.github.liblevenshtein.collection.dawg.SortedDawg;
+import com.github.liblevenshtein.collection.dictionary.SortedDawg;
 import com.github.liblevenshtein.transducer.Algorithm;
 import com.github.liblevenshtein.transducer.Transducer;
 import com.github.liblevenshtein.transducer.factory.TransducerBuilder;

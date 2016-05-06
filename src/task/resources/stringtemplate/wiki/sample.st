@@ -35,7 +35,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.github.liblevenshtein.collection.dawg.SortedDawg;
+import com.github.liblevenshtein.collection.dictionary.SortedDawg;
 import com.github.liblevenshtein.Algorithm;
 import com.github.liblevenshtein.Candidate;
 import com.github.liblevenshtein.ITransducer;

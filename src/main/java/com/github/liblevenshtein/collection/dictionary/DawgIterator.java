@@ -1,4 +1,4 @@
-package com.github.liblevenshtein.collection.dawg;
+package com.github.liblevenshtein.collection.dictionary;
 
 import java.util.Queue;
 import java.util.ArrayDeque;
@@ -7,7 +7,7 @@ import lombok.NonNull;
 
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
-import com.github.liblevenshtein.collection.dawg.factory.IPrefixFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.IPrefixFactory;
 import com.github.liblevenshtein.collection.AbstractIterator;
 
 /**

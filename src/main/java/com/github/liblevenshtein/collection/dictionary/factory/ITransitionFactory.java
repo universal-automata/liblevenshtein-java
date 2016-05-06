@@ -1,9 +1,9 @@
-package com.github.liblevenshtein.collection.dawg.factory;
+package com.github.liblevenshtein.collection.dictionary.factory;
 
 import java.io.Serializable;
 
-import com.github.liblevenshtein.collection.dawg.IDawgNode;
-import com.github.liblevenshtein.collection.dawg.Transition;
+import com.github.liblevenshtein.collection.dictionary.IDawgNode;
+import com.github.liblevenshtein.collection.dictionary.Transition;
 
 /**
  * Builds transitions that link nodes together, connected by a character label.

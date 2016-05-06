@@ -1,12 +1,12 @@
-package com.github.liblevenshtein.collection.dawg.factory;
+package com.github.liblevenshtein.collection.dictionary.factory;
 
 import java.io.Serializable;
 import java.util.Collection;
 
-import com.github.liblevenshtein.collection.dawg.IDawg;
-import com.github.liblevenshtein.collection.dawg.IDawgNode;
-import com.github.liblevenshtein.collection.dawg.IFinalFunction;
-import com.github.liblevenshtein.collection.dawg.ITransitionFunction;
+import com.github.liblevenshtein.collection.dictionary.IDawg;
+import com.github.liblevenshtein.collection.dictionary.IDawgNode;
+import com.github.liblevenshtein.collection.dictionary.IFinalFunction;
+import com.github.liblevenshtein.collection.dictionary.ITransitionFunction;
 
 /**
  * Constructs instances of {@link IDawgNode}, optionally using an object pool.

@@ -1,4 +1,4 @@
-package com.github.liblevenshtein.collection.dawg;
+package com.github.liblevenshtein.collection.dictionary;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,10 +22,10 @@ import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.github.liblevenshtein.collection.dawg.factory.DawgFactory;
-import com.github.liblevenshtein.collection.dawg.factory.DawgNodeFactory;
-import com.github.liblevenshtein.collection.dawg.factory.PrefixFactory;
-import com.github.liblevenshtein.collection.dawg.factory.TransitionFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.DawgFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.DawgNodeFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.PrefixFactory;
+import com.github.liblevenshtein.collection.dictionary.factory.TransitionFactory;
 
 import static com.github.liblevenshtein.assertion.SetAssertions.assertThat;
 

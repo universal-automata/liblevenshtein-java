@@ -1,4 +1,4 @@
-package com.github.liblevenshtein.collection.dawg.factory;
+package com.github.liblevenshtein.collection.dictionary.factory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,11 +12,11 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import com.github.liblevenshtein.collection.dawg.AbstractDawg;
-import com.github.liblevenshtein.collection.dawg.DawgNode;
-import com.github.liblevenshtein.collection.dawg.IFinalFunction;
-import com.github.liblevenshtein.collection.dawg.ITransitionFunction;
-import com.github.liblevenshtein.collection.dawg.SortedDawg;
+import com.github.liblevenshtein.collection.dictionary.AbstractDawg;
+import com.github.liblevenshtein.collection.dictionary.DawgNode;
+import com.github.liblevenshtein.collection.dictionary.IFinalFunction;
+import com.github.liblevenshtein.collection.dictionary.ITransitionFunction;
+import com.github.liblevenshtein.collection.dictionary.SortedDawg;
 
 /**
  * Constructs DAWG instances.

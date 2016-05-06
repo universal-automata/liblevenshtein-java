@@ -4,4 +4,4 @@
  * @author Dylon Edwards
  * @since 2.1.0
  */
-package com.github.liblevenshtein.collection.dawg.factory;
+package com.github.liblevenshtein.collection.dictionary.factory;

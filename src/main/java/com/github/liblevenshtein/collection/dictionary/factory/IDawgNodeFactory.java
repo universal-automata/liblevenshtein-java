@@ -1,8 +1,8 @@
-package com.github.liblevenshtein.collection.dawg.factory;
+package com.github.liblevenshtein.collection.dictionary.factory;
 
 import java.io.Serializable;
 
-import com.github.liblevenshtein.collection.dawg.IDawgNode;
+import com.github.liblevenshtein.collection.dictionary.IDawgNode;
 
 /**
  * Builds nodes for use in DAWG structures. Implementations may do such things

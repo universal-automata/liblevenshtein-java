@@ -1,12 +1,12 @@
-package com.github.liblevenshtein.collection.dawg.factory;
+package com.github.liblevenshtein.collection.dictionary.factory;
 
 import java.io.Serializable;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 import it.unimi.dsi.fastutil.chars.Char2ObjectRBTreeMap;
 
-import com.github.liblevenshtein.collection.dawg.DawgNode;
-import com.github.liblevenshtein.collection.dawg.FinalDawgNode;
+import com.github.liblevenshtein.collection.dictionary.DawgNode;
+import com.github.liblevenshtein.collection.dictionary.FinalDawgNode;
 
 /**
  * Builds nodes for use in DAWG structures. This implementation uses an object

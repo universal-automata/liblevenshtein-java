@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import lombok.val;
 
-import com.github.liblevenshtein.collection.dawg.SortedDawg;
+import com.github.liblevenshtein.collection.dictionary.SortedDawg;
 import com.github.liblevenshtein.distance.MemoizedMergeAndSplit;
 import com.github.liblevenshtein.transducer.factory.TransducerBuilder;
 import com.github.liblevenshtein.serialization.ProtobufSerializer;

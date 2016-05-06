@@ -1,4 +1,4 @@
-package com.github.liblevenshtein.collection.dawg;
+package com.github.liblevenshtein.collection.dictionary;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 
