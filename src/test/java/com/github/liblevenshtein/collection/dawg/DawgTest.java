@@ -23,21 +23,15 @@ import org.testng.annotations.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.github.liblevenshtein.collection.dictionary.factory.DawgFactory;
-import com.github.liblevenshtein.collection.dictionary.factory.DawgNodeFactory;
-import com.github.liblevenshtein.collection.dictionary.factory.PrefixFactory;
-import com.github.liblevenshtein.collection.dictionary.factory.TransitionFactory;
 
 import static com.github.liblevenshtein.assertion.SetAssertions.assertThat;
 
 @Slf4j
 public class DawgTest {
   private List<String> terms;
-  private DawgNodeFactory dawgNodeFactory;
-  private PrefixFactory<DawgNode> prefixFactory;
-  private TransitionFactory<DawgNode> transitionFactory;
   private DawgFactory dawgFactory;
-  private AbstractDawg emptyDawg;
-  private AbstractDawg fullDawg;
+  private Dawg emptyDawg;
+  private Dawg fullDawg;
 
   @BeforeClass
   public void setUp() throws IOException {
@@ -56,10 +50,7 @@ public class DawgTest {
       Collections.sort(termsList);
 
       this.terms = termsList;
-      this.dawgNodeFactory = new DawgNodeFactory();
-      this.prefixFactory = new PrefixFactory<>();
-      this.transitionFactory = new TransitionFactory<>();
-      this.dawgFactory = new DawgFactory(dawgNodeFactory, prefixFactory, transitionFactory);
+      this.dawgFactory = new DawgFactory();
       this.emptyDawg = dawgFactory.build(new ArrayList<>(0));
       this.fullDawg = dawgFactory.build(termsList);
     }
@@ -99,7 +90,7 @@ public class DawgTest {
   public void dawgAcceptsEmptyStringIfInTerms() {
     final List<String> termsList = new ArrayList<>(1);
     termsList.add("");
-    final AbstractDawg dawg = dawgFactory.build(termsList);
+    final Dawg dawg = dawgFactory.build(termsList);
     assertThat(dawg).contains("");
   }
 
@@ -134,7 +125,7 @@ public class DawgTest {
 
   @Test
   public void equivalentDawgsShouldBeEqual() {
-    final AbstractDawg other = dawgFactory.build(new ArrayList<>(terms));
+    final Dawg other = dawgFactory.build(new ArrayList<>(terms));
     assertThat(fullDawg).isEqualTo(other);
   }
 

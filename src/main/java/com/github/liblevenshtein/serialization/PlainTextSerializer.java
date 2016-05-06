@@ -30,11 +30,9 @@ import lombok.ToString;
 import lombok.experimental.ExtensionMethod;
 import lombok.extern.slf4j.Slf4j;
 
+import com.github.liblevenshtein.collection.dictionary.Dawg;
 import com.github.liblevenshtein.collection.dictionary.DawgNode;
 import com.github.liblevenshtein.collection.dictionary.SortedDawg;
-import com.github.liblevenshtein.collection.dictionary.factory.DawgNodeFactory;
-import com.github.liblevenshtein.collection.dictionary.factory.PrefixFactory;
-import com.github.liblevenshtein.collection.dictionary.factory.TransitionFactory;
 import com.github.liblevenshtein.transducer.Algorithm;
 import com.github.liblevenshtein.transducer.Transducer;
 import com.github.liblevenshtein.transducer.TransducerAttributes;
@@ -120,7 +118,7 @@ public class PlainTextSerializer extends AbstractSerializer {
    * @param dictionary {@link Collection} to sort.
    * @return Sorted version of dictionary.
    */
-  private Collection<String> dictionaryFor(@NonNull final SortedDawg dictionary) {
+  private Collection<String> dictionaryFor(@NonNull final Dawg dictionary) {
     if (!isSorted) {
       return dictionary;
     }
@@ -162,10 +160,7 @@ public class PlainTextSerializer extends AbstractSerializer {
         if (isSorted) {
           log.info("Assuming the dictionary is sorted for deserialization");
 
-          final SortedDawg dictionary = new SortedDawg(
-            new PrefixFactory<DawgNode>(),
-            new DawgNodeFactory(),
-            new TransitionFactory<DawgNode>());
+          final SortedDawg dictionary = new SortedDawg();
 
           for (String term = reader.readLine(); null != term; term = reader.readLine()) {
             dictionary.add(term);
@@ -181,11 +176,7 @@ public class PlainTextSerializer extends AbstractSerializer {
           dictionary.add(term);
         }
 
-        return (Type) new SortedDawg(
-          new PrefixFactory<DawgNode>(),
-          new DawgNodeFactory(),
-          new TransitionFactory<DawgNode>(),
-          dictionary);
+        return (Type) new SortedDawg(dictionary);
       }
     }
 

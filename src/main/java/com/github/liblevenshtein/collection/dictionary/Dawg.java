@@ -12,9 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
-import com.github.liblevenshtein.collection.dictionary.factory.IDawgNodeFactory;
-import com.github.liblevenshtein.collection.dictionary.factory.IPrefixFactory;
-
 /**
  * Provides common logic for all my Dawg implementations.  Currently, there is
  * only the {@link SortedDawg} implementation, but I have plans for other kinds.
@@ -24,65 +21,47 @@ import com.github.liblevenshtein.collection.dictionary.factory.IPrefixFactory;
 @Slf4j
 @EqualsAndHashCode(of = {"size", "root"},
                    callSuper = false)
-public abstract class AbstractDawg
+public abstract class Dawg
     extends AbstractSet<String>
-    implements IDawg<DawgNode>,
-               IFinalFunction<DawgNode>,
+    implements IFinalFunction<DawgNode>,
                ITransitionFunction<DawgNode>,
                Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  /** Manages instances of DAWG nodes. */
-  protected IDawgNodeFactory<DawgNode> factory;
-
   /**
-   * Builds and recycles prefix objects, which are used to generate terms from
-   * the dictionary's root.
-   */
-  protected IPrefixFactory<DawgNode> prefixFactory;
-
-  /**
+   * Root node of this trie.
+   * -- GETTER --
    * Root node of this trie.
    * @return Root node of this trie.
    */
-  @Getter(onMethod = @_({@Override}))
+  @Getter
   protected DawgNode root = null;
 
   /**
    * Number of terms in this trie.
    * @return Number of terms in this trie.
    */
-  @Getter(onMethod = @_({@Override}))
+  @Getter(onMethod = @__({@Override}))
   protected int size = 0;
 
   /**
-   * Initializes an {@link AbstractDawg}.
-   * @param prefixFactory Builds/Caches instances of {@link DawgNode} paths.
-   * @param factory Builds/Caches {@link DawgNode} nodes.
+   * Initializes an {@link Dawg}.
    * @param root Root node of this DAWG.
    * @param size Number of terms in the dictionary.
    */
-  protected AbstractDawg(
-      final IPrefixFactory<DawgNode> prefixFactory,
-      final IDawgNodeFactory<DawgNode> factory,
+  protected Dawg(
       final DawgNode root,
       final int size) {
-    this.prefixFactory = prefixFactory;
-    this.factory = factory;
     this.root = root;
     this.size = size;
   }
 
   /**
-   * Initializes an {@link AbstractDawg}.
-   * @param prefixFactory Builds/Caches instances of {@link DawgNode} paths.
-   * @param factory Builds/Caches {@link DawgNode} nodes.
+   * Initializes an {@link Dawg}.
    */
-  public AbstractDawg(
-      final IPrefixFactory<DawgNode> prefixFactory,
-      final IDawgNodeFactory<DawgNode> factory) {
-    this(prefixFactory, factory, factory.build(), 0);
+  public Dawg() {
+    this(new DawgNode(), 0);
   }
 
   /**
@@ -161,21 +140,25 @@ public abstract class AbstractDawg
    */
   @Override
   public Iterator<String> iterator() {
-    return new DawgIterator(prefixFactory, this);
+    return new DawgIterator(root, this);
   }
 
   /**
-   * {@inheritDoc}
+   * [Optional Operation] Replaces the String, current, with another.
+   * @param current String in this DAWG to replace
+   * @param replacement String to replace the current one with
+   * @return Whether the replacement was successful.
    */
-  @Override
   public boolean replace(final String current, final String replacement) {
     throw new UnsupportedOperationException("replace is not supported");
   }
 
   /**
-   * {@inheritDoc}
+   * [Optional Operation] Replaces all instances of the term keys with their
+   * values.
+   * @param c Replacment mappings.
+   * @return Whether all replacements were successful.
    */
-  @Override
   public boolean replaceAll(final Collection<? extends Map.Entry<String, String>> c) {
     throw new UnsupportedOperationException("replaceAll is not supported");
   }

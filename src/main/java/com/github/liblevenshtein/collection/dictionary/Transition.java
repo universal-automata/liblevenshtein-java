@@ -2,18 +2,15 @@ package com.github.liblevenshtein.collection.dictionary;
 
 import java.io.Serializable;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Value;
 
 /**
  * Links two nodes together, under a character label.
- * @param <NodeType> Kind of the nodes being linked together.
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@Data
-@NoArgsConstructor
-public class Transition<NodeType extends IDawgNode<NodeType>> implements Serializable {
+@Value
+public class Transition implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -27,7 +24,7 @@ public class Transition<NodeType extends IDawgNode<NodeType>> implements Seriali
    * @param source Node from which the transition is leaving.
    * @return This {@link Transition} for fluency.
    */
-  private NodeType source;
+  private DawgNode source;
 
   /**
    * Label mapping {@link #source} to {@link #target}.
@@ -51,5 +48,5 @@ public class Transition<NodeType extends IDawgNode<NodeType>> implements Seriali
    * @param target Node to which the transition is going.
    * @return Node to which the transition is going.
    */
-  private NodeType target;
+  private DawgNode target;
 }

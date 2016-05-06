@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.google.protobuf.CodedInputStream;
 
+import com.github.liblevenshtein.collection.dictionary.Dawg;
 import com.github.liblevenshtein.collection.dictionary.DawgNode;
 import com.github.liblevenshtein.collection.dictionary.FinalDawgNode;
 import com.github.liblevenshtein.collection.dictionary.SortedDawg;
@@ -241,6 +242,20 @@ public class ProtobufSerializer extends AbstractSerializer {
         final String message = String.format("Unknown Algorithm [%s]", algorithm);
         throw new IllegalArgumentException(message);
     }
+  }
+
+  /**
+   * Returns the prototype of the dictionary.
+   * @param dawg Dictionary whose prototype is to be returned.
+   * @return Prototype of the dictionary.
+   */
+  protected LibLevenshteinProtos.Dawg protoOf(final Dawg dawg) {
+    if (dawg instanceof SortedDawg) {
+      return protoOf((SortedDawg) dawg);
+    }
+    final String message =
+      String.format("Unsupported Dawg type [%s]", dawg.getClass());
+    throw new IllegalArgumentException(message);
   }
 
   /**

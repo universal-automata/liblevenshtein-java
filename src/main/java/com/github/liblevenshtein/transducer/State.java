@@ -34,7 +34,7 @@ public class State implements IState, Serializable {
    * specific locations.
    * @return Number of positions in this state.
    */
-  @Getter(onMethod = @_({@Override}))
+  @Getter(onMethod = @__({@Override}))
   private int size = 0;
 
   /**

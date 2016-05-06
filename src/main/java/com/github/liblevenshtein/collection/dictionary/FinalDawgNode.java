@@ -20,6 +20,14 @@ public class FinalDawgNode extends DawgNode {
   }
 
   /**
+   * Constructs a new {@link FinalDawgNode}, which acts just like a
+   * {@link DawgNode} except that {@link #isFinal()} returns true.
+   */
+  public FinalDawgNode() {
+    super();
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override

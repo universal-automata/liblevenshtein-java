@@ -2,10 +2,12 @@ package com.github.liblevenshtein.collection.dictionary;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
+import it.unimi.dsi.fastutil.chars.Char2ObjectRBTreeMap;
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -19,7 +21,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * @since 2.1.0
  */
 @Data
-public class DawgNode implements IDawgNode<DawgNode>, Serializable {
+@AllArgsConstructor
+public class DawgNode implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -33,42 +36,51 @@ public class DawgNode implements IDawgNode<DawgNode>, Serializable {
   protected final Char2ObjectMap<DawgNode> edges;
 
   /**
-   * {@inheritDoc}
+   * Constructs a non-final {@link DawgNode}.
    */
-  @Override
+  public DawgNode() {
+    this(new Char2ObjectRBTreeMap<>());
+  }
+
+  /**
+   * Specifies whether this node represents the last character of some term.
+   * @return Whether this node represents the last character of some term.
+   */
   public boolean isFinal() {
     return false;
   }
 
   /**
-   * {@inheritDoc}
+   * Returns the labels of the outgoing edges of this node.
+   * @return Labels of the outgoing edges of this node.
    */
-  @Override
   public CharIterator labels() {
     return edges.keySet().iterator();
   }
 
   /**
-   * {@inheritDoc}
+   * Accepts a label and returns the outgoing transition corresponding to it.
+   * @param label Identifier of the outgoing transition to return
+   * @return Outgoing transition corresponding to the label
    */
-  @Override
   public DawgNode transition(final char label) {
     return edges.get(label);
   }
 
   /**
-   * {@inheritDoc}
+   * Adds an edge to the outgoing edges of this DAWG node.
+   * @param label Identifier of the edge
+   * @param target Neighbor receiving the directed edge
+   * @return A DAWG node having the new edge
    */
-  @Override
   public DawgNode addEdge(final char label, final DawgNode target) {
     edges.put(label, target);
     return this;
   }
 
   /**
-   * {@inheritDoc}
+   * Removes all outoing-edges.
    */
-  @Override
   public void clear() {
     edges.clear();
   }

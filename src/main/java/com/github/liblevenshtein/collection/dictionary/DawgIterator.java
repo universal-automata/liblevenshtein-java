@@ -7,11 +7,10 @@ import lombok.NonNull;
 
 import it.unimi.dsi.fastutil.chars.CharIterator;
 
-import com.github.liblevenshtein.collection.dictionary.factory.IPrefixFactory;
 import com.github.liblevenshtein.collection.AbstractIterator;
 
 /**
- * Iterates over the terms within an {@link AbstractDawg}.
+ * Iterates over the terms within an {@link Dawg}.
  * @author Dylon Edwards
  * @since 2.1.0
  */
@@ -20,13 +19,10 @@ public class DawgIterator extends AbstractIterator<String> {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Queue for traversing the terms in the {@link AbstractDawg} in a
+   * Queue for traversing the terms in the {@link Dawg} in a
    * depth-first search manner.
    */
-  private final Queue<Prefix<DawgNode>> prefixes = new ArrayDeque<>();
-
-  /** Creates and caches {@link Prefix} instances. */
-  private final IPrefixFactory<DawgNode> prefixFactory;
+  private final Queue<Prefix> prefixes = new ArrayDeque<>();
 
   /**
    * Returns whether the current {@link DawgNode} represents the last character
@@ -35,18 +31,16 @@ public class DawgIterator extends AbstractIterator<String> {
   private final IFinalFunction<DawgNode> isFinal;
 
   /**
-   * Initializes a new {@link DawgIterator} with a {@link IPrefixFactory} and an
-   * {@link AbstractDawg}.
-   * @param prefixFactory Creates and caches {@link Prefix} instances, which are
-   * used to traverse the {@code dawg}.
-   * @param dawg {@link AbstractDawg} to iterate over.
+   * Initializes a new {@link DawgIterator}.
+   * @param root Root of the DAWG structure to traverse
+   * @param isFinal Returns whether some {@link DawgNode} represents the last
+   * character in some term.
    */
   public DawgIterator(
-      @NonNull final IPrefixFactory<DawgNode> prefixFactory,
-      @NonNull final AbstractDawg dawg) {
-    this.prefixFactory = prefixFactory;
-    this.isFinal = dawg;
-    prefixes.offer(prefixFactory.build(dawg.root(), ""));
+      @NonNull final DawgNode root,
+      @NonNull final IFinalFunction<DawgNode> isFinal) {
+    this.isFinal = isFinal;
+    prefixes.offer(new Prefix(root));
   }
 
   /**
@@ -59,18 +53,14 @@ public class DawgIterator extends AbstractIterator<String> {
       String value;
 
       do {
-        final Prefix<DawgNode> prefix = prefixes.poll();
+        final Prefix prefix = prefixes.poll();
         node = prefix.node();
         value = prefix.value();
         final CharIterator iter = node.labels();
         while (iter.hasNext()) {
           final char label = iter.nextChar();
           final DawgNode nextNode = node.transition(label);
-          final String nextValue = value + label;
-          if (!prefixes.offer(prefixFactory.build(nextNode, nextValue))) {
-            throw new IllegalStateException(
-                "Failed to enqueue prefix value: " + nextValue);
-          }
+          prefixes.add(new Prefix(nextNode, prefix, label));
         }
       }
       while (!isFinal.at(node));

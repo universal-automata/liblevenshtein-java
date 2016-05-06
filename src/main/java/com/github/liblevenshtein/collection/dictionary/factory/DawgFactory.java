@@ -6,13 +6,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import com.github.liblevenshtein.collection.dictionary.AbstractDawg;
+import com.github.liblevenshtein.collection.dictionary.Dawg;
 import com.github.liblevenshtein.collection.dictionary.DawgNode;
 import com.github.liblevenshtein.collection.dictionary.IFinalFunction;
 import com.github.liblevenshtein.collection.dictionary.ITransitionFunction;
@@ -24,92 +21,59 @@ import com.github.liblevenshtein.collection.dictionary.SortedDawg;
  * @since 2.1.0
  */
 @Slf4j
-@NoArgsConstructor
-@AllArgsConstructor
-public class DawgFactory implements IDawgFactory<DawgNode, AbstractDawg>, Serializable {
+public class DawgFactory implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   /**
-   * Builds and recycles Dawg nodes.
-   * -- SETTER --
-   * Builds and recycles Dawg nodes.
-   * @param dawgNodeFactory Builds and recycles Dawg nodes.
-   * @return This {@link DawgFactory} for fluency.
+   * Returns a new DAWG.
+   * @param terms Terms to insert into the DAWG
+   * @return A new DAWG, containing the terms.
    */
-  @Setter private IDawgNodeFactory<DawgNode> dawgNodeFactory;
-
-  /**
-   * Builds and recycles prefix objects, which are used to generate terms from
-   * the dictionary's root.
-   * -- SETTER --
-   * Builds and recycles prefix objects, which are used to generate terms from
-   * the dictionary's root.
-   * @param prefixFactory Builds and recycles prefix objects, which are used to
-   * generate terms from the dictionary's root.
-   * @return This {@link DawgFactory} for fluency.
-   */
-  @Setter private IPrefixFactory<DawgNode> prefixFactory;
-
-  /**
-   * Builds (and recycles for memory efficiency) Transition objects.
-   * -- SETTER --
-   * Builds (and recycles for memory efficiency) Transition objects.
-   * @param transitionFactory Builds (and recycles for memory efficiency)
-   * Transition objects.
-   * @return This {@link DawgFactory} for fluency.
-   */
-  @Setter private ITransitionFactory<DawgNode> transitionFactory;
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public AbstractDawg build(@NonNull final Collection<String> terms) {
+  public Dawg build(@NonNull final Collection<String> terms) {
     return build(terms, false);
   }
 
   /**
-   * {@inheritDoc}
+   * Returns a new DAWG.
+   * @param terms Terms to insert into the DAWG
+   * @param isSorted Whether terms has been sorted
+   * @return A new DAWG, containing the terms.
    */
-  @Override
-  public AbstractDawg build(
+  public Dawg build(
       @NonNull final Collection<String> terms,
       final boolean isSorted) {
 
-    if (!isSorted) {
-      if (terms instanceof List) {
-        // TODO: When I implement the unsorted algorithm, return an instance of
-        // the unsorted Dawg instead of sorting the terms.
-        Collections.sort((List<String>) terms);
-      }
-      else if (!(terms instanceof SortedDawg)) {
-        return build(new ArrayList<>(terms), false);
-      }
+    if (terms instanceof SortedDawg) {
+      return (SortedDawg) terms;
     }
 
-    return new SortedDawg(
-        prefixFactory,
-        dawgNodeFactory,
-        transitionFactory,
-        terms);
+    if (!isSorted) {
+      if (!(terms instanceof List)) {
+        return build(new ArrayList<String>(terms), false);
+      }
+
+      Collections.sort((List<String>) terms);
+    }
+
+    return new SortedDawg(terms);
   }
 
   /**
-   * {@inheritDoc}
+   * Returns the final function of the dictionary.
+   * @param dictionary Dawg whose final function should be returned
+   * @return The final function of the dictionary
    */
-  @Override
-  public IFinalFunction<DawgNode> isFinal(
-      @NonNull final AbstractDawg dictionary) {
+  public IFinalFunction<DawgNode> isFinal(@NonNull final Dawg dictionary) {
     return dictionary;
   }
 
   /**
-   * {@inheritDoc}
+   * Returns the transition function of the dictionary.
+   * @param dictionary Dawg whose transition function should be returned
+   * @return The transition function of the dictionary
    */
-  @Override
-  public ITransitionFunction<DawgNode> transition(
-      @NonNull final AbstractDawg dictionary) {
+  public ITransitionFunction<DawgNode> transition(@NonNull final Dawg dictionary) {
     return dictionary;
   }
 }

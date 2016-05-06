@@ -2,19 +2,15 @@ package com.github.liblevenshtein.transducer.factory;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Collections;
 
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
+import com.github.liblevenshtein.collection.dictionary.Dawg;
 import com.github.liblevenshtein.collection.dictionary.DawgNode;
-import com.github.liblevenshtein.collection.dictionary.SortedDawg;
 import com.github.liblevenshtein.collection.dictionary.factory.DawgFactory;
-import com.github.liblevenshtein.collection.dictionary.factory.DawgNodeFactory;
-import com.github.liblevenshtein.collection.dictionary.factory.IDawgFactory;
-import com.github.liblevenshtein.collection.dictionary.factory.IPrefixFactory;
-import com.github.liblevenshtein.collection.dictionary.factory.PrefixFactory;
-import com.github.liblevenshtein.collection.dictionary.factory.TransitionFactory;
 import com.github.liblevenshtein.transducer.Algorithm;
 import com.github.liblevenshtein.transducer.IDistanceFunction;
 import com.github.liblevenshtein.transducer.IState;
@@ -45,26 +41,22 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
   private static final String UNSUPPORTED_ALGORITHM = "Unsupported Algorithm: ";
 
   /**
-   * Builds and recycles {@link DawgNode} {@link com.github.liblevenshtein.collection.dictionary.Prefix}es.
-   */
-  private final IPrefixFactory<DawgNode> prefixFactory = new PrefixFactory<>();
-
-  /**
    * Builds DAWG collections from dictionaries.
    */
-  @SuppressWarnings("unchecked")
-  private final IDawgFactory<DawgNode, SortedDawg> dawgFactory =
-    (IDawgFactory<DawgNode, SortedDawg>)
-    (Object)
-      new DawgFactory()
-        .dawgNodeFactory(new DawgNodeFactory())
-        .prefixFactory(prefixFactory)
-        .transitionFactory(new TransitionFactory<DawgNode>());
+  private final DawgFactory dawgFactory = new DawgFactory();
 
   /**
    * Dictionary automaton for seeking spelling candidates.
    */
-  private SortedDawg dictionary;
+  @SuppressWarnings("unchecked")
+  @Setter(onMethod = @__({@Override}))
+  private Collection<String> dictionary = Collections.EMPTY_LIST;
+
+  /**
+   * Whether {@link #dictionary} is sorted.
+   */
+  @Setter
+  private boolean isSorted = false;
 
   /**
    * Desired Levenshtein algorithm for searching.
@@ -74,7 +66,7 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
    * @return This {@link TransducerBuilder} for fluency.
    */
   @NonNull
-  @Setter(onMethod = @_({@Override}))
+  @Setter(onMethod = @__({@Override}))
   private Algorithm algorithm = Algorithm.STANDARD;
 
   /**
@@ -87,7 +79,7 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
    * between each spelling candidate and the query term.
    * @return This {@link TransducerBuilder} for fluency.
    */
-  @Setter(onMethod = @_({@Override}))
+  @Setter(onMethod = @__({@Override}))
   private int defaultMaxDistance = 2;
 
   /**
@@ -101,16 +93,8 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
    * spelling candidates.
    * @return This {@link TransducerBuilder} for fluency.
    */
-  @Setter(onMethod = @_({@Override}))
+  @Setter(onMethod = @__({@Override}))
   private boolean includeDistance = true;
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public ITransducerBuilder dictionary(@NonNull final Collection<String> dictionary) {
-    return dictionary(dictionary, false);
-  }
 
   /**
    * {@inheritDoc}
@@ -119,14 +103,8 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
   public ITransducerBuilder dictionary(
       @NonNull final Collection<String> dictionary,
       final boolean isSorted) {
-
-    if (dictionary instanceof SortedDawg) {
-      this.dictionary = (SortedDawg) dictionary;
-    }
-    else {
-      this.dictionary = dawgFactory.build(dictionary, isSorted);
-    }
-
+    this.dictionary = dictionary;
+    this.isSorted = isSorted;
     return this;
   }
 
@@ -136,9 +114,12 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
   @Override
   @SuppressWarnings("unchecked")
   public <CandidateType> ITransducer<CandidateType> build() {
-    log.info("Building transducer out of [{}] terms with algorithm [{}], "
-        + "defaultMaxDistance [{}], and includeDistance [{}]",
-        dictionary.size(), algorithm, defaultMaxDistance, includeDistance);
+    log.info("Building transducer out of [{}] terms with isSorted [{}], "
+        + "algorithm [{}], defaultMaxDistance [{}], and includeDistance [{}]",
+        dictionary.size(), isSorted, algorithm, defaultMaxDistance,
+        includeDistance);
+
+    final Dawg dictionary = dawgFactory.build(this.dictionary, this.isSorted);
 
     final IStateFactory stateFactory =
       new StateFactory().elementFactory(new ElementFactory<int[]>());
