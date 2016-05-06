@@ -49,6 +49,7 @@ deployed to, let me know.
 | ---------------------------------:|:------------------------------------------- |
 |           [master][master-branch] | Latest, development source.                 |
 |         [release][release-branch] | Latest, release source.                     |
+| [release-2.x][release-branch-2.x] | Latest, release source for version 2.x.     |
 
 ### Documentation
 

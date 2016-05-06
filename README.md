@@ -48,6 +48,7 @@ deployed to, let me know.
 | ---------------------------------:|:------------------------------------------- |
 |           [master][master-branch] | Latest, development source.                 |
 |         [release][release-branch] | Latest, release source.                     |
+| [release-2.x][release-branch-2.x] | Latest, release source for version 2.x.     |
 
 ### Documentation
 
@@ -118,11 +119,11 @@ libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "3.0
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-remote: Counting objects: 4671, done.        
-remote: Compressing objects: 100% (1268/1268), done.        
-remote: Total 4671 (delta 989), reused 0 (delta 0), pack-reused 3317        
-Receiving objects: 100% (4671/4671), 3.17 MiB | 2.51 MiB/s, done.
-Resolving deltas: 100% (2604/2604), done.
+remote: Counting objects: 5166, done.        
+remote: Compressing objects: 100% (1737/1737), done.        
+remote: Total 5166 (delta 1280), reused 0 (delta 0), pack-reused 3317        
+Receiving objects: 100% (5166/5166), 3.46 MiB | 2.71 MiB/s, done.
+Resolving deltas: 100% (2895/2895), done.
 Checking connectivity... done.
 
 % cd liblevenshtein-java
@@ -334,6 +335,7 @@ For more information, please see the [wiki][wiki].
 
 [master-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/master
 [release-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/release
+[release-branch-2.x]: https://github.com/universal-automata/liblevenshtein-java/tree/release-2.x
 
 [wiki]: https://github.com/universal-automata/liblevenshtein-java/blob/gh-pages/docs/wiki/3.0.0-alpha.1/index.md "liblevenshtein 3.0.0-alpha.1 Wiki"
 [javadoc]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-alpha.1/index.html "liblevenshtein 3.0.0-alpha.1 API"
