@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package liblevenshtein;
 
-option java_package = "com.github.dylon.liblevenshtein.levenshtein";
+option java_package = "com.github.liblevenshtein.proto";
 option java_outer_classname = "LibLevenshteinProtos";
 
 message DawgNode {

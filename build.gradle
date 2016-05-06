@@ -249,7 +249,7 @@ task syntastic(dependsOn: taskClasses) {
 
     def configPath = "${projectDir}/.vimrc.local".toString()
 
-    execTask('com.github.dylon.liblevenshtein.task.GenerateSyntasticConfig', [
+    execTask('com.github.liblevenshtein.task.GenerateSyntasticConfig', [
       "--classpath", classpath.asPath,
       "--config-path", configPath
     ])
@@ -265,7 +265,7 @@ task wikidoc(dependsOn: taskClasses) {
     wikidocDir.mkdirs()
   }
   doLast {
-    execTask('com.github.dylon.liblevenshtein.task.GenerateWikidoc', [
+    execTask('com.github.liblevenshtein.task.GenerateWikidoc', [
       "--wiki-path", wikidocDir.path
     ])
     copy {
@@ -278,7 +278,7 @@ task wikidoc(dependsOn: taskClasses) {
 task readme(dependsOn: taskClasses) {
   description = 'Keeps the README.md up-to-date'
   doLast {
-    execTask('com.github.dylon.liblevenshtein.task.GenerateReadme', [
+    execTask('com.github.liblevenshtein.task.GenerateReadme', [
       "--readme-path", "$projectDir/README.md".toString()
     ])
   }

@@ -35,14 +35,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.github.dylon.liblevenshtein.collection.dawg.SortedDawg;
-import com.github.dylon.liblevenshtein.levenshtein.Algorithm;
-import com.github.dylon.liblevenshtein.levenshtein.Candidate;
-import com.github.dylon.liblevenshtein.levenshtein.ITransducer;
-import com.github.dylon.liblevenshtein.levenshtein.factory.TransducerBuilder;
-import com.github.dylon.liblevenshtein.serialization.PlainTextSerializer;
-import com.github.dylon.liblevenshtein.serialization.ProtobufSerializer;
-import com.github.dylon.liblevenshtein.serialization.Serializer;
+import com.github.liblevenshtein.collection.dawg.SortedDawg;
+import com.github.liblevenshtein.Algorithm;
+import com.github.liblevenshtein.Candidate;
+import com.github.liblevenshtein.ITransducer;
+import com.github.liblevenshtein.factory.TransducerBuilder;
+import com.github.liblevenshtein.serialization.PlainTextSerializer;
+import com.github.liblevenshtein.serialization.ProtobufSerializer;
+import com.github.liblevenshtein.serialization.Serializer;
 
 // ...
 
