@@ -28,13 +28,11 @@ import com.github.liblevenshtein.transducer.factory.IStateTransitionFactory;
   "maxDistance",
   "dictionary",
   "algorithm",
-  "maxCandidates",
   "includeDistance"})
 @EqualsAndHashCode(of = {
   "maxDistance",
   "dictionary",
   "algorithm",
-  "maxCandidates",
   "includeDistance"})
 public class TransducerAttributes<DictionaryNode, CandidateType> implements Serializable {
 
@@ -210,18 +208,6 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    */
   @NonNull
   protected Algorithm algorithm;
-
-  /**
-   * Maximum number of candidates to match.
-   * -- GETTER --
-   * Maximum number of candidates to match.
-   * @return Maximum number of candidates to match.
-   * -- SETTER --
-   * Maximum number of candidates to match.
-   * @param maxCandidates Maximum number of candidates to match.
-   * @return This {@link TransducerAttributes} for fluency.
-   */
-  protected int maxCandidates;
 
   /**
    * Whether to include the number of errors from the query term with the

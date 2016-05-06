@@ -18,7 +18,7 @@ public interface ITransducer<CandidateType> extends Serializable {
    * @return A data structure consisting of all the spelling candidates for the
    * query term.
    */
-  ICandidateCollection<CandidateType> transduce(String term);
+  Iterable<CandidateType> transduce(String term);
 
   /**
    * Finds all terms in the dictionary that are fewer than n units of spelling
@@ -29,5 +29,5 @@ public interface ITransducer<CandidateType> extends Serializable {
    * @return A data structure consisting of all the spelling candidates for the
    * query term.
    */
-  ICandidateCollection<CandidateType> transduce(String term, int maxDistance);
+  Iterable<CandidateType> transduce(String term, int maxDistance);
 }

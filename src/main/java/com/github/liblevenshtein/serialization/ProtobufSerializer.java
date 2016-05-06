@@ -183,7 +183,6 @@ public class ProtobufSerializer extends AbstractSerializer {
         .algorithm(modelOf(proto.getAlgorithm()))
         .defaultMaxDistance(proto.getDefaultMaxDistance())
         .includeDistance(proto.getIncludeDistance())
-        .maxCandidates(proto.getMaxCandidates())
         .build();
   }
 
@@ -220,7 +219,6 @@ public class ProtobufSerializer extends AbstractSerializer {
     return LibLevenshteinProtos.Transducer.newBuilder()
       .setDefaultMaxDistance(attributes.maxDistance())
       .setIncludeDistance(attributes.includeDistance())
-      .setMaxCandidates(attributes.maxCandidates())
       .setAlgorithm(protoOf(attributes.algorithm()))
       .setDictionary(protoOf(attributes.dictionary()))
       .build();

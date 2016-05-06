@@ -100,7 +100,6 @@ public class PlainTextSerializer extends AbstractSerializer {
       new Properties()
         .setInteger("maxDistance", attributes.maxDistance())
         .setBoolean("includeDistance", attributes.includeDistance())
-        .setInteger("maxCandidates", attributes.maxCandidates())
         .setAlgorithm("algorithm", attributes.algorithm())
         .setBoolean("isSorted", isSorted)
         .setCollection("dictionary", dictionary)
@@ -200,7 +199,6 @@ public class PlainTextSerializer extends AbstractSerializer {
         .algorithm(properties.getAlgorithm("algorithm"))
         .defaultMaxDistance(properties.getInteger("maxDistance"))
         .includeDistance(properties.getBoolean("includeDistance"))
-        .maxCandidates(properties.getInteger("maxCandidates"))
         .build();
     }
 

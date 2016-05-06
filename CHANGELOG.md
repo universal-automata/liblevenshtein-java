@@ -15,6 +15,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Renames `com.github.liblevenshtein.collection.dawg` to `com.github.liblevenshtein.collection.dictionary`
   - Moves `com.github.liblevenshtein.levenshtein.LibLevenshteinProtos` to `com.github.liblevenshtein.proto.LibLevenshteinProtos`
 
+### Removed
+- Removes the deprecated, `maxCandidates`, option and its related classes.
+
 ## [2.2.3] - Wednesday, May 4, 2016
 
 ### Added

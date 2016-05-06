@@ -43,7 +43,7 @@ public class Transducer<DictionaryNode, CandidateType>
    * {@inheritDoc}
    */
   @Override
-  public ICandidateCollection<CandidateType> transduce(@NonNull final String term) {
+  public Iterable<CandidateType> transduce(@NonNull final String term) {
     return transduce(term, attributes.maxDistance());
   }
 
@@ -51,7 +51,7 @@ public class Transducer<DictionaryNode, CandidateType>
    * {@inheritDoc}
    */
   @Override
-  public ICandidateCollection<CandidateType> transduce(
+  public Iterable<CandidateType> transduce(
       @NonNull final String term,
       final int maxDistance) {
     return new LazyTransducerCollection<DictionaryNode, CandidateType>(

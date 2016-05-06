@@ -2,14 +2,11 @@ package com.github.liblevenshtein.transducer.factory;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Iterator;
 
-import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import com.github.liblevenshtein.collection.TakeIterator;
 import com.github.liblevenshtein.collection.dictionary.DawgNode;
 import com.github.liblevenshtein.collection.dictionary.SortedDawg;
 import com.github.liblevenshtein.collection.dictionary.factory.DawgFactory;
@@ -19,7 +16,6 @@ import com.github.liblevenshtein.collection.dictionary.factory.IPrefixFactory;
 import com.github.liblevenshtein.collection.dictionary.factory.PrefixFactory;
 import com.github.liblevenshtein.collection.dictionary.factory.TransitionFactory;
 import com.github.liblevenshtein.transducer.Algorithm;
-import com.github.liblevenshtein.transducer.ICandidateCollection;
 import com.github.liblevenshtein.transducer.IDistanceFunction;
 import com.github.liblevenshtein.transducer.IState;
 import com.github.liblevenshtein.transducer.ITransducer;
@@ -92,7 +88,7 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
    * @return This {@link TransducerBuilder} for fluency.
    */
   @Setter(onMethod = @_({@Override}))
-  private int defaultMaxDistance = Integer.MAX_VALUE;
+  private int defaultMaxDistance = 2;
 
   /**
    * Whether the distances between each spelling candidate and the query term
@@ -107,29 +103,6 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
    */
   @Setter(onMethod = @_({@Override}))
   private boolean includeDistance = true;
-
-  /**
-   * If desired, the maximum number of elements in the collections of spelling
-   * candidates.
-   * -- SETTER --
-   * <p>
-   * <b>WARNING</b> This parameter has been deprecated and is schemduled for
-   * removal in the next major release.  Rather than specifying it here, take
-   * {@link #maxCandidates} number of elements from the {@link ICandidateCollection}
-   * returned from the transducer.
-   * </p>
-   *
-   * <p>
-   * If desired, the maximum number of elements in the collections of spelling
-   * candidates.
-   * </p>
-   *
-   * @param maxCandidates If desired, the maximum number of elements in the
-   * collections of spelling candidates.
-   * @return This {@link TransducerBuilder} for fluency.
-   */
-  @Setter(onMethod = @_({@Override, @Deprecated}))
-  private int maxCandidates = Integer.MAX_VALUE;
 
   /**
    * {@inheritDoc}
@@ -164,9 +137,8 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
   @SuppressWarnings("unchecked")
   public <CandidateType> ITransducer<CandidateType> build() {
     log.info("Building transducer out of [{}] terms with algorithm [{}], "
-        + "defaultMaxDistance [{}], includeDistance [{}], and maxCandidates [{}]",
-        dictionary.size(), algorithm, defaultMaxDistance, includeDistance,
-        maxCandidates);
+        + "defaultMaxDistance [{}], and includeDistance [{}]",
+        dictionary.size(), algorithm, defaultMaxDistance, includeDistance);
 
     final IStateFactory stateFactory =
       new StateFactory().elementFactory(new ElementFactory<int[]>());
@@ -188,19 +160,9 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
         .dictionaryRoot(dictionary.root())
         .dictionary(dictionary)
         .algorithm(algorithm)
-        .maxCandidates(maxCandidates)
         .includeDistance(includeDistance);
 
-    final Transducer<DawgNode, CandidateType> transducer =
-      new Transducer<>(attributes);
-
-    if (maxCandidates == Integer.MAX_VALUE) {
-      return transducer;
-    }
-
-    return new DeprecatedTransducerForLimitingNumberOfCandidates<>(
-        maxCandidates,
-        transducer);
+    return new Transducer<>(attributes);
   }
 
   /**
@@ -302,80 +264,5 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
       .positionFactory(positionFactory);
 
     return stateTransitionFactory;
-  }
-
-  /**
-   * Restricts the number of spelling candidates for a query.  This class is
-   * only intended as a temporary shim until I remove
-   * {@link TransducerBuilder#maxCandidates} from the next API.
-   * @param <CandidateType> Kind of spelling candidates returned.
-   * @author Dylon Edwards
-   * @since 2.1.2
-   */
-  @Deprecated
-  @EqualsAndHashCode(callSuper = false)
-  private static class DeprecatedTransducerForLimitingNumberOfCandidates<CandidateType>
-      extends Transducer<DawgNode, CandidateType> {
-
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * Number of elements to take from the spelling candidates.
-     */
-    private final int elementsToTake;
-
-    /**
-     * Searches the dictionary automaton for spelling candidates.
-     */
-    @NonNull private final ITransducer<CandidateType> transducer;
-
-    /**
-     * Constructs a new transducer that limits the number of spelling candidates
-     * it returns.
-     * @param elementsToTake Limit of spelling candidates to return.
-     * @param transducer Generates the spelling candidates which are limited.
-     */
-    @SuppressWarnings("unchecked")
-    DeprecatedTransducerForLimitingNumberOfCandidates(
-        final int elementsToTake,
-        final ITransducer<CandidateType> transducer) {
-      super(((Transducer<DawgNode, CandidateType>) transducer).attributes());
-      this.transducer = transducer;
-      this.elementsToTake = elementsToTake;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ICandidateCollection<CandidateType> transduce(final String term) {
-      return limit(transducer.transduce(term));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ICandidateCollection<CandidateType> transduce(
-        final String term,
-        final int maxCandidates) {
-      return limit(transducer.transduce(term, maxCandidates));
-    }
-
-    /**
-     * Returns an {@link ICandidateCollection} that only returns the first
-     * {@link #elementsToTake} elements from {@code candidates}.
-     * @param candidates Spelling candidates for some query.
-     * @return {@link ICandidateCollection} that only returns the first
-     * {@link #elementsToTake} candidates.
-     */
-    private ICandidateCollection<CandidateType> limit(
-        final ICandidateCollection<CandidateType> candidates) {
-      return new ICandidateCollection<CandidateType>() {
-        @Override public Iterator<CandidateType> iterator() {
-          return new TakeIterator<>(elementsToTake, candidates.iterator());
-        }
-      };
-    }
   }
 }

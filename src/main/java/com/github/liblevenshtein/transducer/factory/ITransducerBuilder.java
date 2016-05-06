@@ -61,17 +61,6 @@ public interface ITransducerBuilder extends Serializable {
   ITransducerBuilder includeDistance(boolean includeDistance);
 
   /**
-   * If you only desire a subset of the spelling candidates for a query term,
-   * you may specify the number of candidates to return, here.  Note that the
-   * candidates are not guaranteed to be ordered such that you would get the
-   * nearest candidates in the collection if you limit its size.
-   * @param maxCandidates Maximum number of candidates to include in the
-   * collections of spelling candidates.
-   * @return This {@link ITransducerBuilder} or an equivalent one, for fluency.
-   */
-  ITransducerBuilder maxCandidates(int maxCandidates);
-
-  /**
    * Builds a Levenshtein transducer according to the parameters set for this
    * {@link ITransducerBuilder}.
    * @param <CandidateType> Implicit type of the spelling candidates generated

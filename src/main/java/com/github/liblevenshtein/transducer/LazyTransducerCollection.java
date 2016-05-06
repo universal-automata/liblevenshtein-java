@@ -46,7 +46,7 @@ import com.github.liblevenshtein.collection.AbstractIterator;
  */
 public class LazyTransducerCollection<DictionaryNode, CandidateType>
     extends AbstractIterator<CandidateType>
-    implements ICandidateCollection<CandidateType> {
+    implements Iterable<CandidateType> {
 
   /**
    * Query term whose spelling should be corrected.

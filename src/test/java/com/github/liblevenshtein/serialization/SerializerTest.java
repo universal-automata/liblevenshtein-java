@@ -78,37 +78,32 @@ public class SerializerTest {
 
       final int[] maxDistances = {0, 2, Integer.MAX_VALUE};
       final boolean[] includeDistances = {true, false};
-      final int[] maxCandidatess = {10, Integer.MAX_VALUE};
       final Algorithm[] algorithms = Algorithm.values();
 
       final List<Object[]> provider =
         new ArrayList<>(
           serializers.length
           * maxDistances.length
-          * maxCandidatess.length
           * algorithms.length);
 
       for (final AbstractSerializer serializer : serializers) {
         serializer.fileSystem(fs);
         for (final int maxDistance : maxDistances) {
           for (final boolean includeDistance : includeDistances) {
-            for (final int maxCandidates : maxCandidatess) {
-              for (final Algorithm algorithm : algorithms) {
-                final Transducer<?, ?> transducer =
-                  (Transducer<?, ?>) (Object)
-                  new TransducerBuilder()
-                    .dictionary(dictionary)
-                    .algorithm(algorithm)
-                    .defaultMaxDistance(maxDistance)
-                    .includeDistance(includeDistance)
-                    .maxCandidates(maxCandidates)
-                    .build();
-                provider.add(new Object[] {
-                  serializer,
-                  dictionary,
-                  transducer,
-                });
-              }
+            for (final Algorithm algorithm : algorithms) {
+              final Transducer<?, ?> transducer =
+                (Transducer<?, ?>) (Object)
+                new TransducerBuilder()
+                  .dictionary(dictionary)
+                  .algorithm(algorithm)
+                  .defaultMaxDistance(maxDistance)
+                  .includeDistance(includeDistance)
+                  .build();
+              provider.add(new Object[] {
+                serializer,
+                dictionary,
+                transducer,
+              });
             }
           }
         }

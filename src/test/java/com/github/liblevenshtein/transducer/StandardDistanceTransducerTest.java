@@ -81,7 +81,7 @@ public class StandardDistanceTransducerTest {
 
   @Test
   public void testTransduce() {
-    final ICandidateCollection<Candidate> actualCandidates = transducer.transduce(QUERY_TERM);
+    final Iterable<Candidate> actualCandidates = transducer.transduce(QUERY_TERM);
     final Iterator<Candidate> actualIter = actualCandidates.iterator();
 
     val distance = new MemoizedStandard();

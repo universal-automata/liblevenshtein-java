@@ -29,7 +29,6 @@ message Transducer {
 
   uint32 defaultMaxDistance = 1;
   bool includeDistance      = 2;
-  uint32 maxCandidates      = 3;
   Algorithm algorithm       = 4;
   Dawg dictionary           = 5;
 }
