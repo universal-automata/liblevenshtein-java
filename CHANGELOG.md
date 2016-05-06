@@ -8,6 +8,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Improves the wiki documentation.
 - Checks for the presence of release version and date in the CHANGELOG, before
   releasing a version.
+- Refactors the package names
+  - Drops `dylon` from package names
+  - Renames `com.github.liblevenshtein.levenshtein.distance` to `com.github.liblevenshtein.distance`
+  - Renames `com.github.liblevenshtein.levenshtein` to `com.github.liblevenshtein.transducer`
+  - Moves `com.github.liblevenshtein.levenshtein.LibLevenshteinProtos` to `com.github.liblevenshtein.proto.LibLevenshteinProtos`
 
 ## [2.2.3] - Wednesday, May 4, 2016
 
