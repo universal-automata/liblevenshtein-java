@@ -1,0 +1,9 @@
+com.github.liblevenshtein.collection
+com.github.liblevenshtein.collection.dawg
+com.github.liblevenshtein.collection.dawg.factory
+com.github.liblevenshtein.distance
+com.github.liblevenshtein.distance.factory
+com.github.liblevenshtein.proto
+com.github.liblevenshtein.serialization
+com.github.liblevenshtein.transducer
+com.github.liblevenshtein.transducer.factory
