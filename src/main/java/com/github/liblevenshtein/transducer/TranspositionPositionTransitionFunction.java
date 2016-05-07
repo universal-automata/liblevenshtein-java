@@ -30,11 +30,11 @@ public class TranspositionPositionTransitionFunction
 
     if (e == 0 && 0 < n) {
       if (h <= w - 2) {
-        final int a = (n - e < Integer.MAX_VALUE)
+        final int a = n - e < Integer.MAX_VALUE
           ? n - e + 1
           : Integer.MAX_VALUE;
         final int b = w - h;
-        final int k = (a < b) ? a : b;
+        final int k = a < b ? a : b;
         final int j = indexOf(characteristicVector, k, h);
 
         switch (j) {
@@ -105,7 +105,7 @@ public class TranspositionPositionTransitionFunction
     if (1 <= e && e < n) {
       if (h <= w - 2) {
         if (t == 0) {
-          final int a = (n - e < Integer.MAX_VALUE)
+          final int a = n - e < Integer.MAX_VALUE
             ? n - e + 1
             : Integer.MAX_VALUE;
           final int b = w - h;
@@ -188,7 +188,7 @@ public class TranspositionPositionTransitionFunction
       );
     }
 
-    if ((h <= w - 1) && (t == 0)) {
+    if (h <= w - 1 && t == 0) {
       if (characteristicVector[h]) {
         return stateFactory.build(
             // [No Error]: Increment index by one; leave error alone.
@@ -201,7 +201,7 @@ public class TranspositionPositionTransitionFunction
       return null;
     }
 
-    if ((h <= w - 2) && (t == 1)) {
+    if (h <= w - 2 && t == 1) {
       if (characteristicVector[h]) {
         return stateFactory.build(
             // [No Error]: Increment index by two; leave error alone.

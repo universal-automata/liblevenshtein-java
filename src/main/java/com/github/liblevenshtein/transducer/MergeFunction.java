@@ -102,7 +102,7 @@ public abstract class MergeFunction implements IMergeFunction, Serializable {
           final int f = b[1];
           final int t = b[2];
 
-          if (e < f || e == f && (i < j || (i == j && s < t))) {
+          if (e < f || e == f && (i < j || i == j && s < t)) {
             n += 1;
           }
           else {

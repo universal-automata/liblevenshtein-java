@@ -20,7 +20,9 @@ plugins {
   id 'findbugs'
   id 'jacoco'
   id 'java'
+  id 'jdepend'
   id 'maven-publish'
+  id 'pmd'
 
   // Third Party Plugins
   // ---------------------------------------------------------------------------
@@ -29,12 +31,10 @@ plugins {
   id 'com.github.kt3k.coveralls' version '2.6.3'
 }
 
-allprojects {
-  apply plugin: 'com.google.protobuf'
-  apply plugin: 'com.jfrog.artifactory'
-  apply plugin: 'com.jfrog.bintray'
-  apply plugin: 'org.standardout.versioneye'
-}
+apply plugin: 'com.google.protobuf'
+apply plugin: 'com.jfrog.artifactory'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'org.standardout.versioneye'
 
 repositories {
   mavenCentral()

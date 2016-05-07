@@ -30,7 +30,7 @@ public class StandardPositionTransitionFunction
     if (e < n) {
       // Consider any character before the last one of the spelling candidate
       if (h <= w - 2) {
-        final int a = (n - e < Integer.MAX_VALUE)
+        final int a = n - e < Integer.MAX_VALUE
           ? n - e + 1
           : Integer.MAX_VALUE;
         final int b = w - h;
@@ -91,7 +91,7 @@ public class StandardPositionTransitionFunction
 
     // The edit distance is at its maximum, allowed value.  Only consider this
     // spelling candidate if there is no error at the index of its current term.
-    if ((e == n) && (h <= w - 1) && characteristicVector[h]) {
+    if (e == n && h <= w - 1 && characteristicVector[h]) {
       return stateFactory.build(
           // [No Error]: Increment the index by one; leave the error alone.
           positionFactory.build(i + 1, n)

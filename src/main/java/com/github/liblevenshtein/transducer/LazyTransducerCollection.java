@@ -156,7 +156,7 @@ public class LazyTransducerCollection<DictionaryNode, CandidateType>
     //
     // If there was no upper bound for integer values, this would be equivalent:
     // h(x) := min {f(x), n}
-    this.a = (maxDistance < (Integer.MAX_VALUE - 1) >> 1)
+    this.a = maxDistance < (Integer.MAX_VALUE - 1) >> 1
       ? (maxDistance << 1) + 1
       : Integer.MAX_VALUE;
   }
@@ -212,7 +212,7 @@ public class LazyTransducerCollection<DictionaryNode, CandidateType>
 
         this.i = levenshteinState.getOuter(0)[0];
         final int b = term.length() - i;
-        this.k = (a < b) ? a : b;
+        this.k = a < b ? a : b;
         this.labels = attributes.dictionaryTransition().of(dictionaryNode);
       }
     }

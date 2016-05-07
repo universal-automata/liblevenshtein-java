@@ -104,7 +104,7 @@ public class SortedDawg extends Dawg {
       return true;
     }
 
-    final int upperBound = (term.length() < previousTerm.length())
+    final int upperBound = term.length() < previousTerm.length()
       ? term.length()
       : previousTerm.length();
 

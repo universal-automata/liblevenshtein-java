@@ -52,7 +52,7 @@ public abstract class SubsumesFunction implements ISubsumesFunction, Serializabl
         final int i, final int e,
         final int j, final int f) {
 
-      return ((i < j) ? (j - i) : (i - j)) <= (f - e);
+      return (i < j ? j - i : i - j) <= (f - e);
     }
   }
 
@@ -79,7 +79,7 @@ public abstract class SubsumesFunction implements ISubsumesFunction, Serializabl
           return i == j;
         }
 
-        return (f == n) && (i == j);
+        return f == n && i == j;
       }
 
       if (t == 1) {
@@ -101,10 +101,10 @@ public abstract class SubsumesFunction implements ISubsumesFunction, Serializabl
         // adding 1 to the difference will only strengthen its non-negativity.
         //
         //return Math.abs(j - (i - 1)) <= (f - e);
-        return ((j < i) ? (i - j - 1) : (j - i + 1)) <= (f - e);
+        return (j < i ? i - j - 1 : j - i + 1) <= (f - e);
       }
 
-      return ((i < j) ? (j - i) : (i - j)) <= (f - e);
+      return (i < j ? j - i : i - j) <= (f - e);
     }
   }
 
@@ -130,7 +130,7 @@ public abstract class SubsumesFunction implements ISubsumesFunction, Serializabl
         return false;
       }
 
-      return ((i < j) ? (j - i) : (i - j)) <= (f - e);
+      return (i < j ? j - i : i - j) <= (f - e);
     }
   }
 }
