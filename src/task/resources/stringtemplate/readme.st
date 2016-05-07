@@ -10,6 +10,7 @@ readme(project, cmd) ::= <<
 [![Reference Status][maven-refs-badge]][maven-refs]
 [![License][license-badge]][license]
 [![Build Status][build-status-badge]][travis-ci]
+[![Codacy Badge][codacy-badge]][codacy-link]
 [![Coverage Status][coverage-badge]][coveralls]
 [![Coverity Scan Build Status][static-analysis-badge]][coverity]
 [![Dependency Status][dependency-status-badge]][versioneye]
@@ -103,6 +104,8 @@ For more information, please see the [wiki][wiki].
 [gitter-channel]: https://gitter.im/universal-automata/liblevenshtein-java?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 [bintray-watch-img]: https://www.bintray.com/docs/images/bintray_badge_color.png 'Get automatic notifications about new "liblevenshtein-java" versions'
 [bintray-watch-link]: https://bintray.com/universal-automata/liblevenshtein/liblevenshtein-java/view?source=watch 'Get automatic notifications about new "liblevenshtein-java" versions'
+[codacy-badge]: https://api.codacy.com/project/badge/Grade/ad002473702c4d0b8532a6ba38af2010
+[codacy-link]: https://www.codacy.com/app/dylon-devo-github/liblevenshtein-java?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=universal-automata/liblevenshtein-java&amp;utm_campaign=Badge_Grade
 
 $/wiki/footer(project, cmd)$
 >>
