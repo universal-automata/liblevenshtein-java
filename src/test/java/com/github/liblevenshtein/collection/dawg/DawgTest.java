@@ -11,9 +11,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 import com.google.common.base.Joiner;
 
 import org.testng.annotations.BeforeClass;
@@ -22,8 +19,10 @@ import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.github.liblevenshtein.collection.dictionary.factory.DawgFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+import com.github.liblevenshtein.collection.dictionary.factory.DawgFactory;
 import static com.github.liblevenshtein.assertion.SetAssertions.assertThat;
 
 @Slf4j

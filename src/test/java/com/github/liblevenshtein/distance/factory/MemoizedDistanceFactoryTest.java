@@ -1,8 +1,8 @@
 package com.github.liblevenshtein.distance.factory;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -12,8 +12,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.github.liblevenshtein.transducer.Algorithm;
 import com.github.liblevenshtein.distance.IDistance;
+import com.github.liblevenshtein.transducer.Algorithm;
 import static com.github.liblevenshtein.assertion.DistanceAssertions.assertThat;
 
 public class MemoizedDistanceFactoryTest {

@@ -6,11 +6,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
+import it.unimi.dsi.fastutil.chars.CharIterator;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-
-import it.unimi.dsi.fastutil.chars.CharIterator;
 
 /**
  * Provides common logic for all my Dawg implementations.  Currently, there is

@@ -6,8 +6,8 @@ import org.testng.annotations.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.github.liblevenshtein.transducer.Candidate;
 import com.github.liblevenshtein.distance.IDistance;
+import com.github.liblevenshtein.transducer.Candidate;
 import static com.github.liblevenshtein.assertion.CandidateAssertions.assertThat;
 
 public class CandidateAssertionsTest {

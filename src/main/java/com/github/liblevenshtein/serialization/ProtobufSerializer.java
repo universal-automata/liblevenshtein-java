@@ -6,15 +6,15 @@ import java.io.OutputStream;
 import java.io.Serializable;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
-import it.unimi.dsi.fastutil.chars.Char2ObjectSortedMap;
 import it.unimi.dsi.fastutil.chars.Char2ObjectRBTreeMap;
+import it.unimi.dsi.fastutil.chars.Char2ObjectSortedMap;
+
+import com.google.protobuf.CodedInputStream;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-
-import com.google.protobuf.CodedInputStream;
 
 import com.github.liblevenshtein.collection.dictionary.Dawg;
 import com.github.liblevenshtein.collection.dictionary.DawgNode;

@@ -2,8 +2,8 @@ package com.github.liblevenshtein.distance.factory;
 
 import java.io.Serializable;
 
-import com.github.liblevenshtein.transducer.Algorithm;
 import com.github.liblevenshtein.distance.IDistance;
+import com.github.liblevenshtein.transducer.Algorithm;
 
 /**
  * Builds instances of Levenshtein distance metrics.

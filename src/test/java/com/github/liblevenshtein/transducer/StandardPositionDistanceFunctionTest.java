@@ -1,8 +1,8 @@
 package com.github.liblevenshtein.transducer;
 
-import lombok.val;
-
 import org.testng.annotations.Test;
+
+import lombok.val;
 
 import com.github.liblevenshtein.transducer.factory.ElementFactory;
 import com.github.liblevenshtein.transducer.factory.PositionFactory;

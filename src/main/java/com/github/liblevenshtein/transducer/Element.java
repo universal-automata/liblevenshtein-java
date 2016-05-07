@@ -2,14 +2,14 @@ package com.github.liblevenshtein.transducer;
 
 import java.io.Serializable;
 
-import lombok.Getter;
-import lombok.Setter;
-
 // [NOTE] :: Lombok's @EqualsAndHashCode wasn't working with array values ...
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * {@link Element}s are used to maintain a sorted, linked-list of positions

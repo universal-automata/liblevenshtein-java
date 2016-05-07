@@ -2,10 +2,10 @@ package com.github.liblevenshtein.collection;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import lombok.NonNull;
 import lombok.Value;
-
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Symmetric, immutable pairs are equivalent if they contain equivalent

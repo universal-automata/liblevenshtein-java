@@ -3,10 +3,10 @@ package com.github.liblevenshtein.task;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Generates the Wiki for this project.

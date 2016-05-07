@@ -14,9 +14,9 @@ import lombok.val;
 
 import com.github.liblevenshtein.collection.dictionary.SortedDawg;
 import com.github.liblevenshtein.distance.MemoizedStandard;
-import com.github.liblevenshtein.transducer.factory.TransducerBuilder;
 import com.github.liblevenshtein.serialization.ProtobufSerializer;
 import com.github.liblevenshtein.serialization.Serializer;
+import com.github.liblevenshtein.transducer.factory.TransducerBuilder;
 import static com.github.liblevenshtein.assertion.CandidateAssertions.assertThat;
 import static com.github.liblevenshtein.assertion.SetAssertions.assertThat;
 

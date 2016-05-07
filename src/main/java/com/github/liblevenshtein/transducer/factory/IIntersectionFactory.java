@@ -2,8 +2,8 @@ package com.github.liblevenshtein.transducer.factory;
 
 import java.io.Serializable;
 
-import com.github.liblevenshtein.transducer.Intersection;
 import com.github.liblevenshtein.transducer.IState;
+import com.github.liblevenshtein.transducer.Intersection;
 
 /**
  * Builds nodes that help intersect a dictionary automaton with a Levenshtein

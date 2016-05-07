@@ -130,7 +130,29 @@
     <module name="IllegalImport" /> <!-- defaults to sun.* packages -->
     <module name="RedundantImport" />
     <module name="UnusedImports" />
-
+    <module name="ImportOrder">
+    	<property name="groups" value="
+    		/^javax?\./,
+    		it.unimi.dsi.fastutil,
+    		org.apache.commons.lang3,
+    		org.apache.commons.io,
+    		org.apache.commons.cli,
+    		com.google.common,
+    		com.google.protobuf,
+    		org.stringtemplate.v4,
+    		org.testng,
+    		org.mockito,
+    		org.assertj,
+    		edu.umd.cs.findbugs,
+    		lombok,
+    		com.github.liblevenshtein
+    	" />
+    	<property name="ordered" value="true" />
+    	<property name="caseSensitive" value="true" />
+    	<property name="separated" value="true" />
+    	<property name="option" value="under" />
+    	<property name="sortStaticImportsAlphabetically" value="true" />
+    </module>
 
     <!-- Checks for Size Violations.          -->
     <!-- See http://checkstyle.sf.net/config_sizes.html -->

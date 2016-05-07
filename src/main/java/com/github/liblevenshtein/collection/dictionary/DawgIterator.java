@@ -1,11 +1,11 @@
 package com.github.liblevenshtein.collection.dictionary;
 
-import java.util.Queue;
 import java.util.ArrayDeque;
-
-import lombok.NonNull;
+import java.util.Queue;
 
 import it.unimi.dsi.fastutil.chars.CharIterator;
+
+import lombok.NonNull;
 
 import com.github.liblevenshtein.collection.AbstractIterator;
 

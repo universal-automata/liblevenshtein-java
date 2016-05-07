@@ -2,10 +2,6 @@ package com.github.liblevenshtein.collection.dictionary;
 
 import java.io.Serializable;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NonNull;
-
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 import it.unimi.dsi.fastutil.chars.Char2ObjectRBTreeMap;
 import it.unimi.dsi.fastutil.chars.CharIterator;
@@ -13,6 +9,10 @@ import it.unimi.dsi.fastutil.chars.CharIterator;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NonNull;
 
 /**
  * Non-final element of a DAWG structure (Directed Acyclic Word Graph).

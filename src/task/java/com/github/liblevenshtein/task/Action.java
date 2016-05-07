@@ -1,14 +1,16 @@
 package com.github.liblevenshtein.task;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.AbstractMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.io.FileUtils;
 
 import org.apache.commons.cli.AlreadySelectedException;
 import org.apache.commons.cli.CommandLine;
@@ -21,14 +23,12 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
 
-import org.apache.commons.io.FileUtils;
-
-import org.stringtemplate.v4.STGroup;
-import org.stringtemplate.v4.STGroupDir;
-import org.stringtemplate.v4.ST;
-
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
+
+import org.stringtemplate.v4.ST;
+import org.stringtemplate.v4.STGroup;
+import org.stringtemplate.v4.STGroupDir;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

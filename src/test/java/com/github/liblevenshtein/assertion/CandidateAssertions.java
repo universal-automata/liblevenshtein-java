@@ -2,8 +2,8 @@ package com.github.liblevenshtein.assertion;
 
 import org.assertj.core.api.AbstractAssert;
 
-import com.github.liblevenshtein.transducer.Candidate;
 import com.github.liblevenshtein.distance.IDistance;
+import com.github.liblevenshtein.transducer.Candidate;
 
 /**
  * AssertJ-style assertions for {@link Candidate}s.

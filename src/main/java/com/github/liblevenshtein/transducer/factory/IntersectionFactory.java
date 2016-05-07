@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import lombok.val;
 
-import com.github.liblevenshtein.transducer.Intersection;
 import com.github.liblevenshtein.transducer.IState;
+import com.github.liblevenshtein.transducer.Intersection;
 
 /**
  * Builds intersections between a dictionary automaton and a Levenshtein

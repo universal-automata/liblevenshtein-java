@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 import lombok.NonNull;
 
-import com.github.liblevenshtein.transducer.Algorithm;
 import com.github.liblevenshtein.distance.IDistance;
 import com.github.liblevenshtein.distance.MemoizedMergeAndSplit;
 import com.github.liblevenshtein.distance.MemoizedStandard;
 import com.github.liblevenshtein.distance.MemoizedTransposition;
+import com.github.liblevenshtein.transducer.Algorithm;
 
 /**
  * Builds memoized instances of Levenshtein distance metrics.

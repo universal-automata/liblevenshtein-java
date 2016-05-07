@@ -24,13 +24,13 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import com.github.liblevenshtein.collection.dictionary.SortedDawg;
 import com.github.liblevenshtein.transducer.Algorithm;
