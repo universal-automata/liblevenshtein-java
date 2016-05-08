@@ -489,8 +489,8 @@ task delombok(dependsOn: 'generateProto') {
 
 tasks.javadoc {
   dependsOn delombok
-  source = new FileNameFinder().getFileNames("${srcDelomboked}", '**/*.java')
   doFirst {
+    source = new FileNameFinder().getFileNames("${srcDelomboked}", '**/*.java')
     destinationDir = file("${projectDir}/gh-pages/docs/javadoc/${version}")
     if (destinationDir.exists() && !destinationDir.deleteDir()) {
       throw new IOException("Failed to delete javadoc dir [${destinationDir}]")
