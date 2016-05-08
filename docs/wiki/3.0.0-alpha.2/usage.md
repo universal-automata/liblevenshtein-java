@@ -115,13 +115,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import com.github.liblevenshtein.collection.dictionary.SortedDawg;
-import com.github.liblevenshtein.Algorithm;
-import com.github.liblevenshtein.Candidate;
-import com.github.liblevenshtein.ITransducer;
-import com.github.liblevenshtein.factory.TransducerBuilder;
 import com.github.liblevenshtein.serialization.PlainTextSerializer;
 import com.github.liblevenshtein.serialization.ProtobufSerializer;
 import com.github.liblevenshtein.serialization.Serializer;
+import com.github.liblevenshtein.transducer.Algorithm;
+import com.github.liblevenshtein.transducer.Candidate;
+import com.github.liblevenshtein.transducer.ITransducer;
+import com.github.liblevenshtein.transducer.factory.TransducerBuilder;
 
 // ...
 

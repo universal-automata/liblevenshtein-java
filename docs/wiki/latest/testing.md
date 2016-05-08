@@ -24,38 +24,38 @@ Run `gradle test`:
 :test
 
 Gradle suite > Gradle test STANDARD_OUT
-    00:40:41.055 [Test worker] [34mINFO [0;39m [36mc.g.l.s.AbstractSerializer[0;39m - Deserilizing instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from url [file:/tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/build/resources/test/programming-languages.protobuf.bytes]
-    00:40:41.061 [Test worker] [34mINFO [0;39m [36mc.g.l.s.ProtobufSerializer[0;39m - Deserializing an instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from a stream
-    00:40:41.100 [Test worker] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [673] terms with isSorted [false], algorithm [MERGE_AND_SPLIT], defaultMaxDistance [3], and includeDistance [true]
-    00:40:41.106 [Test worker] [34mINFO [0;39m [36mc.g.l.s.AbstractSerializer[0;39m - Deserilizing instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from url [file:/tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/build/resources/test/programming-languages.protobuf.bytes]
-    00:40:41.106 [Test worker] [34mINFO [0;39m [36mc.g.l.s.ProtobufSerializer[0;39m - Deserializing an instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from a stream
-    00:40:41.109 [Test worker] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [673] terms with isSorted [true], algorithm [STANDARD], defaultMaxDistance [3], and includeDistance [true]
-    00:40:41.111 [Test worker] [34mINFO [0;39m [36mc.g.l.s.AbstractSerializer[0;39m - Deserilizing instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from url [file:/tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/build/resources/test/programming-languages.protobuf.bytes]
-    00:40:41.111 [Test worker] [34mINFO [0;39m [36mc.g.l.s.ProtobufSerializer[0;39m - Deserializing an instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from a stream
-    00:40:41.114 [Test worker] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [673] terms with isSorted [false], algorithm [TRANSPOSITION], defaultMaxDistance [3], and includeDistance [true]
+    14:49:33.279 [Test worker] [34mINFO [0;39m [36mc.g.l.s.AbstractSerializer[0;39m - Deserilizing instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from url [file:/tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/build/resources/test/programming-languages.protobuf.bytes]
+    14:49:33.284 [Test worker] [34mINFO [0;39m [36mc.g.l.s.ProtobufSerializer[0;39m - Deserializing an instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from a stream
+    14:49:33.323 [Test worker] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [673] terms with isSorted [false], algorithm [MERGE_AND_SPLIT], defaultMaxDistance [3], and includeDistance [true]
+    14:49:33.329 [Test worker] [34mINFO [0;39m [36mc.g.l.s.AbstractSerializer[0;39m - Deserilizing instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from url [file:/tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/build/resources/test/programming-languages.protobuf.bytes]
+    14:49:33.329 [Test worker] [34mINFO [0;39m [36mc.g.l.s.ProtobufSerializer[0;39m - Deserializing an instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from a stream
+    14:49:33.333 [Test worker] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [673] terms with isSorted [true], algorithm [STANDARD], defaultMaxDistance [3], and includeDistance [true]
+    14:49:33.334 [Test worker] [34mINFO [0;39m [36mc.g.l.s.AbstractSerializer[0;39m - Deserilizing instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from url [file:/tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/build/resources/test/programming-languages.protobuf.bytes]
+    14:49:33.335 [Test worker] [34mINFO [0;39m [36mc.g.l.s.ProtobufSerializer[0;39m - Deserializing an instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from a stream
+    14:49:33.338 [Test worker] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [673] terms with isSorted [false], algorithm [TRANSPOSITION], defaultMaxDistance [3], and includeDistance [true]
 
-Gradle suite > Gradle test > com.github.liblevenshtein.assertion.ComparatorAssertionsTest.testEqualsToAgainstLessThan STANDARD_OUT
-    00:40:41.144 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.s.AbstractSerializer[0;39m - Deserilizing instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from url [file:/tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/build/resources/test/top-20-most-common-english-words.protobuf.bytes]
-
-Gradle suite > Gradle test > com.github.liblevenshtein.assertion.IteratorAssertionsTest.testDoesNotHaveNextAgainstViolation STANDARD_OUT
-    00:40:41.145 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.s.ProtobufSerializer[0;39m - Deserializing an instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from a stream
-
-Gradle suite > Gradle test > com.github.liblevenshtein.assertion.ComparatorAssertionsTest.testEqualsToAgainstGreaterThan STANDARD_OUT
-    00:40:41.146 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [20] terms with isSorted [false], algorithm [STANDARD], defaultMaxDistance [0], and includeDistance [true]
-    00:40:41.146 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [20] terms with isSorted [false], algorithm [TRANSPOSITION], defaultMaxDistance [0], and includeDistance [true]
-
-Gradle suite > Gradle test > com.github.liblevenshtein.assertion.IteratorAssertionsTest.testIsEqualToAgainstTooFewValues STANDARD_OUT
-    00:40:41.146 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [20] terms with isSorted [false], algorithm [MERGE_AND_SPLIT], defaultMaxDistance [0], and includeDistance [true]
-
-Gradle suite > Gradle test > com.github.liblevenshtein.assertion.ComparatorAssertionsTest.testLessThanAgainstEqualsTo STANDARD_OUT
-    00:40:41.146 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [20] terms with isSorted [false], algorithm [STANDARD], defaultMaxDistance [0], and includeDistance [false]
-    00:40:41.146 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [20] terms with isSorted [false], algorithm [TRANSPOSITION], defaultMaxDistance [0], and includeDistance [false]
+Gradle suite > Gradle test > com.github.liblevenshtein.assertion.DistanceAssertionsTest.testMinimality STANDARD_OUT
+    14:49:33.375 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.s.AbstractSerializer[0;39m - Deserilizing instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from url [file:/tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/build/resources/test/top-20-most-common-english-words.protobuf.bytes]
 
 Gradle suite > Gradle test > com.github.liblevenshtein.assertion.DistanceFunctionAssertionsTest.testHasDistanceAgainstViolation STANDARD_OUT
-    00:40:41.146 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [20] terms with isSorted [false], algorithm [MERGE_AND_SPLIT], defaultMaxDistance [0], and includeDistance [false]
+    14:49:33.376 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.s.ProtobufSerializer[0;39m - Deserializing an instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from a stream
 
-Gradle suite > Gradle test > com.github.liblevenshtein.transducer.factory.CandidateFactoryTest.testWithDistance STANDARD_OUT
-    00:40:41.147 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [20] terms with isSorted [false], algorithm [STANDARD], defaultMaxDistance [2], and includeDistance [true]
+Gradle suite > Gradle test > com.github.liblevenshtein.assertion.DistanceFunctionAssertionsTest.testHasDistance STANDARD_OUT
+    14:49:33.377 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [20] terms with isSorted [false], algorithm [STANDARD], defaultMaxDistance [0], and includeDistance [true]
+
+Gradle suite > Gradle test > com.github.liblevenshtein.distance.factory.MemoizedDistanceFactoryTest.testSatisfyMinimality[0](STANDARD, com.github.liblevenshtein.distance.MemoizedStandard@7da6ee39, the, be) STANDARD_OUT
+    14:49:33.377 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [20] terms with isSorted [false], algorithm [TRANSPOSITION], defaultMaxDistance [0], and includeDistance [true]
+
+Gradle suite > Gradle test > com.github.liblevenshtein.assertion.SetAssertionsTest.testContainsAgainstInvalid STANDARD_OUT
+    14:49:33.377 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [20] terms with isSorted [false], algorithm [MERGE_AND_SPLIT], defaultMaxDistance [0], and includeDistance [true]
+
+Gradle suite > Gradle test > com.github.liblevenshtein.distance.factory.MemoizedDistanceFactoryTest.testTriangleInequality[0](STANDARD, com.github.liblevenshtein.distance.MemoizedStandard@7da6ee39, the, the, the) STANDARD_OUT
+    14:49:33.378 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [20] terms with isSorted [false], algorithm [STANDARD], defaultMaxDistance [0], and includeDistance [false]
+
+Gradle suite > Gradle test > com.github.liblevenshtein.assertion.SetAssertionsTest.testDoesNotContainAgainstValid STANDARD_OUT
+    14:49:33.378 [pool-1-thread-54] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [20] terms with isSorted [false], algorithm [TRANSPOSITION], defaultMaxDistance [0], and includeDistance [false]
+
+Gradle suite > Gradle test > com.github.liblevenshtein.assertion.SetAssertionsTest.testDoesNotContain STANDARD_OUT
 # ... TRUNCATED ...
 
 
@@ -83,17 +83,17 @@ you should run all the checks against it and clean up any errors:
 
 :processResources
 :classes
-:checkstyleMain[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/LazyTransducerCollection.java:233:20: 'term' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/LazyTransducerCollection.java:234:17: 'k' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/LazyTransducerCollection.java:235:17: 'i' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:34:36: 'head' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:136:7: Parameter lhsHead should be final. [FinalParameters]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:137:7: Parameter rhsHead should be final. [FinalParameters]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:170:42: 'head' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:102:41: 'dictionary' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:103:21: 'isSorted' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:124:16: 'dictionary' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:241:57: 'algorithm' hides a field. [HiddenField]
+:checkstyleMain[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/LazyTransducerCollection.java:233:20: 'term' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/LazyTransducerCollection.java:234:17: 'k' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/LazyTransducerCollection.java:235:17: 'i' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:34:36: 'head' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:136:7: Parameter lhsHead should be final. [FinalParameters]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:137:7: Parameter rhsHead should be final. [FinalParameters]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:170:42: 'head' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:102:41: 'dictionary' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:103:21: 'isSorted' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:124:16: 'dictionary' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:241:57: 'algorithm' hides a field. [HiddenField]
 
 :extractIncludeTaskProto
 :extractTaskProto
@@ -103,7 +103,7 @@ you should run all the checks against it and clean up any errors:
 
 :processTaskResources
 :taskClasses
-:checkstyleTask[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/src/task/java/com/github/liblevenshtein/task/Action.java:448:25: 'cli' hides a field. [HiddenField]
+:checkstyleTask[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/src/task/java/com/github/liblevenshtein/task/Action.java:452:25: 'cli' hides a field. [HiddenField]
 
 :extractIncludeTestProto
 :extractTestProto UP-TO-DATE
@@ -113,8 +113,8 @@ you should run all the checks against it and clean up any errors:
 
 :processTestResources
 :testClasses
-:checkstyleTest[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/src/test/java/com/github/liblevenshtein/transducer/StateTransitionFunctionTest.java:199: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-5624217346198740513/liblevenshtein-java/src/test/java/com/github/liblevenshtein/transducer/StateTransitionFunctionTest.java:236: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
+:checkstyleTest[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/src/test/java/com/github/liblevenshtein/transducer/StateTransitionFunctionTest.java:199: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-250176402251211048/liblevenshtein-java/src/test/java/com/github/liblevenshtein/transducer/StateTransitionFunctionTest.java:236: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
 
 :findbugsMain
 :findbugsTask
