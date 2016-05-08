@@ -120,11 +120,11 @@ libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "3.0
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-remote: Counting objects: 5486, done.        
-remote: Compressing objects: 100% (2010/2010), done.        
-remote: Total 5486 (delta 1482), reused 0 (delta 0), pack-reused 3317        
-Receiving objects: 100% (5486/5486), 3.51 MiB | 2.15 MiB/s, done.
-Resolving deltas: 100% (3097/3097), done.
+remote: Counting objects: 5789, done.        
+remote: Compressing objects: 100% (231/231), done.        
+remote: Total 5789 (delta 156), reused 0 (delta 0), pack-reused 5539        
+Receiving objects: 100% (5789/5789), 4.39 MiB | 2.60 MiB/s, done.
+Resolving deltas: 100% (3471/3471), done.
 Checking connectivity... done.
 
 % cd liblevenshtein-java
@@ -180,13 +180,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import com.github.liblevenshtein.collection.dictionary.SortedDawg;
-import com.github.liblevenshtein.Algorithm;
-import com.github.liblevenshtein.Candidate;
-import com.github.liblevenshtein.ITransducer;
-import com.github.liblevenshtein.factory.TransducerBuilder;
 import com.github.liblevenshtein.serialization.PlainTextSerializer;
 import com.github.liblevenshtein.serialization.ProtobufSerializer;
 import com.github.liblevenshtein.serialization.Serializer;
+import com.github.liblevenshtein.transducer.Algorithm;
+import com.github.liblevenshtein.transducer.Candidate;
+import com.github.liblevenshtein.transducer.ITransducer;
+import com.github.liblevenshtein.transducer.factory.TransducerBuilder;
 
 // ...
 
