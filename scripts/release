@@ -74,4 +74,6 @@ git push origin master
 popd
 rm -rf "${TMP_DIR}"
 
+echo "Success!"
+
 # vim: set ft=sh ts=2 sw=2 et sta:

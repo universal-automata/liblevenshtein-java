@@ -73,6 +73,10 @@ public abstract class Action implements Runnable {
   private final Map<String, Object> projectArgs =
     new ImmutableMap.Builder<String, Object>()
       .put("meta", new ImmutableMap.Builder<String, Object>()
+        .put("mavenRepo", "https://repo1.maven.org/maven2")
+        .put("jcenterRepo", "https://jcenter.bintray.com")
+        .put("bintrayRepo", "https://dl.bintray.com/universal-automata/liblevenshtein")
+        .put("artifactoryRepo", "https://oss.jfrog.org/artifactory/oss-release-local")
         .put("url", cli.getOptionValue("project-url"))
         .put("author", cli.getOptionValue("project-author"))
         .put("username", cli.getOptionValue("author-username"))

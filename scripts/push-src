@@ -14,4 +14,6 @@ fi
 echo "Pushing changes to origin/master ..."
 git push origin master
 
+echo "Success!"
+
 # vim: set ft=sh ts=2 sw=2 et sta:

@@ -22,4 +22,6 @@ git commit -m "${GENDOC_MESSAGE}"
 git push origin gh-pages
 popd
 
+echo "Success!"
+
 # vim: set ft=sh ts=2 sw=2 et sta:
