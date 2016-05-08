@@ -9,7 +9,7 @@ Add a Maven dependency on [Artifactory][artifactory-repo].  For example, in a
 ```groovy
 repositories {
   maven {
-    url '$project.maven.artifactoryRepo$'
+    url '$project.meta.artifactoryRepo$'
   }
 }
 ```

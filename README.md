@@ -75,7 +75,7 @@ Add a Maven dependency on [Artifactory][artifactory-repo].  For example, in a
 ```groovy
 repositories {
   maven {
-    url ''
+    url 'https://oss.jfrog.org/artifactory/oss-release-local'
   }
 }
 ```
@@ -140,11 +140,11 @@ libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "3.0
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-remote: Counting objects: 5997, done.        
-remote: Compressing objects: 100% (433/433), done.        
-remote: Total 5997 (delta 320), reused 0 (delta 0), pack-reused 5539        
-Receiving objects: 100% (5997/5997), 4.43 MiB | 4.29 MiB/s, done.
-Resolving deltas: 100% (3635/3635), done.
+remote: Counting objects: 6019, done.        
+remote: Compressing objects: 100% (452/452), done.        
+remote: Total 6019 (delta 329), reused 0 (delta 0), pack-reused 5539        
+Receiving objects: 100% (6019/6019), 4.43 MiB | 2.60 MiB/s, done.
+Resolving deltas: 100% (3644/3644), done.
 Checking connectivity... done.
 
 % cd liblevenshtein-java
