@@ -4,15 +4,13 @@ import java.io.Serializable;
 
 import lombok.Setter;
 
-import com.github.liblevenshtein.transducer.factory.IPositionFactory;
-
 /**
  * Defines methods to remove positions from a Levenshtein state that are
  * subsumed by other positions in that state.
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public abstract class UnsubsumeFunction implements IUnsubsumeFunction, Serializable {
+public abstract class UnsubsumeFunction implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -24,17 +22,15 @@ public abstract class UnsubsumeFunction implements IUnsubsumeFunction, Serializa
    * @return This {@link UnsubsumeFunction} for fluency.
    */
   @Setter
-  protected ISubsumesFunction subsumes;
+  protected SubsumesFunction subsumes;
 
   /**
-   * Builds and recycles position vectors.
-   * -- SETTER --
-   * Builds and recycles position vectors.
-   * @param positionFactory Builds and recycles position vectors.
-   * @return This {@link UnsubsumeFunction} for fluency.
+   * Removes all the positions from {@code state} that are subsumed by other
+   * position.
+   * @param state State whose positions should be un-subsumed.
+   * @param queryLength Length of the query term.
    */
-  @Setter
-  protected IPositionFactory positionFactory;
+  public abstract void at(State state, int queryLength);
 
   /**
    * Removes subsumed positions for standard, Levenshtein states.
@@ -49,32 +45,26 @@ public abstract class UnsubsumeFunction implements IUnsubsumeFunction, Serializa
      * {@inheritDoc}
      */
     @Override
-    public void at(final IState state) {
-      for (int m = 0; m < state.size(); ++m) {
-        final int[] outer = state.getOuter(m);
-        final int i = outer[0];
-        final int e = outer[1];
+    public void at(final State state, final int queryLength) {
+      final StateIterator outerIter = state.iterator();
+      while (outerIter.hasNext()) {
+        final Position outer = outerIter.next();
+        final int outerErrors = outer.numErrors();
 
-        int n = m + 1;
-        while (n < state.size()) {
-          final int[] inner = state.getInner(n);
-          final int f = inner[1];
-          if (e < f) {
+        final StateIterator innerIter = outerIter.copy();
+
+        while (innerIter.hasNext()) {
+          final Position inner = innerIter.peek();
+          if (outerErrors < inner.numErrors()) {
             break;
           }
-          n += 1;
+          innerIter.next();
         }
 
-        while (n < state.size()) {
-          final int[] inner = state.getInner(n);
-          final int j = inner[0];
-          final int f = inner[1];
-
-          if (subsumes.at(i, e, j, f)) {
-            state.removeInner();
-          }
-          else {
-            n += 1;
+        while (innerIter.hasNext()) {
+          final Position inner = innerIter.next();
+          if (subsumes.at(outer, inner, queryLength)) {
+            innerIter.remove();
           }
         }
       }
@@ -85,9 +75,9 @@ public abstract class UnsubsumeFunction implements IUnsubsumeFunction, Serializa
    * Removes subsumed positions for transposition and merge-and-split,
    * Levenshtein states.
    * @author Dylon Edwards
-   * @since 2.1.0
+   * @since 3.0.0
    */
-  public static class ForXPositions extends UnsubsumeFunction {
+  public static class ForSpecialPositions extends UnsubsumeFunction {
 
     private static final long serialVersionUID = 1L;
 
@@ -95,34 +85,26 @@ public abstract class UnsubsumeFunction implements IUnsubsumeFunction, Serializa
      * {@inheritDoc}
      */
     @Override
-    public void at(final IState state) {
-      for (int m = 0; m < state.size(); ++m) {
-        final int[] outer = state.getOuter(m);
-        final int i = outer[0];
-        final int e = outer[1];
-        final int s = outer[2];
+    public void at(final State state, final int queryLength) {
+      final StateIterator outerIter = state.iterator();
+      while (outerIter.hasNext()) {
+        final Position outer = outerIter.next();
+        final int outerErrors = outer.numErrors();
 
-        int n = m + 1;
-        while (n < state.size()) {
-          final int[] inner = state.getInner(n);
-          final int f = inner[1];
-          if (e < f) {
+        final StateIterator innerIter = outerIter.copy();
+
+        while (innerIter.hasNext()) {
+          final Position inner = innerIter.peek();
+          if (outerErrors < inner.numErrors()) {
             break;
           }
-          n += 1;
+          innerIter.next();
         }
 
-        while (n < state.size()) {
-          final int[] inner = state.getInner(n);
-          final int j = inner[0];
-          final int f = inner[1];
-          final int t = inner[2];
-
-          if (subsumes.at(i, e, s, j, f, t, n)) {
-            state.removeInner();
-          }
-          else {
-            n += 1;
+        while (innerIter.hasNext()) {
+          final Position inner = innerIter.next();
+          if (subsumes.at(outer, inner, queryLength)) {
+            innerIter.remove();
           }
         }
       }

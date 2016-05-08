@@ -2,18 +2,17 @@ package com.github.liblevenshtein.transducer;
 
 import java.io.Serializable;
 
-import lombok.Data;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
 
 import com.github.liblevenshtein.collection.dictionary.Dawg;
 import com.github.liblevenshtein.collection.dictionary.IFinalFunction;
 import com.github.liblevenshtein.collection.dictionary.ITransitionFunction;
-import com.github.liblevenshtein.transducer.factory.ICandidateFactory;
-import com.github.liblevenshtein.transducer.factory.IIntersectionFactory;
-import com.github.liblevenshtein.transducer.factory.IStateTransitionFactory;
+import com.github.liblevenshtein.transducer.factory.CandidateFactory;
+import com.github.liblevenshtein.transducer.factory.StateTransitionFactory;
 
 /**
  * Attributes required for this transducer to search the dictionary.
@@ -22,8 +21,8 @@ import com.github.liblevenshtein.transducer.factory.IStateTransitionFactory;
  * @param <DictionaryNode> Kind of nodes of the dictionary automaton.
  * @param <CandidateType> Kind of the spelling candidates returned from the
  */
-@Data
-@NoArgsConstructor
+@Getter
+@Builder
 @ToString(of = {
   "maxDistance",
   "dictionary",
@@ -68,7 +67,7 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * @return This {@link TransducerAttributes} for fluency.
    */
   @NonNull
-  protected ICandidateFactory<CandidateType> candidateFactory;
+  protected CandidateFactory<CandidateType> candidateFactory;
 
   /**
    * Returns state-transition functions for specific, max edit distances.
@@ -82,30 +81,7 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * @return This {@link TransducerAttributes} for fluency.
    */
   @NonNull
-  protected IStateTransitionFactory stateTransitionFactory;
-
-  /**
-   * Returns instances of a data structure used for maintaining information
-   * regarding each step in intersecting the dictionary automaton with the
-   * Levenshtein automaton.
-   * -- GETTER --
-   * Returns instances of a data structure used for maintaining information
-   * regarding each step in intersecting the dictionary automaton with the
-   * Levenshtein automaton.
-   * @return Returns instances of a data structure used for maintaining
-   * information regarding each step in intersecting the dictionary automaton
-   * with the Levenshtein automaton.
-   * -- SETTER --
-   * Returns instances of a data structure used for maintaining information
-   * regarding each step in intersecting the dictionary automaton with the
-   * Levenshtein automaton.
-   * @param intersectionFactory Returns instances of a data structure used for
-   * maintaining information regarding each step in intersecting the dictionary
-   * automaton with the Levenshtein automaton.
-   * @return This {@link TransducerAttributes} for fluency.
-   */
-  @NonNull
-  protected IIntersectionFactory<DictionaryNode> intersectionFactory;
+  protected StateTransitionFactory stateTransitionFactory;
 
   /**
    * Determines the minimum distance at which a Levenshtein state may be
@@ -123,7 +99,7 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * @return This {@link TransducerAttributes} for fluency.
    */
   @NonNull
-  protected IDistanceFunction minDistance;
+  protected DistanceFunction minDistance;
 
   /**
    * Returns whether a dictionary node is the final character in some term.
@@ -165,7 +141,7 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * @return This {@link TransducerAttributes} for fluency.
    */
   @NonNull
-  protected IState initialState;
+  protected State initialState;
 
   /**
    * Root node of the dictionary, at which to begin searching for spelling

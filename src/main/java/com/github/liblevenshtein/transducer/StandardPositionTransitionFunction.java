@@ -6,8 +6,7 @@ package com.github.liblevenshtein.transducer;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public class StandardPositionTransitionFunction
-  extends AbstractPositionTransitionFunction {
+public class StandardPositionTransitionFunction extends PositionTransitionFunction {
 
   private static final long serialVersionUID = 1L;
 
@@ -15,14 +14,14 @@ public class StandardPositionTransitionFunction
    * {@inheritDoc}
    */
   @Override
-  public IState of(
+  public State of(
       final int n,
-      final int[] position,
+      final Position position,
       final boolean[] characteristicVector,
       final int offset) {
 
-    final int i = position[0];
-    final int e = position[1];
+    final int i = position.termIndex();
+    final int e = position.numErrors();
     final int h = i - offset;
     final int w = characteristicVector.length;
 

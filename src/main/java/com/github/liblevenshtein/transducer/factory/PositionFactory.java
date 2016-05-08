@@ -2,52 +2,55 @@ package com.github.liblevenshtein.transducer.factory;
 
 import java.io.Serializable;
 
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+
+import com.github.liblevenshtein.transducer.Position;
+import com.github.liblevenshtein.transducer.SpecialPosition;
 
 /**
  * Builds position vectors for the given algorithm.
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@RequiredArgsConstructor
-public abstract class PositionFactory implements IPositionFactory, Serializable {
+@NoArgsConstructor
+public class PositionFactory implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   /**
-   * Builds position vectors for the standard algorithm.
-   * @author Dylon Edwards
-   * @since 2.1.0
+   * Builds a dummy position.
+   * @return Dummy position.
    */
-  public static class ForStandardPositions extends PositionFactory {
-
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int[] build(final int i, final int e) {
-      return new int[] {i, e};
-    }
+  public Position build() {
+    return new Position(-1, -1);
   }
 
   /**
-   * Builds position vectors for the transposition and merge-and-split
-   * algorithms.
-   * @author Dylon Edwards
-   * @since 2.1.0
+   * Builds a position vector for the standard, Levenshtein algorihtm.
+   * @param termIndex Current index of the spelling candidate.
+   * @param numErrors Number of accumulated errors at index {@code termIndex}.
+   * @return New position vector having index {@code termIndex} and error
+   * {@code numErrors}.
    */
-  public static class ForXPositions extends PositionFactory {
+  public Position build(final int termIndex, final int numErrors) {
+    return new Position(termIndex, numErrors);
+  }
 
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int[] build(final int i, final int e, final int x) {
-      return new int[] {i, e, x};
+  /**
+   * Builds a position vector for the transposition and merge-and-split,
+   * Levenshtein algorihtms.
+   * @param termIndex Current index of the spelling candidate.
+   * @param numErrors Number of accumulated errors at index {@code termIndex}.
+   * @param isSpecial Either {@code 1} or {@code 0}, depending on whether the
+   * position is a special case (numErrors.g. a transposition position).
+   * @return New position vector having index {@code termIndex}, error
+   * {@code numErrors}, and special marker {@code isSpecial}.
+   */
+  public Position build(final int termIndex, final int numErrors, final boolean isSpecial) {
+    if (isSpecial) {
+      return new SpecialPosition(termIndex, numErrors);
     }
+
+    return new Position(termIndex, numErrors);
   }
 }

@@ -2,11 +2,12 @@ package com.github.liblevenshtein.transducer.factory;
 
 import java.io.Serializable;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import com.github.liblevenshtein.transducer.IPositionTransitionFunction;
 import com.github.liblevenshtein.transducer.MergeAndSplitPositionTransitionFunction;
+import com.github.liblevenshtein.transducer.PositionTransitionFunction;
 import com.github.liblevenshtein.transducer.StandardPositionTransitionFunction;
 import com.github.liblevenshtein.transducer.TranspositionPositionTransitionFunction;
 
@@ -15,28 +16,35 @@ import com.github.liblevenshtein.transducer.TranspositionPositionTransitionFunct
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@RequiredArgsConstructor
-public abstract class PositionTransitionFactory implements IPositionTransitionFactory, Serializable {
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public abstract class PositionTransitionFactory implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   /**
-   * Builds and recycles Levenshtein states.
+   * Builds Levenshtein states.
    * -- SETTER --
-   * Builds and recycles Levenshtein states.
-   * @param stateFactory Builds and recycles Levenshtein states.
+   * Builds Levenshtein states.
+   * @param stateFactory Builds Levenshtein states.
    * @return This {@link PositionTransitionFactory} for fluency.
    */
-  @Setter protected IStateFactory stateFactory;
+  protected StateFactory stateFactory;
 
   /**
-   * Builds and recycles Levenshtein positions.
+   * Builds Levenshtein positions.
    * -- SETTER --
-   * Builds and recycles Levenshtein positions.
-   * @param positionFactory Builds and recycles Levenshtein positions.
+   * Builds Levenshtein positions.
+   * @param positionFactory Builds Levenshtein positions.
    * @return This {@link PositionTransitionFactory} for fluency.
    */
-  @Setter protected IPositionFactory positionFactory;
+  protected PositionFactory positionFactory;
+
+  /**
+   * Builds a new position-transition function.
+   * @return New position-transition function.
+   */
+  public abstract PositionTransitionFunction build();
 
   /**
    * Builds position-transition functions for standard, Levenshtein states.
@@ -51,7 +59,7 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
      * {@inheritDoc}
      */
     @Override
-    public IPositionTransitionFunction build() {
+    public PositionTransitionFunction build() {
       return new StandardPositionTransitionFunction()
         .stateFactory(stateFactory)
         .positionFactory(positionFactory);
@@ -71,7 +79,7 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
      * {@inheritDoc}
      */
     @Override
-    public IPositionTransitionFunction build() {
+    public PositionTransitionFunction build() {
       return new TranspositionPositionTransitionFunction()
         .stateFactory(stateFactory)
         .positionFactory(positionFactory);
@@ -91,7 +99,7 @@ public abstract class PositionTransitionFactory implements IPositionTransitionFa
      * {@inheritDoc}
      */
     @Override
-    public IPositionTransitionFunction build() {
+    public PositionTransitionFunction build() {
       return new MergeAndSplitPositionTransitionFunction()
         .stateFactory(stateFactory)
         .positionFactory(positionFactory);

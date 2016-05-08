@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import org.assertj.core.api.AbstractAssert;
 
-import com.github.liblevenshtein.transducer.IState;
+import com.github.liblevenshtein.transducer.State;
 import com.github.liblevenshtein.transducer.StateTransitionFunction;
 
 /**
@@ -43,13 +43,13 @@ public class StateTransitionFunctionAssertions
    * @throws AssertionError When the actual transition is unexpected.
    */
   public StateTransitionFunctionAssertions transitionsTo(
-      final IState expectedState,
-      final IState input,
+      final State expectedState,
+      final State input,
       final boolean[] characteristicVector) {
 
     isNotNull();
 
-    final IState actualState = actual.of(input, characteristicVector);
+    final State actualState = actual.of(input, characteristicVector);
 
     if (null == expectedState && null != actualState
         || null != expectedState && !expectedState.equals(actualState)) {

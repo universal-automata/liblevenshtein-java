@@ -6,43 +6,33 @@ import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.github.liblevenshtein.transducer.factory.ElementFactory;
 import com.github.liblevenshtein.transducer.factory.PositionFactory;
 import com.github.liblevenshtein.transducer.factory.StateFactory;
 
 public class UnsubsumeFunctionTest {
 
-  private final ElementFactory<int[]> elementFactory = new ElementFactory<>();
+  private static final int QUERY_LENGTH = 20;
 
   private final StateFactory stateFactory = new StateFactory();
 
-  private final PositionFactory standardPositionFactory =
-    new PositionFactory.ForStandardPositions();
-
-  private final PositionFactory xPositionFactory =
-    new PositionFactory.ForXPositions();
+  private final PositionFactory positionFactory = new PositionFactory();
 
   private final UnsubsumeFunction standardPositionUnsubsume =
     new UnsubsumeFunction.ForStandardPositions();
 
-  private final UnsubsumeFunction xPositionUnsubsume =
-    new UnsubsumeFunction.ForXPositions();
+  private final UnsubsumeFunction specialPositionUnsubsume =
+    new UnsubsumeFunction.ForSpecialPositions();
 
   private final SubsumesFunction standardPositionSubsumes =
     new SubsumesFunction.ForStandardAlgorithm();
 
-  private final SubsumesFunction xPositionSubsumes =
+  private final SubsumesFunction transpositionPositionSubsumes =
     new SubsumesFunction.ForTransposition();
 
   @BeforeTest
   public void setUp() {
-    stateFactory.elementFactory(elementFactory);
-
-    standardPositionUnsubsume.positionFactory(standardPositionFactory);
     standardPositionUnsubsume.subsumes(standardPositionSubsumes);
-
-    xPositionUnsubsume.positionFactory(xPositionFactory);
-    xPositionUnsubsume.subsumes(xPositionSubsumes);
+    specialPositionUnsubsume.subsumes(transpositionPositionSubsumes);
   }
 
   @DataProvider(name = "forStandardPositions")
@@ -55,13 +45,13 @@ public class UnsubsumeFunctionTest {
     };
   }
 
-  @DataProvider(name = "forXPositions")
-  public Object[][] forXPositions() {
+  @DataProvider(name = "forSpecialPositions")
+  public Object[][] forSpecialPositions() {
     return new Object[][] {
-      {1, 1, 0, 0, 1, 0, false},
-      {1, 1, 0, 1, 2, 0, true},
-      {3, 1, 0, 0, 2, 1, false},
-      {1, 1, 0, 0, 2, 1, true},
+      {1, 1, false, 0, 1, false, false},
+      {1, 1, false, 1, 2, false, true},
+      {3, 1, false, 0, 2, true, false},
+      {1, 1, false, 0, 2, true, true},
     };
   }
 
@@ -71,39 +61,39 @@ public class UnsubsumeFunctionTest {
       final int j, final int f,
       final boolean shouldSubsume) {
 
-    final IState actualOutput = stateFactory.build(
-        standardPositionFactory.build(i, e),
-        standardPositionFactory.build(j, f));
+    final State actualOutput = stateFactory.build(
+        positionFactory.build(i, e),
+        positionFactory.build(j, f));
 
-    final IState expectedOutput = shouldSubsume
+    final State expectedOutput = shouldSubsume
       ? stateFactory.build(
-          standardPositionFactory.build(i, e))
+          positionFactory.build(i, e))
       : stateFactory.build(
-          standardPositionFactory.build(i, e),
-          standardPositionFactory.build(j, f));
+          positionFactory.build(i, e),
+          positionFactory.build(j, f));
 
-    standardPositionUnsubsume.at(actualOutput);
+    standardPositionUnsubsume.at(actualOutput, QUERY_LENGTH);
     assertThat(actualOutput).isEqualTo(expectedOutput);
   }
 
-  @Test(dataProvider = "forXPositions")
+  @Test(dataProvider = "forSpecialPositions")
   public void testForXPositions(
-      final int i, final int e, final int s,
-      final int j, final int f, final int t,
+      final int i, final int e, final boolean s,
+      final int j, final int f, final boolean t,
       final boolean shouldSubsume) {
 
-    final IState actualOutput = stateFactory.build(
-        xPositionFactory.build(i, e, s),
-        xPositionFactory.build(j, f, t));
+    final State actualOutput = stateFactory.build(
+        positionFactory.build(i, e, s),
+        positionFactory.build(j, f, t));
 
-    final IState expectedOutput = shouldSubsume
+    final State expectedOutput = shouldSubsume
       ? stateFactory.build(
-          xPositionFactory.build(i, e, s))
+          positionFactory.build(i, e, s))
       : stateFactory.build(
-          xPositionFactory.build(i, e, s),
-          xPositionFactory.build(j, f, t));
+          positionFactory.build(i, e, s),
+          positionFactory.build(j, f, t));
 
-    xPositionUnsubsume.at(actualOutput);
+    specialPositionUnsubsume.at(actualOutput, QUERY_LENGTH);
     assertThat(actualOutput).isEqualTo(expectedOutput);
   }
 }

@@ -3,7 +3,6 @@ package com.github.liblevenshtein.transducer;
 import org.testng.annotations.Test;
 
 import static com.github.liblevenshtein.assertion.ComparatorAssertions.assertThat;
-import static com.github.liblevenshtein.utils.ArrayUtils.arr;
 
 public class StandardPositionComparatorTest {
   private final StandardPositionComparator comparator = new StandardPositionComparator();
@@ -11,10 +10,21 @@ public class StandardPositionComparatorTest {
   @Test
   public void testCompare() {
     assertThat(comparator)
-      .comparesGreaterThan(arr(1, 2), arr(0, 1))
-      .comparesGreaterThan(arr(1, 2), arr(1, 0))
-      .comparesEqualTo(arr(1, 2), arr(1, 2))
-      .comparesLessThan(arr(1, 2), arr(2, 3))
-      .comparesLessThan(arr(1, 2), arr(1, 3));
+      .comparesLessThan(new Position(0, 0), new Position(0, 1))
+      .comparesLessThan(new Position(0, 0), new Position(1, 0))
+      .comparesLessThan(new Position(0, 0), new Position(1, 1))
+      .comparesLessThan(new Position(0, 1), new Position(1, 0))
+      .comparesLessThan(new Position(0, 1), new Position(1, 1))
+      .comparesLessThan(new Position(1, 0), new Position(1, 1))
+      .comparesEqualTo(new Position(0, 0), new Position(0, 0))
+      .comparesEqualTo(new Position(0, 1), new Position(0, 1))
+      .comparesEqualTo(new Position(1, 0), new Position(1, 0))
+      .comparesEqualTo(new Position(1, 1), new Position(1, 1))
+      .comparesGreaterThan(new Position(1, 1), new Position(0, 0))
+      .comparesGreaterThan(new Position(1, 1), new Position(0, 1))
+      .comparesGreaterThan(new Position(1, 1), new Position(1, 0))
+      .comparesGreaterThan(new Position(1, 0), new Position(0, 1))
+      .comparesGreaterThan(new Position(1, 0), new Position(0, 0))
+      .comparesGreaterThan(new Position(0, 1), new Position(0, 0));
   }
 }

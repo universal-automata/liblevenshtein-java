@@ -14,6 +14,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - Renames `com.github.liblevenshtein.levenshtein` to `com.github.liblevenshtein.transducer`
   - Renames `com.github.liblevenshtein.collection.dawg` to `com.github.liblevenshtein.collection.dictionary`
   - Moves `com.github.liblevenshtein.levenshtein.LibLevenshteinProtos` to `com.github.liblevenshtein.proto.LibLevenshteinProtos`
+- Simplifies the internal, data structures.
+- Switches from array-based, state positions to classes with descriptive, field
+  names.
 
 ### Removed
 - Removes the deprecated, `maxCandidates`, option and its related classes.

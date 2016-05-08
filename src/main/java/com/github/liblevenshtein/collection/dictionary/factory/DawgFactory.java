@@ -64,7 +64,7 @@ public class DawgFactory implements Serializable {
    * @param dictionary Dawg whose final function should be returned
    * @return The final function of the dictionary
    */
-  public IFinalFunction<DawgNode> isFinal(@NonNull final Dawg dictionary) {
+  public IFinalFunction<DawgNode> finalFunction(@NonNull final Dawg dictionary) {
     return dictionary;
   }
 
@@ -73,7 +73,7 @@ public class DawgFactory implements Serializable {
    * @param dictionary Dawg whose transition function should be returned
    * @return The transition function of the dictionary
    */
-  public ITransitionFunction<DawgNode> transition(@NonNull final Dawg dictionary) {
+  public ITransitionFunction<DawgNode> transitionFunction(@NonNull final Dawg dictionary) {
     return dictionary;
   }
 }

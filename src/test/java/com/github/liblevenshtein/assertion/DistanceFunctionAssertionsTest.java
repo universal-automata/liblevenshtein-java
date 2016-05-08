@@ -6,19 +6,19 @@ import org.testng.annotations.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.github.liblevenshtein.transducer.IDistanceFunction;
-import com.github.liblevenshtein.transducer.IState;
+import com.github.liblevenshtein.transducer.DistanceFunction;
+import com.github.liblevenshtein.transducer.State;
 import static com.github.liblevenshtein.assertion.DistanceFunctionAssertions.assertThat;
 
 public class DistanceFunctionAssertionsTest {
 
-  private final ThreadLocal<IDistanceFunction> distance = new ThreadLocal<>();
-  private final ThreadLocal<IState> state = new ThreadLocal<>();
+  private final ThreadLocal<DistanceFunction> distance = new ThreadLocal<>();
+  private final ThreadLocal<State> state = new ThreadLocal<>();
 
   @BeforeMethod
   public void setUp() {
-    distance.set(mock(IDistanceFunction.class));
-    state.set(mock(IState.class));
+    distance.set(mock(DistanceFunction.class));
+    state.set(mock(State.class));
   }
 
   @Test

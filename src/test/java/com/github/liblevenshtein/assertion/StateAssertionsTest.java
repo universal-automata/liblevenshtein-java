@@ -1,69 +1,114 @@
 package com.github.liblevenshtein.assertion;
 
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
+import com.github.liblevenshtein.transducer.Position;
 import com.github.liblevenshtein.transducer.State;
 import static com.github.liblevenshtein.assertion.StateAssertions.assertThat;
-import static com.github.liblevenshtein.utils.ArrayUtils.arr;
 
 public class StateAssertionsTest {
 
-  private final ThreadLocal<State> state = new ThreadLocal<>();
-
-  @BeforeMethod
-  public void setUp() {
-    state.set(mock(State.class));
+  @Test
+  public void testIterator() {
+    final Position p0 = new Position(0, 0);
+    final Position p1 = new Position(1, 0);
+    final State state = new State();
+    assertThat(state).iterator()
+      .doesNotHaveNext();
+    state.add(p0);
+    assertThat(state).iterator()
+      .hasNext(p0)
+      .doesNotHaveNext();
+    state.add(p1);
+    assertThat(state).iterator()
+      .hasNext(p0)
+      .hasNext(p1)
+      .doesNotHaveNext();
   }
 
   @Test
-  public void testHasSize() {
-    when(state.get().size()).thenReturn(1);
-    assertThat(state.get()).hasSize(1);
-  }
-
-  @Test(expectedExceptions = AssertionError.class)
-  public void testHasSizeAgainstViolation() {
-    when(state.get().size()).thenReturn(2);
-    assertThat(state.get()).hasSize(1);
-  }
-
-  @Test
-  public void testHasInner() {
-    when(state.get().getInner(0)).thenReturn(arr(1, 2, 3));
-    assertThat(state.get()).hasInner(0, arr(1, 2, 3));
-  }
-
-  @Test(expectedExceptions = AssertionError.class)
-  public void testHasInnerAgainstViolation() {
-    when(state.get().getInner(0)).thenReturn(arr(1, 2, 3));
-    assertThat(state.get()).hasInner(0, arr(3, 4, 5));
+  public void testAdd() {
+    final Position p0 = new Position(0, 0);
+    final Position p1 = new Position(1, 0);
+    final Position p2 = new Position(2, 0);
+    final State state = new State();
+    assertThat(state)
+      .add()
+      .add(p0)
+      .add(p1, p2)
+      .iterator()
+        .hasNext(p0)
+        .hasNext(p1)
+        .hasNext(p2)
+        .doesNotHaveNext();
   }
 
   @Test
-  public void testHasOuter() {
-    when(state.get().getOuter(0)).thenReturn(arr(1, 2, 3));
-    assertThat(state.get()).hasOuter(0, arr(1, 2, 3));
+  public void testHasHead() {
+    final Position p0 = new Position(0, 0);
+    final State state = new State();
+    assertThat(state).hasHead(null);
+    state.add(p0);
+    assertThat(state).hasHead(p0);
   }
 
   @Test(expectedExceptions = AssertionError.class)
-  public void testHasOuterAgainstViolation() {
-    when(state.get().getOuter(0)).thenReturn(arr(1, 2, 3));
-    assertThat(state.get()).hasOuter(0, arr(3, 4, 5));
+  public void testHasHeadAgainstNullHead() {
+    final Position p0 = new Position(0, 0);
+    final State state = new State();
+    assertThat(state).hasHead(p0);
+  }
+
+  @Test(expectedExceptions = AssertionError.class)
+  public void testHasHeadAgainstNonNullHead() {
+    final Position p0 = new Position(0, 0);
+    final State state = new State();
+    state.add(p0);
+    assertThat(state).hasHead(null);
+  }
+
+  @Test(expectedExceptions = AssertionError.class)
+  public void testHasHeadAgainstDiffHeads() {
+    final Position p0 = new Position(0, 0);
+    final Position p1 = new Position(1, 0);
+    final State state = new State();
+    state.add(p0);
+    assertThat(state).hasHead(p1);
   }
 
   @Test
-  public void testRemoveInner() {
-    when(state.get().removeInner()).thenReturn(arr(1, 2, 3));
-    assertThat(state.get()).removeInner(arr(1, 2, 3));
+  public void testHead() {
+    final Position p0 = new Position(0, 0);
+    final State state = new State();
+    assertThat(state)
+      .head(p0)
+      .hasHead(p0);
   }
 
   @Test(expectedExceptions = AssertionError.class)
-  public void testRemoveInnerAgainstViolation() {
-    when(state.get().removeInner()).thenReturn(arr(1, 2, 3));
-    assertThat(state.get()).removeInner(arr(3, 4, 5));
+  public void testHeadAgainstMismatch() {
+    final Position p0 = new Position(0, 0);
+    final Position p1 = new Position(1, 0);
+    final State state = new State();
+    assertThat(state)
+      .head(p0)
+      .hasHead(p1);
+  }
+
+  @Test
+  public void testInsertAfter() {
+    final Position p0 = new Position(0, 0);
+    final Position p1 = new Position(1, 0);
+    final Position p2 = new Position(2, 0);
+    final State state = new State();
+    assertThat(state)
+      .head(p0)
+      .insertAfter(p0, p2)
+      .insertAfter(p0, p1)
+      .iterator()
+        .hasNext(p0)
+        .hasNext(p1)
+        .hasNext(p2)
+        .doesNotHaveNext();
   }
 }

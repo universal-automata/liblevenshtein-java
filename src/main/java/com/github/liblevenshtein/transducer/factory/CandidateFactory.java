@@ -2,7 +2,8 @@ package com.github.liblevenshtein.transducer.factory;
 
 import java.io.Serializable;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import com.github.liblevenshtein.transducer.Candidate;
 
@@ -13,11 +14,20 @@ import com.github.liblevenshtein.transducer.Candidate;
  * @author Dylon Edwards
  * @since 2.1.2
  */
-@RequiredArgsConstructor
-public abstract class CandidateFactory<CandidateType>
-    implements ICandidateFactory<CandidateType>, Serializable {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public abstract class CandidateFactory<CandidateType> implements Serializable {
 
   private static final long serialVersionUID = 1L;
+
+  /**
+   * Builds a new spelling candidate from the dictionary term and its
+   * Levenshtein distance from the query term.
+   * @param term Candidate term from the dictionary.
+   * @param distance Levenshtein distance of the dictionary term from the query
+   * term.
+   * @return A new spelling candidate, optionally with the distance included.
+   */
+  public abstract CandidateType build(String term, int distance);
 
   /**
    * Builds instances of {@link Candidate}, with the dictionary term and its

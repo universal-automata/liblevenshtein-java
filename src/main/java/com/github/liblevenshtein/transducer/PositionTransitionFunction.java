@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import lombok.Setter;
 
-import com.github.liblevenshtein.transducer.factory.IPositionFactory;
-import com.github.liblevenshtein.transducer.factory.IStateFactory;
+import com.github.liblevenshtein.transducer.factory.PositionFactory;
+import com.github.liblevenshtein.transducer.factory.StateFactory;
 
 /**
  * Implements common logic shared among the position-transition functions, which
@@ -16,8 +16,7 @@ import com.github.liblevenshtein.transducer.factory.IStateFactory;
  * @since 2.1.0
  */
 @Setter
-public abstract class AbstractPositionTransitionFunction
-  implements IPositionTransitionFunction, Serializable {
+public abstract class PositionTransitionFunction implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -26,18 +25,18 @@ public abstract class AbstractPositionTransitionFunction
    * -- SETTER --
    * Builds and caches states for the transducer.
    * @param stateFactory Builds and caches states for the transducer.
-   * @return This {@link AbstractPositionTransitionFunction} for fluency.
+   * @return This {@link PositionTransitionFunction} for fluency.
    */
-  protected IStateFactory stateFactory;
+  protected StateFactory stateFactory;
 
   /**
    * Builds and caches positions for states in the transducer.
    * -- SETTER --
    * Builds and caches positions for states in the transducer.
    * @param positionFactory Builds and caches positions for states in the transducer.
-   * @return This {@link AbstractPositionTransitionFunction} for fluency.
+   * @return This {@link PositionTransitionFunction} for fluency.
    */
-  protected IPositionFactory positionFactory;
+  protected PositionFactory positionFactory;
 
   /**
    * Returns the first index of the characteristic vector between indices, i and
@@ -70,4 +69,26 @@ public abstract class AbstractPositionTransitionFunction
 
     return -1;
   }
+
+  /**
+   * Returns a state with all the possible transitions from the current
+   * position.
+   * @param n Maximum number of errors to tolerate in spelling candidates.
+   * @param position Vector consisting of the current index of the spelling
+   * candidate, the number of errors accumulated up to that index, and
+   * (optionally) a flag specifying whether the position is a special kind as
+   * defined by its specific, Levenshtein algorithm (e.g. whether it is a
+   * transposition position, etc.).
+   * @param characteristicVector Relevant subwords consisting of booleans about
+   * whether the characters associated by their indices in the spelling
+   * candidate are the same as the character being sought from the query term.
+   * @param offset Offset for various operations within the transition function.
+   * @return New state consisting of all possible transitions for the given
+   * position, given the other paramters.
+   */
+  public abstract State of(
+      int n,
+      Position position,
+      boolean[] characteristicVector,
+      int offset);
 }

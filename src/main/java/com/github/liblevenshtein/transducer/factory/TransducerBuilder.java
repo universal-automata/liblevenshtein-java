@@ -12,18 +12,16 @@ import com.github.liblevenshtein.collection.dictionary.Dawg;
 import com.github.liblevenshtein.collection.dictionary.DawgNode;
 import com.github.liblevenshtein.collection.dictionary.factory.DawgFactory;
 import com.github.liblevenshtein.transducer.Algorithm;
-import com.github.liblevenshtein.transducer.IDistanceFunction;
-import com.github.liblevenshtein.transducer.IState;
+import com.github.liblevenshtein.transducer.DistanceFunction;
 import com.github.liblevenshtein.transducer.ITransducer;
 import com.github.liblevenshtein.transducer.MergeFunction;
+import com.github.liblevenshtein.transducer.SpecialPositionComparator;
 import com.github.liblevenshtein.transducer.StandardPositionComparator;
-import com.github.liblevenshtein.transducer.StandardPositionDistanceFunction;
+import com.github.liblevenshtein.transducer.State;
 import com.github.liblevenshtein.transducer.SubsumesFunction;
 import com.github.liblevenshtein.transducer.Transducer;
 import com.github.liblevenshtein.transducer.TransducerAttributes;
 import com.github.liblevenshtein.transducer.UnsubsumeFunction;
-import com.github.liblevenshtein.transducer.XPositionComparator;
-import com.github.liblevenshtein.transducer.XPositionDistanceFunction;
 
 /**
  * Fluently-builds Levenshtein transducers.
@@ -31,14 +29,10 @@ import com.github.liblevenshtein.transducer.XPositionDistanceFunction;
  * @since 2.1.0
  */
 @Slf4j
-public class TransducerBuilder implements ITransducerBuilder, Serializable {
+@Setter
+public class TransducerBuilder implements Serializable {
 
   private static final long serialVersionUID = 1L;
-
-  /**
-   * Format of error messages about unsupported algorithms.
-   */
-  private static final String UNSUPPORTED_ALGORITHM = "Unsupported Algorithm: ";
 
   /**
    * Builds DAWG collections from dictionaries.
@@ -48,8 +42,8 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
   /**
    * Dictionary automaton for seeking spelling candidates.
    */
+  @Setter
   @SuppressWarnings("unchecked")
-  @Setter(onMethod = @__({@Override}))
   private Collection<String> dictionary = Collections.EMPTY_LIST;
 
   /**
@@ -65,8 +59,8 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
    * @param algorithm Desired Levenshtein algorithm for searching.
    * @return This {@link TransducerBuilder} for fluency.
    */
+  @Setter
   @NonNull
-  @Setter(onMethod = @__({@Override}))
   private Algorithm algorithm = Algorithm.STANDARD;
 
   /**
@@ -79,7 +73,7 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
    * between each spelling candidate and the query term.
    * @return This {@link TransducerBuilder} for fluency.
    */
-  @Setter(onMethod = @__({@Override}))
+  @Setter
   private int defaultMaxDistance = 2;
 
   /**
@@ -93,14 +87,18 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
    * spelling candidates.
    * @return This {@link TransducerBuilder} for fluency.
    */
-  @Setter(onMethod = @__({@Override}))
+  @Setter
   private boolean includeDistance = true;
 
   /**
-   * {@inheritDoc}
+   * Specifies the collection of dictionary terms for the dictionary automaton.
+   * @param dictionary Collection of dictionary terms to consider when
+   * generating spelling candidates.
+   * @param isSorted Whether the dictionary is sorted.  If it is not sorted then
+   * it will probably be sorted.
+   * @return This {@link TransducerBuilder} or an equivalent one, for fluency.
    */
-  @Override
-  public ITransducerBuilder dictionary(
+  public TransducerBuilder dictionary(
       @NonNull final Collection<String> dictionary,
       final boolean isSorted) {
     this.dictionary = dictionary;
@@ -109,9 +107,13 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
   }
 
   /**
-   * {@inheritDoc}
+   * Builds a Levenshtein transducer according to the parameters set for this
+   * {@link TransducerBuilder}.
+   * @param <CandidateType> Implicit type of the spelling candidates generated
+   * by the transducer.
+   * @return Levenshtein transducer for seeking spelling candidates for query
+   * terms (fuzzy searching!).
    */
-  @Override
   @SuppressWarnings("unchecked")
   public <CandidateType> ITransducer<CandidateType> build() {
     log.info("Building transducer out of [{}] terms with isSorted [{}], "
@@ -120,30 +122,50 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
         includeDistance);
 
     final Dawg dictionary = dawgFactory.build(this.dictionary, this.isSorted);
+    final PositionFactory positionFactory = new PositionFactory();
+    final StateFactory stateFactory = new StateFactory();
 
-    final IStateFactory stateFactory =
-      new StateFactory().elementFactory(new ElementFactory<int[]>());
+    final PositionTransitionFactory positionTransitionFactory = positionTransitionFactory();
+    positionTransitionFactory.stateFactory(stateFactory);
+    positionTransitionFactory.positionFactory(positionFactory);
+
+    final StateTransitionFactory stateTransitionFactory = stateTransitionFactory();
+    stateTransitionFactory.stateFactory(stateFactory);
+    stateTransitionFactory.positionTransitionFactory(positionTransitionFactory);
+
+    final State initialState = stateFactory.build(positionFactory.build(0, 0));
 
     final TransducerAttributes<DawgNode, CandidateType> attributes =
-      new TransducerAttributes<DawgNode, CandidateType>()
+      TransducerAttributes.<DawgNode, CandidateType>builder()
         .maxDistance(defaultMaxDistance)
-        .stateTransitionFactory(buildStateTransitionFactory(stateFactory))
-        .candidateFactory(
-          (ICandidateFactory<CandidateType>)
-          (includeDistance
-            ? new CandidateFactory.WithDistance()
-            : new CandidateFactory.WithoutDistance()))
-        .intersectionFactory(new IntersectionFactory<DawgNode>())
-        .minDistance(buildMinDistance())
-        .isFinal(dawgFactory.isFinal(dictionary))
-        .dictionaryTransition(dawgFactory.transition(dictionary))
-        .initialState(buildInitialState(stateFactory))
+        .stateTransitionFactory(stateTransitionFactory)
+        .candidateFactory(candidateFactory())
+        .minDistance(minDistance())
+        .isFinal(dawgFactory.finalFunction(dictionary))
+        .dictionaryTransition(dawgFactory.transitionFunction(dictionary))
         .dictionaryRoot(dictionary.root())
+        .initialState(initialState)
         .dictionary(dictionary)
         .algorithm(algorithm)
-        .includeDistance(includeDistance);
+        .includeDistance(includeDistance)
+        .build();
 
     return new Transducer<>(attributes);
+  }
+
+  /**
+   * Builds the factory for spelling candidates, according to whether they
+   * should include the candidates' distances from query terms.
+   * @param <CandidateType> Implicit type of the spelling candidates generated
+   * by the transducer.
+   * @return Factory for spelling candidates.
+   */
+  @SuppressWarnings("unchecked")
+  protected <CandidateType> CandidateFactory<CandidateType> candidateFactory() {
+    return (CandidateFactory<CandidateType>)
+      (includeDistance
+        ? new CandidateFactory.WithDistance()
+        : new CandidateFactory.WithoutDistance());
   }
 
   /**
@@ -151,99 +173,72 @@ public class TransducerBuilder implements ITransducerBuilder, Serializable {
    * the query term.
    * @return Levenshtein algorithm-specific, distance function.
    */
-  protected IDistanceFunction buildMinDistance() {
+  protected DistanceFunction minDistance() {
     switch (algorithm) {
       case STANDARD:
-        return new StandardPositionDistanceFunction();
+        return new DistanceFunction.ForStandardPositions();
       case TRANSPOSITION: // fall through
       case MERGE_AND_SPLIT:
-        return new XPositionDistanceFunction();
+        return new DistanceFunction.ForSpecialPositions();
       default:
-        throw new IllegalArgumentException(UNSUPPORTED_ALGORITHM + algorithm);
+        throw new IllegalArgumentException(unsupportedAlgorithm(algorithm));
     }
   }
 
   /**
-   * Builds the initial state from which to begin searching the dictionary
-   * automaton for spelling candidates.
-   * @param stateFactory Builds and recycles Levenshtein states.
-   * @return Start state for traversing the dictionary automaton.
+   * Builds an {@link #algorithm}-specific, position-transition factory.
+   * @return {@link #algorithm}-specific, position-transition factory.
    */
-  protected IState buildInitialState(@NonNull final IStateFactory stateFactory) {
+  protected PositionTransitionFactory positionTransitionFactory() {
     switch (algorithm) {
       case STANDARD:
-        return stateFactory.build(new int[] {0, 0});
-      case TRANSPOSITION: // fall through
+        return new PositionTransitionFactory.ForStandardPositions();
+      case TRANSPOSITION:
+        return new PositionTransitionFactory.ForTranspositionPositions();
       case MERGE_AND_SPLIT:
-        return stateFactory.build(new int[] {0, 0, 0});
+        return new PositionTransitionFactory.ForMergeAndSplitPositions();
       default:
-        throw new IllegalArgumentException(UNSUPPORTED_ALGORITHM + algorithm);
+        throw new IllegalArgumentException(unsupportedAlgorithm(algorithm));
     }
   }
 
   /**
    * Builds a state-transition factory from the parameters specified at the time
    * {@link #build()} was called.
-   * @param stateFactory Builds Levenshtein states.
    * @return New state-transition factory.
    */
-  protected IStateTransitionFactory buildStateTransitionFactory(
-      @NonNull final IStateFactory stateFactory) {
-
-    final StateTransitionFactory stateTransitionFactory =
-      new StateTransitionFactory().stateFactory(stateFactory);
-
-    final PositionTransitionFactory positionTransitionFactory;
-    final IPositionFactory positionFactory;
-
+  protected StateTransitionFactory stateTransitionFactory() {
     switch (algorithm) {
       case STANDARD:
-        positionTransitionFactory =
-          new PositionTransitionFactory.ForStandardPositions();
-        positionFactory = new PositionFactory.ForStandardPositions();
-        stateTransitionFactory
+        return new StateTransitionFactory()
           .comparator(new StandardPositionComparator())
-          .positionTransitionFactory(positionTransitionFactory)
-          .merge(new MergeFunction.ForStandardPositions()
-              .positionFactory(positionFactory))
+          .merge(new MergeFunction.ForStandardPositions())
           .unsubsume(new UnsubsumeFunction.ForStandardPositions()
-              .subsumes(new SubsumesFunction.ForStandardAlgorithm())
-              .positionFactory(positionFactory));
-        break;
+              .subsumes(new SubsumesFunction.ForStandardAlgorithm()));
       case TRANSPOSITION:
-        positionTransitionFactory =
-          new PositionTransitionFactory.ForTranspositionPositions();
-        positionFactory = new PositionFactory.ForXPositions();
-        stateTransitionFactory
-          .comparator(new XPositionComparator())
-          .positionTransitionFactory(positionTransitionFactory)
-          .merge(new MergeFunction.ForXPositions()
-              .positionFactory(positionFactory))
-          .unsubsume(new UnsubsumeFunction.ForXPositions()
-              .subsumes(new SubsumesFunction.ForTransposition())
-              .positionFactory(positionFactory));
-        break;
+        return new StateTransitionFactory()
+          .comparator(new SpecialPositionComparator())
+          .merge(new MergeFunction.ForSpecialPositions())
+          .unsubsume(new UnsubsumeFunction.ForSpecialPositions()
+              .subsumes(new SubsumesFunction.ForTransposition()));
       case MERGE_AND_SPLIT:
-        positionTransitionFactory =
-          new PositionTransitionFactory.ForMergeAndSplitPositions();
-        positionFactory = new PositionFactory.ForXPositions();
-        stateTransitionFactory
-          .comparator(new XPositionComparator())
-          .positionTransitionFactory(positionTransitionFactory)
-          .merge(new MergeFunction.ForXPositions()
-              .positionFactory(positionFactory))
-          .unsubsume(new UnsubsumeFunction.ForXPositions()
-              .subsumes(new SubsumesFunction.ForMergeAndSplit())
-              .positionFactory(positionFactory));
-        break;
+        return new StateTransitionFactory()
+          .comparator(new SpecialPositionComparator())
+          .merge(new MergeFunction.ForSpecialPositions())
+          .unsubsume(new UnsubsumeFunction.ForSpecialPositions()
+              .subsumes(new SubsumesFunction.ForMergeAndSplit()));
       default:
-        throw new IllegalArgumentException(UNSUPPORTED_ALGORITHM + algorithm);
+        throw new IllegalArgumentException(unsupportedAlgorithm(algorithm));
     }
+  }
 
-    positionTransitionFactory
-      .stateFactory(stateFactory)
-      .positionFactory(positionFactory);
-
-    return stateTransitionFactory;
+  /**
+   * Generates a message for algorithms that aren't supported by various
+   * methods.
+   * @param algorithm The unsupported algorithm.
+   * @return A message stating that some algorithm is unsupported.
+   */
+  protected String unsupportedAlgorithm(final Algorithm algorithm) {
+    return String.format("Unsupported algorithm [%s]", algorithm);
   }
 }

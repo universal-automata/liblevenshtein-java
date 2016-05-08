@@ -6,7 +6,6 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.github.liblevenshtein.transducer.factory.ElementFactory;
 import com.github.liblevenshtein.transducer.factory.PositionFactory;
 import com.github.liblevenshtein.transducer.factory.PositionTransitionFactory;
 import com.github.liblevenshtein.transducer.factory.StateFactory;
@@ -20,8 +19,7 @@ public class StateTransitionFunctionTest {
   private static final int N = 1;
   private static final int W = 5;
 
-  private final ElementFactory<int[]> elementFactory = new ElementFactory<>();
-  private final PositionFactory positionFactory = new PositionFactory.ForStandardPositions();
+  private final PositionFactory positionFactory = new PositionFactory();
   private final StateFactory stateFactory = new StateFactory();
   private final PositionTransitionFactory transitionFactory =
     new PositionTransitionFactory.ForStandardPositions();
@@ -32,22 +30,17 @@ public class StateTransitionFunctionTest {
 
   @BeforeTest
   public void setUp() {
-    stateFactory.elementFactory(elementFactory);
-
     transitionFactory.stateFactory(stateFactory);
     transitionFactory.positionFactory(positionFactory);
 
-    merge.positionFactory(positionFactory);
-
     unsubsume.subsumes(subsumes);
-    unsubsume.positionFactory(positionFactory);
 
     transition.comparator((a, b) -> {
-      final int i = a[1] - b[1];
+      final int i = a.numErrors() - b.numErrors();
       if (0 != i) {
         return i;
       }
-      return a[0] - b[0];
+      return a.termIndex() - b.termIndex();
     });
 
     transition.stateFactory(stateFactory);
@@ -212,13 +205,13 @@ public class StateTransitionFunctionTest {
   }
 
   private void validate(
-      final IState input,
-      final IState expectedOutput,
+      final State input,
+      final State expectedOutput,
       final boolean... characteristicVector) {
     assertThat(transition).transitionsTo(expectedOutput, input, characteristicVector);
   }
 
-  private IState a(final int i) {
+  private State a(final int i) {
     if (0 <= i && i <= W) {
       return stateFactory.build(
           positionFactory.build(i, 0));
@@ -227,7 +220,7 @@ public class StateTransitionFunctionTest {
     return null;
   }
 
-  private IState b(final int i) {
+  private State b(final int i) {
     if (0 <= i && i <= W) {
       return stateFactory.build(
           positionFactory.build(i, 1));
@@ -236,7 +229,7 @@ public class StateTransitionFunctionTest {
     return null;
   }
 
-  private IState c(final int i) {
+  private State c(final int i) {
     // [NOTE] :: In the paper, this should not be defined when i = W, but from
     // my experiments it seems to be the appropriate image of A(i) when i = W.
     //
@@ -252,7 +245,7 @@ public class StateTransitionFunctionTest {
     //return null;
   }
 
-  private IState d(final int i) {
+  private State d(final int i) {
     if (0 <= i && i <= W - 2) {
       return stateFactory.build(
           positionFactory.build(i, 1),
@@ -262,7 +255,7 @@ public class StateTransitionFunctionTest {
     return null;
   }
 
-  private IState e(final int i) {
+  private State e(final int i) {
     if (0 <= i && i <= W - 2) {
       return stateFactory.build(
           positionFactory.build(i, 1),

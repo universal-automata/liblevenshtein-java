@@ -8,7 +8,7 @@ import java.util.Comparator;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public class StandardPositionComparator implements Serializable, Comparator<int[]> {
+public class StandardPositionComparator implements Serializable, Comparator<Position> {
 
   private static final long serialVersionUID = 1L;
 
@@ -16,11 +16,11 @@ public class StandardPositionComparator implements Serializable, Comparator<int[
    * {@inheritDoc}
    */
   @Override
-  public int compare(final int[] a, final int[] b) {
-    int c = a[0] - b[0];
+  public int compare(final Position lhs, final Position rhs) {
+    int c = lhs.termIndex() - rhs.termIndex();
     if (0 != c) {
       return c;
     }
-    return a[1] - b[1];
+    return lhs.numErrors() - rhs.numErrors();
   }
 }

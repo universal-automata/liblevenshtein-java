@@ -3,12 +3,7 @@ package com.github.liblevenshtein.transducer;
 import java.io.Serializable;
 import java.util.Comparator;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-
-import com.github.liblevenshtein.transducer.factory.IElementFactory;
+import lombok.Data;
 
 /**
  * Levenshtein state that is used by all algorithms.  The algorithm-specific
@@ -17,244 +12,90 @@ import com.github.liblevenshtein.transducer.factory.IElementFactory;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-@RequiredArgsConstructor
-@ToString(of = {"size", "head", "tail"})
-@EqualsAndHashCode(of = {"size", "head", "tail"})
-public class State implements IState, Serializable {
+@Data
+public class State implements Iterable<Position>, Serializable {
 
   private static final long serialVersionUID = 1L;
 
   /**
-   * Number of positions in this state.  This statistic is useful when
-   * requesting inner and outer positions, or when inserting new positions into
-   * specific locations.
-   * -- GETTER --
-   * Number of positions in this state.  This statistic is useful when
-   * requesting inner and outer positions, or when inserting new positions into
-   * specific locations.
-   * @return Number of positions in this state.
-   */
-  @Getter(onMethod = @__({@Override}))
-  private int size = 0;
-
-  /**
-   * Builds and recycles the linked-list nodes that hold this state's
-   * Levenshtein positions.
-   */
-  private final IElementFactory<int[]> factory;
-
-  /**
-   * Index of the cursor for the outer loop of the merge function.
-   */
-  private int outerIndex = 0;
-
-  /**
-   * Cursor of the outer loop of the merge function.
-   */
-  private Element<int[]> outer = null;
-
-  /**
-   * Index of the cursor for the inner loop of the merge function.
-   */
-  private int innerIndex = 0;
-
-  /**
-   * Cursor of the inner loop of the merge function.
-   */
-  private Element<int[]> inner = null;
-
-  /**
    * Head (first element) of the linked-list of Levenshtein positions.
+   * -- GETTER --
+   * Head (first element) of the linked-list of Levenshtein positions.
+   * @return Head (first element) of the linked-list of Levenshtein positions.
    */
-  private Element<int[]> head = null;
+  private Position head = null;
 
   /**
-   * Tail (last element) of the linked-list of Levenshtein positions.
+   * Updates {@link #head} to point to the new node. The new node is inserted
+   * imnmediately-before {@link #head}.
+   * @param head {@link Position} to set as the new {@link #head}.
+   * @return This {@link State} for fluency.
    */
-  private Element<int[]> tail = null;
+  public State head(final Position head) {
+    head.next(this.head);
+    this.head = head;
+    return this;
+  }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void add(final int[] position) {
-    final Element<int[]> next = factory.build(position);
+  public StateIterator iterator() {
+    return new StateIterator(this, head, null, null);
+  }
 
+  /**
+   * Adds a new position to the linked-list of positions in this state.
+   * @param next Position to add to those already in this state.
+   * @return This {@link State} for fluency.
+   */
+  public State add(final Position next) {
     if (null == head) {
       head = next;
     }
     else {
-      next.prev(tail);
-      tail.next(next);
-    }
-
-    tail = next;
-    size += 1;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void insert(final int index, final int[] position) {
-    if (index < 0 || index > size) {
-      throw new ArrayIndexOutOfBoundsException(
-          "Expected 0 <= index <= size, but received: " + index);
-    }
-
-    Element<int[]> curr = head;
-    for (int i = 0; i < index && i < size; ++i) {
-      curr = curr.next();
-    }
-
-    final Element<int[]> next = factory.build(position);
-
-    if (null != curr.prev()) {
-      curr.prev().next(next);
-    }
-
-    next.prev(curr.prev());
-    next.next(curr);
-    curr.prev(next);
-
-    if (index < innerIndex) {
-      innerIndex += 1;
-    }
-
-    if (index < outerIndex) {
-      outerIndex += 1;
-    }
-
-    if (0 == index) {
-      head = next;
-    }
-    else if (size == index) {
-      tail = next;
-    }
-
-    size += 1;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public int[] getOuter(final int index) {
-    if (index < 0 || index >= size) {
-      throw new ArrayIndexOutOfBoundsException(
-          "Expected 0 <= index < size, but received: " + index);
-    }
-
-    if (0 == index || null == outer) {
-      outerIndex = 0;
-      outer = head;
-    }
-
-    while (outerIndex > index) {
-      outerIndex -= 1;
-      outer = outer.prev();
-    }
-
-    while (outerIndex < index) {
-      outerIndex += 1;
-      outer = outer.next();
-    }
-
-    return outer.value();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public int[] getInner(final int index) {
-    if (index < 0 || index >= size) {
-      throw new ArrayIndexOutOfBoundsException(
-          "Expected 0 <= index < size, but received: " + index);
-    }
-
-    if (0 == index || null == inner) {
-      innerIndex = 0;
-      inner = head;
-    }
-
-    while (innerIndex > index) {
-      innerIndex -= 1;
-      inner = inner.prev();
-    }
-
-    while (innerIndex < index) {
-      innerIndex += 1;
-      inner = inner.next();
-    }
-
-    return inner.value();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public int[] removeInner() {
-    if (innerIndex >= size) {
-      throw new ArrayIndexOutOfBoundsException(
-          "No elements at index: " + innerIndex);
-    }
-
-    final Element<int[]> innerLocal = this.inner;
-
-    if (null != innerLocal.next()) {
-      this.inner = innerLocal.next();
-
-      if (null != innerLocal.prev()) {
-        innerLocal.prev().next(innerLocal.next());
+      Position curr = head;
+      while (null != curr.next()) {
+        curr = curr.next();
       }
+      curr.next(next);
+    }
+    return this;
+  }
 
-      this.inner.prev(innerLocal.prev());
+  /**
+   * Inserts a position into a specific location of the linked-list of positions.
+   * @param curr {@link Position} after which to insert {@link next}..
+   * @param next {@link Position} to insert after {@link curr}.
+   * @return This {@link State} for fluency.
+   */
+  public State insertAfter(final Position curr, final Position next) {
+    if (null != curr) {
+      next.next(curr.next());
+      curr.next(next);
     }
     else {
-      this.inner = innerLocal.prev();
-
-      if (null != this.inner) {
-        this.inner.next(null);
-      }
-
-      innerIndex -= 1;
+      add(next);
     }
-
-    if (head == innerLocal) {
-      head = head.next();
-    }
-
-    if (tail == innerLocal) {
-      tail = tail.prev();
-    }
-
-    final int[] position = innerLocal.value();
-    size -= 1;
-
-    return position;
+    return this;
   }
 
   /**
-   * {@inheritDoc}
+   * Removes a position from this state.
+   * @param prev {@link Position} preceding the one to remove (useful for not
+   * having to traverse the linked list to find {@link curr}).
+   * @param curr {@link Position} to remove from this state.
+   * @return This {@link State} for fluency.
    */
-  @Override
-  public void clear() {
-    Element<int[]> tailLocal = this.tail;
-
-    while (null != tailLocal) {
-      final Element<int[]> prev = tailLocal.prev();
-      tailLocal = prev;
+  public State remove(final Position prev, final Position curr) {
+    if (null != prev) {
+      prev.next(curr.next());
     }
-
-    this.size = 0;
-    this.outerIndex = 0;
-    this.outer = null;
-    this.innerIndex = 0;
-    this.inner = null;
-    this.tail = null;
-    this.head = null;
+    else {
+      head = head.next();
+    }
+    return this;
   }
 
   /**
@@ -265,15 +106,18 @@ public class State implements IState, Serializable {
    * @param lhsHead First element of the sublist to sort.
    * @return The new head of the sorted sublist.
    */
-  private Element<int[]> mergeSort(
-      final Comparator<int[]> comparator,
-      final Element<int[]> lhsHead) {
+  private Position mergeSort(
+      final Comparator<Position> comparator,
+      final Position lhsHead) {
+
     if (null == lhsHead || null == lhsHead.next()) {
       return lhsHead;
     }
-    final Element<int[]> middle = middle(lhsHead);
-    final Element<int[]> rhsHead = middle.next();
+
+    final Position middle = middle(lhsHead);
+    final Position rhsHead = middle.next();
     middle.next(null);
+
     return merge(comparator,
         mergeSort(comparator, lhsHead),
         mergeSort(comparator, rhsHead));
@@ -287,24 +131,21 @@ public class State implements IState, Serializable {
    * @param rhsHead First element of the second sublist.
    * @return Head of the merged and sorted, sublist.
    */
-  @SuppressWarnings("checkstyle:finalparameters")
-  private Element<int[]> merge(
-      final Comparator<int[]> comparator,
-      Element<int[]> lhsHead,
-      Element<int[]> rhsHead) {
+  private Position merge(
+      final Comparator<Position> comparator,
+      Position lhsHead,
+      Position rhsHead) {
 
-    Element<int[]> next = factory.build(null);
-    Element<int[]> curr = next;
+    Position next = new Position(-1, -1);
+    Position curr = next;
 
     while (null != lhsHead && null != rhsHead) {
-      if (comparator.compare(lhsHead.value(), rhsHead.value()) <= 0) {
+      if (comparator.compare(lhsHead, rhsHead) <= 0) {
         curr.next(lhsHead);
-        lhsHead.prev(curr);
         lhsHead = lhsHead.next();
       }
       else {
         curr.next(rhsHead);
-        rhsHead.prev(curr);
         rhsHead = rhsHead.next();
       }
       curr = curr.next();
@@ -312,18 +153,12 @@ public class State implements IState, Serializable {
 
     if (null != rhsHead) {
       curr.next(rhsHead);
-      rhsHead.prev(curr);
     }
     else if (null != lhsHead) {
       curr.next(lhsHead);
-      lhsHead.prev(curr);
     }
 
     curr = next.next();
-    if (null != curr) {
-      curr.prev(null);
-    }
-
     return curr;
   }
 
@@ -332,29 +167,27 @@ public class State implements IState, Serializable {
    * @param head First element in the sublist.
    * @return Middle element of the sublist.
    */
-  private Element<int[]> middle(final Element<int[]> head) {
-    if (null == head) {
-      return null;
-    }
-    Element<int[]> slow = head;
-    Element<int[]> fast = head;
+  private Position middle(final Position head) {
+    Position slow = head;
+    Position fast = head;
+
     while (null != fast.next() && null != fast.next().next()) {
       slow = slow.next();
       fast = fast.next().next();
     }
+
     return slow;
   }
 
   /**
-   * {@inheritDoc}
+   * Merge-sorts the positions in this state in a fashion that makes
+   * un-subsumption easy.
+   * @param comparator Describes how to sort the positions (dependent on the
+   * Levenshtein algorithm).
+   * @return This {@link State} for fluency.
    */
-  @Override
-  public void sort(final Comparator<int[]> comparator) {
-    this.head = mergeSort(comparator, head);
-    Element<int[]> curr = head;
-    while (null != curr.next()) {
-      curr = curr.next();
-    }
-    this.tail = curr;
+  public State sort(final Comparator<Position> comparator) {
+    head = mergeSort(comparator, head);
+    return this;
   }
 }

@@ -1,9 +1,8 @@
 package com.github.liblevenshtein.assertion;
 
-import java.util.Arrays;
-
 import org.assertj.core.api.AbstractAssert;
 
+import com.github.liblevenshtein.transducer.Position;
 import com.github.liblevenshtein.transducer.State;
 
 /**
@@ -29,82 +28,78 @@ public class StateAssertions extends AbstractAssert<StateAssertions, State> {
   }
 
   /**
-   * Asserts that the actual size is expected.
-   * @param expectedSize Size the state is expected to have.
-   * @return This {@link StateAssertions} for fluency.
-   * @throws AssertionError When the state has an unexpected size.
+   * Returns a new {@link StateIteratorAssertions} to assert against the
+   * {@link #actual} iterator.
+   * @return New {@link StateIteratorAssertions} to assert-against the iterator
+   * of the {@link #actual} {@link State}.
    */
-  public StateAssertions hasSize(final int expectedSize) {
+  public StateIteratorAssertions iterator() {
+    isNotNull();
+    return new StateIteratorAssertions(actual.iterator());
+  }
+
+  /**
+   * Adds a number of positions to the state.
+   * @param positions {@link Position}s to add to the {@link #actual} state.
+   * @return This {@link StateAssertions} for fluency.
+   */
+  public StateAssertions add(final Position... positions) {
+    isNotNull();
+    for (int i = 0; i < positions.length; i += 1) {
+      final Position position = positions[i];
+      if (null == position) {
+        failWithMessage("Position at index [%d] is null", i);
+      }
+      actual.add(position);
+    }
+    return this;
+  }
+
+  /**
+   * Asserts that {@link #actual} has the expected head element.
+   * @param expectedHead {@link Position} expected to be the head element.
+   * @return This {@link StateAssertions} for fluency.
+   * @throws AssertionError When the head element is unexpected.
+   */
+  public StateAssertions hasHead(final Position expectedHead) {
     isNotNull();
 
-    if (expectedSize != actual.size()) {
-      failWithMessage(
-        "Expected state.size() = [%d], but was [%d]",
-        expectedSize, actual.size());
+    final Position actualHead = actual.head();
+
+    if (null == expectedHead) {
+      if (null != actualHead) {
+        failWithMessage("Expected actual.head() to be [null], but was [%s]",
+          actualHead);
+      }
+    }
+    else if (!expectedHead.equals(actualHead)) {
+      failWithMessage("Expected actual.head() to be [%s], but was [%s]",
+        expectedHead, actualHead);
     }
 
     return this;
   }
 
   /**
-   * Asserts that the inner value of the state at the given index is expected.
-   * @param innerIndex Index of the inner value to compare.
-   * @param expectedInner Expected value of the inner index.
+   * Inserts the element into the head of the {@link #actual} state.
+   * @param head Head element for the state.
    * @return This {@link StateAssertions} for fluency.
-   * @throws AssertionError When the actual value is unexpected.
    */
-  public StateAssertions hasInner(final int innerIndex, final int[] expectedInner) {
+  public StateAssertions head(final Position head) {
     isNotNull();
-
-    final int[] actualInner = actual.getInner(innerIndex);
-    if (!Arrays.equals(actualInner, expectedInner)) {
-      failWithMessage(
-        "Expected state.getInner(%d) = [%s], but was [%s]",
-        innerIndex, Arrays.toString(expectedInner), Arrays.toString(actualInner));
-    }
-
+    actual.head(head);
     return this;
   }
 
   /**
-   * Asserts that the outer value of the state at the given index is expected.
-   * @param outerIndex Index of the outer value to compare.
-   * @param expectedOuter Expected value of the outer index.
+   * Inserts an element after another in the state.
+   * @param curr {@link Position} after which to insert {@link next}..
+   * @param next {@link Position} to insert after {@link curr}.
    * @return This {@link StateAssertions} for fluency.
-   * @throws AssertionError When the actual value is unexpected.
    */
-  public StateAssertions hasOuter(final int outerIndex, final int[] expectedOuter) {
+  public StateAssertions insertAfter(final Position curr, final Position next) {
     isNotNull();
-
-    final int[] actualOuter = actual.getOuter(outerIndex);
-    if (!Arrays.equals(actualOuter, expectedOuter)) {
-      failWithMessage(
-        "Expected state.getOuter(%d) = [%s], but was [%s]",
-        outerIndex, Arrays.toString(expectedOuter), Arrays.toString(actualOuter));
-    }
-
-    return this;
-  }
-
-  /**
-   * Asserts that the inner value returned from {@link State#removeInner()} is
-   * expected.
-   * @param expectedInner Expected return value from {@link State#removeInner()}
-   * @return This {@link StateAssertions} for fluency.
-   * @throws AssertionError When the return value of {State#removeInner()} is
-   * unexpected.
-   */
-  public StateAssertions removeInner(final int[] expectedInner) {
-    isNotNull();
-
-    final int[] actualInner = actual.removeInner();
-
-    if (!Arrays.equals(expectedInner, actualInner)) {
-      failWithMessage(
-        "Expected state.removeInner() to return [%s], but returned [%s]",
-        Arrays.toString(expectedInner), Arrays.toString(actualInner));
-    }
-
+    actual.insertAfter(curr, next);
     return this;
   }
 }

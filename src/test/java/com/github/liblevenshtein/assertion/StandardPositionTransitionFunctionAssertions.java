@@ -4,8 +4,9 @@ import java.util.Arrays;
 
 import org.assertj.core.api.AbstractAssert;
 
-import com.github.liblevenshtein.transducer.IState;
+import com.github.liblevenshtein.transducer.Position;
 import com.github.liblevenshtein.transducer.StandardPositionTransitionFunction;
+import com.github.liblevenshtein.transducer.State;
 
 /**
  * AssertJ-style assertions for {@link StandardPositionTransitionFunction}.
@@ -51,22 +52,22 @@ public class StandardPositionTransitionFunctionAssertions
    * @throws AssertionError When the transition is not expected.
    */
   public StandardPositionTransitionFunctionAssertions transitionsTo(
-      final IState expectedState,
+      final State expectedState,
       final int n,
-      final int[] position,
+      final Position position,
       final boolean[] characteristicVector,
       final int offset) {
 
     isNotNull();
 
-    final IState actualState =
+    final State actualState =
       actual.of(n, position, characteristicVector, offset);
 
     if (null == expectedState && null != actualState
         || null != expectedState && !expectedState.equals(actualState)) {
       failWithMessage(
         "Expected transition.of(%d, [%s], [%s], %d) to be [%s], but was [%s]",
-        n, Arrays.toString(position), Arrays.toString(characteristicVector),
+        n, position, Arrays.toString(characteristicVector),
         offset, expectedState, actualState);
     }
 

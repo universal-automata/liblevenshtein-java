@@ -12,9 +12,23 @@ import com.github.liblevenshtein.collection.AbstractIterator;
 
 /**
  * <p>
+ * Lazy implementation of {@link Iterable}, which in subsequent invocations of
+ * its {@link #iterator()} searches only enough of the dictionary automaton to
+ * find the next spelling candidate.  Subsequent calls to {@link Iterator#next()}
+ * pick up where the search stopped.
+ * </p>
+ *
+ * <p>
+ * Please note that the {@link #iterator()} is not currently threadsafe, so if
+ * you will be consuming the same {@link Iterator} from multiple threads you
+ * will need to synchronize access yourself.
+ * </p>
+ *
+ * <p>
  * The algorithm for imitating Levenshtein automata was taken from the
  * following journal article:
  * </p>
+ *
  * <pre>
  * <code>
  * {@literal @}ARTICLE {Schulz02faststring,
@@ -73,7 +87,7 @@ public class LazyTransducerCollection<DictionaryNode, CandidateType>
   /**
    * Transitions one state to another.
    */
-  private final IStateTransitionFunction stateTransition;
+  private final StateTransitionFunction stateTransition;
 
   /**
    * Helper variable used when determining the length of a characteristic
@@ -97,27 +111,9 @@ public class LazyTransducerCollection<DictionaryNode, CandidateType>
   private CharIterator labels = null;
 
   /**
-   * Dictionary node represented by the current intersection between the
-   * dictionary automaton and the Levenshtein automaton.
-   * @see #levenshteinState
-   * @see #candidate
+   * Current intersection between the dictionary and Levenshtein automata.
    */
-  private DictionaryNode dictionaryNode = null;
-
-  /**
-   * Levenshtein state represented by the current intersection between the
-   * dictionary automaton and the Levenshtein automaton.
-   * @see #dictionaryNode
-   * @see #candidate
-   */
-  private IState levenshteinState = null;
-
-  /**
-   * Prefix of the dictionary, from its root to {@link #dictionaryNode}.
-   * @see #dictionaryNode
-   * @see #levenshteinState
-   */
-  private String candidate = null;
+  private Intersection<DictionaryNode> intersection = null;
 
   /**
    * Initializes a new LazyTransducerCollection with a query against the
@@ -138,12 +134,12 @@ public class LazyTransducerCollection<DictionaryNode, CandidateType>
     this.attributes = attributes;
 
     pendingQueue.addLast(
-      attributes.intersectionFactory().build(
-        "",
+      new Intersection<DictionaryNode>(
         attributes.dictionaryRoot(),
         attributes.initialState()));
 
-    this.stateTransition = attributes.stateTransitionFactory().build(maxDistance);
+    this.stateTransition =
+      attributes.stateTransitionFactory().build(maxDistance, term.length());
 
     // f(x) := x * 2 + 1
     // a := (n - 1) / 2
@@ -178,26 +174,29 @@ public class LazyTransducerCollection<DictionaryNode, CandidateType>
         && (null != labels && labels.hasNext() || !pendingQueue.isEmpty())) {
 
       if (null != labels && labels.hasNext()) {
+        final DictionaryNode dictionaryNode = intersection.dictionaryNode();
+        final State levenshteinState = intersection.levenshteinState();
         final char label = labels.nextChar();
         final DictionaryNode nextDictionaryNode =
           attributes.dictionaryTransition().of(dictionaryNode, label);
         final boolean[] characteristicVector =
           characteristicVector(label, term, k, i);
-        final IState nextLevenshteinState =
+        final State nextLevenshteinState =
           stateTransition.of(levenshteinState, characteristicVector);
         if (null != nextLevenshteinState) {
-          final String nextCandidate = candidate + label;
+          final Intersection<DictionaryNode> nextIntersection = new Intersection<>(
+            intersection,
+            label,
+            nextDictionaryNode,
+            nextLevenshteinState);
 
-          pendingQueue.addLast(
-              attributes.intersectionFactory().build(
-                nextCandidate,
-                nextDictionaryNode,
-                nextLevenshteinState));
+          pendingQueue.addLast(nextIntersection);
 
           if (attributes.isFinal().at(nextDictionaryNode)) {
             final int distance =
               attributes.minDistance().at(nextLevenshteinState, term.length());
             if (distance <= maxDistance) {
+              final String nextCandidate = nextIntersection.candidate();
               this.next =
                 attributes.candidateFactory().build(nextCandidate, distance);
             }
@@ -205,12 +204,11 @@ public class LazyTransducerCollection<DictionaryNode, CandidateType>
         }
       }
       else {
-        final Intersection<DictionaryNode> intersection = pendingQueue.removeFirst();
-        this.candidate = intersection.candidate();
-        this.dictionaryNode = intersection.dictionaryNode();
-        this.levenshteinState = intersection.levenshteinState();
+        this.intersection = pendingQueue.removeFirst();
+        final DictionaryNode dictionaryNode = intersection.dictionaryNode();
+        final State levenshteinState = intersection.levenshteinState();
 
-        this.i = levenshteinState.getOuter(0)[0];
+        this.i = levenshteinState.head().termIndex();
         final int b = term.length() - i;
         this.k = a < b ? a : b;
         this.labels = attributes.dictionaryTransition().of(dictionaryNode);

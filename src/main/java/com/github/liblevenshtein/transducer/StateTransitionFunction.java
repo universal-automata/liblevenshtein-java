@@ -5,8 +5,8 @@ import java.util.Comparator;
 
 import lombok.Setter;
 
-import com.github.liblevenshtein.transducer.factory.IPositionTransitionFactory;
-import com.github.liblevenshtein.transducer.factory.IStateFactory;
+import com.github.liblevenshtein.transducer.factory.PositionTransitionFactory;
+import com.github.liblevenshtein.transducer.factory.StateFactory;
 
 /**
  * Transitions one state to another, given a set of inputs.  This function
@@ -15,27 +15,28 @@ import com.github.liblevenshtein.transducer.factory.IStateFactory;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public class StateTransitionFunction implements IStateTransitionFunction, Serializable {
+@Setter
+public class StateTransitionFunction implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   /**
-   * Sorts {@link IState} elements in an unsubsumption-friendly fashion.
+   * Sorts {@link State} elements in an unsubsumption-friendly fashion.
    * -- SETTER --
-   * Sorts {@link IState} elements in an unsubsumption-friendly fashion.
-   * @param comparator Sorts {@link IState} elements in an unsubsumption-friendly fashion.
+   * Sorts {@link State} elements in an unsubsumption-friendly fashion.
+   * @param comparator Sorts {@link State} elements in an unsubsumption-friendly fashion.
    * @return This {@link StateTransitionFunction} for fluency.
    */
-  @Setter private Comparator<int[]> comparator;
+  private Comparator<Position> comparator;
 
   /**
-   * Builds and recycles {@link IState} instances.
+   * Builds and recycles {@link State} instances.
    * -- SETTER --
-   * Builds and recycles {@link IState} instances.
-   * @param stateFactory Builds and recycles {@link IState} instances.
+   * Builds and recycles {@link State} instances.
+   * @param stateFactory Builds and recycles {@link State} instances.
    * @return This {@link StateTransitionFunction} for fluency.
    */
-  @Setter private IStateFactory stateFactory;
+  private StateFactory stateFactory;
 
   /**
    * Builds position vector, transition functions according to the Levenshtein
@@ -47,7 +48,7 @@ public class StateTransitionFunction implements IStateTransitionFunction, Serial
    * according to the Levenshtein algorithm.
    * @return This {@link StateTransitionFunction} for fluency.
    */
-  @Setter private IPositionTransitionFactory transitionFactory;
+  private PositionTransitionFactory transitionFactory;
 
   /**
    * Merges states together according to the Levenshtein algorithm.
@@ -56,7 +57,7 @@ public class StateTransitionFunction implements IStateTransitionFunction, Serial
    * @param merge Merges states together according to the Levenshtein algorithm.
    * @return This {@link StateTransitionFunction} for fluency.
    */
-  @Setter private IMergeFunction merge;
+  private MergeFunction merge;
 
   /**
    * Removes positions from a state that are subsumed by other positions in that
@@ -68,7 +69,7 @@ public class StateTransitionFunction implements IStateTransitionFunction, Serial
    * positions in that state.
    * @return This {@link StateTransitionFunction} for fluency.
    */
-  @Setter private IUnsubsumeFunction unsubsume;
+  private UnsubsumeFunction unsubsume;
 
   /**
    * Max number of errors tolerated in spelling candidates, from the query term.
@@ -78,24 +79,28 @@ public class StateTransitionFunction implements IStateTransitionFunction, Serial
    * from the query term.
    * @return This {@link StateTransitionFunction} for fluency.
    */
-  @Setter private int maxDistance;
+  private int maxDistance;
+
+  /**
+   * @param queryLength Length of the query term.
+   */
+  private int queryLength;
 
   /**
    * {@inheritDoc}
    */
-  @Override
-  public IState of(
-      final IState currState,
+  public State of(
+      final State currState,
       final boolean[] characteristicVector) {
 
-    final IPositionTransitionFunction transition = transitionFactory.build();
-    final int offset = currState.getOuter(0)[0];
-    final IState nextState = stateFactory.build();
+    final PositionTransitionFunction transition = transitionFactory.build();
+    final int offset = currState.head().termIndex();
+    final State nextState = stateFactory.build();
     final int n = maxDistance;
 
-    for (int m = 0; m < currState.size(); ++m) {
-      final IState positions =
-        transition.of(n, currState.getOuter(m), characteristicVector, offset);
+    for (final Position position : currState) {
+      final State positions =
+        transition.of(n, position, characteristicVector, offset);
 
       if (null == positions) {
         continue;
@@ -104,9 +109,9 @@ public class StateTransitionFunction implements IStateTransitionFunction, Serial
       merge.into(nextState, positions);
     }
 
-    unsubsume.at(nextState);
+    unsubsume.at(nextState, queryLength);
 
-    if (nextState.size() > 0) {
+    if (null != nextState.head()) {
       nextState.sort(comparator);
       return nextState;
     }

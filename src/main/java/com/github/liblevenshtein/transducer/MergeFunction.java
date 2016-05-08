@@ -2,9 +2,8 @@ package com.github.liblevenshtein.transducer;
 
 import java.io.Serializable;
 
-import lombok.Setter;
-
-import com.github.liblevenshtein.transducer.factory.IPositionFactory;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Merges one state into another, according to rules specific to the Levenshtein
@@ -12,18 +11,38 @@ import com.github.liblevenshtein.transducer.factory.IPositionFactory;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public abstract class MergeFunction implements IMergeFunction, Serializable {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public abstract class MergeFunction implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   /**
-   * -- Setter --
-   * Builds and recycles position vectors.
-   * @param positionFactory Builds and recycles position vectors.
-   * @return This {@link MergeFunction} for fluency.
+   * Merges the positions in the latter state into the former, in a
+   * subsumption-friendly manner.
+   * @param state The state into which the positions of the latter should be
+   * merged.
+   * @param positions The state from which the positions should be merged.
    */
-  @Setter
-  protected IPositionFactory positionFactory;
+  public abstract void into(State state, State positions);
+
+  /**
+   * Inserts a position after the current one, or at the head of the state if
+   * there is no current one.
+   * @param state {@link State} to insert an element into.
+   * @param curr Current {@link Position} after which to insert another.
+   * @param next Next {@link Position} to insert after the current one.
+   */
+  protected void insertAfter(
+      final State state,
+      final Position curr,
+      final Position next) {
+    if (null == curr) {
+      state.head(next);
+    }
+    else {
+      state.insertAfter(curr, next);
+    }
+  }
 
   /**
    * {@link MergeFunction} specific to the standard, Levenshtein algorithm.
@@ -38,37 +57,39 @@ public abstract class MergeFunction implements IMergeFunction, Serializable {
      * {@inheritDoc}
      */
     @Override
-    public void into(final IState state, final IState positions) {
-      for (int m = 0; m < positions.size(); ++m) {
-        final int[] a = positions.getOuter(m);
-        final int i = a[0];
-        final int e = a[1];
+    public void into(final State state, final State positions) {
+      for (final Position a : positions) {
+        final int i = a.termIndex();
+        final int e = a.numErrors();
 
-        int n = 0;
-        while (n < state.size()) {
-          final int[] b = state.getOuter(n);
-          final int j = b[0];
-          final int f = b[1];
+        final StateIterator iter = state.iterator();
+
+        Position prevB = null;
+        while (iter.hasNext()) {
+          final Position b = iter.peek();
+          final int j = b.termIndex();
+          final int f = b.numErrors();
 
           if (e < f || e == f && i < j) {
-            n += 1;
+            prevB = b;
+            iter.next();
           }
           else {
             break;
           }
         }
 
-        if (n < state.size()) {
-          final int[] b = state.getOuter(n);
-          final int j = b[0];
-          final int f = b[1];
+        if (iter.hasNext()) {
+          final Position b = iter.peek();
+          final int j = b.termIndex();
+          final int f = b.numErrors();
 
           if (j != i || f != e) {
-            state.insert(n, a);
+            insertAfter(state, prevB, a);
           }
         }
         else {
-          state.add(a);
+          insertAfter(state, prevB, a);
         }
       }
     }
@@ -80,7 +101,7 @@ public abstract class MergeFunction implements IMergeFunction, Serializable {
    * @author Dylon Edwards
    * @since 2.1.0
    */
-  public static class ForXPositions extends MergeFunction {
+  public static class ForSpecialPositions extends MergeFunction {
 
     private static final long serialVersionUID = 1L;
 
@@ -88,40 +109,42 @@ public abstract class MergeFunction implements IMergeFunction, Serializable {
      * {@inheritDoc}
      */
     @Override
-    public void into(final IState state, final IState positions) {
-      for (int m = 0; m < positions.size(); ++m) {
-        final int[] a = positions.getOuter(m);
-        final int i = a[0];
-        final int e = a[1];
-        final int s = a[2];
+    public void into(final State state, final State positions) {
+      for (final Position a : positions) {
+        final int i = a.termIndex();
+        final int e = a.numErrors();
+        final boolean s = a.isSpecial();
 
-        int n = 0;
-        while (n < state.size()) {
-          final int[] b = state.getOuter(n);
-          final int j = b[0];
-          final int f = b[1];
-          final int t = b[2];
+        final StateIterator iter = state.iterator();
 
-          if (e < f || e == f && (i < j || i == j && s < t)) {
-            n += 1;
+        Position prevB = null;
+        while (iter.hasNext()) {
+          final Position b = iter.peek();
+          final int j = b.termIndex();
+          final int f = b.numErrors();
+          final boolean t = b.isSpecial();
+
+          if (e < f || e == f && (i < j || i == j && !s && t)) {
+            prevB = b;
+            iter.next();
           }
           else {
             break;
           }
         }
 
-        if (n < state.size()) {
-          final int[] b = state.getOuter(n);
-          final int j = b[0];
-          final int f = b[1];
-          final int t = b[2];
+        if (iter.hasNext()) {
+          final Position b = iter.next();
+          final int j = b.termIndex();
+          final int f = b.numErrors();
+          final boolean t = b.isSpecial();
 
           if (j != i || f != e || t != s) {
-            state.insert(n, a);
+            insertAfter(state, prevB, a);
           }
         }
         else {
-          state.add(a);
+          insertAfter(state, prevB, a);
         }
       }
     }

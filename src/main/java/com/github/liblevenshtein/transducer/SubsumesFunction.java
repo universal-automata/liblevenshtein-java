@@ -7,33 +7,18 @@ import java.io.Serializable;
  * @author Dylon Edwards
  * @since 2.1.0
  */
-public abstract class SubsumesFunction implements ISubsumesFunction, Serializable {
+public abstract class SubsumesFunction implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   /**
-   * {@inheritDoc}
+   * Determines whether {@code lhs} subsumes {@code rhs}.
+   * @param lhs {@link Position} doing the subsumption.
+   * @param rhs {@link Position} being subsumed.
+   * @param n Length of the query term.
+   * @return {@code lhs} subsuem {@code rhs}.
    */
-  @Override
-  public boolean at(
-      final int i, final int e,
-      final int j, final int f) {
-
-    throw new UnsupportedOperationException("at(i,e, j,f) is not supported");
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public boolean at(
-      final int i, final int e, final int s,
-      final int j, final int f, final int t,
-      final int n) {
-
-    throw new UnsupportedOperationException(
-        "at(i,e,s, j,f,t, n) is not supported");
-  }
+  public abstract boolean at(Position lhs, Position rhs, int n);
 
   /**
    * Routines for determining whether a standard position subsumes another.
@@ -48,10 +33,11 @@ public abstract class SubsumesFunction implements ISubsumesFunction, Serializabl
      * {@inheritDoc}
      */
     @Override
-    public boolean at(
-        final int i, final int e,
-        final int j, final int f) {
-
+    public boolean at(final Position lhs, final Position rhs, final int n) {
+      final int i = lhs.termIndex();
+      final int e = lhs.numErrors();
+      final int j = rhs.termIndex();
+      final int f = rhs.numErrors();
       return (i < j ? j - i : i - j) <= (f - e);
     }
   }
@@ -69,20 +55,23 @@ public abstract class SubsumesFunction implements ISubsumesFunction, Serializabl
      * {@inheritDoc}
      */
     @Override
-    public boolean at(
-        final int i, final int e, final int s,
-        final int j, final int f, final int t,
-        final int n) {
+    public boolean at(final Position lhs, final Position rhs, final int n) {
+      final int i = lhs.termIndex();
+      final int e = lhs.numErrors();
+      final boolean s = lhs.isSpecial();
+      final int j = rhs.termIndex();
+      final int f = rhs.numErrors();
+      final boolean t = rhs.isSpecial();
 
-      if (s == 1) {
-        if (t == 1) {
+      if (s) {
+        if (t) {
           return i == j;
         }
 
         return f == n && i == j;
       }
 
-      if (t == 1) {
+      if (t) {
         // We have two cases:
         //
         // Case 1: (j < i) => (j - i) = - (i - j)
@@ -121,12 +110,15 @@ public abstract class SubsumesFunction implements ISubsumesFunction, Serializabl
      * {@inheritDoc}
      */
     @Override
-    public boolean at(
-        final int i, final int e, final int s,
-        final int j, final int f, final int t,
-        final int n) {
+    public boolean at(final Position lhs, final Position rhs, final int n) {
+      final int i = lhs.termIndex();
+      final int e = lhs.numErrors();
+      final boolean s = lhs.isSpecial();
+      final int j = rhs.termIndex();
+      final int f = rhs.numErrors();
+      final boolean t = rhs.isSpecial();
 
-      if (s == 1 && t == 0) {
+      if (s && !t) {
         return false;
       }
 

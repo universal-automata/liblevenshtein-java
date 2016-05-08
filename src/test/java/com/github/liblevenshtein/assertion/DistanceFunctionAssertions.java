@@ -2,20 +2,20 @@ package com.github.liblevenshtein.assertion;
 
 import org.assertj.core.api.AbstractAssert;
 
-import com.github.liblevenshtein.transducer.IDistanceFunction;
-import com.github.liblevenshtein.transducer.IState;
+import com.github.liblevenshtein.transducer.DistanceFunction;
+import com.github.liblevenshtein.transducer.State;
 
 /**
- * AssertJ-style assertions for {@link IDistanceFunction}s.
+ * AssertJ-style assertions for {@link DistanceFunction}s.
  */
 public class DistanceFunctionAssertions
-    extends AbstractAssert<DistanceFunctionAssertions, IDistanceFunction> {
+    extends AbstractAssert<DistanceFunctionAssertions, DistanceFunction> {
 
   /**
    * Constructs a new {@link DistanceFunctionAssertions} to assert-against.
    * @param actual {@link DistanceFunctionAssertions} to assert-against.
    */
-  public DistanceFunctionAssertions(final IDistanceFunction actual) {
+  public DistanceFunctionAssertions(final DistanceFunction actual) {
     super(actual, DistanceFunctionAssertions.class);
   }
 
@@ -24,7 +24,7 @@ public class DistanceFunctionAssertions
    * @param actual {@link DistanceFunctionAssertions} to assert-against.
    * @return A new {@link DistanceFunctionAssertions} to assert-against.
    */
-  public static DistanceFunctionAssertions assertThat(final IDistanceFunction actual) {
+  public static DistanceFunctionAssertions assertThat(final DistanceFunction actual) {
     return new DistanceFunctionAssertions(actual);
   }
 
@@ -39,7 +39,7 @@ public class DistanceFunctionAssertions
    * @throws AssertionError When the actual distance is not expected.
    */
   public DistanceFunctionAssertions hasDistance(
-      final IState state,
+      final State state,
       final int w,
       final int expectedDistance) {
 

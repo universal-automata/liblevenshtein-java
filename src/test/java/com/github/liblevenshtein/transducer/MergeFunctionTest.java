@@ -4,34 +4,29 @@ import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import lombok.val;
-
-import com.github.liblevenshtein.transducer.factory.ElementFactory;
 import com.github.liblevenshtein.transducer.factory.PositionFactory;
 import com.github.liblevenshtein.transducer.factory.StateFactory;
 
 public class MergeFunctionTest {
+  private final StateFactory stateFactory = new StateFactory();
+  private final PositionFactory positionFactory = new PositionFactory();
 
   @Test
   public void testStandardPositions() {
     final MergeFunction merge = new MergeFunction.ForStandardPositions();
-    val elementFactory = new ElementFactory<int[]>();
-    val stateFactory = new StateFactory();
-    val positionFactory = new PositionFactory.ForStandardPositions();
-    init(elementFactory, stateFactory, positionFactory, merge);
 
-    final IState s1 = stateFactory.build(
+    final State s1 = stateFactory.build(
         positionFactory.build(2, 3),
         positionFactory.build(1, 2));
 
-    final IState s2 = stateFactory.build(
+    final State s2 = stateFactory.build(
         positionFactory.build(3, 3),
         positionFactory.build(2, 3),
         positionFactory.build(3, 2),
         positionFactory.build(2, 2),
         positionFactory.build(0, 2));
 
-    final IState s3 = stateFactory.build(
+    final State s3 = stateFactory.build(
         positionFactory.build(3, 3),
         positionFactory.build(2, 3),
         positionFactory.build(3, 2),
@@ -45,41 +40,28 @@ public class MergeFunctionTest {
 
   @Test
   public void testXPositions() {
-    final MergeFunction merge = new MergeFunction.ForXPositions();
-    val elementFactory = new ElementFactory<int[]>();
-    val stateFactory = new StateFactory();
-    val positionFactory = new PositionFactory.ForXPositions();
-    init(elementFactory, stateFactory, positionFactory, merge);
+    final MergeFunction merge = new MergeFunction.ForSpecialPositions();
 
-    final IState s1 = stateFactory.build(
-        positionFactory.build(2, 3, 1),
-        positionFactory.build(2, 3, 0),
-        positionFactory.build(1, 2, 0));
+    final State s1 = stateFactory.build(
+        positionFactory.build(2, 3, true),
+        positionFactory.build(2, 3, false),
+        positionFactory.build(1, 2, false));
 
-    final IState s2 = stateFactory.build(
-        positionFactory.build(2, 4, 0),
-        positionFactory.build(2, 3, 0),
-        positionFactory.build(2, 2, 1),
-        positionFactory.build(3, 0, 0));
+    final State s2 = stateFactory.build(
+        positionFactory.build(2, 4, false),
+        positionFactory.build(2, 3, false),
+        positionFactory.build(2, 2, true),
+        positionFactory.build(3, 0, false));
 
-    final IState s3 = stateFactory.build(
-        positionFactory.build(2, 4, 0),
-        positionFactory.build(2, 3, 1),
-        positionFactory.build(2, 3, 0),
-        positionFactory.build(2, 2, 1),
-        positionFactory.build(1, 2, 0),
-        positionFactory.build(3, 0, 0));
+    final State s3 = stateFactory.build(
+        positionFactory.build(2, 4, false),
+        positionFactory.build(2, 3, true),
+        positionFactory.build(2, 3, false),
+        positionFactory.build(2, 2, true),
+        positionFactory.build(1, 2, false),
+        positionFactory.build(3, 0, false));
 
     merge.into(s1, s2);
     assertThat(s1).isEqualTo(s3);
-  }
-
-  private void init(
-      final ElementFactory<int[]> elementFactory,
-      final StateFactory stateFactory,
-      final PositionFactory positionFactory,
-      final MergeFunction merge) {
-    stateFactory.elementFactory(elementFactory);
-    merge.positionFactory(positionFactory);
   }
 }

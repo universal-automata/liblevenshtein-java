@@ -8,7 +8,7 @@ import com.github.liblevenshtein.transducer.factory.PositionFactory;
 import com.github.liblevenshtein.transducer.factory.StateFactory;
 import static com.github.liblevenshtein.assertion.DistanceFunctionAssertions.assertThat;
 
-public class StandardPositionDistanceFunctionTest {
+public class SpecialPositionDistanceFunctionTest {
 
   @Test
   public void testAt() {
@@ -16,11 +16,11 @@ public class StandardPositionDistanceFunctionTest {
     val positionFactory = new PositionFactory();
 
     final State state = stateFactory.build(
-        positionFactory.build(2, 3),
-        positionFactory.build(1, 1),
-        positionFactory.build(4, 2));
+        positionFactory.build(2, 3, false),
+        positionFactory.build(1, 1, false),
+        positionFactory.build(4, 2, true));
 
-    final DistanceFunction distance = new DistanceFunction.ForStandardPositions();
-    assertThat(distance).hasDistance(state, 4, 2);
+    final DistanceFunction distance = new DistanceFunction.ForSpecialPositions();
+    assertThat(distance).hasDistance(state, 4, 4);
   }
 }
