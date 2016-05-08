@@ -5,9 +5,6 @@ set -ev
 echo "Doing a clean+check to make sure code quality is up-to-par ..."
 ./gradlew clean check
 
-echo "Ensuring the readme is up-to-date ..."
-./gradlew readme
-
 echo "Checking for uncommitted changes ..."
 if [ -n "$(git status --porcelain)" ]; then
   echo "You must commit all your changes, first." 1>&2
