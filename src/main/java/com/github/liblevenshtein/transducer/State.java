@@ -66,8 +66,8 @@ public class State implements Iterable<Position>, Serializable {
 
   /**
    * Inserts a position into a specific location of the linked-list of positions.
-   * @param curr {@link Position} after which to insert {@link next}..
-   * @param next {@link Position} to insert after {@link curr}.
+   * @param curr {@link Position} after which to insert {@code next}..
+   * @param next {@link Position} to insert after {@code curr}.
    * @return This {@link State} for fluency.
    */
   public State insertAfter(final Position curr, final Position next) {
@@ -84,7 +84,7 @@ public class State implements Iterable<Position>, Serializable {
   /**
    * Removes a position from this state.
    * @param prev {@link Position} preceding the one to remove (useful for not
-   * having to traverse the linked list to find {@link curr}).
+   * having to traverse the linked list to find {@code curr}).
    * @param curr {@link Position} to remove from this state.
    * @return This {@link State} for fluency.
    */

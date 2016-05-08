@@ -7,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * {@link Position}s are used to maintain a sorted, linked-list of positions
- * within {@link com.github.dylon.liblevenshtein.levenshtein.collection.State}s.
- * They are sorted to simplify and optimize various operations on the positions
- * (like subsumption and merging-in new positions).
+ * within {@link com.github.liblevenshtein.transducer.State}s.  They are sorted
+ * to simplify and optimize various operations on the positions (like
+ * subsumption and merging-in new positions).
  * @author Dylon Edwards
  * @since 3.0.0
  */

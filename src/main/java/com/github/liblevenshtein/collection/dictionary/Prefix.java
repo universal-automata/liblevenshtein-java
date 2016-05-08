@@ -7,8 +7,7 @@ import lombok.Value;
 
 /**
  * Creates a linked list that can be used to traverse an
- * {@link com.github.dylon.liblevenshtein.collection.dictionary.dawg.Dawg}
- * structure.
+ * {@link com.github.liblevenshtein.collection.dictionary.Dawg} structure.
  * @author Dylon Edwards
  * @since 2.1.0
  */

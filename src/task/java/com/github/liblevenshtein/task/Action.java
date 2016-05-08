@@ -65,26 +65,6 @@ public abstract class Action implements Runnable {
   public static final int EXIT_FATAL = 2;
 
   /**
-   * Returns the name of this action.
-   * @return Name of this action.
-   */
-  protected String name() {
-    return getClass().getSimpleName();
-  }
-
-  /**
-   * Header for the help text.
-   */
-  @Getter(lazy = true, value = AccessLevel.PROTECTED)
-  private final String helpHeader = "";
-
-  /**
-   * Footer for the help text.
-   */
-  @Getter(lazy = true, value = AccessLevel.PROTECTED)
-  private final String helpFooter = "";
-
-  /**
    * Common, project attributes.
    */
   @Getter(
@@ -142,6 +122,30 @@ public abstract class Action implements Runnable {
    */
   protected Action(final String[] args) {
     this.cli = parseCLI(args);
+  }
+
+  /**
+   * Returns the name of this action.
+   * @return Name of this action.
+   */
+  protected String name() {
+    return getClass().getSimpleName();
+  }
+
+  /**
+   * Header for the help text.
+   * @return Header for the help text.
+   */
+  protected String helpHeader() {
+    return "";
+  }
+
+  /**
+   * Footer for the help text.
+   * @return Footer for the help text.
+   */
+  protected String helpFooter() {
+    return "";
   }
 
   /**

@@ -51,8 +51,10 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 ext {
-  srcJava = "$projectDir/src/main/java"
-  srcDelomboked = "$buildDir/src-delomboked/main/java"
+  srcJava = file("$projectDir/src/main/java")
+  srcProto = file("$buildDir/generated/source/proto/main/java")
+  srcAll = file("$buildDir/generated/source/all")
+  srcDelomboked = file("$buildDir/src-delomboked/main/java")
 
   githubOrg = 'universal-automata'
   githubRepo = "liblevenshtein-java"
@@ -450,22 +452,36 @@ publishing {
   }
 }
 
-task delombok {
+task delombok(dependsOn: 'generateProto') {
   dependsOn configurations.compile.getTaskDependencyFromProjectDependency(true, "compileJava")
 
-  // Make sure the delombok directory exists ...
-  file(srcDelomboked).mkdirs()
+  inputs.files srcJava, srcProto
+  outputs.dir srcDelomboked
 
-  inputs.files file(srcJava)
-  outputs.dir file(srcDelomboked)
+  doFirst {
+    if (!srcAll.mkdirs()) {
+      throw new IllegalStateException("Cannot copy sources into [$srcAll]")
+    }
+    if (!srcDelomboked.mkdirs()) {
+      throw new IllegalStateException("Cannot delombok sources into [${srcDelomboked}]")
+    }
+  }
 
   doLast {
     ant.taskdef(
       name: 'delombok',
       classname: 'lombok.delombok.ant.Tasks$Delombok',
       classpath: configurations.compile.asPath)
+    copy {
+      from srcJava
+      into srcAll
+    }
+    copy {
+      from srcProto
+      into srcAll
+    }
     ant.delombok(
-      from: srcJava,
+      from: srcAll,
       to: srcDelomboked,
       classpath: configurations.compile.asPath)
   }
@@ -473,7 +489,7 @@ task delombok {
 
 tasks.javadoc {
   dependsOn delombok
-  source = new FileNameFinder().getFileNames("${buildDir}", '**/*.java')
+  source = new FileNameFinder().getFileNames("${srcDelomboked}", '**/*.java')
   doFirst {
     destinationDir = file("${projectDir}/gh-pages/docs/javadoc/${version}")
     if (destinationDir.exists() && !destinationDir.deleteDir()) {

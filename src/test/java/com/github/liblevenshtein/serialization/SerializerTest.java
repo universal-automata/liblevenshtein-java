@@ -45,6 +45,9 @@ public class SerializerTest {
   private final FileSystem fs = Jimfs.newFileSystem(Configuration.unix());
   private final Path tmpDir = fs.getPath("/jimfs");
 
+  @Getter(lazy = true)
+  private final Object[][] lazySerializerParams = buildParams();
+
   @BeforeTest
   public void setUp() throws IOException {
     try {
@@ -55,9 +58,6 @@ public class SerializerTest {
       throw thrown;
     }
   }
-
-  @Getter(lazy = true)
-  private final Object[][] lazySerializerParams = buildParams();
 
   @DataProvider(name = "serializerParams")
   public Object[][] serializerParams() {
@@ -119,7 +119,7 @@ public class SerializerTest {
   }
 
   @Test(dataProvider = "serializerParams")
-  private void testSerializeBytes(
+  public void testSerializeBytes(
       final Serializer serializer,
       final SortedDawg dictionary,
       final Transducer<?, ?> transducer) throws Exception {
@@ -136,7 +136,7 @@ public class SerializerTest {
   }
 
   @Test(dataProvider = "serializerParams")
-  private void testSerializeStream(
+  public void testSerializeStream(
       final Serializer serializer,
       final SortedDawg dictionary,
       final Transducer<?, ?> transducer) throws Exception {
@@ -169,7 +169,7 @@ public class SerializerTest {
   }
 
   @Test(dataProvider = "serializerParams")
-  private void testSerializePath(
+  public void testSerializePath(
       final Serializer serializer,
       final SortedDawg dictionary,
       final Transducer<?, ?> transducer) throws Exception {
@@ -198,7 +198,7 @@ public class SerializerTest {
   }
 
   @Test(dataProvider = "serializerParams")
-  private void testSerializeFile(
+  public void testSerializeFile(
       final Serializer serializer,
       final SortedDawg dictionary,
       final Transducer<?, ?> transducer) throws Exception {
@@ -231,7 +231,7 @@ public class SerializerTest {
   }
 
   @Test(dataProvider = "serializerParams")
-  private void testSerializePathString(
+  public void testSerializePathString(
       final Serializer serializer,
       final SortedDawg dictionary,
       final Transducer<?, ?> transducer) throws Exception {
@@ -262,7 +262,7 @@ public class SerializerTest {
   }
 
   @Test(dataProvider = "serializerParams")
-  private void testDeserializeUri(
+  public void testDeserializeUri(
       final Serializer serializer,
       final SortedDawg dictionary,
       final Transducer<?, ?> transducer) throws Exception {
@@ -293,7 +293,7 @@ public class SerializerTest {
   }
 
   @Test(dataProvider = "serializerParams")
-  private void testDeserializeUriString(
+  public void testDeserializeUriString(
       final Serializer serializer,
       final SortedDawg dictionary,
       final Transducer<?, ?> transducer) throws Exception {
@@ -326,7 +326,7 @@ public class SerializerTest {
   }
 
   @Test(dataProvider = "serializerParams")
-  private void testDeserializeUrl(
+  public void testDeserializeUrl(
       final Serializer serializer,
       final SortedDawg dictionary,
       final Transducer<?, ?> transducer) throws Exception {

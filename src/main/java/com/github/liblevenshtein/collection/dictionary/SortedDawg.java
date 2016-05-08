@@ -163,7 +163,6 @@ public class SortedDawg extends Dawg {
       final DawgNode source = transition.source();
       final char label = transition.label();
       final DawgNode target = transition.target();
-      final boolean isFinal = target.isFinal();
 
       final DawgNode existing = minimizedNodes.get(target);
 

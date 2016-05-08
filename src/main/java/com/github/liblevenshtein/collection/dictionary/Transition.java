@@ -19,10 +19,6 @@ public class Transition implements Serializable {
    * -- GETTER --
    * Node from which the transition is leaving.
    * @return Node from which the transition is leaving.
-   * -- SETTER --
-   * Node from which the transition is leaving.
-   * @param source Node from which the transition is leaving.
-   * @return This {@link Transition} for fluency.
    */
   private DawgNode source;
 
@@ -31,10 +27,6 @@ public class Transition implements Serializable {
    * -- GETTER --
    * Label mapping {@link #source} to {@link #target}.
    * @return Label mapping {@link #source} to {@link #target}.
-   * -- SETTER --
-   * Label mapping {@link #source} to {@link #target}.
-   * @param label Label mapping {@link #source} to {@link #target}.
-   * @return This {@link Transition} for fluency.
    */
   private char label;
 
@@ -43,10 +35,6 @@ public class Transition implements Serializable {
    * -- GETTER --
    * Node to which the transition is going.
    * @return This {@link Transition} for fluency.
-   * -- SETTER --
-   * Node to which the transition is going.
-   * @param target Node to which the transition is going.
-   * @return Node to which the transition is going.
    */
   private DawgNode target;
 }

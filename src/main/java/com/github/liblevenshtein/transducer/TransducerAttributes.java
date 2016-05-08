@@ -43,10 +43,6 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * Maximum number of spelling errors candidates may have from the query term.
    * @return Maximum number of spelling errors candidates may have from the
    * query term.
-   * -- SETTER --
-   * @param maxDistance Maximum number of spelling errors candidates may have
-   * from the query term.
-   * @return This {@link TransducerAttributes} for fluency.
    */
   protected int maxDistance = Integer.MAX_VALUE;
 
@@ -59,12 +55,6 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * may optionally include the Levenshtein distance between their dictionary
    * terms and the query term.
    * @return Generator of spelling candidates of the requested type.
-   * -- SETTER --
-   * Generates spelling candidates of the requested type. The candidates  which
-   * may optionally include the Levenshtein distance between their dictionary
-   * terms and the query term.
-   * @param candidateFactory Generates spelling candidates of the requested type.
-   * @return This {@link TransducerAttributes} for fluency.
    */
   @NonNull
   protected CandidateFactory<CandidateType> candidateFactory;
@@ -74,11 +64,6 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * -- GETTER --
    * Returns state-transition functions for specific, max edit distances.
    * @return Returns state-transition functions for specific, max edit distances.
-   * -- SETTER --
-   * Returns state-transition functions for specific, max edit distances.
-   * @param stateTransitionFactory Returns state-transition functions for
-   * specific, max edit distances.
-   * @return This {@link TransducerAttributes} for fluency.
    */
   @NonNull
   protected StateTransitionFactory stateTransitionFactory;
@@ -91,12 +76,6 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * considered from the query term, based on its length.
    * @return Determines the minimum distance at which a Levenshtein state may be
    * considered from the query term, based on its length.
-   * -- SETTER --
-   * Determines the minimum distance at which a Levenshtein state may be
-   * considered from the query term, based on its length.
-   * @param minDistance Determines the minimum distance at which a Levenshtein
-   * state may be considered from the query term, based on its length.
-   * @return This {@link TransducerAttributes} for fluency.
    */
   @NonNull
   protected DistanceFunction minDistance;
@@ -107,11 +86,6 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * Returns whether a dictionary node is the final character in some term.
    * @return Returns whether a dictionary node is the final character in some
    * term.
-   * -- SETTER --
-   * Returns whether a dictionary node is the final character in some term.
-   * @param isFinal Returns whether a dictionary node is the final character in
-   * some term.
-   * @return This {@link TransducerAttributes} for fluency.
    */
   @NonNull
   protected IFinalFunction<DictionaryNode> isFinal;
@@ -121,10 +95,6 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * -- GETTER --
    * Transition function for dictionary nodes.
    * @return Transition function for dictionary nodes.
-   * -- SETTER --
-   * Transition function for dictionary nodes.
-   * @param dictionaryTransition Transition function for dictionary nodes.
-   * @return This {@link TransducerAttributes} for fluency.
    */
   @NonNull
   protected ITransitionFunction<DictionaryNode> dictionaryTransition;
@@ -134,11 +104,6 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * -- GETTER --
    * State at which to begin traversing the Levenshtein automaton.
    * @return State at which to begin traversing the Levenshtein automaton.
-   * -- SETTER --
-   * State at which to begin traversing the Levenshtein automaton.
-   * @param initialState State at which to begin traversing the Levenshtein
-   * automaton.
-   * @return This {@link TransducerAttributes} for fluency.
    */
   @NonNull
   protected State initialState;
@@ -149,12 +114,6 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * -- GETTER --
    * @return Root node of the dictionary, at which to begin searching for
    * spelling candidates.
-   * -- SETTER --
-   * Root node of the dictionary, at which to begin searching for spelling
-   * candidates.
-   * @param dictionaryRoot Root node of the dictionary, at which to begin
-   * searching for spelling candidates.
-   * @return This {@link TransducerAttributes} for fluency.
    */
   @NonNull
   protected DictionaryNode dictionaryRoot;
@@ -164,10 +123,6 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * -- GETTER --
    * Dictionary of this transducer.
    * @return Dictionary of this transducer.
-   * -- SETTER --
-   * Dictionary of this transducer.
-   * @param dictionary Dictionary of this transducer.
-   * @return This {@link TransducerAttributes} for fluency.
    */
   @NonNull
   protected Dawg dictionary;
@@ -177,10 +132,6 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * -- GETTER --
    * Transduction algorithm.
    * @return Transduction algorithm.
-   * -- SETTER --
-   * Transduction algorithm.
-   * @param algorithm Transduction algorithm.
-   * @return This {@link TransducerAttributes} for fluency.
    */
   @NonNull
   protected Algorithm algorithm;
@@ -193,12 +144,6 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * candidate terms.
    * @return Whether to include the number of errors from the query term with
    * the candidate terms.
-   * -- SETTER --
-   * Whether to include the number of errors from the query term with the
-   * candidate terms.
-   * @param includeDistance Whether to include the number of errors from the
-   * query term with the candidate terms.
-   * @return This {@link TransducerAttributes} for fluency.
    */
   protected boolean includeDistance;
 }
