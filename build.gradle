@@ -4,10 +4,25 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath 'com.google.protobuf:protobuf-gradle-plugin:0.+'
-    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
-    classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.+'
-    classpath 'org.standardout:gradle-versioneye-plugin:1.+'
+    classpath 'com.google.protobuf:protobuf-gradle-plugin:latest.release'
+    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:latest.release'
+    classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:latest.release'
+    classpath 'org.standardout:gradle-versioneye-plugin:latest.release'
+    classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:latest.release'
+  }
+  configurations {
+    classpath {
+      resolutionStrategy {
+        componentSelection {
+          all { ComponentSelection selection ->
+            def candidate = selection.candidate
+            if (candidate.version ==~ /(?i)^.*(?:alpha|beta|gamma|rc|snapshot).*$/) {
+              selection.reject("${candidate.group}:${candidate.name}:${candidate.version} is not a production release.")
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -23,18 +38,13 @@ plugins {
   id 'jdepend'
   id 'maven-publish'
   id 'pmd'
-
-  // Third Party Plugins
-  // ---------------------------------------------------------------------------
-
-  // Checks unit test coverage
-  id 'com.github.kt3k.coveralls' version '2.6.3'
 }
 
 apply plugin: 'com.google.protobuf'
 apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'org.standardout.versioneye'
+apply plugin: 'com.github.kt3k.coveralls'
 
 repositories {
   mavenCentral()
@@ -76,8 +86,36 @@ ext {
   isDevelopmentVersion = !isReleaseVersion
 }
 
+def resolutionStrategy = {
+  resolutionStrategy {
+    componentSelection {
+      all { ComponentSelection selection ->
+        def candidate = selection.candidate
+        if (candidate.group == 'com.google.protobuf') {
+          if (candidate.version ==~ /(?i)^.*(?:alpha|snapshot).*$/) {
+            selection.reject("${candidate.group}:${candidate.name}:${candidate.version} is not a stable-enough release.")
+          }
+        }
+        else if (candidate.version ==~ /(?i)^.*(?:alpha|beta|gamma|rc|snapshot).*$/) {
+          selection.reject("${candidate.group}:${candidate.name}:${candidate.version} is not a production release.")
+        }
+      }
+    }
+  }
+}
+
 configurations {
-  shell
+  compile resolutionStrategy
+  taskCompile resolutionStrategy
+  taskRuntime resolutionStrategy
+  testCompile resolutionStrategy
+  testRuntime resolutionStrategy
+  jacocoAgent resolutionStrategy
+  jacocoAnt resolutionStrategy
+  checkstyle resolutionStrategy
+  jdepend resolutionStrategy
+  pmd resolutionStrategy
+  shell resolutionStrategy
 }
 
 sourceSets {
@@ -90,7 +128,7 @@ findbugs {
 
 protobuf {
   protoc {
-    artifact = "com.google.protobuf:protoc:3.0.0-beta-2"
+    artifact = "com.google.protobuf:protoc:3.+"
   }
 }
 
@@ -104,45 +142,51 @@ dependencies {
   compile 'org.projectlombok:lombok:1.+'
   compile 'org.slf4j:slf4j-api:1.+'
 
-  taskCompile 'com.google.code.findbugs:annotations:3.+'
-  taskCompile 'com.google.guava:guava:19.+'
-  taskCompile 'commons-cli:commons-cli:1.+'
-  taskCompile 'commons-io:commons-io:2.+'
-  taskCompile 'org.antlr:ST4:4.+'
-  taskCompile 'org.projectlombok:lombok:1.+'
-  taskCompile 'org.slf4j:slf4j-api:1.+'
+  taskCompile 'com.google.code.findbugs:annotations:latest.release'
+  taskCompile 'com.google.guava:guava:latest.release'
+  taskCompile 'commons-cli:commons-cli:latest.release'
+  taskCompile 'commons-io:commons-io:latest.release'
+  taskCompile 'org.antlr:ST4:latest.release'
+  taskCompile 'org.projectlombok:lombok:latest.release'
+  taskCompile 'org.slf4j:slf4j-api:latest.release'
 
-  taskRuntime 'ch.qos.logback:logback-classic:1.+'
-  taskRuntime 'org.codehaus.groovy:groovy-all:2.+'
-  taskRuntime 'org.slf4j:jcl-over-slf4j:1.+'
-  taskRuntime 'org.slf4j:jul-to-slf4j:1.+'
-  taskRuntime 'org.slf4j:log4j-over-slf4j:1.+'
-  taskRuntime 'org.slf4j:osgi-over-slf4j:1.+'
+  taskRuntime 'ch.qos.logback:logback-classic:latest.release'
+  taskRuntime 'org.codehaus.groovy:groovy-all:latest.release'
+  taskRuntime 'org.slf4j:jcl-over-slf4j:latest.release'
+  taskRuntime 'org.slf4j:jul-to-slf4j:latest.release'
+  taskRuntime 'org.slf4j:log4j-over-slf4j:latest.release'
+  taskRuntime 'org.slf4j:osgi-over-slf4j:latest.release'
 
-  testCompile 'com.google.jimfs:jimfs:1.+'
-  testCompile 'org.assertj:assertj-core:3.+'
+  testCompile 'com.google.jimfs:jimfs:latest.release'
+  testCompile 'org.assertj:assertj-core:latest.release'
   testCompile 'org.mockito:mockito-all:1.+'
-  testCompile 'org.testng:testng:6.+'
+  testCompile 'org.testng:testng:latest.release'
 
-  testRuntime 'ch.qos.logback:logback-classic:1.+'
-  testRuntime 'org.codehaus.groovy:groovy-all:2.+'
-  testRuntime 'org.slf4j:jcl-over-slf4j:1.+'
-  testRuntime 'org.slf4j:jul-to-slf4j:1.+'
-  testRuntime 'org.slf4j:log4j-over-slf4j:1.+'
-  testRuntime 'org.slf4j:osgi-over-slf4j:1.+'
+  testRuntime 'ch.qos.logback:logback-classic:latest.release'
+  testRuntime 'org.codehaus.groovy:groovy-all:latest.release'
+  testRuntime 'org.slf4j:jcl-over-slf4j:latest.release'
+  testRuntime 'org.slf4j:jul-to-slf4j:latest.release'
+  testRuntime 'org.slf4j:log4j-over-slf4j:latest.release'
+  testRuntime 'org.slf4j:osgi-over-slf4j:latest.release'
 
   // JaCoCo (Plugin)
-  jacocoAgent 'org.jacoco:org.jacoco.agent:0.+'
-  jacocoAnt 'org.jacoco:org.jacoco.ant:0.+'
+  jacocoAgent 'org.jacoco:org.jacoco.agent:latest.release'
+  jacocoAnt 'org.jacoco:org.jacoco.ant:latest.release'
 
   // Checkstyle (Plugin)
-  checkstyle 'com.puppycrawl.tools:checkstyle:6.+'
+  checkstyle 'com.puppycrawl.tools:checkstyle:latest.release'
 
-  shell 'commons-cli:commons-cli:1.+'
-  shell('jline:jline:2.+') {
+  // JDepend (Plugin)
+  jdepend 'org.apache.ant:ant-jdepend:latest.release'
+
+  // PMD (Plugin)
+  pmd 'net.sourceforge.pmd:pmd-java:latest.release'
+
+  shell 'commons-cli:commons-cli:latest.release'
+  shell('jline:jline:latest.release') {
     exclude(group: 'junit', module: 'junit')
   }
-  shell 'org.codehaus.groovy:groovy-groovysh:2.+'
+  shell 'org.codehaus.groovy:groovy-groovysh:latest.release'
 }
 
 jacocoTestReport {

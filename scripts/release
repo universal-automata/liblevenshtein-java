@@ -9,6 +9,8 @@ if [[ ! "${PROJECT_VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   exit 1
 fi
 
+echo "Project version [${PROJECT_VERSION}]"
+
 declare -r RELEASE_DATE="$(date +'%A, %B %e, %Y' | sed -e 's/ \+/ /g')"
 declare -r CHANGELOG='CHANGELOG.md'
 
@@ -72,4 +74,4 @@ git push origin master
 popd
 rm -rf "${TMP_DIR}"
 
-# vim: set et sta:
+# vim: set ft=sh ts=2 sw=2 et sta:

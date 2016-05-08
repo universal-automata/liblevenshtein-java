@@ -1,0 +1,25 @@
+#!/bin/env bash
+
+set -ev
+
+declare -r PROJECT_VERSION="$(./gradlew printVersion --quiet)"
+echo "Project version [${PROJECT_VERSION}]"
+
+echo "Doing a clean+check to make sure code quality is up-to-par ..."
+./gradlew clean check
+
+echo "Generating wiki documentation ..."
+./gradlew wikidoc
+
+echo "Generating Java documentation ..."
+./gradlew javadoc
+
+declare -r GENDOC_MESSAGE="Automatically-generated documentation for version ${PROJECT_VERSION}"
+
+pushd gh-pages
+git add -A
+git commit -m "${GENDOC_MESSAGE}"
+git push origin gh-pages
+popd
+
+# vim: set ft=sh ts=2 sw=2 et sta:

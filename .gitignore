@@ -21,7 +21,9 @@ gh-pages/
 !/gradlew
 !/gradlew.bat
 !/javadoc.options
+!/scripts/push-src
 !/scripts/release
+!/scripts/update-doc
 !/settings.gradle
 !/src/*/java/**/*.java
 !/src/*/java/**/lombok.config
