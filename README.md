@@ -140,11 +140,11 @@ libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "3.0
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-remote: Counting objects: 6019, done.        
-remote: Compressing objects: 100% (452/452), done.        
-remote: Total 6019 (delta 329), reused 0 (delta 0), pack-reused 5539        
-Receiving objects: 100% (6019/6019), 4.43 MiB | 2.60 MiB/s, done.
-Resolving deltas: 100% (3644/3644), done.
+remote: Counting objects: 6028, done.        
+remote: Compressing objects: 100% (461/461), done.        
+remote: Total 6028 (delta 333), reused 0 (delta 0), pack-reused 5539        
+Receiving objects: 100% (6028/6028), 4.43 MiB | 1.53 MiB/s, done.
+Resolving deltas: 100% (3648/3648), done.
 Checking connectivity... done.
 
 % cd liblevenshtein-java
@@ -399,3 +399,5 @@ For more information, please see the [wiki][wiki].
 [jcenter-repo]: https://jcenter.bintray.com "JCenter repository"
 [bintray-repo]: https://dl.bintray.com/universal-automata/liblevenshtein "Bintray repository"
 [artifactory-repo]: https://oss.jfrog.org/artifactory/oss-release-local "Artifactory repository"
+
+[gradle-home]: http://gradle.org/ "Gradle homepage"

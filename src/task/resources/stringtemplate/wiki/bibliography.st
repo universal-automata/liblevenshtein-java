@@ -68,5 +68,7 @@ bibliography(project, cmd) ::= <<
 [jcenter-repo]: $project.meta.jcenterRepo$ "JCenter repository"
 [bintray-repo]: $project.meta.bintrayRepo$ "Bintray repository"
 [artifactory-repo]: $project.meta.artifactoryRepo$ "Artifactory repository"
+
+[gradle-home]: http://gradle.org/ "Gradle homepage"
 >>
 /* vim: set ft=ghmarkdown: */
