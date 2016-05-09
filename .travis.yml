@@ -28,6 +28,7 @@ before_install:
   - curl -sL https://github.com/jpm4j/jpm4j.installers/raw/master/dist/biz.aQute.jpm.run.jar > jpm4j.jar
   - java -jar jpm4j.jar -u init
   - ~/jpm/bin/jpm install com.codacy:codacy-coverage-reporter:assembly
+script: if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then ./gradlew clean build; fi
 after_success:
   - ./gradlew check
   - ./gradlew jacocoTestReport
@@ -52,8 +53,7 @@ addons:
     project:
       name: "universal-automata/liblevenshtein-java"
       #description: "Build submitted via Travis CI"
-    notification_email: dylon.devo+github@gmail.com
+    notification_email: liblevenshtein@googlegroups.com
     build_command_prepend: ""
     build_command:   "./gradlew clean build"
-    #branch_pattern: coverity_scan
-    branch_pattern: master
+    branch_pattern: coverity_scan
