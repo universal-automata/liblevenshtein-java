@@ -9,6 +9,9 @@ import java.nio.file.Path;
 import java.util.AbstractMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 
@@ -45,6 +48,37 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class Action implements Runnable {
 
   /**
+   * Matches hyphens in a string.
+   */
+  private static final Pattern RE_DASH = Pattern.compile("-");
+
+  /**
+   * Determines whether a version describes an alpha release.  By my definition,
+   * this is an unstable release whose API and features are still changing.
+   */
+  private static final Predicate<String> IS_ALPHA =
+    Pattern.compile("^\\d+\\.\\d+\\.\\d+-alpha\\.\\d+$")
+      .asPredicate();
+
+  /**
+   * Determines whether a version describes a beta release.  By my definition,
+   * this is an unstable release whose API and features have been finalized.
+   */
+  private static final Predicate<String> IS_BETA =
+    Pattern.compile("^\\d+\\.\\d+\\.\\d+-beta\\.\\d+$")
+      .asPredicate();
+
+  /**
+   * Determines whether a version describes a release candidate.  By my
+   * definition, this is a release that appears stable, whose API and features
+   * have been finalized.  It is still undergoing testing to verify its
+   * stability.
+   */
+  private static final Predicate<String> IS_RC =
+    Pattern.compile("^\\d+\\.\\d+\\.\\d+-rc\\.\\d+$")
+      .asPredicate();
+
+  /**
    * Replaces the trailing output of a truncated command.
    */
   private static final String TRUNCATED = "# ... TRUNCATED ...";
@@ -77,6 +111,8 @@ public abstract class Action implements Runnable {
         .put("jcenterRepo", "https://jcenter.bintray.com")
         .put("bintrayRepo", "https://dl.bintray.com/universal-automata/liblevenshtein")
         .put("artifactoryRepo", "https://oss.jfrog.org/artifactory/oss-release-local")
+        .put("artifactoryVersion", artifactoryVersion())
+        .put("artifactoryColor", artifactoryColor())
         .put("url", cli.getOptionValue("project-url"))
         .put("author", cli.getOptionValue("project-author"))
         .put("username", cli.getOptionValue("author-username"))
@@ -150,6 +186,40 @@ public abstract class Action implements Runnable {
    */
   protected String helpFooter() {
     return "";
+  }
+
+  /**
+   * Returns the encoded, Artifactory version for a Shields IO image.
+   * @return Artifactory verseion for Shields IO.
+   */
+  protected String artifactoryVersion() {
+    final String version = cli.getOptionValue("version");
+    final Matcher matcher = RE_DASH.matcher(version);
+    return matcher.replaceAll("--");
+  }
+
+  /**
+   * Returns the color that the Artifactory badge should be, based on the
+   * current level of development.
+   * @return Color that the Artifactory badge should be.
+   */
+  protected String artifactoryColor() {
+    final String version = cli.getOptionValue("version");
+
+    if (IS_ALPHA.test(version)) {
+      return "orange";
+    }
+
+    if (IS_BETA.test(version)) {
+      return "yellow";
+    }
+
+    if (IS_RC.test(version)) {
+      return "yellowgreen";
+    }
+
+    // otherwise, it's a production release
+    return "brightgreen";
   }
 
   /**

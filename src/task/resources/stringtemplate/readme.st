@@ -5,9 +5,8 @@ readme(project, cmd) ::= <<
 
 ### A library for generating Finite State Transducers based on Levenshtein Automata.
 
-[![Maven Central][maven-version-badge]][maven-repo]
-[![Bintray][bintray-badge]][bintray-repo]
-[![Reference Status][maven-refs-badge]][maven-refs]
+[![Maven Central][maven-version-badge]][maven-link]
+[![Artifactory][artifactory-badge]][artifactory-link]
 [![License][license-badge]][license]
 [![Build Status][build-status-badge]][travis-ci]
 [![Codacy Badge][codacy-badge]][codacy-link]
@@ -85,27 +84,29 @@ For more information, please see the [wiki][wiki].
 [top-20-most-common-english-words.txt]: https://raw.githubusercontent.com/universal-automata/liblevenshtein-java/$project.maven.version$/src/test/resources/top-20-most-common-english-words.txt "top-20-most-common-english-words.txt"
 
 [maven-version-badge]: https://maven-badges.herokuapp.com/maven-central/$project.maven.groupId$/$project.maven.artifactId$/badge.svg
-[maven-repo]: https://maven-badges.herokuapp.com/maven-central/$project.maven.groupId$/$project.maven.artifactId$
-[bintray-repo]: https://bintray.com/universal-automata/liblevenshtein/liblevenshtein-java/_latestVersion
+[maven-link]: https://maven-badges.herokuapp.com/maven-central/$project.maven.groupId$/$project.maven.artifactId$ "Latest, stable release (Maven Central)"
 [bintray-badge]: https://api.bintray.com/packages/universal-automata/liblevenshtein/liblevenshtein-java/images/download.svg
+[bintray-link]: https://bintray.com/universal-automata/liblevenshtein/liblevenshtein-java/_latestVersion "Latest, stable release (Bintray)"
 [maven-refs-badge]: https://www.versioneye.com/java/$project.maven.groupId$:$project.maven.artifactId$/reference_badge.svg
 [maven-refs]: https://www.versioneye.com/java/$project.maven.groupId$:$project.maven.artifactId$/references
 [license-badge]: https://img.shields.io/github/license/universal-automata/liblevenshtein-java.svg
-[license]: https://raw.githubusercontent.com/universal-automata/liblevenshtein-java/master/LICENSE
+[license]: https://raw.githubusercontent.com/universal-automata/liblevenshtein-java/master/LICENSE "MIT Licence"
 [build-status-badge]: https://travis-ci.org/universal-automata/liblevenshtein-java.svg?branch=master
-[travis-ci]: https://travis-ci.org/universal-automata/liblevenshtein-java
+[travis-ci]: https://travis-ci.org/universal-automata/liblevenshtein-java "Build status"
 [coverage-badge]: https://coveralls.io/repos/github/universal-automata/liblevenshtein-java/badge.svg?branch=master
-[coveralls]: https://coveralls.io/github/universal-automata/liblevenshtein-java?branch=master
+[coveralls]: https://coveralls.io/github/universal-automata/liblevenshtein-java?branch=master "Unit test, code coverage"
 [static-analysis-badge]: https://img.shields.io/coverity/scan/8476.svg
-[coverity]: https://scan.coverity.com/projects/universal-automata-liblevenshtein-java
+[coverity]: https://scan.coverity.com/projects/universal-automata-liblevenshtein-java "Static code analysis"
 [dependency-status-badge]: https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99/badge.svg
-[versioneye]: https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99
+[versioneye]: https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99 "Dependency updates"
 [gitter-badge]: https://badges.gitter.im/universal-automata/liblevenshtein-java.svg
-[gitter-channel]: https://gitter.im/universal-automata/liblevenshtein-java?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
-[bintray-watch-img]: https://www.bintray.com/docs/images/bintray_badge_color.png 'Get automatic notifications about new "liblevenshtein-java" versions'
+[gitter-channel]: https://gitter.im/universal-automata/liblevenshtein-java?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge "Gitter channel"
+[bintray-watch-img]: https://www.bintray.com/docs/images/bintray_badge_color.png
 [bintray-watch-link]: https://bintray.com/universal-automata/liblevenshtein/liblevenshtein-java/view?source=watch 'Get automatic notifications about new "liblevenshtein-java" versions'
 [codacy-badge]: https://api.codacy.com/project/badge/Grade/ad002473702c4d0b8532a6ba38af2010
-[codacy-link]: https://www.codacy.com/app/dylon-devo-github/liblevenshtein-java?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=universal-automata/liblevenshtein-java&amp;utm_campaign=Badge_Grade
+[codacy-link]: https://www.codacy.com/app/dylon-devo-github/liblevenshtein-java?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=universal-automata/liblevenshtein-java&amp;utm_campaign=Badge_Grade "Code health"
+[artifactory-badge]: https://img.shields.io/badge/artifactory-$project.meta.artifactoryVersion$-$project.meta.artifactoryColor$.svg?style=flat
+[artifactory-link]: https://oss.jfrog.org/artifactory/webapp/#/artifacts/browse/tree/General/oss-release-local/com/github/universal-automata/liblevenshtein/$project.maven.version$ "Latest, development release (Artifactory)"
 
 $/wiki/footer(project, cmd)$
 >>
