@@ -1,0 +1,150 @@
+#!/bin/env bash
+
+set -ev
+
+function assert-changes-committed() {
+  echo "Checking for uncommitted changes ..."
+  if [ -n "$(git status --porcelain)" ]; then
+    fail "You must commit all your changes."
+  fi
+}
+
+function project-version() {
+  PROJECT_VERSION="${PROJECT_VERSION:-"$(./gradlew printVersion --quiet)"}"
+  echo "${PROJECT_VERSION}"
+}
+
+function print-project-version() {
+  echo "Project version [$(project-version)]"
+}
+
+function latest-version() {
+  LATEST_VERSION="${LATEST_VERSION:-"$(./gradlew printLatestVersion --quiet)"}"
+  echo "${LATEST_VERSION}"
+}
+
+function project-branch() {
+  PROJECT_BRANCH="${PROJECT_BRANCH:-"$(./gradlew printGitBranch --quiet)"}"
+  echo "${PROJECT_BRANCH}"
+}
+
+function assert-release-version() {
+  local VERSION="$1"
+  if [[ ! "${VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    fail "Expected a release version" \
+         "(version =~ ^[0-9]+\.[0-9]+\.[0-9]+$), not the" \
+         "development version ${VERSION}"
+  fi
+}
+
+function assert-versions-equal() {
+  local PROPERTY_NAME="$1"
+  local ACTUAL_VERSION="$2"
+  local EXPECTED_VERSION="$3"
+  if [[ "${LHS_VERSION}" != "${RHS_VERSION}" ]]; then
+    fail "Expected [${PROPERTY_NAME}] to be [${EXPECTED_VERSION}], but was" \
+         "[${ACTUAL_VERSION}]"
+  fi
+}
+
+function release-date() {
+  RELEASE_DATE="${RELEASE_DATE:-"$(date +'%A, %B %e, %Y' | sed -e 's/ \+/ /g')"}"
+  echo "${RELEASE_DATE}"
+}
+
+function changelog() {
+  CHANGELOG="${CHANGELOG:-'CHANGELOG.md'}"
+}
+
+function assert-release-notes() {
+  if ! grep "^## \[$(project-version)] - $(release-date)\$" "$(changelog)"; then
+    fail "Either version [$(project-version)] has not been described in the" \
+         "CHANGELOG [$(changelog)], or the release date is not today" \
+         "[$(release-date)]."
+  fi
+}
+
+function clean-check() {
+  echo "Doing a clean+check to make sure code quality is up-to-par ..."
+  ./gradlew clean check
+}
+
+function gendoc-message() {
+  GENDOC_MESSAGE="${GENDOC_MESSAGE:-"Automatically-generated documentation for version $(project-version)"}"
+  echo "${GENDOC_MESSAGE}"
+}
+
+function update-readme() {
+  echo "Generating readme ..."
+  ./gradlew readme
+  git add -A
+  git commit -m "$(gendoc-message)"
+  git push -u origin master
+}
+
+function update-wikidoc-javadoc() {
+  echo "Generating the documentation ..."
+  ./gradlew wikidoc javadoc
+
+  pushd gh-pages
+  git add -A
+  git commit -m "$(gendoc-message)"
+  git push -u origin gh-pages
+  popd
+}
+
+function update-branch() {
+  local BRANCH="$1"
+  echo "Merging changes into ${BRANCH}"
+  git checkout -B "${BRANCH}"
+  git merge master
+  git push -u origin "${BRANCH}"
+  git checkout master
+}
+
+function tag-release() {
+  echo "Tagging new release $(project-version) ..."
+  git tag "$(project-version)"
+  git push --tags
+}
+
+function update-java-submodule() {
+  echo "Updating submodules in universal-automata/liblevenshtein ..."
+  local TMP_DIR="$(mktemp -d)"
+  pushd "${TMP_DIR}"
+  git clone 'git@github.com:universal-automata/liblevenshtein.git'
+  cd liblevenshtein
+  git submodule init
+  git submodule update
+  pushd java
+  git fetch
+  git checkout release
+  popd
+  git add -A
+  git commit -m "Updating the java, submodule to version $(project-version)"
+  git push origin master
+  popd
+  rm -rf "${TMP_DIR}"
+}
+
+function check-update-branch() {
+  local BRANCH="$1"
+  assert-changes-committed
+  clean-check
+  update-branch "${BRANCH}"
+  succeed
+}
+
+function fail() {
+  local MESSAGE="${1:-'An error occurred.'}"
+  echo "${MESSAGE}" 1>&2
+  exit 1
+}
+
+function succeed() {
+  local MESSAGE="${1:-'Success!'}"
+  echo "${MESSAGE}"
+  exit 0
+}
+
+# vim: set ft=sh ts=2 sw=2 et sta:

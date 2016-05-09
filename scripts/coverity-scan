@@ -1,22 +1,7 @@
 #!/bin/env bash
 
 set -ev
-
-echo "Doing a clean+check to make sure code quality is up-to-par ..."
-./gradlew clean check
-
-echo "Checking for uncommitted changes ..."
-if [ -n "$(git status --porcelain)" ]; then
-  echo "You must commit all your changes, first." 1>&2
-  exit 1
-fi
-
-echo "Pushing changes to origin/coverity_scan ..."
-git checkout coverity_scan
-git merge master
-git push origin coverity_scan
-git checkout -
-
-echo "Success!"
+source "$(dirname "$0")/functions"
+check-update-branch 'coverity_scan'
 
 # vim: set ft=sh ts=2 sw=2 et sta:

@@ -2,101 +2,21 @@
 
 set -ev
 
-echo "Checking for uncommitted changes ..."
-if [ -n "$(git status --porcelain)" ]; then
-  echo "You must commit all your changes, first." 1>&2
-  exit 1
-fi
+source "$(dirname "$0")/functions"
 
-declare -r PROJECT_VERSION="$(./gradlew printVersion --quiet)"
-declare -r LATEST_VERSION="$(./gradlew printLatestVersion --quiet)"
-declare -r GIT_BRANCH="$(./gradlew printGitBranch --quiet)"
-
-if [[ ! "${PROJECT_VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-  echo "Expected a release version (version =~ ^[0-9]+\.[0-9]+\.[0-9]+$), not the development version ${PROJECT_VERSION}" 1>&2
-  exit 1
-fi
-
-if [[ "${LATEST_VERSION}" != "${PROJECT_VERSION}" ]]; then
-  echo "Expected rootProject.ext.latestVersion to be [${PROJECT_VERSION}], but was [${LATEST_VERSION}]" 1>&2
-  exit 1
-fi
-
-if [[ "${GIT_BRANCH}" != "${PROJECT_VERSION}" ]]; then
-  echo "Expected rootProject.ext.gitBranch to be [${PROJECT_VERSION}], but was [${GIT_BRANCH}]" 1>&2
-  exit 1
-fi
-
-echo "Project version [${PROJECT_VERSION}]"
-
-declare -r RELEASE_DATE="$(date +'%A, %B %e, %Y' | sed -e 's/ \+/ /g')"
-declare -r CHANGELOG='CHANGELOG.md'
-
-if ! grep "^## \[${PROJECT_VERSION}] - ${RELEASE_DATE}$" "$CHANGELOG"; then
-  echo "Either version [${PROJECT_VERSION}] has not been described in the" \
-       "CHANGELOG [${CHANGELOG}], or the release date is not today" \
-       "[${RELEASE_DATE}]." 1>&2
-  exit 1
-fi
-
-echo "Doing a clean+check to make sure code quality is up-to-par ..."
-./gradlew clean check
-
-echo "Generating readme ..."
-
-./gradlew readme
-
-declare -r GENDOC_MESSAGE="Automatically-generated documentation for version ${PROJECT_VERSION}"
-
-git add -A
-git commit -m "${GENDOC_MESSAGE}"
-git push origin master
-
-echo "Generating the wiki documentation ..."
-./gradlew wikidoc
-
-echo "Generating the Java documentation ..."
-./gradlew javadoc
-
-pushd gh-pages
-git add -A
-git commit -m "${GENDOC_MESSAGE}"
-git push origin gh-pages
-popd
-
-echo "Merging master into release ..."
-git checkout release
-git merge master
-git push origin release
-
-echo "Merging master into release-3.x ..."
-git checkout release-3.x
-git merge master
-git push origin release-3.x
-
-echo "Tagging new release ${PROJECT_VERSION} ..."
-git tag "${PROJECT_VERSION}"
-git push --tags
-
-git checkout master
-
-echo "Updating submodules in universal-automata/liblevenshtein ..."
-declare -r TMP_DIR="$(mktemp -d)"
-pushd "${TMP_DIR}"
-git clone 'git@github.com:universal-automata/liblevenshtein.git'
-cd liblevenshtein
-git submodule init
-git submodule update
-pushd java
-git fetch
-git checkout release
-popd
-git add -A
-git commit -m "Updating the java, submodule to version ${PROJECT_VERSION}"
-git push origin master
-popd
-rm -rf "${TMP_DIR}"
-
-echo "Success!"
+assert-changes-committed
+assert-release-version "$(project-version)"
+assert-versions-equal "$(project-version)" "$(latest-version)"
+assert-versions-equal "$(project-version)" "$(project-branch)"
+assert-release-notes
+print-project-version
+clean-check
+update-readme
+update-wikidoc-javadoc
+update-branch 'release'
+update-branch 'release-3.x'
+tag-release
+update-java-submodule
+succeed
 
 # vim: set ft=sh ts=2 sw=2 et sta:
