@@ -19,7 +19,7 @@ following location: `build/libs/liblevenshtein-3.0.0-alpha.3.jar`
 
 BUILD SUCCESSFUL
 
-Total time: 6.352 secs
+Total time: 6.434 secs
 
 This build could be faster, please consider using the Gradle Daemon: https://docs.gradle.org/2.13/userguide/gradle_daemon.html
 

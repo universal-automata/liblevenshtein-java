@@ -105,11 +105,11 @@ libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "3.0
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-remote: Counting objects: 6037, done.        
-remote: Compressing objects: 100% (470/470), done.        
-remote: Total 6037 (delta 338), reused 0 (delta 0), pack-reused 5539        
-Receiving objects: 100% (6037/6037), 4.43 MiB | 2.01 MiB/s, done.
-Resolving deltas: 100% (3653/3653), done.
+remote: Counting objects: 6422, done.        
+remote: Compressing objects: 100% (840/840), done.        
+remote: Total 6422 (delta 660), reused 0 (delta 0), pack-reused 5539        
+Receiving objects: 100% (6422/6422), 4.47 MiB | 3.45 MiB/s, done.
+Resolving deltas: 100% (3975/3975), done.
 Checking connectivity... done.
 
 % cd liblevenshtein-java
@@ -146,7 +146,7 @@ Please see [Installation](installation.md) for more details.
 
 BUILD SUCCESSFUL
 
-Total time: 6.352 secs
+Total time: 6.434 secs
 
 This build could be faster, please consider using the Gradle Daemon: https://docs.gradle.org/2.13/userguide/gradle_daemon.html
 
@@ -170,17 +170,17 @@ Please see [Building](building.md) for more details.
 
 :processResources
 :classes
-:checkstyleMain[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-264735999886665176/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/LazyTransducerCollection.java:233:20: 'term' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-264735999886665176/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/LazyTransducerCollection.java:234:17: 'k' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-264735999886665176/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/LazyTransducerCollection.java:235:17: 'i' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-264735999886665176/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:34:36: 'head' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-264735999886665176/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:136:7: Parameter lhsHead should be final. [FinalParameters]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-264735999886665176/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:137:7: Parameter rhsHead should be final. [FinalParameters]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-264735999886665176/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:170:42: 'head' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-264735999886665176/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:102:41: 'dictionary' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-264735999886665176/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:103:21: 'isSorted' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-264735999886665176/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:124:16: 'dictionary' hides a field. [HiddenField]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-264735999886665176/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:241:57: 'algorithm' hides a field. [HiddenField]
+:checkstyleMain[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-8647043038309986290/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/LazyTransducerCollection.java:233:20: 'term' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-8647043038309986290/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/LazyTransducerCollection.java:234:17: 'k' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-8647043038309986290/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/LazyTransducerCollection.java:235:17: 'i' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-8647043038309986290/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:34:36: 'head' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-8647043038309986290/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:136:7: Parameter lhsHead should be final. [FinalParameters]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-8647043038309986290/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:137:7: Parameter rhsHead should be final. [FinalParameters]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-8647043038309986290/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/State.java:170:42: 'head' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-8647043038309986290/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:102:41: 'dictionary' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-8647043038309986290/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:103:21: 'isSorted' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-8647043038309986290/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:124:16: 'dictionary' hides a field. [HiddenField]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-8647043038309986290/liblevenshtein-java/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java:241:57: 'algorithm' hides a field. [HiddenField]
 
 :extractIncludeTaskProto
 :extractTaskProto
@@ -190,7 +190,7 @@ Please see [Building](building.md) for more details.
 
 :processTaskResources
 :taskClasses
-:checkstyleTask[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-264735999886665176/liblevenshtein-java/src/task/java/com/github/liblevenshtein/task/Action.java:456:25: 'cli' hides a field. [HiddenField]
+:checkstyleTask[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-8647043038309986290/liblevenshtein-java/src/task/java/com/github/liblevenshtein/task/Action.java:526:25: 'cli' hides a field. [HiddenField]
 
 :extractIncludeTestProto
 :extractTestProto UP-TO-DATE
@@ -200,8 +200,8 @@ Please see [Building](building.md) for more details.
 
 :processTestResources
 :testClasses
-:checkstyleTest[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-264735999886665176/liblevenshtein-java/src/test/java/com/github/liblevenshtein/transducer/StateTransitionFunctionTest.java:199: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
-[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-264735999886665176/liblevenshtein-java/src/test/java/com/github/liblevenshtein/transducer/StateTransitionFunctionTest.java:236: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
+:checkstyleTest[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-8647043038309986290/liblevenshtein-java/src/test/java/com/github/liblevenshtein/transducer/StateTransitionFunctionTest.java:199: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
+[ant:checkstyle] [WARN] /tmp/GenerateWikidoc-8647043038309986290/liblevenshtein-java/src/test/java/com/github/liblevenshtein/transducer/StateTransitionFunctionTest.java:236: Comment matches to-do format '\b(TODO|FIXME)\b'. [TodoComment]
 
 :findbugsMain
 :findbugsTask
