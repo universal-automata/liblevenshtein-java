@@ -53,7 +53,7 @@ repositories {
 
 group = 'com.github.universal-automata'
 archivesBaseName = name
-version = '3.0.0-alpha.3' // http://semver.org/
+version = '3.0.0-beta.1' // http://semver.org/
 
 description = 'A library for spelling-correction based on Levenshtein Automata.'
 
@@ -81,6 +81,10 @@ ext {
 
   wikidocDir = file("${projectDir}/gh-pages/docs/wiki/${version}")
   latestWikidocDir = file("${projectDir}/gh-pages/docs/wiki/latest")
+
+  latestGroupId = rootProject.group
+  latestArtifactId = rootProject.name
+  latestVersion = '2.2.3'
 
   isReleaseVersion = version ==~ /^\d+\.\d+\.\d+$/
   isDevelopmentVersion = !isReleaseVersion
@@ -250,6 +254,9 @@ def execTask(mainClass, args=[]) {
     '--group-id', rootProject.group,
     '--artifact-id', rootProject.name,
     '--version', rootProject.version,
+    '--latest-group-id', rootProject.ext.latestGroupId,
+    '--latest-artifact-id', rootProject.ext.latestArtifactId,
+    '--latest-version', rootProject.ext.latestVersion,
     '--gradle-version', gradle.gradleVersion,
     '--java-source-version', sourceCompatibility.toString(),
     '--java-target-version', targetCompatibility.toString(),
@@ -265,9 +272,24 @@ def execTask(mainClass, args=[]) {
   ])
 }
 
+task printGitBranch {
+  description = "Prints rootProject.ext.gitBranch [${rootProject.ext.gitBranch}]"
+  doLast {
+    println("${rootProject.ext.gitBranch}")
+  }
+}
+
 task printVersion {
+  description = "Prints rootProject.version [${rootProject.version}]"
   doLast {
     println("${rootProject.version}")
+  }
+}
+
+task printLatestRelease {
+  description = "Prints rootProject.ext.latestVersion [${rootProject.ext.latestVersion}]"
+  doLast {
+    println("${rootProject.ext.latestVersion}")
   }
 }
 

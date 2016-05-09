@@ -128,6 +128,11 @@ public abstract class Action implements Runnable {
         .put("groupId", cli.getOptionValue("group-id"))
         .put("artifactId", cli.getOptionValue("artifact-id"))
         .put("version", cli.getOptionValue("version"))
+        .put("latest", new ImmutableMap.Builder<String, Object>()
+          .put("groupId", cli.getOptionValue("latest-group-id"))
+          .put("artifactId", cli.getOptionValue("latest-artifact-id"))
+          .put("version", cli.getOptionValue("latest-version"))
+          .build())
         .build())
       .put("gradle", new ImmutableMap.Builder<String, Object>()
         .put("version", cli.getOptionValue("gradle-version"))
@@ -591,6 +596,27 @@ public abstract class Action implements Runnable {
       Option.builder()
         .longOpt("version")
         .desc("Maven, Artifact Version")
+        .hasArg()
+        .required()
+        .build());
+    options.addOption(
+      Option.builder()
+        .longOpt("latest-group-id")
+        .desc("Maven, Group Id of the latest, stable release")
+        .hasArg()
+        .required()
+        .build());
+    options.addOption(
+      Option.builder()
+        .longOpt("latest-artifact-id")
+        .desc("Maven, Artifact Id of the latest, stable release")
+        .hasArg()
+        .required()
+        .build());
+    options.addOption(
+      Option.builder()
+        .longOpt("latest-version")
+        .desc("Maven, Artifact Version of the latest, stable release")
         .hasArg()
         .required()
         .build());

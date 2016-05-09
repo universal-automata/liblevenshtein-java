@@ -25,9 +25,10 @@ bibliography(project, cmd) ::= <<
 [wikipedia-damerau-levenshtein-distance]: https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance "Damerau–Levenshtein distance"
 [wikipedia-levenshtein-distance]: https://en.wikipedia.org/wiki/Levenshtein_distance "Levenshtein distance"
 
-[master-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/master
-[release-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/release
-[release-branch-2.x]: https://github.com/universal-automata/liblevenshtein-java/tree/release-2.x
+[master-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/master "universal-automata/liblevenshtein-java/master"
+[release-branch]: https://github.com/universal-automata/liblevenshtein-java/tree/release "universal-automata/liblevenshtein-java/release"
+[release-branch-3.x]: https://github.com/universal-automata/liblevenshtein-java/tree/release-3.x "universal-automata/liblevenshtein-java/release-3.x"
+[release-branch-2.x]: https://github.com/universal-automata/liblevenshtein-java/tree/release-2.x "universal-automata/liblevenshtein-java/release-2.x"
 
 [wiki]: https://github.com/universal-automata/liblevenshtein-java/blob/gh-pages/docs/wiki/$project.maven.version$/index.md "$project.maven.artifactId$ $project.maven.version$ Wiki"
 [javadoc]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/$project.maven.version$/index.html "$project.maven.artifactId$ $project.maven.version$ API"

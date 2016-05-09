@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.IdentityHashMap;
+import java.util.Map;
 
 import it.unimi.dsi.fastutil.chars.Char2ObjectMap;
 import it.unimi.dsi.fastutil.chars.Char2ObjectRBTreeMap;
@@ -148,18 +150,26 @@ public class ProtobufSerializer extends AbstractSerializer {
   /**
    * Returns the node of the prototype.
    * @param proto Prototype of the node.
+   * @param nodes Tracks {@link DawgNode}s that have already been deserialized,
+   * to avoid deserializing a full trie.
    * @return Node of the prototype.
    */
-  protected DawgNode modelOf(final LibLevenshteinProtos.DawgNode proto) {
+  protected DawgNode modelOf(
+      final LibLevenshteinProtos.DawgNode proto,
+      final Map<LibLevenshteinProtos.DawgNode, DawgNode> nodes) {
+    if (nodes.containsKey(proto)) {
+      return nodes.get(proto);
+    }
     final Char2ObjectSortedMap<DawgNode> edges = new Char2ObjectRBTreeMap<>();
     for (final LibLevenshteinProtos.DawgNode.Edge edge : proto.getEdgeList()) {
       final char label = (char) edge.getCharKey();
-      edges.put(label, modelOf(edge.getValue()));
+      edges.put(label, modelOf(edge.getValue(), nodes));
     }
-    if (proto.getIsFinal()) {
-      return new FinalDawgNode(edges);
-    }
-    return new DawgNode(edges);
+    final DawgNode node = proto.getIsFinal()
+      ? new FinalDawgNode(edges)
+      : new DawgNode(edges);
+    nodes.put(proto, node);
+    return node;
   }
 
   /**
@@ -168,7 +178,9 @@ public class ProtobufSerializer extends AbstractSerializer {
    * @return Dictionary of the prototype.
    */
   protected SortedDawg modelOf(final LibLevenshteinProtos.Dawg proto) {
-    final DawgNode root = modelOf(proto.getRoot());
+    final Map<LibLevenshteinProtos.DawgNode, DawgNode> nodes =
+      new IdentityHashMap<>();
+    final DawgNode root = modelOf(proto.getRoot(), nodes);
     return new SortedDawg(proto.getSize(), root);
   }
 
@@ -264,25 +276,36 @@ public class ProtobufSerializer extends AbstractSerializer {
    * @return Prototype of the dictionary.
    */
   protected LibLevenshteinProtos.Dawg protoOf(final SortedDawg dawg) {
+    final Map<DawgNode, LibLevenshteinProtos.DawgNode> nodes =
+      new IdentityHashMap<>();
     return LibLevenshteinProtos.Dawg.newBuilder()
       .setSize(dawg.size())
-      .setRoot(protoOf(dawg.root()))
+      .setRoot(protoOf(dawg.root(), nodes))
       .build();
   }
 
   /**
    * Returns the prototype of a node.
    * @param node Node whose prototype is to be returned.
+   * @param nodes Mapping of {@link DawgNode}s to
+   * {@link LibLevenshteinProtos.DawgNode}s, to avoid constructing a full trie.
    * @return The prototype of the node.
    */
-  protected LibLevenshteinProtos.DawgNode protoOf(final DawgNode node) {
+  protected LibLevenshteinProtos.DawgNode protoOf(
+      final DawgNode node,
+      final Map<DawgNode, LibLevenshteinProtos.DawgNode> nodes) {
+    if (nodes.containsKey(node)) {
+      return nodes.get(node);
+    }
     final LibLevenshteinProtos.DawgNode.Builder builder =
       LibLevenshteinProtos.DawgNode.newBuilder();
     builder.setIsFinal(node.isFinal());
     for (final Char2ObjectMap.Entry<DawgNode> edge : node.edges().char2ObjectEntrySet()) {
-      builder.addEdge(protoOf(edge.getCharKey(), edge.getValue()));
+      builder.addEdge(protoOf(edge.getCharKey(), edge.getValue(), nodes));
     }
-    return builder.build();
+    final LibLevenshteinProtos.DawgNode proto = builder.build();
+    nodes.put(node, proto);
+    return proto;
   }
 
   /**
@@ -290,14 +313,17 @@ public class ProtobufSerializer extends AbstractSerializer {
    * @param label Annotation leading out of the current {@link DawgNode} to the
    * target {@link DawgNode}.
    * @param node Target {@link DawgNode} for the transition.
+   * @param nodes Mapping of {@link DawgNode}s to
+   * {@link LibLevenshteinProtos.DawgNode}s, to avoid constructing a full trie.
    * @return The prototype of an edge.
    */
   protected LibLevenshteinProtos.DawgNode.Edge protoOf(
       final char label,
-      final DawgNode node) {
+      final DawgNode node,
+      final Map<DawgNode, LibLevenshteinProtos.DawgNode> nodes) {
     return LibLevenshteinProtos.DawgNode.Edge.newBuilder()
       .setCharKey(label)
-      .setValue(protoOf(node))
+      .setValue(protoOf(node, nodes))
       .build();
   }
 }

@@ -5,15 +5,16 @@ readme(project, cmd) ::= <<
 
 ### A library for generating Finite State Transducers based on Levenshtein Automata.
 
-[![Maven Central][maven-version-badge]][maven-link]
+[![Maven Central][maven-badge]][maven-link]
 [![Artifactory][artifactory-badge]][artifactory-link]
-[![License][license-badge]][license]
-[![Build Status][build-status-badge]][travis-ci]
+[![License][license-badge]][license-link]
+[![Build Status][travis-ci-badge]][travis-ci-link]
 [![Codacy Badge][codacy-badge]][codacy-link]
-[![Coverage Status][coverage-badge]][coveralls]
-[![Coverity Scan Build Status][static-analysis-badge]][coverity]
-[![Dependency Status][dependency-status-badge]][versioneye]
+[![Coverage Status][coveralls-badge]][coveralls-link]
+[![Coverity Scan Build Status][coverity-badge]][coverity-link]
+[![Dependency Status][versioneye-badge]][versioneye-link]
 [![Gitter][gitter-badge]][gitter-channel]
+[![Bountysource][bountysource-badge]][bountysource-link]
 
 Levenshtein transducers accept a query term and return all terms in a
 dictionary that are within n spelling errors away from it. They constitute a
@@ -43,13 +44,26 @@ deployed to, let me know.
 
 [![][bintray-watch-img]][bintray-watch-link]
 
+[![Twitter Follow][twitter-badge]][twitter-link]
+
 ### Branches
 
-|                            Branch | Description                                 |
-| ---------------------------------:|:------------------------------------------- |
-|           [master][master-branch] | Latest, development source.                 |
-|         [release][release-branch] | Latest, release source.                     |
-| [release-2.x][release-branch-2.x] | Latest, release source for version 2.x.     |
+|                            Branch | Description                            |
+| ---------------------------------:|:-------------------------------------- |
+|           [master][master-branch] | Latest, development source             |
+|         [release][release-branch] | Latest, release source                 |
+| [release-3.x][release-branch-3.x] | Latest, release source for version 3.x |
+| [release-2.x][release-branch-2.x] | Latest, release source for version 2.x |
+
+### Project Management
+
+Issues are managed on [waffle.io][waffle-io-link].  Below you will find a graph
+on the rate at which I've been closing them.
+
+[![Throughput Graph][waffle-io-throughput-graph]][waffle-io-throughput-link]
+
+[![Tasks ready to be worked on][waffle-io-ready-badge]][waffle-io-link]
+[![Tasks being worked on][waffle-io-in-progress-badge]][waffle-io-link]
 
 ### Documentation
 
@@ -83,30 +97,43 @@ For more information, please see the [wiki][wiki].
 
 [top-20-most-common-english-words.txt]: https://raw.githubusercontent.com/universal-automata/liblevenshtein-java/$project.maven.version$/src/test/resources/top-20-most-common-english-words.txt "top-20-most-common-english-words.txt"
 
-[maven-version-badge]: https://maven-badges.herokuapp.com/maven-central/$project.maven.groupId$/$project.maven.artifactId$/badge.svg
-[maven-link]: https://maven-badges.herokuapp.com/maven-central/$project.maven.groupId$/$project.maven.artifactId$ "Latest, stable release (Maven Central)"
-[bintray-badge]: https://api.bintray.com/packages/universal-automata/liblevenshtein/liblevenshtein-java/images/download.svg
+[artifactory-badge]: https://img.shields.io/badge/artifactory-v$project.meta.artifactoryVersion$-$project.meta.artifactoryColor$.svg?style=flat
+[artifactory-link]: https://oss.jfrog.org/artifactory/webapp/#/artifacts/browse/tree/General/oss-release-local/com/github/universal-automata/liblevenshtein/$project.maven.version$ "Latest, development release (Artifactory)"
+[bintray-badge]: https://img.shields.io/bintray/v/universal-automata/liblevenshtein/liblevenshtein-java.svg?style=flat
 [bintray-link]: https://bintray.com/universal-automata/liblevenshtein/liblevenshtein-java/_latestVersion "Latest, stable release (Bintray)"
-[maven-refs-badge]: https://www.versioneye.com/java/$project.maven.groupId$:$project.maven.artifactId$/reference_badge.svg
-[maven-refs]: https://www.versioneye.com/java/$project.maven.groupId$:$project.maven.artifactId$/references
-[license-badge]: https://img.shields.io/github/license/universal-automata/liblevenshtein-java.svg
-[license]: https://raw.githubusercontent.com/universal-automata/liblevenshtein-java/master/LICENSE "MIT Licence"
-[build-status-badge]: https://travis-ci.org/universal-automata/liblevenshtein-java.svg?branch=master
-[travis-ci]: https://travis-ci.org/universal-automata/liblevenshtein-java "Build status"
-[coverage-badge]: https://coveralls.io/repos/github/universal-automata/liblevenshtein-java/badge.svg?branch=master
-[coveralls]: https://coveralls.io/github/universal-automata/liblevenshtein-java?branch=master "Unit test, code coverage"
-[static-analysis-badge]: https://img.shields.io/coverity/scan/8476.svg
-[coverity]: https://scan.coverity.com/projects/universal-automata-liblevenshtein-java "Static code analysis"
-[dependency-status-badge]: https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99/badge.svg
-[versioneye]: https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99 "Dependency updates"
-[gitter-badge]: https://badges.gitter.im/universal-automata/liblevenshtein-java.svg
-[gitter-channel]: https://gitter.im/universal-automata/liblevenshtein-java?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge "Gitter channel"
 [bintray-watch-img]: https://www.bintray.com/docs/images/bintray_badge_color.png
 [bintray-watch-link]: https://bintray.com/universal-automata/liblevenshtein/liblevenshtein-java/view?source=watch 'Get automatic notifications about new "liblevenshtein-java" versions'
+[bountysource-badge]: https://img.shields.io/bountysource/team/universal-automata/activity.svg?style=flat
+[bountysource-link]: https://www.bountysource.com/teams/universal-automata "Create and pledge bounties"
 [codacy-badge]: https://api.codacy.com/project/badge/Grade/ad002473702c4d0b8532a6ba38af2010
 [codacy-link]: https://www.codacy.com/app/dylon-devo-github/liblevenshtein-java?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=universal-automata/liblevenshtein-java&amp;utm_campaign=Badge_Grade "Code health"
-[artifactory-badge]: https://img.shields.io/badge/artifactory-$project.meta.artifactoryVersion$-$project.meta.artifactoryColor$.svg?style=flat
-[artifactory-link]: https://oss.jfrog.org/artifactory/webapp/#/artifacts/browse/tree/General/oss-release-local/com/github/universal-automata/liblevenshtein/$project.maven.version$ "Latest, development release (Artifactory)"
+[coveralls-badge]: https://coveralls.io/repos/github/universal-automata/liblevenshtein-java/badge.svg?branch=master
+[coveralls-link]: https://coveralls.io/github/universal-automata/liblevenshtein-java?branch=master "Unit test, code coverage"
+[coverity-badge]: https://img.shields.io/coverity/scan/8476.svg
+[coverity-link]: https://scan.coverity.com/projects/universal-automata-liblevenshtein-java "Static code analysis"
+[github-tag-badge]: https://img.shields.io/github/tag/universal-automata/liblevenshtein-java.svg
+[github-tag-link]: https://github.com/universal-automata/liblevenshtein-java/tags "Latest, source download"
+[gitter-badge]: https://img.shields.io/gitter/room/universal-automata/liblevenshtein-java.svg?style=flat
+[gitter-channel]: https://gitter.im/universal-automata/liblevenshtein-java?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge "Gitter channel (liblevenshtein-java)"
+[license-badge]: https://img.shields.io/github/license/universal-automata/liblevenshtein-java.svg
+[license-link]: https://raw.githubusercontent.com/universal-automata/liblevenshtein-java/master/LICENSE "MIT Licence"
+[maven-badge]: https://img.shields.io/maven-central/v/$project.maven.groupId$/$project.maven.artifactId$.svg
+[maven-link]: http://search.maven.org/#artifactdetails%7C$project.maven.latest.groupId$%7C$project.maven.latest.artifactId$%7C$project.maven.latest.version$%7C "Latest, stable release (Maven Central)"
+[maven-refs-badge]: https://www.versioneye.com/java/$project.maven.groupId$:$project.maven.artifactId$/reference_badge.svg
+[maven-refs-link]: https://www.versioneye.com/java/$project.maven.groupId$:$project.maven.artifactId$/references
+[travis-ci-badge]: https://travis-ci.org/universal-automata/liblevenshtein-java.svg?branch=master
+[travis-ci-link]: https://travis-ci.org/universal-automata/liblevenshtein-java "Build status"
+[versioneye-badge]: https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99/badge.svg
+[versioneye-link]: https://www.versioneye.com/user/projects/570345d4fcd19a0051853d99 "Dependency updates"
+
+[waffle-io-ready-badge]: https://badge.waffle.io/universal-automata/liblevenshtein-java.png?label=ready&title=Ready
+[waffle-io-in-progress-badge]: https://badge.waffle.io/universal-automata/liblevenshtein-java.png?label=in%20progress&title=In%20Progress
+[waffle-io-throughput-graph]: https://graphs.waffle.io/universal-automata/liblevenshtein-java/throughput.svg
+[waffle-io-throughput-link]: https://waffle.io/universal-automata/liblevenshtein-java/metrics/throughput
+[waffle-io-link]: https://waffle.io/universal-automata/liblevenshtein-java "Project planner"
+
+[twitter-badge]: https://img.shields.io/twitter/follow/liblevenshtein.svg?style=social&label=Twitter
+[twitter-link]: https://twitter.com/liblevenshtein "Universal Automata (@liblevenshtein)"
 
 $/wiki/footer(project, cmd)$
 >>

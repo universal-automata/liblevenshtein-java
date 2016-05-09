@@ -2,10 +2,28 @@
 
 set -ev
 
+echo "Checking for uncommitted changes ..."
+if [ -n "$(git status --porcelain)" ]; then
+  echo "You must commit all your changes, first." 1>&2
+  exit 1
+fi
+
 declare -r PROJECT_VERSION="$(./gradlew printVersion --quiet)"
+declare -r LATEST_VERSION="$(./gradlew printLatestVersion --quiet)"
+declare -r GIT_BRANCH="$(./gradlew printGitBranch --quiet)"
 
 if [[ ! "${PROJECT_VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   echo "Expected a release version (version =~ ^[0-9]+\.[0-9]+\.[0-9]+$), not the development version ${PROJECT_VERSION}" 1>&2
+  exit 1
+fi
+
+if [[ "${LATEST_VERSION}" != "${PROJECT_VERSION}" ]]; then
+  echo "Expected rootProject.ext.latestVersion to be [${PROJECT_VERSION}], but was [${LATEST_VERSION}]" 1>&2
+  exit 1
+fi
+
+if [[ "${GIT_BRANCH}" != "${PROJECT_VERSION}" ]]; then
+  echo "Expected rootProject.ext.gitBranch to be [${PROJECT_VERSION}], but was [${GIT_BRANCH}]" 1>&2
   exit 1
 fi
 
