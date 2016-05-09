@@ -1,0 +1,12 @@
+#!/bin/env bash
+
+set -ev
+source "$(dirname "$0")/functions"
+assert-changes-committed
+print-project-version
+clean-check
+update-readme
+update-wikidoc-javadoc
+succeed
+
+# vim: set ft=sh ts=2 sw=2 et sta:

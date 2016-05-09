@@ -26,6 +26,7 @@ gh-pages/
 !/scripts/push-src
 !/scripts/release
 !/scripts/update-doc
+!/scripts/update-srcdoc
 !/settings.gradle
 !/src/*/java/**/*.java
 !/src/*/java/**/lombok.config
