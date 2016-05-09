@@ -21,6 +21,7 @@ gh-pages/
 !/gradlew
 !/gradlew.bat
 !/javadoc.options
+!/scripts/coverity-scan
 !/scripts/push-src
 !/scripts/release
 !/scripts/update-doc
