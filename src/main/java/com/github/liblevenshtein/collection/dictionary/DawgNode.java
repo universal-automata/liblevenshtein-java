@@ -28,9 +28,6 @@ public class DawgNode implements Serializable {
 
   /**
    * Outgoing edges of this node.
-   * -- GETTER --
-   * Outgoing edges of this node.
-   * @return Outgoing edges of this node.
    */
   @NonNull
   protected final Char2ObjectMap<DawgNode> edges;

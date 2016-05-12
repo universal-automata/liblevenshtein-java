@@ -21,39 +21,22 @@ public class Intersection<DictionaryNode> implements Serializable {
   /**
    * Intersection along the prefix from the root, dictionary node to the one
    * prior to {@link dictionaryNode}.
-   * -- GETTER --
-   * Intersection along the prefix from the root, dictionary node to the one
-   * prior to {@link dictionaryNode}.
-   * @return Intersection along the prefix from the root, dictionary node to the
-   * one prior to {@link dictionaryNode}.
    */
   private final Intersection<DictionaryNode> prevIntersection;
 
   /**
    * Label annotating the edge between the previous dictionary node and
    * {@link #dictionaryNode}.
-   * -- GETTER --
-   * Label annotating the edge between the previous dictionary node and
-   * {@link #dictionaryNode}.
-   * @return Label annotating the edge between the previous dictionary node and
-   * {@link #dictionaryNode}.
    */
   private final char label;
 
   /**
    * Current node in the dictionary, along the intersection's path.
-   * -- GETTER --
-   * Current node in the dictionary, along the intersection's path.
-   * @return Current node in the dictionary, along the intersection's path.
    */
   private final DictionaryNode dictionaryNode;
 
   /**
    * Current node in the Levenshtein automaton, along the intersection's path.
-   * -- GETTER --
-   * Current node in the Levenshtein automaton, along the intersection's path.
-   * @return Current node in the Levenshtein automaton, along the intersection's
-   * path.
    */
   private final State levenshteinState;
 
@@ -85,7 +68,7 @@ public class Intersection<DictionaryNode> implements Serializable {
    * @return The prefix from the root node to {@link dictionaryNode}.
    */
   private StringBuilder buffer() {
-    StringBuilder buffer;
+    final StringBuilder buffer;
 
     if (prevIntersection != null) {
       buffer = prevIntersection.buffer();

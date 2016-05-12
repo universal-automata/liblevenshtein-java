@@ -19,9 +19,6 @@ public class State implements Iterable<Position>, Serializable {
 
   /**
    * Head (first element) of the linked-list of Levenshtein positions.
-   * -- GETTER --
-   * Head (first element) of the linked-list of Levenshtein positions.
-   * @return Head (first element) of the linked-list of Levenshtein positions.
    */
   private Position head = null;
 
@@ -84,7 +81,7 @@ public class State implements Iterable<Position>, Serializable {
   /**
    * Removes a position from this state.
    * @param prev {@link Position} preceding the one to remove (useful for not
-   * having to traverse the linked list to find {@code curr}).
+   *   having to traverse the linked list to find {@code curr}).
    * @param curr {@link Position} to remove from this state.
    * @return This {@link State} for fluency.
    */
@@ -102,7 +99,7 @@ public class State implements Iterable<Position>, Serializable {
    * Merge-sorts the elements of the linked-list of position vectors, according
    * to the algorithm-specific comparator.
    * @param comparator Levenshtein algorithm-specific comparator for sorting the
-   * position elements.
+   *   position elements.
    * @param lhsHead First element of the sublist to sort.
    * @return The new head of the sorted sublist.
    */
@@ -126,11 +123,12 @@ public class State implements Iterable<Position>, Serializable {
   /**
    * Merges two sublists together.
    * @param comparator Levenshtein algorithm-specific comparator for sorting the
-   * position elements.
+   *   position elements.
    * @param lhsHead First element of the first sublist.
    * @param rhsHead First element of the second sublist.
    * @return Head of the merged and sorted, sublist.
    */
+  @SuppressWarnings("checkstyle:finalparameters")
   private Position merge(
       final Comparator<Position> comparator,
       Position lhsHead,
@@ -183,7 +181,7 @@ public class State implements Iterable<Position>, Serializable {
    * Merge-sorts the positions in this state in a fashion that makes
    * un-subsumption easy.
    * @param comparator Describes how to sort the positions (dependent on the
-   * Levenshtein algorithm).
+   *   Levenshtein algorithm).
    * @return This {@link State} for fluency.
    */
   public State sort(final Comparator<Position> comparator) {

@@ -22,19 +22,11 @@ public abstract class PositionTransitionFunction implements Serializable {
 
   /**
    * Builds and caches states for the transducer.
-   * -- SETTER --
-   * Builds and caches states for the transducer.
-   * @param stateFactory Builds and caches states for the transducer.
-   * @return This {@link PositionTransitionFunction} for fluency.
    */
   protected StateFactory stateFactory;
 
   /**
    * Builds and caches positions for states in the transducer.
-   * -- SETTER --
-   * Builds and caches positions for states in the transducer.
-   * @param positionFactory Builds and caches positions for states in the transducer.
-   * @return This {@link PositionTransitionFunction} for fluency.
    */
   protected PositionFactory positionFactory;
 
@@ -43,18 +35,18 @@ public abstract class PositionTransitionFunction implements Serializable {
    * k, that is true.  This corresponds to the first index of the relevant
    * subword whose element is the character of interest.
    * @param characteristicVector Contains relevant subwords, which are booleans
-   * denoting whether the index at their locations correspond to the character
-   * being sought.
+   *   denoting whether the index at their locations correspond to the character
+   *   being sought.
    * @param k Last index of {@code characteristicVector} to examine for the
-   * first index of the relevant subword whose element is the character of
-   * interest.
+   *   first index of the relevant subword whose element is the character of
+   *   interest.
    * @param i First index of {@code characteristicVector} to examine for the
-   * first index of the relevant subword whose element is the character of
-   * interest.
+   *   first index of the relevant subword whose element is the character of
+   *   interest.
    * @return If a character match exists in the relevant subword, the first
-   * index of the relevant subword whose element is it.  Otherwise, -1 is
-   * returned if no match exists (in the relevant subword).  Note that
-   * {@code characteristicVector} may have more elements than are examined.
+   *   index of the relevant subword whose element is it.  Otherwise, -1 is
+   *   returned if no match exists (in the relevant subword).  Note that
+   *   {@code characteristicVector} may have more elements than are examined.
    */
   protected int indexOf(
       final boolean[] characteristicVector,
@@ -75,16 +67,16 @@ public abstract class PositionTransitionFunction implements Serializable {
    * position.
    * @param n Maximum number of errors to tolerate in spelling candidates.
    * @param position Vector consisting of the current index of the spelling
-   * candidate, the number of errors accumulated up to that index, and
-   * (optionally) a flag specifying whether the position is a special kind as
-   * defined by its specific, Levenshtein algorithm (e.g. whether it is a
-   * transposition position, etc.).
+   *   candidate, the number of errors accumulated up to that index, and
+   *   (optionally) a flag specifying whether the position is a special kind as
+   *   defined by its specific, Levenshtein algorithm (e.g. whether it is a
+   *   transposition position, etc.).
    * @param characteristicVector Relevant subwords consisting of booleans about
-   * whether the characters associated by their indices in the spelling
-   * candidate are the same as the character being sought from the query term.
+   *   whether the characters associated by their indices in the spelling
+   *   candidate are the same as the character being sought from the query term.
    * @param offset Offset for various operations within the transition function.
    * @return New state consisting of all possible transitions for the given
-   * position, given the other paramters.
+   *   position, given the other paramters.
    */
   public abstract State of(
       int n,

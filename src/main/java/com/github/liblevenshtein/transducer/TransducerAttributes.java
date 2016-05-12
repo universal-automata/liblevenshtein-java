@@ -39,10 +39,6 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
 
   /**
    * Maximum number of spelling errors candidates may have from the query term.
-   * -- GETTER --
-   * Maximum number of spelling errors candidates may have from the query term.
-   * @return Maximum number of spelling errors candidates may have from the
-   * query term.
    */
   protected int maxDistance = Integer.MAX_VALUE;
 
@@ -50,20 +46,12 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
    * Generates spelling candidates of the requested type. The candidates  which
    * may optionally include the Levenshtein distance between their dictionary
    * terms and the query term.
-   * -- GETTER --
-   * Generates spelling candidates of the requested type. The candidates  which
-   * may optionally include the Levenshtein distance between their dictionary
-   * terms and the query term.
-   * @return Generator of spelling candidates of the requested type.
    */
   @NonNull
   protected CandidateFactory<CandidateType> candidateFactory;
 
   /**
    * Returns state-transition functions for specific, max edit distances.
-   * -- GETTER --
-   * Returns state-transition functions for specific, max edit distances.
-   * @return Returns state-transition functions for specific, max edit distances.
    */
   @NonNull
   protected StateTransitionFactory stateTransitionFactory;
@@ -71,39 +59,24 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
   /**
    * Determines the minimum distance at which a Levenshtein state may be
    * considered from the query term, based on its length.
-   * -- GETTER --
-   * Determines the minimum distance at which a Levenshtein state may be
-   * considered from the query term, based on its length.
-   * @return Determines the minimum distance at which a Levenshtein state may be
-   * considered from the query term, based on its length.
    */
   @NonNull
   protected DistanceFunction minDistance;
 
   /**
    * Returns whether a dictionary node is the final character in some term.
-   * -- GETTER --
-   * Returns whether a dictionary node is the final character in some term.
-   * @return Returns whether a dictionary node is the final character in some
-   * term.
    */
   @NonNull
   protected IFinalFunction<DictionaryNode> isFinal;
 
   /**
    * Transition function for dictionary nodes.
-   * -- GETTER --
-   * Transition function for dictionary nodes.
-   * @return Transition function for dictionary nodes.
    */
   @NonNull
   protected ITransitionFunction<DictionaryNode> dictionaryTransition;
 
   /**
    * State at which to begin traversing the Levenshtein automaton.
-   * -- GETTER --
-   * State at which to begin traversing the Levenshtein automaton.
-   * @return State at which to begin traversing the Levenshtein automaton.
    */
   @NonNull
   protected State initialState;
@@ -111,27 +84,18 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
   /**
    * Root node of the dictionary, at which to begin searching for spelling
    * candidates.
-   * -- GETTER --
-   * @return Root node of the dictionary, at which to begin searching for
-   * spelling candidates.
    */
   @NonNull
   protected DictionaryNode dictionaryRoot;
 
   /**
    * Dictionary of this transducer.
-   * -- GETTER --
-   * Dictionary of this transducer.
-   * @return Dictionary of this transducer.
    */
   @NonNull
   protected Dawg dictionary;
 
   /**
    * Transduction algorithm.
-   * -- GETTER --
-   * Transduction algorithm.
-   * @return Transduction algorithm.
    */
   @NonNull
   protected Algorithm algorithm;
@@ -139,11 +103,6 @@ public class TransducerAttributes<DictionaryNode, CandidateType> implements Seri
   /**
    * Whether to include the number of errors from the query term with the
    * candidate terms.
-   * -- GETTER --
-   * Whether to include the number of errors from the query term with the
-   * candidate terms.
-   * @return Whether to include the number of errors from the query term with
-   * the candidate terms.
    */
   protected boolean includeDistance;
 }

@@ -34,7 +34,7 @@ public class DawgIterator extends AbstractIterator<String> {
    * Initializes a new {@link DawgIterator}.
    * @param root Root of the DAWG structure to traverse
    * @param isFinal Returns whether some {@link DawgNode} represents the last
-   * character in some term.
+   *   character in some term.
    */
   public DawgIterator(
       @NonNull final DawgNode root,

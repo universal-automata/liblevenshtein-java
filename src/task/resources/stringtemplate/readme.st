@@ -65,6 +65,9 @@ on the rate at which I've been closing them.
 [![Tasks ready to be worked on][waffle-io-ready-badge]][waffle-io-link]
 [![Tasks being worked on][waffle-io-in-progress-badge]][waffle-io-link]
 
+Please visit [Bountysource][bountysource-link] to pledge your support for
+ongoing issues.
+
 ### Documentation
 
 When it comes to documentation, you have several options:

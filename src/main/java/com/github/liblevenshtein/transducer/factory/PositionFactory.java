@@ -30,7 +30,7 @@ public class PositionFactory implements Serializable {
    * @param termIndex Current index of the spelling candidate.
    * @param numErrors Number of accumulated errors at index {@code termIndex}.
    * @return New position vector having index {@code termIndex} and error
-   * {@code numErrors}.
+   *   {@code numErrors}.
    */
   public Position build(final int termIndex, final int numErrors) {
     return new Position(termIndex, numErrors);
@@ -42,9 +42,9 @@ public class PositionFactory implements Serializable {
    * @param termIndex Current index of the spelling candidate.
    * @param numErrors Number of accumulated errors at index {@code termIndex}.
    * @param isSpecial Either {@code 1} or {@code 0}, depending on whether the
-   * position is a special case (numErrors.g. a transposition position).
+   *   position is a special case (numErrors.g. a transposition position).
    * @return New position vector having index {@code termIndex}, error
-   * {@code numErrors}, and special marker {@code isSpecial}.
+   *   {@code numErrors}, and special marker {@code isSpecial}.
    */
   public Position build(final int termIndex, final int numErrors, final boolean isSpecial) {
     if (isSpecial) {

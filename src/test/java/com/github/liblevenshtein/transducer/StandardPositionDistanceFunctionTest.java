@@ -6,6 +6,7 @@ import lombok.val;
 
 import com.github.liblevenshtein.transducer.factory.PositionFactory;
 import com.github.liblevenshtein.transducer.factory.StateFactory;
+
 import static com.github.liblevenshtein.assertion.DistanceFunctionAssertions.assertThat;
 
 public class StandardPositionDistanceFunctionTest {

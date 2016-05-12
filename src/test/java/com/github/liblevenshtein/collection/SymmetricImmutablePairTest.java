@@ -11,19 +11,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SymmetricImmutablePairTest {
 
+  private static final String A = "a";
+
+  private static final String B = "b";
+
+  private static final String C = "c";
+
   @DataProvider(name = "equivalentPairs")
   public Object[][] equivalentPairs() {
     return new Object[][] {
-      {build("a", "a"), build("a", "a")},
-      {build("a", "b"), build("b", "a")},
-      {build("b", "a"), build("a", "b")},
+      {build(A, A), build(A, A)},
+      {build(A, B), build(B, A)},
+      {build(B, A), build(A, B)},
     };
   }
 
   @DataProvider(name = "inequivalentPairs")
   public Object[][] inequivalentPairs() {
     return new Object[][] {
-      {build("a", "b"), build("a", "c")},
+      {build(A, B), build(A, C)},
     };
   }
 

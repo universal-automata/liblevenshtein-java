@@ -30,6 +30,7 @@ import com.github.liblevenshtein.transducer.UnsubsumeFunction;
  */
 @Slf4j
 @Setter
+@SuppressWarnings("checkstyle:classdataabstractioncoupling")
 public class TransducerBuilder implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -54,10 +55,6 @@ public class TransducerBuilder implements Serializable {
 
   /**
    * Desired Levenshtein algorithm for searching.
-   * -- SETTER --
-   * Desired Levenshtein algorithm for searching.
-   * @param algorithm Desired Levenshtein algorithm for searching.
-   * @return This {@link TransducerBuilder} for fluency.
    */
   @Setter
   @NonNull
@@ -66,12 +63,6 @@ public class TransducerBuilder implements Serializable {
   /**
    * Default maximum number of errors tolerated between each spelling candidate
    * and the query term.
-   * -- SETTER --
-   * Default maximum number of errors tolerated between each spelling candidate
-   * and the query term.
-   * @param defaultMaxDistance Default maximum number of errors tolerated
-   * between each spelling candidate and the query term.
-   * @return This {@link TransducerBuilder} for fluency.
    */
   @Setter
   private int defaultMaxDistance = 2;
@@ -79,13 +70,6 @@ public class TransducerBuilder implements Serializable {
   /**
    * Whether the distances between each spelling candidate and the query term
    * should be included in the collections of spelling candidates.
-   * -- SETTER --
-   * Whether the distances between each spelling candidate and the query term
-   * should be included in the collections of spelling candidates.
-   * @param includeDistance Whether the distances between each spelling
-   * candidate and the query term should be included in the collections of
-   * spelling candidates.
-   * @return This {@link TransducerBuilder} for fluency.
    */
   @Setter
   private boolean includeDistance = true;
@@ -93,9 +77,9 @@ public class TransducerBuilder implements Serializable {
   /**
    * Specifies the collection of dictionary terms for the dictionary automaton.
    * @param dictionary Collection of dictionary terms to consider when
-   * generating spelling candidates.
+   *   generating spelling candidates.
    * @param isSorted Whether the dictionary is sorted.  If it is not sorted then
-   * it will probably be sorted.
+   *   it will probably be sorted.
    * @return This {@link TransducerBuilder} or an equivalent one, for fluency.
    */
   public TransducerBuilder dictionary(
@@ -110,9 +94,9 @@ public class TransducerBuilder implements Serializable {
    * Builds a Levenshtein transducer according to the parameters set for this
    * {@link TransducerBuilder}.
    * @param <CandidateType> Implicit type of the spelling candidates generated
-   * by the transducer.
+   *   by the transducer.
    * @return Levenshtein transducer for seeking spelling candidates for query
-   * terms (fuzzy searching!).
+   *   terms (fuzzy searching!).
    */
   @SuppressWarnings("unchecked")
   public <CandidateType> ITransducer<CandidateType> build() {
@@ -157,7 +141,7 @@ public class TransducerBuilder implements Serializable {
    * Builds the factory for spelling candidates, according to whether they
    * should include the candidates' distances from query terms.
    * @param <CandidateType> Implicit type of the spelling candidates generated
-   * by the transducer.
+   *   by the transducer.
    * @return Factory for spelling candidates.
    */
   @SuppressWarnings("unchecked")

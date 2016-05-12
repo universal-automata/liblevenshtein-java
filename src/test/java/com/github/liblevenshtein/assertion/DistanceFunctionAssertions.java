@@ -34,7 +34,7 @@ public class DistanceFunctionAssertions
    * @param state Set of positions from which to extract the distance.
    * @param w Length of the query term.
    * @param expectedDistance Distance that is expected to be extracted from the
-   * state.
+   *   state.
    * @return This {@link DistanceFunctionAssertions} for fluency.
    * @throws AssertionError When the actual distance is not expected.
    */

@@ -8,9 +8,14 @@ import static org.mockito.Mockito.when;
 
 import com.github.liblevenshtein.distance.IDistance;
 import com.github.liblevenshtein.transducer.Candidate;
+
 import static com.github.liblevenshtein.assertion.CandidateAssertions.assertThat;
 
 public class CandidateAssertionsTest {
+
+  private static final String FOO = "foo";
+
+  private static final String BAR = "bar";
 
   private final ThreadLocal<IDistance<String>> distance = new ThreadLocal<>();
 
@@ -22,15 +27,15 @@ public class CandidateAssertionsTest {
 
   @Test
   public void testHasDistance() {
-    final Candidate candidate = new Candidate("bar", 3);
-    when(distance.get().between("foo", "bar")).thenReturn(3);
-    assertThat(candidate).hasDistance(distance.get(), "foo");
+    final Candidate candidate = new Candidate(BAR, 3);
+    when(distance.get().between(FOO, BAR)).thenReturn(3);
+    assertThat(candidate).hasDistance(distance.get(), FOO);
   }
 
   @Test(expectedExceptions = AssertionError.class)
   public void testHasDistanceAgainstViolation() {
-    final Candidate candidate = new Candidate("bar", 2);
-    when(distance.get().between("foo", "bar")).thenReturn(3);
-    assertThat(candidate).hasDistance(distance.get(), "foo");
+    final Candidate candidate = new Candidate(BAR, 2);
+    when(distance.get().between(FOO, BAR)).thenReturn(3);
+    assertThat(candidate).hasDistance(distance.get(), FOO);
   }
 }

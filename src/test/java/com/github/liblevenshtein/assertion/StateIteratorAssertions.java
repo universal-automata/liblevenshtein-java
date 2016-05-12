@@ -40,8 +40,8 @@ public class StateIteratorAssertions extends IteratorAssertions<Position> {
    * {@inheritDoc}
    */
   @Override
-  public StateIteratorAssertions doesNotHaveNext() {
-    super.doesNotHaveNext();
+  public StateIteratorAssertions hasNext(final Position expectedValue) {
+    super.hasNext(expectedValue);
     return this;
   }
 
@@ -49,8 +49,8 @@ public class StateIteratorAssertions extends IteratorAssertions<Position> {
    * {@inheritDoc}
    */
   @Override
-  public StateIteratorAssertions hasNext(final Position expectedValue) {
-    super.hasNext(expectedValue);
+  public StateIteratorAssertions doesNotHaveNext() {
+    super.doesNotHaveNext();
     return this;
   }
 
@@ -115,7 +115,7 @@ public class StateIteratorAssertions extends IteratorAssertions<Position> {
   /**
    * Inserts a {@link Position} into the {@link #actual} iterator.
    * @param position {@link Position} to insert into the {@link #actual}
-   * iterator.
+   *   iterator.
    * @return This {@link StateIteratorAssertions} for fluency.
    */
   public StateIteratorAssertions insert(final Position position) {

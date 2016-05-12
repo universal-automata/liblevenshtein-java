@@ -23,9 +23,6 @@ public abstract class AbstractSerializer implements Serializer {
 
   /**
    * Operates on filesystem paths.
-   * -- SETTER --
-   * Operates on filesystem paths.
-   * @param fileSystem Operates on filesystem paths.
    */
   @Setter
   @NonNull
@@ -41,7 +38,7 @@ public abstract class AbstractSerializer implements Serializer {
   public void serialize(
       @NonNull final Serializable object,
       @NonNull final Path path) throws Exception {
-    log.info("Serializing instance of class [{}] to path [{}]",
+    log.info("Serializing instance of class [{}] to filesystem path [{}]",
       object.getClass(), path);
     try (final OutputStream stream = Files.newOutputStream(path)) {
       serialize(object, stream);
@@ -67,7 +64,7 @@ public abstract class AbstractSerializer implements Serializer {
   public void serialize(
       @NonNull final Serializable object,
       @NonNull final String path) throws Exception {
-    log.info("Serializing instance of class [{}] to path [{}]",
+    log.info("Serializing instance of class [{}] to string path [{}]",
       object.getClass(), path);
     serialize(object, fileSystem.getPath(path));
   }

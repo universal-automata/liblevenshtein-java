@@ -30,7 +30,7 @@ public class StandardPositionTransitionFunctionAssertions
    * assert-against.
    * @param actual {@link StandardPositionTransitionFunction} to assert-against.
    * @return A new {@link StandardPositionTransitionFunctionAssertions} to
-   * assert-against.
+   *   assert-against.
    */
   public static StandardPositionTransitionFunctionAssertions assertThat(
       final StandardPositionTransitionFunction actual) {
@@ -42,13 +42,13 @@ public class StandardPositionTransitionFunctionAssertions
    * @param expectedState Expected transition of the function.
    * @param n Maximum number of errors allowed for the spelling candidate.
    * @param position Specifies such information as the index of the spelling
-   * candidate being considered and the number of errors at that index.
+   *   candidate being considered and the number of errors at that index.
    * @param characteristicVector Provides the number of characters before
-   * reaching the target character.
+   *   reaching the target character.
    * @param offset Where to begin looking in the {@link characteristicVector}
-   * for a character match.
+   *   for a character match.
    * @return This {@link StandardPositionTransitionFunctionAssertions} for
-   * fluency.
+   *   fluency.
    * @throws AssertionError When the transition is not expected.
    */
   public StandardPositionTransitionFunctionAssertions transitionsTo(

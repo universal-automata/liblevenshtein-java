@@ -16,10 +16,6 @@ public abstract class UnsubsumeFunction implements Serializable {
 
   /**
    * Determines whether one position subsumes another.
-   * -- SETTER --
-   * Determines whether one position subsumes another.
-   * @param subsumes Whether one position subsumes another.
-   * @return This {@link UnsubsumeFunction} for fluency.
    */
   @Setter
   protected SubsumesFunction subsumes;

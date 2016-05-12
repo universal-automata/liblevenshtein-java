@@ -10,17 +10,19 @@ import com.github.liblevenshtein.transducer.Candidate;
 
 public class CandidateFactoryTest {
 
+  private static final String FOO = "foo";
+
   @Test
   public void testWithDistance() {
     val candidateFactory = new CandidateFactory.WithDistance();
-    final Candidate candidate = candidateFactory.build("foo", 2);
-    assertThat(candidate).isEqualTo(new Candidate("foo", 2));
+    final Candidate candidate = candidateFactory.build(FOO, 2);
+    assertThat(candidate).isEqualTo(new Candidate(FOO, 2));
   }
 
   @Test
   public void testWithoutDistance() {
     val candidateFactory = new CandidateFactory.WithoutDistance();
-    final String candidate = candidateFactory.build("foo", 2);
-    assertThat(candidate).isEqualTo("foo");
+    final String candidate = candidateFactory.build(FOO, 2);
+    assertThat(candidate).isEqualTo(FOO);
   }
 }

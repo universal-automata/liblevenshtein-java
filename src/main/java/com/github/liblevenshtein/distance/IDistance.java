@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 /**
  * Specifies the interface that all distance functions must implement.
- * @param <Term> Type of the term whose distance is being determined.
  * @author Dylon Edwards
+ * @param <Term> Type of the term whose distance is being determined.
  * @since 2.1.0
  */
 public interface IDistance<Term> extends Serializable {

@@ -5,19 +5,25 @@ import org.testng.annotations.Test;
 
 import com.github.liblevenshtein.transducer.factory.PositionFactory;
 import com.github.liblevenshtein.transducer.factory.StateFactory;
+
 import static com.github.liblevenshtein.assertion.StandardPositionTransitionFunctionAssertions.assertThat;
 
 public class StandardPositionTransitionFunctionTest {
+
   private static final int N = 2; // max number of errors
+
   private static final int W = 4; // length of characteristic vector
 
   private final StateFactory stateFactory = new StateFactory();
+
   private final PositionFactory positionFactory = new PositionFactory();
 
   private final StandardPositionTransitionFunction transition =
     new StandardPositionTransitionFunction();
 
-  private int i, e;
+  private int i;
+
+  private int e;
 
   @BeforeTest
   public void setUp() {

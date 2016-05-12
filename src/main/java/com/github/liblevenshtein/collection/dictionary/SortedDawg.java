@@ -64,9 +64,9 @@ public class SortedDawg extends Dawg {
   /**
    * Constructs a new SortedDawg instance.
    * @param terms Collection of terms to add to this dictionary. This is assumed
-   * to be sorted ascendingly, in lexicographical order (case-sensitive),
-   * because the behavior of the current DAWG implementation is unstable if it
-   * is not.
+   *   to be sorted ascendingly, in lexicographical order (case-sensitive),
+   *   because the behavior of the current DAWG implementation is unstable if it
+   *   is not.
    */
   public SortedDawg(@NonNull final Collection<String> terms) {
     this();
@@ -135,8 +135,6 @@ public class SortedDawg extends Dawg {
       final char label = term.charAt(i);
       final DawgNode nextNode = new FinalDawgNode();
       uncheckedTransitions.addFirst(new Transition(node, label, nextNode));
-      //node = nextNode;
-      //i += 1;
     }
 
     previousTerm = term;
@@ -154,7 +152,7 @@ public class SortedDawg extends Dawg {
   /**
    * Builds this DAWG in such a way that it remains a minimal trie.
    * @param lowerBound Number of pending transitions to leave for the next
-   * round (they will be the most-recent transitions).
+   *   round (they will be the most-recent transitions).
    */
   private void minimize(final int lowerBound) {
     // Proceed from the leaf up to a certain point

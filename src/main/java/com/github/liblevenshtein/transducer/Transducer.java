@@ -11,10 +11,10 @@ import lombok.RequiredArgsConstructor;
  * This wrapper around {@link LazyTransducerCollection}, which handles all the
  * heavy lifting.
  *
+ * @author Dylon Edwards
  * @param <DictionaryNode> Kind of nodes of the dictionary automaton.
  * @param <CandidateType> Kind of the spelling candidates returned from the
- * dictionary.
- * @author Dylon Edwards
+ *   dictionary.
  * @since 2.1.0
  */
 @Data
@@ -26,14 +26,6 @@ public class Transducer<DictionaryNode, CandidateType>
 
   /**
    * Attributes required for this transducer to search the dictionary.
-   * -- GETTER --
-   * Attributes required for this transducer to search the dictionary.
-   * @return Attributes required for this transducer to search the dictionary.
-   * -- SETTER --
-   * Attributes required for this transducer to search the dictionary.
-   * @param attributes Attributes required for this transducer to search the
-   * dictionary.
-   * @return This {@link Transducer} for fluency.
    */
   @Getter
   @NonNull

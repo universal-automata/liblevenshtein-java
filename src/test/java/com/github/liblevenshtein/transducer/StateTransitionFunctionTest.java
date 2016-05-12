@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import com.github.liblevenshtein.transducer.factory.PositionFactory;
 import com.github.liblevenshtein.transducer.factory.PositionTransitionFactory;
 import com.github.liblevenshtein.transducer.factory.StateFactory;
+
 import static com.github.liblevenshtein.assertion.StateTransitionFunctionAssertions.assertThat;
 
 /**
@@ -16,16 +17,24 @@ import static com.github.liblevenshtein.assertion.StateTransitionFunctionAsserti
  * Correction with Levenshtein Automata".
  */
 public class StateTransitionFunctionTest {
+
   private static final int N = 1;
+
   private static final int W = 5;
 
   private final PositionFactory positionFactory = new PositionFactory();
+
   private final StateFactory stateFactory = new StateFactory();
+
   private final PositionTransitionFactory transitionFactory =
     new PositionTransitionFactory.ForStandardPositions();
+
   private final MergeFunction merge = new MergeFunction.ForStandardPositions();
+
   private final UnsubsumeFunction unsubsume = new UnsubsumeFunction.ForStandardPositions();
+
   private final SubsumesFunction subsumes = new SubsumesFunction.ForStandardAlgorithm();
+
   private final StateTransitionFunction transition = new StateTransitionFunction();
 
   @BeforeTest
@@ -237,10 +246,13 @@ public class StateTransitionFunctionTest {
     // determine what I am doing wrong ...
     //
     //if (0 <= i && i <= W - 1) {
-      return stateFactory.build(
-          positionFactory.build(i, 1),
-          positionFactory.build(1 + i, 1));
+    //  return stateFactory.build(
+    //      positionFactory.build(i, 1),
+    //      positionFactory.build(1 + i, 1));
     //}
+    return stateFactory.build(
+        positionFactory.build(i, 1),
+        positionFactory.build(1 + i, 1));
 
     //return null;
   }

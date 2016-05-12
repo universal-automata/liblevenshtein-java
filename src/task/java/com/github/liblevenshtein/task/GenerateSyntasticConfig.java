@@ -17,6 +17,17 @@ import lombok.extern.slf4j.Slf4j;
 public class GenerateSyntasticConfig extends Action {
 
   /**
+   * "classpath" literal for accessors.
+   */
+  @SuppressWarnings("checkstyle:multiplestringliterals")
+  private static final String CLASSPATH = "classpath";
+
+  /**
+   * "config-path" literal for accessors.
+   */
+  private static final String CONFIG_PATH = "config-path";
+
+  /**
    * Constructs a new {@link GenerateSyntasticConfig} from the command-line args.
    * @param args Command-line args for this generator.
    */
@@ -29,7 +40,7 @@ public class GenerateSyntasticConfig extends Action {
    */
   @Override
   public void runInternal() throws Exception {
-    final Path configPath = Paths.get(cli.getOptionValue("config-path"));
+    final Path configPath = Paths.get(cli.getOptionValue(CONFIG_PATH));
     renderTemplate("stringtemplate", "syntastic", configPath);
   }
 
@@ -37,9 +48,10 @@ public class GenerateSyntasticConfig extends Action {
    * {@inheritDoc}
    */
   @Override
+  @SuppressWarnings("checkstyle:multiplestringliterals")
   protected void initTemplate(final ST template) throws Exception {
     super.initTemplate(template);
-    template.add("classpath", cli.getOptionValue("classpath"));
+    template.add("classpath", cli.getOptionValue(CLASSPATH));
   }
 
   /**
@@ -50,14 +62,14 @@ public class GenerateSyntasticConfig extends Action {
     final Options options = super.options();
     options.addOption(
       Option.builder()
-        .longOpt("classpath")
+        .longOpt(CLASSPATH)
         .desc("Java classpath of dependencies for src/main, src/task, and src/test")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("config-path")
+        .longOpt(CONFIG_PATH)
         .desc("Path to write the Syntastic config (e.g. \".vim.local\")")
         .hasArg()
         .required()
@@ -69,6 +81,7 @@ public class GenerateSyntasticConfig extends Action {
    * Generates the Syntastic config for this project.
    * @param args Command-line arguments.
    */
+  @SuppressWarnings("checkstyle:uncommentedmain")
   public static void main(final String... args) {
     final GenerateSyntasticConfig action = new GenerateSyntasticConfig(args);
     action.run();

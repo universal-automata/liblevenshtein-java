@@ -41,21 +41,24 @@ import com.github.liblevenshtein.collection.AbstractIterator;
  * }
  * </code>
  * </pre>
+ *
  * <p>
  * As well, this Master Thesis helped me understand its concepts:
  * </p>
+ *
  * <ul>
  *   <li>www.fmi.uni-sofia.bg/fmi/logic/theses/mitankin-en.pdf</li>
  * </ul>
+ *
  * <p>
  * The supervisor of the student who submitted the thesis was one of the authors
  * of the journal article, above.
  * </p>
  *
+ * @author Dylon Edwards
  * @param <DictionaryNode> Kind of nodes of the dictionary automaton.
  * @param <CandidateType> Kind of the spelling candidates returned from the
- * dictionary.
- * @author Dylon Edwards
+ *   dictionary.
  * @since 2.1.2
  */
 public class LazyTransducerCollection<DictionaryNode, CandidateType>
@@ -120,9 +123,9 @@ public class LazyTransducerCollection<DictionaryNode, CandidateType>
    * dictionary automaton.
    * @param term Query term whose spelling should be corrected.
    * @param maxDistance Maximum number of spelling errors candidates may have
-   * from the query term.
+   *   from the query term.
    * @param attributes Attributes required for this transducer to search the
-   * dictionary.
+   *   dictionary.
    */
   public LazyTransducerCollection(
       @NonNull final String term,
@@ -226,7 +229,7 @@ public class LazyTransducerCollection<DictionaryNode, CandidateType>
    * @param k Length of the substring of term to examine
    * @param i Base-index of the substring of term to examine
    * @return Characteristic vector marking where x appears in the relevant
-   * substring of term.
+   *   substring of term.
    */
   private boolean[] characteristicVector(
       final char x,

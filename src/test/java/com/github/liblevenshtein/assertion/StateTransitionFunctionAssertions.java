@@ -27,7 +27,7 @@ public class StateTransitionFunctionAssertions
    * assert-against.
    * @param actual {@link StateTransitionFunction} to assert-against.
    * @return A new {@link StateTransitionFunctionAssertions} to
-   * assert-against.
+   *   assert-against.
    */
   public static StateTransitionFunctionAssertions assertThat(
       final StateTransitionFunction actual) {

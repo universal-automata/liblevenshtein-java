@@ -21,31 +21,16 @@ public class Position implements Serializable {
 
   /**
    * Reference to the next node in this linked-list.  The next node may be null
-   * -- GETTER --
-   * Reference to the next node in this linked-list.  The next node may be null
-   * if this is the tail of the list.
-   * @return Reference to the next node in this linked-list.
-   * -- SETTER --
-   * Sets the next node in this linked-list.  The next node may be null if this
-   * is the tail of the list.
-   * @param next The next node in this linked-list.
-   * @return This {@link Position} for fluency.
    */
   private Position next = null;
 
   /**
    * Index of the dictionary term represented by this coordinate.
-   * -- GETTER --
-   * Index of the dictionary term represented by this coordinate.
-   * @return Index of the dictionary term represented by this coordinate.
    */
   private final int termIndex;
 
   /**
    * Number of accumulated errors at this coordinate.
-   * -- GETTER --
-   * Number of accumulated errors at this coordinate.
-   * @return Number of accumulated errors at this coordinate.
    */
   private final int numErrors;
 

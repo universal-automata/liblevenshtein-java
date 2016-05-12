@@ -37,11 +37,6 @@ import com.github.liblevenshtein.transducer.factory.TransducerBuilder;
 @EqualsAndHashCode(callSuper = false)
 public class ProtobufSerializer extends AbstractSerializer {
 
-  /**
-   * Format of error messages about unknown types.
-   */
-  private static final String UNKNOWN_TYPE_S = "Unknown type [%s]";
-
   // Serializers
   // ---------------------------------------------------------------------------
 
@@ -53,7 +48,7 @@ public class ProtobufSerializer extends AbstractSerializer {
       @NonNull final Serializable object,
       @NonNull final OutputStream stream) throws Exception {
 
-    log.info("Deserializing an instance of [{}] from a stream", object.getClass());
+    log.info("Serializing an instance of [{}] to a stream", object.getClass());
 
     if (object instanceof SortedDawg) {
       final SortedDawg dawg = (SortedDawg) object;
@@ -70,8 +65,7 @@ public class ProtobufSerializer extends AbstractSerializer {
       return;
     }
 
-    final String message = String.format("Unknown type of [%s]", object);
-    throw new IllegalArgumentException(message);
+    throw unknownType(object.getClass());
   }
 
   /**
@@ -94,8 +88,7 @@ public class ProtobufSerializer extends AbstractSerializer {
       return proto.toByteArray();
     }
 
-    final String message = String.format(UNKNOWN_TYPE_S, object.getClass());
-    throw new IllegalArgumentException(message);
+    throw unknownType(object.getClass());
   }
 
   // Deserializers
@@ -127,8 +120,7 @@ public class ProtobufSerializer extends AbstractSerializer {
       return (Type) modelOf(proto);
     }
 
-    final String message = String.format(UNKNOWN_TYPE_S, type);
-    throw new IllegalArgumentException(message);
+    throw unknownType(type);
   }
 
   /**
@@ -151,7 +143,7 @@ public class ProtobufSerializer extends AbstractSerializer {
    * Returns the node of the prototype.
    * @param proto Prototype of the node.
    * @param nodes Tracks {@link DawgNode}s that have already been deserialized,
-   * to avoid deserializing a full trie.
+   *   to avoid deserializing a full trie.
    * @return Node of the prototype.
    */
   protected DawgNode modelOf(
@@ -213,8 +205,7 @@ public class ProtobufSerializer extends AbstractSerializer {
       case MERGE_AND_SPLIT:
         return Algorithm.MERGE_AND_SPLIT;
       default:
-        final String message = String.format("Unknown Algorithm [%s]", proto);
-        throw new IllegalArgumentException(message);
+        throw unknownAlgorithm(proto);
     }
   }
 
@@ -251,8 +242,7 @@ public class ProtobufSerializer extends AbstractSerializer {
       case MERGE_AND_SPLIT:
         return LibLevenshteinProtos.Transducer.Algorithm.MERGE_AND_SPLIT;
       default:
-        final String message = String.format("Unknown Algorithm [%s]", algorithm);
-        throw new IllegalArgumentException(message);
+        throw unknownAlgorithm(algorithm);
     }
   }
 
@@ -311,10 +301,10 @@ public class ProtobufSerializer extends AbstractSerializer {
   /**
    * Returns the prototype of an edge.
    * @param label Annotation leading out of the current {@link DawgNode} to the
-   * target {@link DawgNode}.
+   *   target {@link DawgNode}.
    * @param node Target {@link DawgNode} for the transition.
    * @param nodes Mapping of {@link DawgNode}s to
-   * {@link LibLevenshteinProtos.DawgNode}s, to avoid constructing a full trie.
+   *   {@link LibLevenshteinProtos.DawgNode}s, to avoid constructing a full trie.
    * @return The prototype of an edge.
    */
   protected LibLevenshteinProtos.DawgNode.Edge protoOf(
@@ -325,5 +315,31 @@ public class ProtobufSerializer extends AbstractSerializer {
       .setCharKey(label)
       .setValue(protoOf(node, nodes))
       .build();
+  }
+
+
+  // Utilities
+  // ---------------------------------------------------------------------------
+
+  /**
+   * Returns an {@link IllegalArgumentException} for an unsupported class.
+   * @param type Subject of the exception.
+   * @return An {@link IllegalArgumentException} for an unsupported class.
+   */
+  private IllegalArgumentException unknownType(final Class<?> type) {
+    final String message = String.format("Unknown type [%s]", type);
+    return new IllegalArgumentException(message);
+  }
+
+  /**
+   * Returns an {@link IllegalArgumentException} for an unsupported algorithm.
+   * @param algorithm Subject of the exception.
+   * @param <AlgorithmType> Generic type of the unsupported algorithm.
+   * @return An {@link IllegalArgumentException} for an unsupported algorithm.
+   */
+  private <AlgorithmType> IllegalArgumentException unknownAlgorithm(
+      final AlgorithmType algorithm) {
+    final String message = String.format("Unknown Algorithm [%s]", algorithm);
+    return new IllegalArgumentException(message);
   }
 }

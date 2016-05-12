@@ -4,8 +4,8 @@ import java.util.Iterator;
 
 /**
  * Implements boilerplate logic I typically use in my iterators.
- * @param <Type> Type of the elements returned from this iterator.
  * @author Dylon Edwards
+ * @param <Type> Type of the elements returned from this iterator.
  * @since 2.1.0
  */
 public abstract class AbstractIterator<Type> implements Iterator<Type> {

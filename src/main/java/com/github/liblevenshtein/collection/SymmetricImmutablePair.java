@@ -22,17 +22,11 @@ public class SymmetricImmutablePair<Type extends Comparable<Type>>
 
   /**
    * First element of this pair.
-   * -- GETTER --
-   * First element of this pair.
-   * @return First element of this pair.
    */
   private final Type first;
 
   /**
    * Second element of this pair.
-   * -- GETTER --
-   * Second element of this pair.
-   * @return Second element of this pair.
    */
   private final Type second;
 

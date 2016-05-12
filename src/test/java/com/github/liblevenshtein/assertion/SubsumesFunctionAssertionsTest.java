@@ -8,15 +8,19 @@ import static org.mockito.Mockito.when;
 
 import com.github.liblevenshtein.transducer.Position;
 import com.github.liblevenshtein.transducer.SubsumesFunction;
+
 import static com.github.liblevenshtein.assertion.SubsumesFunctionAssertions.assertThat;
 
 public class SubsumesFunctionAssertionsTest {
+
   private static final int TERM_LENGTH = 4;
 
   private final ThreadLocal<SubsumesFunction> standardSubsumes = new ThreadLocal<>();
+
   private final ThreadLocal<SubsumesFunction> specialSubsumes = new ThreadLocal<>();
 
   private final ThreadLocal<Position> lhs = new ThreadLocal<>();
+
   private final ThreadLocal<Position> rhs = new ThreadLocal<>();
 
   @BeforeMethod

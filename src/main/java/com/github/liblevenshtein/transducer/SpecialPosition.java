@@ -32,6 +32,7 @@ public class SpecialPosition extends Position implements Serializable {
   /**
    * {@inheritDoc}
    */
+  @Override
   public boolean isSpecial() {
     return true;
   }

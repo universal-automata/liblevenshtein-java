@@ -31,6 +31,8 @@ gh-pages/
 !/src/*/java/**/*.java
 !/src/*/java/**/lombok.config
 !/src/*/resources/logback.groovy
+!/src/checkstyle/css/**/*.css
+!/src/checkstyle/js/**/*.js
 !/src/main/proto/**/*.proto
 !/src/task/resources/stringtemplate/**/*.st
 !/src/test/resources/**/*.bytes

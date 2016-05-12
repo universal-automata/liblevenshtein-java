@@ -29,7 +29,7 @@ public class DistanceAssertions<Type>
    * @param actual The distance function being asserted-against.
    * @param <Type> Generic type whose elements have a distance function.
    * @return A new {@link DistanceAssertions} that asserts-against the distance
-   * function
+   *   function
    */
   public static <Type> DistanceAssertions<Type> assertThat(
       final IDistance<Type> actual) {
@@ -70,7 +70,7 @@ public class DistanceAssertions<Type>
    * @param term2 Second term for the comparison.
    * @return This {@link DistanceAssertions} for fluency.
    * @throws AssertionError When {@code d(term1, term2) <= d(term1, term1)}
-   * or when {@code d(term2, term1) <= d(term1, term1)}.
+   *   or when {@code d(term2, term1) <= d(term1, term1)}.
    */
   public DistanceAssertions<Type> satisfiesMinimality(
       final Type term1,
@@ -86,20 +86,34 @@ public class DistanceAssertions<Type>
     final int d11 = actual.between(term1, term1);
     final int d12 = actual.between(term1, term2);
     final int d21 = actual.between(term2, term1);
+    final int d22 = actual.between(term2, term2);
 
-    if (d12 <= d11) {
-      failWithMessage(
-        "Expected d(%s, %s) = [%d] > d(%s, %s) = [%d]",
-        term1, term2, d12, term1, term1, d11);
-    }
-
-    if (d21 <= d11) {
-      failWithMessage(
-        "Expected d(%s, %s) = [%d] > d(%s, %s) = [%d]",
-        term2, term1, d21, term1, term1, d11);
-    }
+    assertMinimality(term1, term2, d12, term1, d11);
+    assertMinimality(term2, term1, d21, term1, d11);
+    assertMinimality(term1, term2, d12, term2, d22);
+    assertMinimality(term2, term1, d21, term2, d22);
 
     return this;
+  }
+
+
+  /**
+   * Asserts that the distances satisfy minimality.
+   * @param t1 Term to compare with {@code t2}.
+   * @param t2 Term to compare with {@code t1}.
+   * @param d12 Distance between {@code t1} and {@code t2}.
+   * @param t3 Term to compare with itself.
+   * @param d33 Distance between {@code t3} and itself.
+   * @throws AssertionError When minimality is not satisfied.
+   */
+  private void assertMinimality(
+      final Type t1, final Type t2, final int d12,
+      final Type t3, final int d33) {
+    if (d12 <= d33) {
+      failWithMessage(
+        "Expected d(%s, %s) = [%d] > d(%s, %s) = [%d]",
+        t1, t2, d12, t3, t3, d33);
+    }
   }
 
   /**
@@ -157,25 +171,47 @@ public class DistanceAssertions<Type>
     final int d13 = actual.between(term1, term3);
     final int d23 = actual.between(term2, term3);
 
-    if (d12 + d13 < d23) {
-      failWithMessage(
-        "Expected (d(%s, %s) = [%d] + d(%s, %s) = [%d]) = [%d] >= d(%s, %s) = [%d]",
-        term1, term2, d12, term1, term3, d13, (d12 + d13), term2, term3, d23);
-    }
+    assertTriangleInequality(
+      term1, term2, d12,
+      term1, term3, d13,
+      term2, term3, d23);
 
-    if (d12 + d23 < d13) {
-      failWithMessage(
-        "Expected (d(%s, %s) = [%d] + d(%s, %s) = [%d]) = [%d] >= d(%s, %s) = [%d]",
-        term1, term2, d12, term2, term3, d23, (d12 + d23), term1, term3, d13);
-    }
+    assertTriangleInequality(
+      term1, term2, d12,
+      term2, term3, d23,
+      term1, term3, d13);
 
-    if (d13 + d23 < d12) {
-      failWithMessage(
-        "Expected (d(%s, %s) = [%d] + d(%s, %s) = [%d]) = [%d] >= d(%s, %s) = [%d]",
-        term1, term3, d13, term2, term3, d23, (d13 + d23), term1, term2, d12);
-    }
+    assertTriangleInequality(
+      term1, term3, d13,
+      term2, term3, d23,
+      term1, term2, d12);
 
     return this;
+  }
+
+  /**
+   * Asserts that the distances satisfy the triangle inequality.
+   * @param t1 Term to compare with {@code t2}.
+   * @param t2 Term to compare with {@code t1}.
+   * @param d12 Distance between {@code t1} and {@code t2}
+   * @param t3 Term to compare with {@code t4}.
+   * @param t4 Term to compare with {@code t3}.
+   * @param d34 Distance between {@code t3} and {@code t4}
+   * @param t5 Term to compare with {@code t6}.
+   * @param t6 Term to compare with {@code t5}.
+   * @param d56 Distance between {@code t5} and {@code t6}
+   * @throws AssertionError When the triangle inequality does not hold.
+   */
+  @SuppressWarnings("checkstyle:parameternumber")
+  private void assertTriangleInequality(
+      final Type t1, final Type t2, final int d12,
+      final Type t3, final Type t4, final int d34,
+      final Type t5, final Type t6, final int d56) {
+    if (d12 + d34 < d56) {
+      failWithMessage(
+        "Expected (d(%s, %s) = [%d] + d(%s, %s) = [%d]) = [%d] >= d(%s, %s) = [%d]",
+        t1, t2, d12, t3, t4, d34, d12 + d34, t5, t6, d56);
+    }
   }
 
   /**

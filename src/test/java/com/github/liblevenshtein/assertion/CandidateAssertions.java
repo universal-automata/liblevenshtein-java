@@ -33,10 +33,10 @@ public class CandidateAssertions
    * term, as specified by the distance function.
    * @param distance Distance function for validation.
    * @param queryTerm Term whose distance from the spelling candidate is to be
-   * determined.
+   *   determined.
    * @return This {@link CandidateAssertions} for fluency.
    * @throws AssertionError When the actual distance differs from what's
-   * expected.
+   *   expected.
    */
   public CandidateAssertions hasDistance(
       final IDistance<String> distance,

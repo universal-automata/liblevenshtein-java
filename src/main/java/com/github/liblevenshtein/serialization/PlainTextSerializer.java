@@ -49,8 +49,33 @@ import com.github.liblevenshtein.transducer.factory.TransducerBuilder;
 @ToString(callSuper = false)
 @SuppressWarnings("unchecked")
 @EqualsAndHashCode(callSuper = false)
-@ExtensionMethod({PlainTextSerializer.PropertiesExtensions.class})
+@ExtensionMethod(PlainTextSerializer.PropertiesExtensions.class)
 public class PlainTextSerializer extends AbstractSerializer {
+
+  /**
+   * "maxDistance" literal for accessors.
+   */
+  private static final String MAX_DISTANCE = "maxDistance";
+
+  /**
+   * "includeDistance" literal for accessors.
+   */
+  private static final String INCLUDE_DISTANCE = "includeDistance";
+
+  /**
+   * "algorithm" literal for accessors.
+   */
+  private static final String ALGORITHM = "algorithm";
+
+  /**
+   * "isSorted" literal for accessors.
+   */
+  private static final String IS_SORTED = "isSorted";
+
+  /**
+   * "dictionary" literal for accessors.
+   */
+  private static final String DICTIONARY = "dictionary";
 
   /**
    * Specifies that this {@link PlainTextSerializer} only deals with sorted
@@ -96,36 +121,18 @@ public class PlainTextSerializer extends AbstractSerializer {
         transducer.attributes();
       final Collection<String> dictionary = dictionaryFor(attributes.dictionary());
       new Properties()
-        .setInteger("maxDistance", attributes.maxDistance())
-        .setBoolean("includeDistance", attributes.includeDistance())
-        .setAlgorithm("algorithm", attributes.algorithm())
-        .setBoolean("isSorted", isSorted)
-        .setCollection("dictionary", dictionary)
+        .setInteger(MAX_DISTANCE, attributes.maxDistance())
+        .setBoolean(INCLUDE_DISTANCE, attributes.includeDistance())
+        .setAlgorithm(ALGORITHM, attributes.algorithm())
+        .setBoolean(IS_SORTED, isSorted)
+        .setCollection(DICTIONARY, dictionary)
         .store(stream,
           MessageFormat.format("Serialized on {0,date,long} at {0,time,full}",
             new Date()));
       return;
     }
 
-    final String message = String.format(
-      "Unsupported type [%s] for serializer [%s]",
-      object.getClass(), getClass());
-    throw new IllegalArgumentException(message);
-  }
-
-  /**
-   * Returns a sorted {@link Collection} of the dictionary.
-   * @param dictionary {@link Collection} to sort.
-   * @return Sorted version of dictionary.
-   */
-  private Collection<String> dictionaryFor(@NonNull final Dawg dictionary) {
-    if (!isSorted) {
-      return dictionary;
-    }
-
-    final List<String> sorted = new ArrayList<>(dictionary);
-    Collections.sort(sorted);
-    return sorted;
+    throw unsupportedType(object.getClass());
   }
 
   /**
@@ -185,18 +192,15 @@ public class PlainTextSerializer extends AbstractSerializer {
       properties.load(stream);
       return (Type) new TransducerBuilder()
         .dictionary(
-          properties.getCollection("dictionary"),
-          properties.getBoolean("isSorted"))
-        .algorithm(properties.getAlgorithm("algorithm"))
-        .defaultMaxDistance(properties.getInteger("maxDistance"))
-        .includeDistance(properties.getBoolean("includeDistance"))
+          properties.getCollection(DICTIONARY),
+          properties.getBoolean(IS_SORTED))
+        .algorithm(properties.getAlgorithm(ALGORITHM))
+        .defaultMaxDistance(properties.getInteger(MAX_DISTANCE))
+        .includeDistance(properties.getBoolean(INCLUDE_DISTANCE))
         .build();
     }
 
-    final String message = String.format(
-      "Unsupported type [%s] for serializer [%s]",
-      type, getClass());
-    throw new IllegalArgumentException(message);
+    throw unsupportedType(type);
   }
 
   /**
@@ -210,6 +214,34 @@ public class PlainTextSerializer extends AbstractSerializer {
     try (final InputStream stream = new ByteArrayInputStream(bytes)) {
       return deserialize(type, stream);
     }
+  }
+
+  /**
+   * Returns a sorted {@link Collection} of the dictionary.
+   * @param dictionary {@link Collection} to sort.
+   * @return Sorted version of dictionary.
+   */
+  private Collection<String> dictionaryFor(@NonNull final Dawg dictionary) {
+    if (!isSorted) {
+      return dictionary;
+    }
+
+    final List<String> sorted = new ArrayList<>(dictionary);
+    Collections.sort(sorted);
+    return sorted;
+  }
+
+  /**
+   * Builds an {@link IllegalArgumentException} for a method that does not
+   * support some type of object.
+   * @param type Unsupported type to specify in the exception.
+   * @return New {@link IllegalArgumentException} for the unsupported type.
+   */
+  private IllegalArgumentException unsupportedType(final Class<?> type) {
+    final String message = String.format(
+      "Unsupported type [%s] for serializer [%s]",
+      type, getClass());
+    return new IllegalArgumentException(message);
   }
 
   /**
@@ -251,7 +283,7 @@ public class PlainTextSerializer extends AbstractSerializer {
      * @param key Name of the integer property.
      * @return Integer mapped-to by key.
      * @throws IllegalArgumentException When no valid integer is mapped-to by
-     * key.
+     *   key.
      */
     public static int getInteger(final Properties self, final String key) {
       final String value = getValue(self, key);
@@ -287,7 +319,7 @@ public class PlainTextSerializer extends AbstractSerializer {
      * @param key Name of the boolean property.
      * @return Boolean mapped-to by key.
      * @throws IllegalArgumentException When no valid boolean is mapped-to by
-     * key.
+     *   key.
      */
     public static boolean getBoolean(final Properties self, final String key) {
       final String value = getValue(self, key);
@@ -324,7 +356,7 @@ public class PlainTextSerializer extends AbstractSerializer {
      * @param key Name of the {@link Collection} property.
      * @return {@link Collection} mapped-to by key.
      * @throws IllegalArgumentException When no {@link Collection} is mapped-to
-     * by key.
+     *   by key.
      */
     public static Collection<String> getCollection(
         final Properties self,
@@ -355,7 +387,7 @@ public class PlainTextSerializer extends AbstractSerializer {
      * @param key Name of the {@link Algorithm} property.
      * @return {@link Algorithm} mapped-to by key.
      * @throws IllegalArgumentException When no {@link Algorithm} is mapped-to
-     * by key.
+     *   by key.
      */
     public static Algorithm getAlgorithm(
         final Properties self,

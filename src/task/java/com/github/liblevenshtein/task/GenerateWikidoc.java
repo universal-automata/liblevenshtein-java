@@ -15,6 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 public class GenerateWikidoc extends Action {
 
   /**
+   * "wiki-path" literal for accessors.
+   */
+  private static final String WIKI_PATH = "wiki-path";
+
+  /**
    * Constructs a new {@link GenerateWikidoc} from the command-line args.
    * @param args Command-line args for this generator.
    */
@@ -27,7 +32,7 @@ public class GenerateWikidoc extends Action {
    */
   @Override
   public void runInternal() throws Exception {
-    final Path wikidocDir = Paths.get(cli.getOptionValue("wiki-path"));
+    final Path wikidocDir = Paths.get(cli.getOptionValue(WIKI_PATH));
 
     final String groupName = "stringtemplate";
 
@@ -54,7 +59,7 @@ public class GenerateWikidoc extends Action {
     final Options options = super.options();
     options.addOption(
       Option.builder()
-        .longOpt("wiki-path")
+        .longOpt(WIKI_PATH)
         .desc("Path to the directory containing the wiki files")
         .hasArg()
         .required()
@@ -66,6 +71,7 @@ public class GenerateWikidoc extends Action {
    * Generates the Wiki for this project.
    * @param args Command-line arguments.
    */
+  @SuppressWarnings("checkstyle:uncommentedmain")
   public static void main(final String... args)  {
     final GenerateWikidoc action = new GenerateWikidoc(args);
     action.run();

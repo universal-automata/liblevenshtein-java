@@ -1,7 +1,5 @@
 package com.github.liblevenshtein.distance;
 
-import lombok.val;
-
 import com.github.liblevenshtein.collection.SymmetricImmutablePair;
 
 /**
@@ -20,7 +18,7 @@ public class MemoizedMergeAndSplit extends AbstractMemoized {
   @Override
   @SuppressWarnings("checkstyle:finalparameters")
   public int memoizedDistance(String v, String w) {
-    val key = new SymmetricImmutablePair<String>(v, w);
+    final SymmetricImmutablePair key = new SymmetricImmutablePair<String>(v, w);
 
     int distance = memo.getInt(key);
     if (distance != DEFAULT_RETURN_VALUE) {

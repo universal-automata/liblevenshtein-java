@@ -48,6 +48,112 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class Action implements Runnable {
 
   /**
+   * Process exit code for success.
+   */
+  public static final int EXIT_SUCCESS = 0;
+
+  /**
+   * Process exit code for a handled exception.
+   */
+  public static final int EXIT_ERROR = 1;
+
+  /**
+   * Process exit code for an unhandled exception.
+   */
+  public static final int EXIT_FATAL = 2;
+
+  /**
+   * "java-target-version" literal for accessors.
+   */
+  private static final String JAVA_TARGET_VERSION = "java-target-version";
+
+  /**
+   * "java-source-version" literal for accessors.
+   */
+  private static final String JAVA_SOURCE_VERSION = "java-source-version";
+
+  /**
+   * "gradle-version" literal for accessors.
+   */
+  private static final String GRADLE_VERSION = "gradle-version";
+
+  /**
+   * "latest-version" literal for accessors.
+   */
+  private static final String LATEST_VERSION = "latest-version";
+
+  /**
+   * "latest-artifact-id" literal for accessors.
+   */
+  private static final String LATEST_ARTIFACT_ID = "latest-artifact-id";
+
+  /**
+   * "latest-group-id" literal for accessors.
+   */
+  private static final String LATEST_GROUP_ID = "latest-group-id";
+
+  /**
+   * "version" literal for accessors.
+   */
+  @SuppressWarnings("checkstyle:multiplestringliterals")
+  private static final String VERSION = "version";
+
+  /**
+   * "artifact-id" literal for accessors.
+   */
+  private static final String ARTIFACT_ID = "artifact-id";
+
+  /**
+   * "group-id" literal for accessors.
+   */
+  private static final String GROUP_ID = "group-id";
+
+  /**
+   * "demo-url" literal for accessors.
+   */
+  private static final String DEMO_URL = "demo-url";
+
+  /**
+   * "git-uri" literal for accessors.
+   */
+  private static final String GIT_URI = "git-uri";
+
+  /**
+   * "git-branch" literal for accessors.
+   */
+  private static final String GIT_BRANCH = "git-branch";
+
+  /**
+   * "github-repo" literal for accessors.
+   */
+  private static final String GITHUB_REPO = "github-repo";
+
+  /**
+   * "github-org" literal for accessors.
+   */
+  private static final String GITHUB_ORG = "github-org";
+
+  /**
+   * "author-email" literal for accessors.
+   */
+  private static final String AUTHOR_EMAIL = "author-email";
+
+  /**
+   * "author-username" literal for accessors.
+   */
+  private static final String AUTHOR_USERNAME = "author-username";
+
+  /**
+   * "project-author" literal for accessors.
+   */
+  private static final String PROJECT_AUTHOR = "project-author";
+
+  /**
+   * "project-url" literal for accessors.
+   */
+  private static final String PROJECT_URL = "project-url";
+
+  /**
    * Matches hyphens in a string.
    */
   private static final Pattern RE_DASH = Pattern.compile("-");
@@ -79,82 +185,19 @@ public abstract class Action implements Runnable {
       .asPredicate();
 
   /**
+   * Joins elements with commas.
+   */
+  private static final Joiner COMMAS = Joiner.on(", ");
+
+  /**
+   * Joins elements with spaces.
+   */
+  private static final Joiner SPACES = Joiner.on(" ");
+
+  /**
    * Replaces the trailing output of a truncated command.
    */
   private static final String TRUNCATED = "# ... TRUNCATED ...";
-
-  /**
-   * Process exit code for success.
-   */
-  public static final int EXIT_SUCCESS = 0;
-
-  /**
-   * Process exit code for a handled exception.
-   */
-  public static final int EXIT_ERROR = 1;
-
-  /**
-   * Process exit code for an unhandled exception.
-   */
-  public static final int EXIT_FATAL = 2;
-
-  /**
-   * Common, project attributes.
-   */
-  @Getter(
-    lazy = true,
-    value = AccessLevel.PROTECTED)
-  private final Map<String, Object> projectArgs =
-    new ImmutableMap.Builder<String, Object>()
-      .put("meta", new ImmutableMap.Builder<String, Object>()
-        .put("mavenRepo", "https://repo1.maven.org/maven2")
-        .put("jcenterRepo", "https://jcenter.bintray.com")
-        .put("bintrayRepo", "https://dl.bintray.com/universal-automata/liblevenshtein")
-        .put("artifactoryRepo", "https://oss.jfrog.org/artifactory/oss-release-local")
-        .put("artifactoryVersion", artifactoryVersion())
-        .put("artifactoryColor", artifactoryColor())
-        .put("url", cli.getOptionValue("project-url"))
-        .put("author", cli.getOptionValue("project-author"))
-        .put("username", cli.getOptionValue("author-username"))
-        .put("email", cli.getOptionValue("author-email"))
-        .build())
-      .put("github", new ImmutableMap.Builder<String, Object>()
-        .put("org", cli.getOptionValue("github-org"))
-        .put("repo", cli.getOptionValue("github-repo"))
-        .put("uri", cli.getOptionValue("git-uri"))
-        .put("demo", cli.getOptionValue("demo-url"))
-        .build())
-      .put("maven", new ImmutableMap.Builder<String, Object>()
-        .put("groupId", cli.getOptionValue("group-id"))
-        .put("artifactId", cli.getOptionValue("artifact-id"))
-        .put("version", cli.getOptionValue("version"))
-        .put("latest", new ImmutableMap.Builder<String, Object>()
-          .put("groupId", cli.getOptionValue("latest-group-id"))
-          .put("artifactId", cli.getOptionValue("latest-artifact-id"))
-          .put("version", cli.getOptionValue("latest-version"))
-          .build())
-        .build())
-      .put("gradle", new ImmutableMap.Builder<String, Object>()
-        .put("version", cli.getOptionValue("gradle-version"))
-        .build())
-      .put("java", new ImmutableMap.Builder<String, Object>()
-        .put("sourceVersion", cli.getOptionValue("java-source-version"))
-        .put("targetVersion", cli.getOptionValue("java-target-version"))
-        .put("version",
-          cli.getOptionValue("java-target-version").replaceFirst("^1\\.", ""))
-        .build())
-      .build();
-
-  /**
-   * Mapping of commands to their outputs.
-   * -- GETTER --
-   * Mapping of commands to their outputs.
-   * @return Mapping of commands to their outputs.
-   */
-  @Getter(
-    lazy = true,
-    value = AccessLevel.PROTECTED)
-  private final Map<String, Map.Entry<String, String>> cmdArgs = buildCmdArgs();
 
   /**
    * Command-line parameters of this action.
@@ -162,11 +205,52 @@ public abstract class Action implements Runnable {
   protected final CommandLine cli;
 
   /**
+   * Common, project attributes.
+   */
+  @Getter(
+    lazy = true,
+    value = AccessLevel.PROTECTED)
+  private final Map<String, Object> projectArgs = buildProjectArgs();
+
+  /**
+   * Mapping of commands to their outputs.
+   */
+  @Getter(
+    lazy = true,
+    value = AccessLevel.PROTECTED)
+  private final Map<String, Map.Entry<String, String>> cmdArgs = buildCmdArgs();
+
+  /**
    * Constructs a new action with the command-line args.
    * @param args Command-line arguments for this action.
    */
   protected Action(final String[] args) {
     this.cli = parseCLI(args);
+  }
+
+  /**
+   * Exits this action with the given code.
+   * @param exitCode Exit code specifying the success of this process.
+   */
+  public void exit(final int exitCode) {
+    System.exit(exitCode);
+  }
+
+  /**
+   * Prints a message then exits this action with the given code.
+   * @param exitCode Exit code specifying the success of this process.
+   * @param format String format for {@link String#format(String, Object...)}.
+   * @param args Arguments to {@link String#format(String, Object...)}.
+   */
+  public void exit(final int exitCode, final String format, final Object... args) {
+    final String message = String.format(format, args);
+    if (EXIT_SUCCESS == exitCode) {
+      log.info(message);
+    }
+    else {
+      log.error(message);
+    }
+    exit(exitCode);
   }
 
   /**
@@ -198,7 +282,7 @@ public abstract class Action implements Runnable {
    * @return Artifactory verseion for Shields IO.
    */
   protected String artifactoryVersion() {
-    final String version = cli.getOptionValue("version");
+    final String version = cli.getOptionValue(VERSION);
     final Matcher matcher = RE_DASH.matcher(version);
     return matcher.replaceAll("--");
   }
@@ -209,7 +293,7 @@ public abstract class Action implements Runnable {
    * @return Color that the Artifactory badge should be.
    */
   protected String artifactoryColor() {
-    final String version = cli.getOptionValue("version");
+    final String version = cli.getOptionValue(VERSION);
 
     if (IS_ALPHA.test(version)) {
       return "orange";
@@ -237,6 +321,7 @@ public abstract class Action implements Runnable {
    * {@inheritDoc}
    */
   @Override
+  @SuppressWarnings("checkstyle:illegalcatch")
   public void run() {
     try {
       log.info("Executing task [{}]", name());
@@ -266,14 +351,14 @@ public abstract class Action implements Runnable {
    * @return Output of the command, with STDOUT and STDERR combined.
    * @throws IOException When the output of the command cannot be read.
    * @throws InterruptedException When interrupted while waiting for the command
-   * to finish executing.
+   *   to finish executing.
    */
   protected Map.Entry<String, String> exec(
       final int maxLines,
       final Path dir,
       final String... cmd) throws IOException, InterruptedException {
 
-    log.info("Executing cmd [{}] in dir [{}]", Joiner.on(" ").join(cmd), dir);
+    log.info("Executing cmd [{}] in dir [{}]", SPACES.join(cmd), dir);
 
     final Process proc = new ProcessBuilder(cmd)
       .redirectErrorStream(true) // redirect STDERR into STDOUT
@@ -289,70 +374,28 @@ public abstract class Action implements Runnable {
 
       final StringBuilder line = new StringBuilder();
 
-      while (numLines <= maxLines && proc.isAlive()) {
-        for (int c = reader.read(); numLines <= maxLines && -1 != c; c = reader.read()) {
-          if ('\r' == c) {
-            line.setLength(0);
-          }
-          else {
-            if ('\n' == c) {
-              numLines += 1;
-              if (numLines > maxLines) {
-                log.info(TRUNCATED);
-                buffer.append(TRUNCATED).append('\n');
-                log.info("Exceeded the maximum number of lines [{}], terminating early ...",
-                  maxLines);
-                proc.destroyForcibly();
-                break;
-              }
-
-              log.info(line.toString());
-              buffer.append(line).append('\n');
-              line.setLength(0);
-            }
-            else {
-              line.append((char) c);
-            }
-          }
+      for (int c = reader.read(); numLines <= maxLines && (-1 != c || proc.isAlive()); c = reader.read()) {
+        if ('\r' == c) {
+          line.setLength(0);
         }
-      }
-
-      if (numLines <= maxLines) {
-        for (int c = reader.read(); numLines <= maxLines && -1 != c; c = reader.read()) {
-          if ('\r' == c) {
-            line.setLength(0);
-          }
-          else {
-            if ('\n' == c) {
-              numLines += 1;
-              if (numLines > maxLines) {
-                log.info(TRUNCATED);
-                buffer.append(TRUNCATED).append('\n');
-                log.info("Exceeded the maximum number of lines [{}], terminating early ...",
-                  maxLines);
-                proc.destroyForcibly();
-                break;
-              }
-
-              log.info(line.toString());
-              buffer.append(line).append('\n');
-              line.setLength(0);
+        else {
+          if ('\n' == c) {
+            numLines += 1;
+            if (numLines > maxLines) {
+              log.info(TRUNCATED);
+              buffer.append(TRUNCATED).append('\n');
+              log.info("Exceeded the maximum number of lines [{}], terminating early ...",
+                maxLines);
+              proc.destroyForcibly();
+              break;
             }
-            else {
-              line.append((char) c);
-            }
-          }
-        }
 
-        if (0 != line.length()) {
-          if (numLines < maxLines) {
             log.info(line.toString());
-            buffer.append(line);
+            buffer.append(line).append('\n');
+            line.setLength(0);
           }
           else {
-            buffer.append("...\n");
-            log.info("Exceeded the maximum number of lines [{}]",
-              maxLines);
+            line.append((char) c);
           }
         }
       }
@@ -364,10 +407,10 @@ public abstract class Action implements Runnable {
 
     if (numLines <= maxLines && 0 != proc.exitValue()) {
       exit(EXIT_ERROR, "%s\ncommand [%s] exited with status [%d] in dir [%s]",
-        buffer.toString(), Joiner.on(" ").join(cmd), proc.exitValue(), dir);
+        buffer.toString(), SPACES.join(cmd), proc.exitValue(), dir);
     }
 
-    final String command = Joiner.on(" ").join(cmd);
+    final String command = SPACES.join(cmd);
     final String output = buffer.toString();
 
     if (output.isEmpty()) {
@@ -384,7 +427,7 @@ public abstract class Action implements Runnable {
    * @return Output of the command, with STDOUT and STDERR combined.
    * @throws IOException When the output of the command cannot be read.
    * @throws InterruptedException When interrupted while waiting for the command
-   * to finish executing.
+   *   to finish executing.
    */
   protected Map.Entry<String, String> exec(final Path dir, final String... cmd)
       throws IOException, InterruptedException {
@@ -398,7 +441,7 @@ public abstract class Action implements Runnable {
    * @return Output from the command, with STDOUT and STDERR combined.
    * @throws IOException When the command cannot be executed.
    * @throws InterruptedException When the thread executing the command is
-   * interrupted while the command is executing.
+   *   interrupted while the command is executing.
    */
   protected Map.Entry<String, String> exec(final String... cmd)
       throws IOException, InterruptedException {
@@ -408,7 +451,7 @@ public abstract class Action implements Runnable {
   /**
    * Creates a temporary directory.
    * @param deleteOnExit Whether to delete the file and all its contents when
-   * the JVM terminates (normally).
+   *   the JVM terminates (normally).
    * @return New, temporary directory.
    * @throws IOException When the temporary directory cannot be created.
    */
@@ -416,7 +459,9 @@ public abstract class Action implements Runnable {
     final Path tmpDir = Files.createTempDirectory(String.format("%s-", name()));
     if (deleteOnExit) {
       Runtime.getRuntime().addShutdownHook(new Thread() {
-        @Override public void run() {
+        @Override
+        @SuppressWarnings("checkstyle:illegalcatch")
+        public void run() {
           try {
             if (Files.exists(tmpDir)) {
               log.info("Deleting tmpDir [{}]", tmpDir);
@@ -449,6 +494,7 @@ public abstract class Action implements Runnable {
    * @param path Path render the template.
    * @throws IOException When the template cannot be rendered to {@link #path}.
    */
+  @SuppressWarnings("checkstyle:illegalcatch")
   @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
   protected void renderTemplate(
       final String groupName,
@@ -481,34 +527,6 @@ public abstract class Action implements Runnable {
   }
 
   /**
-   * Returns map of commands to their outputs.
-   * @return Map of commands to their outputs.
-   */
-  @SneakyThrows({IOException.class, InterruptedException.class})
-  private Map<String, Map.Entry<String, String>> buildCmdArgs() {
-    final String githubRepo = cli.getOptionValue("github-repo");
-    final String gitUri = cli.getOptionValue("git-uri");
-    final String gitBranch = cli.getOptionValue("git-branch");
-    final Path workingDir = tmpDir();
-    final Path projDir = workingDir.resolve(githubRepo);
-    return new ImmutableMap.Builder<String, Map.Entry<String, String>>()
-      .put("gitCloneProj", exec(workingDir, "git", "clone", "--progress", gitUri))
-      .put("cdProj", new AbstractMap.SimpleImmutableEntry<>(
-        String.format("cd %s", githubRepo),
-        null))
-      .put("gitPull", exec(projDir, "git", "pull", "--progress"))
-      .put("gitFetchTags", exec(projDir, "git", "fetch", "--progress", "--tags"))
-      .put("gitCheckout", exec(projDir, "git", "checkout", "--progress", gitBranch))
-      .put("gitSubmoduleInit", exec(projDir, "git", "submodule", "init"))
-      .put("gitSubmoduleUpdate", exec(projDir, "git", "submodule", "update"))
-      .put("gradleJar", exec(projDir, "gradle", "jar"))
-      .put("treeBuildLibs", exec(projDir, "tree", "build/libs"))
-      .put("gradleTest", exec(50, projDir, "gradle", "test"))
-      .put("gradleCheck", exec(50, projDir, "gradle", "clean", "check"))
-      .build();
-  }
-
-  /**
    * Initializes a template with the project arguments.
    * @param template Stringtemplate to render.
    * @throws Exception When the template cannot be initialized.
@@ -526,13 +544,14 @@ public abstract class Action implements Runnable {
   protected CommandLine parseCLI(final String[] args) {
     try {
       log.info("[{}] Parsing command-line args [{}]",
-        name(), Joiner.on(", ").join(args));
-      final DefaultParser parser = new DefaultParser();
-      final CommandLine cli = parser.parse(options(), args);
-      if (cli.hasOption("help")) {
-        printHelp(EXIT_SUCCESS);
+        name(), COMMAS.join(args));
+      for (final String arg : args) {
+        if ("--help".equals(arg) || "-h".equals(arg)) {
+          printHelp(EXIT_SUCCESS);
+        }
       }
-      return cli;
+      final DefaultParser parser = new DefaultParser();
+      return parser.parse(options(), args);
     }
     catch (final AlreadySelectedException exception) {
       final String message =
@@ -549,7 +568,7 @@ public abstract class Action implements Runnable {
     catch (final MissingOptionException exception) {
       final String message =
         String.format("The following required options were missing: %s",
-          Joiner.on(", ").join(exception.getMissingOptions()));
+          COMMAS.join(exception.getMissingOptions()));
       handleParseException(message, exception);
     }
     catch (final UnrecognizedOptionException exception) {
@@ -560,7 +579,7 @@ public abstract class Action implements Runnable {
     catch (final ParseException exception) {
       final String message =
         String.format("Unexpected exception while parsing options [%s]",
-          Joiner.on(", ").join(args));
+          COMMAS.join(args));
       handleParseException(message, exception);
     }
 
@@ -580,126 +599,126 @@ public abstract class Action implements Runnable {
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("group-id")
+        .longOpt(GROUP_ID)
         .desc("Maven, Group Id")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("artifact-id")
+        .longOpt(ARTIFACT_ID)
         .desc("Maven, Artifact Id")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("version")
+        .longOpt(VERSION)
         .desc("Maven, Artifact Version")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("latest-group-id")
+        .longOpt(LATEST_GROUP_ID)
         .desc("Maven, Group Id of the latest, stable release")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("latest-artifact-id")
+        .longOpt(LATEST_ARTIFACT_ID)
         .desc("Maven, Artifact Id of the latest, stable release")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("latest-version")
+        .longOpt(LATEST_VERSION)
         .desc("Maven, Artifact Version of the latest, stable release")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("gradle-version")
+        .longOpt(GRADLE_VERSION)
         .desc("Version of the Gradle, build tool.")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("java-source-version")
+        .longOpt(JAVA_SOURCE_VERSION)
         .desc("Compatible version of the Java, source code.")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("java-target-version")
+        .longOpt(JAVA_TARGET_VERSION)
         .desc("Compatible version of the compiled, Java bytecode.")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("github-org")
+        .longOpt(GITHUB_ORG)
         .desc("Name of the corresponding, Github organization.")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("github-repo")
+        .longOpt(GITHUB_REPO)
         .desc("Name of the corresponding, Github repository.")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("git-uri")
+        .longOpt(GIT_URI)
         .desc("URI for developers to clone the corresponding, git repository.")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("git-branch")
+        .longOpt(GIT_BRANCH)
         .desc("Git branch associated with the target source.")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("project-url")
+        .longOpt(PROJECT_URL)
         .desc("URL for the project on Github.")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("demo-url")
+        .longOpt(DEMO_URL)
         .desc("URL for the demo on Github.")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("project-author")
+        .longOpt(PROJECT_AUTHOR)
         .desc("Name of the author of the project (i.e. my name).")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("author-username")
+        .longOpt(AUTHOR_USERNAME)
         .desc("Username of the author of the project (i.e. my username).")
         .hasArg()
         .required()
         .build());
     options.addOption(
       Option.builder()
-        .longOpt("author-email")
+        .longOpt(AUTHOR_EMAIL)
         .desc("Email of the author of the project (i.e. my email).")
         .hasArg()
         .required()
@@ -730,27 +749,78 @@ public abstract class Action implements Runnable {
   }
 
   /**
-   * Exits this action with the given code.
-   * @param exitCode Exit code specifying the success of this process.
+   * Returns the project args used to render templates.
+   * @return The project args used to render templates.
    */
-  public void exit(final int exitCode) {
-    System.exit(exitCode);
+  @SuppressWarnings("checkstyle:multiplestringliterals")
+  private Map<String, Object> buildProjectArgs() {
+    return new ImmutableMap.Builder<String, Object>()
+      .put("meta", new ImmutableMap.Builder<String, Object>()
+        .put("mavenRepo", "https://repo1.maven.org/maven2")
+        .put("jcenterRepo", "https://jcenter.bintray.com")
+        .put("bintrayRepo", "https://dl.bintray.com/universal-automata/liblevenshtein")
+        .put("artifactoryRepo", "https://oss.jfrog.org/artifactory/oss-release-local")
+        .put("artifactoryVersion", artifactoryVersion())
+        .put("artifactoryColor", artifactoryColor())
+        .put("url", cli.getOptionValue(PROJECT_URL))
+        .put("author", cli.getOptionValue(PROJECT_AUTHOR))
+        .put("username", cli.getOptionValue(AUTHOR_USERNAME))
+        .put("email", cli.getOptionValue(AUTHOR_EMAIL))
+        .build())
+      .put("github", new ImmutableMap.Builder<String, Object>()
+        .put("org", cli.getOptionValue(GITHUB_ORG))
+        .put("repo", cli.getOptionValue(GITHUB_REPO))
+        .put("uri", cli.getOptionValue(GIT_URI))
+        .put("demo", cli.getOptionValue(DEMO_URL))
+        .build())
+      .put("maven", new ImmutableMap.Builder<String, Object>()
+        .put("groupId", cli.getOptionValue(GROUP_ID))
+        .put("artifactId", cli.getOptionValue(ARTIFACT_ID))
+        .put("version", cli.getOptionValue(VERSION))
+        .put("latest", new ImmutableMap.Builder<String, Object>()
+          .put("groupId", cli.getOptionValue(LATEST_GROUP_ID))
+          .put("artifactId", cli.getOptionValue(LATEST_ARTIFACT_ID))
+          .put("version", cli.getOptionValue(LATEST_VERSION))
+          .build())
+        .build())
+      .put("gradle", new ImmutableMap.Builder<String, Object>()
+        .put("version", cli.getOptionValue(GRADLE_VERSION))
+        .build())
+      .put("java", new ImmutableMap.Builder<String, Object>()
+        .put("sourceVersion", cli.getOptionValue(JAVA_SOURCE_VERSION))
+        .put("targetVersion", cli.getOptionValue(JAVA_TARGET_VERSION))
+        .put("version",
+          cli.getOptionValue(JAVA_TARGET_VERSION).replaceFirst("^1\\.", ""))
+        .build())
+      .build();
   }
 
   /**
-   * Prints a message then exits this action with the given code.
-   * @param exitCode Exit code specifying the success of this process.
-   * @param format String format for {@link String#format(String, Object...)}.
-   * @param args Arguments to {@link String#format(String, Object...)}.
+   * Returns map of commands to their outputs.
+   * @return Map of commands to their outputs.
    */
-  public void exit(final int exitCode, final String format, final Object... args) {
-    final String message = String.format(format, args);
-    if (EXIT_SUCCESS == exitCode) {
-      log.info(message);
-    }
-    else {
-      log.error(message);
-    }
-    exit(exitCode);
+  @SuppressWarnings("checkstyle:multiplestringliterals")
+  @SneakyThrows({IOException.class, InterruptedException.class})
+  private Map<String, Map.Entry<String, String>> buildCmdArgs() {
+    final String githubRepo = cli.getOptionValue(GITHUB_REPO);
+    final String gitUri = cli.getOptionValue(GIT_URI);
+    final String gitBranch = cli.getOptionValue(GIT_BRANCH);
+    final Path workingDir = tmpDir();
+    final Path projDir = workingDir.resolve(githubRepo);
+    return new ImmutableMap.Builder<String, Map.Entry<String, String>>()
+      .put("gitCloneProj", exec(workingDir, "git", "clone", "--progress", gitUri))
+      .put("cdProj", new AbstractMap.SimpleImmutableEntry<>(
+        String.format("cd %s", githubRepo),
+        null))
+      .put("gitPull", exec(projDir, "git", "pull", "--progress"))
+      .put("gitFetchTags", exec(projDir, "git", "fetch", "--progress", "--tags"))
+      .put("gitCheckout", exec(projDir, "git", "checkout", "--progress", gitBranch))
+      .put("gitSubmoduleInit", exec(projDir, "git", "submodule", "init"))
+      .put("gitSubmoduleUpdate", exec(projDir, "git", "submodule", "update"))
+      .put("gradleJar", exec(projDir, "gradle", "jar"))
+      .put("treeBuildLibs", exec(projDir, "tree", "build/libs"))
+      .put("gradleTest", exec(50, projDir, "gradle", "test"))
+      .put("gradleCheck", exec(50, projDir, "gradle", "clean", "check"))
+      .build();
   }
 }

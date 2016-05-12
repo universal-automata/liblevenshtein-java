@@ -16,10 +16,10 @@ import com.github.liblevenshtein.collection.SymmetricImmutablePair;
  */
 public abstract class AbstractMemoized implements IDistance<String>, Serializable {
 
-  private static final long serialVersionUID = 1L;
-
   /** Default return value of memoized distances when no record exists. */
   protected static final int DEFAULT_RETURN_VALUE = -1;
+
+  private static final long serialVersionUID = 1L;
 
   /** Memoizes the distance pairs of terms. */
   protected final Object2IntMap<SymmetricImmutablePair<String>> memo;
@@ -39,8 +39,8 @@ public abstract class AbstractMemoized implements IDistance<String>, Serializabl
    * @param u String to slice
    * @param t Lower bound of the index at which to slice {@code u}
    * @return The substring of {@code u} beginning at index, {@code 1 + t}, if
-   * {@code t} is less than the length of {@code u}, or an empty string
-   * otherwise.
+   *   {@code t} is less than the length of {@code u}, or an empty string
+   *   otherwise.
    */
   public String f(final String u, final int t) {
     if (t < u.length()) {

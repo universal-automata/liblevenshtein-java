@@ -6,8 +6,8 @@ import it.unimi.dsi.fastutil.chars.CharIterator;
 
 /**
  * Deterministically-transitions between states according to some input.
- * @param <State> Kind of state this transition function accepts.
  * @author Dylon Edwards
+ * @param <State> Kind of state this transition function accepts.
  * @since 2.1.0
  */
 public interface ITransitionFunction<State> extends Serializable {

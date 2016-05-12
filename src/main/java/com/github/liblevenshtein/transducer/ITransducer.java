@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 /**
  * Returns a collection of spelling candidates for the given query term.
- * @param <CandidateType> Kind of spelling candidate returned (e.g.
- * {@link Candidate} or {@link java.lang.String}).
  * @author Dylon Edwards
+ * @param <CandidateType> Kind of spelling candidate returned (e.g.
+ *   {@link Candidate} or {@link java.lang.String}).
  * @since 2.1.0
  */
 public interface ITransducer<CandidateType> extends Serializable {
@@ -16,7 +16,7 @@ public interface ITransducer<CandidateType> extends Serializable {
    * errors away from the query term.
    * @param term Query term whose spelling candidates should bee determined
    * @return A data structure consisting of all the spelling candidates for the
-   * query term.
+   *   query term.
    */
   Iterable<CandidateType> transduce(String term);
 
@@ -25,9 +25,9 @@ public interface ITransducer<CandidateType> extends Serializable {
    * errors away from the query term.
    * @param term Query term whose spelling candidates should bee determined
    * @param maxDistance Maximum number of spelling errors the spelling
-   * candidates may have from the query term.
+   *   candidates may have from the query term.
    * @return A data structure consisting of all the spelling candidates for the
-   * query term.
+   *   query term.
    */
   Iterable<CandidateType> transduce(String term, int maxDistance);
 }

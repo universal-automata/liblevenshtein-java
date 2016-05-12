@@ -31,7 +31,7 @@ public class StateAssertions extends AbstractAssert<StateAssertions, State> {
    * Returns a new {@link StateIteratorAssertions} to assert against the
    * {@link #actual} iterator.
    * @return New {@link StateIteratorAssertions} to assert-against the iterator
-   * of the {@link #actual} {@link State}.
+   *   of the {@link #actual} {@link State}.
    */
   public StateIteratorAssertions iterator() {
     isNotNull();

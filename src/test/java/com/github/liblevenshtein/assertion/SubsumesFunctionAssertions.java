@@ -25,7 +25,7 @@ public class SubsumesFunctionAssertions
    * {@link SubsumesFunction}.
    * @param actual {@link SubsumesFunction} to assert-against.
    * @return New instance of {@link SubsumesFunctionAssertions}, that
-   * asserts-against {@link #actual}.
+   *   asserts-against {@link #actual}.
    */
   public static SubsumesFunctionAssertions assertThat(
       final SubsumesFunction actual) {
@@ -58,6 +58,28 @@ public class SubsumesFunctionAssertions
   }
 
   /**
+   * Asserts-that the standard, Levenshtein state represented by
+   * {@code lhs} subsumes the other, represented by {@code rhs}.
+   * @param lhs First position
+   * @param rhs Second position
+   * @param n Length of the query term.
+   * @param shouldSubsume Whether {@code lhs} should subsume {@code rhs}.
+   * @return This {@link SubsumesFunctionAssertions} for fluency.
+   */
+  public SubsumesFunctionAssertions subsumesAt(
+      final Position lhs,
+      final Position rhs,
+      final int n,
+      final boolean shouldSubsume) {
+
+    if (shouldSubsume) {
+      return subsumesAt(lhs, rhs, n);
+    }
+
+    return doesNotSubsumeAt(lhs, rhs, n);
+  }
+
+  /**
    * Asserts-that the standard, Levenshtein state represented by {@code lhs}
    * does not subsume the other, represented by {@code rhs}.
    * @param lhs First position
@@ -80,27 +102,5 @@ public class SubsumesFunctionAssertions
     }
 
     return this;
-  }
-
-  /**
-   * Asserts-that the standard, Levenshtein state represented by
-   * {@code lhs} subsumes the other, represented by {@code rhs}.
-   * @param lhs First position
-   * @param rhs Second position
-   * @param n Length of the query term.
-   * @param shouldSubsume Whether {@code lhs} should subsume {@code rhs}.
-   * @return This {@link SubsumesFunctionAssertions} for fluency.
-   */
-  public SubsumesFunctionAssertions subsumesAt(
-      final Position lhs,
-      final Position rhs,
-      final int n,
-      final boolean shouldSubsume) {
-
-    if (shouldSubsume) {
-      return subsumesAt(lhs, rhs, n);
-    }
-
-    return doesNotSubsumeAt(lhs, rhs, n);
   }
 }

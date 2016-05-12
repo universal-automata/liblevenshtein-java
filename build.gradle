@@ -53,7 +53,7 @@ repositories {
 
 group = 'com.github.universal-automata'
 archivesBaseName = name
-version = '3.0.0-beta.1' // http://semver.org/
+version = '3.0.0-rc.1' // http://semver.org/
 
 description = 'A library for spelling-correction based on Levenshtein Automata.'
 
@@ -567,10 +567,32 @@ tasks.javadoc {
 }
 
 tasks.withType(Checkstyle) {
+  def jsSrc = file("${projectDir}/src/checkstyle/js")
+  def jsDest = file("${buildDir}/reports/checkstyle/js")
+  def cssSrc = file("${projectDir}/src/checkstyle/css")
+  def cssDest = file("${buildDir}/reports/checkstyle/css")
+  doFirst {
+    if (!jsDest.exists() && !jsDest.mkdirs()) {
+      throw new IOException("Cannot create JavaScript directory [${jsDest}]")
+    }
+    if (!cssDest.exists() && !cssDest.mkdirs()) {
+      throw new IOException("Cannot create CSS directory [${cssDest}]")
+    }
+    copy {
+      from jsSrc
+      into jsDest
+    }
+    copy {
+      from cssSrc
+      into cssDest
+    }
+  }
   reports {
     xml.enabled true
-    html.enabled true
-    html.stylesheet resources.text.fromFile('config/checkstyle/checkstyle.xsl')
+    html {
+      enabled true
+      stylesheet resources.text.fromFile('config/checkstyle/checkstyle.xsl')
+    }
   }
 }
 

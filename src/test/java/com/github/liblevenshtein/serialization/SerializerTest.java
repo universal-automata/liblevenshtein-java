@@ -42,13 +42,19 @@ import static com.github.liblevenshtein.assertion.SetAssertions.assertThat;
 @Slf4j
 public class SerializerTest {
 
+  private static final String DICTIONARY = "dictionary";
+
+  private static final String TRANSDUCER = "transducer";
+
   private final FileSystem fs = Jimfs.newFileSystem(Configuration.unix());
+
   private final Path tmpDir = fs.getPath("/jimfs");
 
   @Getter(lazy = true)
   private final Object[][] lazySerializerParams = buildParams();
 
   @BeforeTest
+  @SuppressWarnings("checkstyle:illegalcatch")
   public void setUp() throws IOException {
     try {
       Files.createDirectory(tmpDir);
@@ -65,6 +71,7 @@ public class SerializerTest {
     return lazySerializerParams();
   }
 
+  @SuppressWarnings("checkstyle:illegalcatch")
   private Object[][] buildParams() {
     try {
       final AbstractSerializer[] serializers = {
@@ -174,7 +181,7 @@ public class SerializerTest {
       final SortedDawg dictionary,
       final Transducer<?, ?> transducer) throws Exception {
 
-    final Path dictionaryPath = createTempFile("dictionary");
+    final Path dictionaryPath = createTempFile(DICTIONARY);
     try {
       serializer.serialize(dictionary, dictionaryPath);
       final SortedDawg deserializedDictionary =
@@ -185,7 +192,7 @@ public class SerializerTest {
       Files.delete(dictionaryPath);
     }
 
-    final Path transducerPath = createTempFile("transducer");
+    final Path transducerPath = createTempFile(TRANSDUCER);
     try {
       serializer.serialize(transducer, transducerPath);
       final Transducer<?, ?> deserializedTransducer =
@@ -203,7 +210,7 @@ public class SerializerTest {
       final SortedDawg dictionary,
       final Transducer<?, ?> transducer) throws Exception {
 
-    final Path dictionaryPath = createTempFile("dictionary");
+    final Path dictionaryPath = createTempFile(DICTIONARY);
     try {
       final File dictionaryFile = mock(File.class);
       when(dictionaryFile.toPath()).thenReturn(dictionaryPath);
@@ -216,7 +223,7 @@ public class SerializerTest {
       Files.delete(dictionaryPath);
     }
 
-    final Path transducerPath = createTempFile("transducer");
+    final Path transducerPath = createTempFile(TRANSDUCER);
     try {
       final File transducerFile = mock(File.class);
       when(transducerFile.toPath()).thenReturn(transducerPath);
@@ -236,7 +243,7 @@ public class SerializerTest {
       final SortedDawg dictionary,
       final Transducer<?, ?> transducer) throws Exception {
 
-    final Path dictionaryPath = createTempFile("dictionary");
+    final Path dictionaryPath = createTempFile(DICTIONARY);
     try {
       final String dictionaryPathString = dictionaryPath.toString();
       serializer.serialize(dictionary, dictionaryPathString);
@@ -248,7 +255,7 @@ public class SerializerTest {
       Files.delete(dictionaryPath);
     }
 
-    final Path transducerPath = createTempFile("transducer");
+    final Path transducerPath = createTempFile(TRANSDUCER);
     try {
       final String transducerPathString = transducerPath.toString();
       serializer.serialize(transducer, transducerPathString);
@@ -267,7 +274,7 @@ public class SerializerTest {
       final SortedDawg dictionary,
       final Transducer<?, ?> transducer) throws Exception {
 
-    final Path dictionaryPath = createTempFile("dictionary");
+    final Path dictionaryPath = createTempFile(DICTIONARY);
     try {
       final URI dictionaryUri = dictionaryPath.toUri();
       serializer.serialize(dictionary, dictionaryPath);
@@ -279,7 +286,7 @@ public class SerializerTest {
       Files.delete(dictionaryPath);
     }
 
-    final Path transducerPath = createTempFile("transducer");
+    final Path transducerPath = createTempFile(TRANSDUCER);
     try {
       final URI transducerUri = transducerPath.toUri();
       serializer.serialize(transducer, transducerPath);
@@ -298,7 +305,7 @@ public class SerializerTest {
       final SortedDawg dictionary,
       final Transducer<?, ?> transducer) throws Exception {
 
-    final Path dictionaryPath = createTempFile("dictionary");
+    final Path dictionaryPath = createTempFile(DICTIONARY);
     try {
       final URI dictionaryUri = dictionaryPath.toUri();
       final String dictionaryUriString = dictionaryUri.toString();
@@ -311,7 +318,7 @@ public class SerializerTest {
       Files.delete(dictionaryPath);
     }
 
-    final Path transducerPath = createTempFile("transducer");
+    final Path transducerPath = createTempFile(TRANSDUCER);
     try {
       final URI transducerUri = transducerPath.toUri();
       final String transducerUriString = transducerUri.toString();
@@ -331,6 +338,9 @@ public class SerializerTest {
       final SortedDawg dictionary,
       final Transducer<?, ?> transducer) throws Exception {
 
+    final String protocol = "http";
+    final String domain = "www.example.com";
+
     final byte[] serializedDictionary = serializer.serialize(dictionary);
     try (final InputStream stream = new ByteArrayInputStream(serializedDictionary)) {
       final URLConnection connection = mock(URLConnection.class);
@@ -342,7 +352,7 @@ public class SerializerTest {
         }
       };
       final URL url =
-        new URL("http", "www.example.com", 80, "/dictionary.tmp", handler);
+        new URL(protocol, domain, 80, "/dictionary.tmp", handler);
       final SortedDawg deserializedDictionary =
         serializer.deserialize(SortedDawg.class, url);
       assertThat(deserializedDictionary).isEqualTo(dictionary);
@@ -359,7 +369,7 @@ public class SerializerTest {
         }
       };
       final URL url =
-        new URL("http", "www.example.com", 80, "/transducer.tmp", handler);
+        new URL(protocol, domain, 80, "/transducer.tmp", handler);
       final Transducer<?, ?> deserializedTransducer =
         serializer.deserialize(Transducer.class, url);
       assertThat(deserializedTransducer).isEqualTo(transducer);

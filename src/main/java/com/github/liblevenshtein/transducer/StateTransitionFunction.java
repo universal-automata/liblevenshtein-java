@@ -22,72 +22,50 @@ public class StateTransitionFunction implements Serializable {
 
   /**
    * Sorts {@link State} elements in an unsubsumption-friendly fashion.
-   * -- SETTER --
-   * Sorts {@link State} elements in an unsubsumption-friendly fashion.
-   * @param comparator Sorts {@link State} elements in an unsubsumption-friendly fashion.
-   * @return This {@link StateTransitionFunction} for fluency.
    */
   private Comparator<Position> comparator;
 
   /**
    * Builds and recycles {@link State} instances.
-   * -- SETTER --
-   * Builds and recycles {@link State} instances.
-   * @param stateFactory Builds and recycles {@link State} instances.
-   * @return This {@link StateTransitionFunction} for fluency.
    */
   private StateFactory stateFactory;
 
   /**
    * Builds position vector, transition functions according to the Levenshtein
    * algorithm.
-   * -- SETTER --
-   * Builds position vector, transition functions according to the Levenshtein
-   * algorithm.
-   * @param transitionFactory Builds position vector, transition functions
-   * according to the Levenshtein algorithm.
-   * @return This {@link StateTransitionFunction} for fluency.
    */
   private PositionTransitionFactory transitionFactory;
 
   /**
    * Merges states together according to the Levenshtein algorithm.
-   * -- SETTER --
-   * Merges states together according to the Levenshtein algorithm.
-   * @param merge Merges states together according to the Levenshtein algorithm.
-   * @return This {@link StateTransitionFunction} for fluency.
    */
   private MergeFunction merge;
 
   /**
    * Removes positions from a state that are subsumed by other positions in that
    * state.
-   * -- SETTER --
-   * Removes positions from a state that are subsumed by other positions in that
-   * state.
-   * @param unsubsume Removes positions from a state that are subsumed by other
-   * positions in that state.
-   * @return This {@link StateTransitionFunction} for fluency.
    */
   private UnsubsumeFunction unsubsume;
 
   /**
    * Max number of errors tolerated in spelling candidates, from the query term.
-   * -- SETTER --
-   * Max number of errors tolerated in spelling candidates, from the query term.
-   * @param maxDistance Max number of errors tolerated in spelling candidates,
-   * from the query term.
-   * @return This {@link StateTransitionFunction} for fluency.
    */
   private int maxDistance;
 
   /**
-   * @param queryLength Length of the query term.
+   * Length of the query term.
    */
   private int queryLength;
 
   /**
-   * {@inheritDoc}
+   * Returns the state consisting of all the possible position-transitions from
+   * the current state, given the characteristic vector.
+   * @param currState Source state to transition from.
+   * @param characteristicVector Relevant subwords denoting whether the indices
+   *   of the current, spelling candidate from the dictionary has characters
+   *   matching the one being sought from the query term.
+   * @return Next state, consisting of all possible position-transitions from
+   *   the source {@code currState}, conditioned on {@code characteristicVector}.
    */
   public State of(
       final State currState,

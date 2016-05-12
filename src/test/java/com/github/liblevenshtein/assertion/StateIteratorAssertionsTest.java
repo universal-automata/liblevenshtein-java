@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import com.github.liblevenshtein.transducer.Position;
 import com.github.liblevenshtein.transducer.State;
+
 import static com.github.liblevenshtein.assertion.StateIteratorAssertions.assertThat;
 
 public class StateIteratorAssertionsTest {

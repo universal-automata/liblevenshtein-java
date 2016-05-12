@@ -20,7 +20,7 @@ public abstract class MergeFunction implements Serializable {
    * Merges the positions in the latter state into the former, in a
    * subsumption-friendly manner.
    * @param state The state into which the positions of the latter should be
-   * merged.
+   *   merged.
    * @param positions The state from which the positions should be merged.
    */
   public abstract void into(State state, State positions);

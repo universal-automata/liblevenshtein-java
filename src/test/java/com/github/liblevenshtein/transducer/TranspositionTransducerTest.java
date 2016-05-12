@@ -17,15 +17,19 @@ import com.github.liblevenshtein.distance.MemoizedTransposition;
 import com.github.liblevenshtein.serialization.ProtobufSerializer;
 import com.github.liblevenshtein.serialization.Serializer;
 import com.github.liblevenshtein.transducer.factory.TransducerBuilder;
+
 import static com.github.liblevenshtein.assertion.CandidateAssertions.assertThat;
 import static com.github.liblevenshtein.assertion.SetAssertions.assertThat;
 
 @SuppressWarnings("unchecked")
 public class TranspositionTransducerTest {
+
   private static final int MAX_DISTANCE = 3;
+
   private static final String QUERY_TERM = "Jvaa";
 
   private ITransducer<Candidate> transducer;
+
   private Set<Candidate> expectedCandidates;
 
   @BeforeTest

@@ -46,27 +46,12 @@ public class IteratorAssertions<Type>
   }
 
   /**
-   * Asserts that the iterator does not have another element.
-   * @return This {@link IteratorAssertions} for fluency.
-   * @throws AssertionError When the iterator has another element.
-   */
-  public IteratorAssertions<Type> doesNotHaveNext() {
-    isNotNull();
-
-    if (actual.hasNext()) {
-      failWithMessage("Did not expected Iterator#hasNext() to be [true]");
-    }
-
-    return this;
-  }
-
-  /**
    * Asserts that the iterator has another element, and that the element is
    * expected.
    * @param expectedValue Next, expected value of the iterator.
    * @return This {@link IteratorAssertions} for fluency.
    * @throws AssertionError When the iterator does not have another element or
-   * when its next element is unexpected.
+   *   when its next element is unexpected.
    */
   public IteratorAssertions<Type> hasNext(final Type expectedValue) {
     isNotNull();
@@ -89,11 +74,26 @@ public class IteratorAssertions<Type>
   }
 
   /**
+   * Asserts that the iterator does not have another element.
+   * @return This {@link IteratorAssertions} for fluency.
+   * @throws AssertionError When the iterator has another element.
+   */
+  public IteratorAssertions<Type> doesNotHaveNext() {
+    isNotNull();
+
+    if (actual.hasNext()) {
+      failWithMessage("Did not expected Iterator#hasNext() to be [true]");
+    }
+
+    return this;
+  }
+
+  /**
    * Asserts that the elements of the actual iterator are expected.
    * @param expected {@link Iterator} containing the expected elements.
    * @return This {@link IteratorAssertions} for fluency.
    * @throws AssertionError When the values of the actual iterator are
-   * unexpected or it does not have the expected number of values.
+   *   unexpected or it does not have the expected number of values.
    */
   public IteratorAssertions<Type> isEqualTo(final Iterator<Type> expected) {
     isNotNull();

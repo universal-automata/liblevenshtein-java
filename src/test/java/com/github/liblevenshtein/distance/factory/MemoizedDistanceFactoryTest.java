@@ -14,10 +14,39 @@ import org.testng.annotations.Test;
 
 import com.github.liblevenshtein.distance.IDistance;
 import com.github.liblevenshtein.transducer.Algorithm;
+
 import static com.github.liblevenshtein.assertion.DistanceAssertions.assertThat;
 
 public class MemoizedDistanceFactoryTest {
+
+  private static final String FOO = "foo";
+
+  private static final String FOOD = "food";
+
+  private static final String FODO = "fodo";
+
+  private static final String FDOO = "fdoo";
+
+  private static final String DFOO = "dfoo";
+
+  private static final String OO = "oo";
+
+  private static final String FO = "fo";
+
+  private static final String BOO = "boo";
+
+  private static final String FBO = "fbo";
+
+  private static final String FOB = "fob";
+
+  private static final String OFO = "ofo";
+
+  private static final String CLOG = "clog";
+
+  private static final String DOG = "dog";
+
   private List<String> terms;
+
   private IDistanceFactory<String> factory;
 
   @BeforeClass
@@ -113,23 +142,25 @@ public class MemoizedDistanceFactoryTest {
       final int mergePenalty,
       final int splitPenalty) {
     assertThat(distance)
-      .hasDistance(0, "foo", "foo")
-      .hasDistance(1, "foo", "food")
-      .hasDistance(1, "foo", "fodo")
-      .hasDistance(1, "foo", "fdoo")
-      .hasDistance(1, "foo", "dfoo")
-      .hasDistance(1, "foo", "oo")
-      .hasDistance(1, "foo", "fo")
-      .hasDistance(1, "foo", "boo")
-      .hasDistance(1, "foo", "fbo")
-      .hasDistance(1, "foo", "fob")
-      .hasDistance(transpositionPenalty, "foo", "ofo")
-      .hasDistance(mergePenalty, "clog", "dog")
-      .hasDistance(splitPenalty, "dog", "clog");
+      .hasDistance(0, FOO, FOO)
+      .hasDistance(1, FOO, FOOD)
+      .hasDistance(1, FOO, FODO)
+      .hasDistance(1, FOO, FDOO)
+      .hasDistance(1, FOO, DFOO)
+      .hasDistance(1, FOO, OO)
+      .hasDistance(1, FOO, FO)
+      .hasDistance(1, FOO, BOO)
+      .hasDistance(1, FOO, FBO)
+      .hasDistance(1, FOO, FOB)
+      .hasDistance(transpositionPenalty, FOO, OFO)
+      .hasDistance(mergePenalty, CLOG, DOG)
+      .hasDistance(splitPenalty, DOG, CLOG);
   }
 
   private abstract static class AbstractDataIterator implements Iterator<Object[]> {
+
     protected final Algorithm[] algorithms = Algorithm.values();
+
     protected Object[] params;
 
     @Override
@@ -155,11 +186,17 @@ public class MemoizedDistanceFactoryTest {
   }
 
   private static class EqualSelfSimilarityDataIterator extends AbstractDataIterator {
+
     private final IDistanceFactory<String> factory;
+
     private final List<String> terms;
+
     private final Object[] buffer = new Object[4];
+
     private int i = 0;
+
     private int j = 0;
+
     private int k = 0;
 
     EqualSelfSimilarityDataIterator(
@@ -200,11 +237,17 @@ public class MemoizedDistanceFactoryTest {
   }
 
   private static class MinimalityDataIterator extends AbstractDataIterator {
+
     private final IDistanceFactory<String> factory;
+
     private final List<String> terms;
+
     private final Object[] buffer = new Object[4];
+
     private int i = 0;
+
     private int j = 0;
+
     private int k = 0;
 
     MinimalityDataIterator(
@@ -249,11 +292,17 @@ public class MemoizedDistanceFactoryTest {
   }
 
   private static class SymmetryDataIterator extends AbstractDataIterator {
+
     private final IDistanceFactory<String> factory;
+
     private final List<String> terms;
+
     private Object[] buffer = new Object[4];
+
     private int i = 0;
+
     private int j = 0;
+
     private int k = 0;
 
     SymmetryDataIterator(
@@ -294,12 +343,19 @@ public class MemoizedDistanceFactoryTest {
   }
 
   private static class TriangleInequalityDataIterator extends AbstractDataIterator {
+
     private final IDistanceFactory<String> factory;
+
     private final List<String> terms;
+
     private Object[] buffer = new Object[5];
+
     private int i = 0;
+
     private int j = 0;
+
     private int k = 0;
+
     private int l = 0;
 
     TriangleInequalityDataIterator(

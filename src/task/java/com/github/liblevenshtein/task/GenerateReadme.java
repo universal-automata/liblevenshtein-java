@@ -15,6 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 public class GenerateReadme extends Action {
 
   /**
+   * "readme-path" literal for accessors.
+   */
+  private static final String README_PATH = "readme-path";
+
+  /**
    * Constructs a new {@link GenerateReadme} from the command-line args.
    * @param args Command-line args for this generator.
    */
@@ -27,7 +32,7 @@ public class GenerateReadme extends Action {
    */
   @Override
   public void runInternal() throws Exception {
-    final Path readmePath = Paths.get(cli.getOptionValue("readme-path"));
+    final Path readmePath = Paths.get(cli.getOptionValue(README_PATH));
     renderTemplate("stringtemplate", "readme", readmePath);
   }
 
@@ -39,7 +44,7 @@ public class GenerateReadme extends Action {
     final Options options = super.options();
     options.addOption(
       Option.builder()
-        .longOpt("readme-path")
+        .longOpt(README_PATH)
         .desc("Path to write the README.md")
         .hasArg()
         .required()
@@ -51,6 +56,7 @@ public class GenerateReadme extends Action {
    * Generates the README.md for this project.
    * @param args Command-line arguments.
    */
+  @SuppressWarnings("checkstyle:uncommentedmain")
   public static void main(final String... args) {
     final GenerateReadme action = new GenerateReadme(args);
     action.run();

@@ -5,8 +5,8 @@ import java.io.Serializable;
 /**
  * Specifies the necessary methods for functors that return whether nodes of
  * some type represent the final states of an automaton.
- * @param <State> Kind of the state this function accepts.
  * @author Dylon Edwards
+ * @param <State> Kind of the state this function accepts.
  * @since 2.1.0
  */
 public interface IFinalFunction<State> extends Serializable {

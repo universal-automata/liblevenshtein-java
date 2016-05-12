@@ -17,7 +17,7 @@ public class StandardPositionComparator implements Serializable, Comparator<Posi
    */
   @Override
   public int compare(final Position lhs, final Position rhs) {
-    int c = lhs.termIndex() - rhs.termIndex();
+    final int c = lhs.termIndex() - rhs.termIndex();
     if (0 != c) {
       return c;
     }

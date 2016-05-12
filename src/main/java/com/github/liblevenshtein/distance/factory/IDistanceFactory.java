@@ -7,8 +7,8 @@ import com.github.liblevenshtein.transducer.Algorithm;
 
 /**
  * Builds instances of Levenshtein distance metrics.
- * @param <Term> Type of the terms whose distances are measurable.
  * @author Dylon Edwards
+ * @param <Term> Type of the terms whose distances are measurable.
  * @since 2.1.0
  */
 public interface IDistanceFactory<Term> extends Serializable {

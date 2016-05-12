@@ -12,6 +12,21 @@ public class ComparatorAssertions<Type>
     extends AbstractAssert<ComparatorAssertions<Type>, Comparator<Type>> {
 
   /**
+   * "less-than" literal for String interpolation.
+   */
+  private static final String LESS_THAN = "less-than";
+
+  /**
+   * "equal-to" literal for String interpolation.
+   */
+  private static final String EQUAL_TO = "equal-to";
+
+  /**
+   * "greater-than" literal for String interpolation.
+   */
+  private static final String GREATER_THAN = "greater-than";
+
+  /**
    * Constructs a new {@link ComparatorAssertions} for asserting-against
    * {@link #actual}.
    * @param actual Comparator to assert-against.
@@ -77,7 +92,7 @@ public class ComparatorAssertions<Type>
     if (comparison <= 0) {
       failWithMessage(
         "Expected lhs [%s] to be [greater-than] rhs [%s], but was [%s]",
-        lhs, rhs, comparison < 0 ? "less-than" : "equal-to");
+        lhs, rhs, comparison < 0 ? LESS_THAN : EQUAL_TO);
     }
 
     return this;
@@ -102,7 +117,7 @@ public class ComparatorAssertions<Type>
     if (comparison >= 0) {
       failWithMessage(
         "Expected lhs [%s] to be [less-than] rhs [%s], but was [%s]",
-        lhs, rhs, comparison > 0 ? "greater-than" : "equal-to");
+        lhs, rhs, comparison > 0 ? GREATER_THAN : EQUAL_TO);
     }
 
     return this;

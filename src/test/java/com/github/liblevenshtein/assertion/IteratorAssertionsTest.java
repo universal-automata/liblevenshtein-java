@@ -9,16 +9,24 @@ import static com.github.liblevenshtein.assertion.IteratorAssertions.assertThat;
 
 public class IteratorAssertionsTest {
 
+  private static final String FOO = "foo";
+
+  private static final String BAR = "bar";
+
+  private static final String BAZ = "baz";
+
+  private static final String QUX = "qux";
+
   @Test
   public void testOperations() {
-    assertThat(iter("foo", "bar", "baz"))
-      .hasNext("foo")
-      .hasNext("bar")
-      .hasNext("baz")
+    assertThat(iter(FOO, BAR, BAZ))
+      .hasNext(FOO)
+      .hasNext(BAR)
+      .hasNext(BAZ)
       .doesNotHaveNext();
 
-    assertThat(iter("foo", "bar", "baz"))
-      .isEqualTo(iter("foo", "bar", "baz"));
+    assertThat(iter(FOO, BAR, BAZ))
+      .isEqualTo(iter(FOO, BAR, BAZ));
   }
 
   @Test(expectedExceptions = AssertionError.class)
@@ -28,30 +36,30 @@ public class IteratorAssertionsTest {
 
   @Test(expectedExceptions = AssertionError.class)
   public void testHasNextValueAgainstViolation() {
-    assertThat(iter("foo")).hasNext("bar");
+    assertThat(iter(FOO)).hasNext(BAR);
   }
 
   @Test(expectedExceptions = AssertionError.class)
   public void testDoesNotHaveNextAgainstViolation() {
-    assertThat(iter("foo")).doesNotHaveNext();
+    assertThat(iter(FOO)).doesNotHaveNext();
   }
 
   @Test(expectedExceptions = AssertionError.class)
   public void testIsEqualsToAgainstDifferingValues() {
-    assertThat(iter("foo", "bar", "baz"))
-      .isEqualTo(iter("foo", "bar", "qux"));
+    assertThat(iter(FOO, BAR, BAZ))
+      .isEqualTo(iter(FOO, BAR, QUX));
   }
 
   @Test(expectedExceptions = AssertionError.class)
   public void testIsEqualToAgainstTooFewValues() {
-    assertThat(iter("foo", "bar"))
-      .isEqualTo(iter("foo", "bar", "baz"));
+    assertThat(iter(FOO, BAR))
+      .isEqualTo(iter(FOO, BAR, BAZ));
   }
 
   @Test(expectedExceptions = AssertionError.class)
   public void testIsEqualToAgainstTooManyValues() {
-    assertThat(iter("foo", "bar", "baz"))
-      .isEqualTo(iter("foo", "bar"));
+    assertThat(iter(FOO, BAR, BAZ))
+      .isEqualTo(iter(FOO, BAR));
   }
 
   private Iterator<String> iter(final String... values) {

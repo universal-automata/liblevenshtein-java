@@ -23,13 +23,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import com.github.liblevenshtein.collection.dictionary.factory.DawgFactory;
+
 import static com.github.liblevenshtein.assertion.SetAssertions.assertThat;
 
 @Slf4j
 public class DawgTest {
+
   private List<String> terms;
+
   private DawgFactory dawgFactory;
+
   private Dawg emptyDawg;
+
   private Dawg fullDawg;
 
   @BeforeClass
@@ -130,8 +135,11 @@ public class DawgTest {
 
   @RequiredArgsConstructor
   private static class TermIterator implements Iterator<Object[]> {
+
     private final Iterator<String> terms;
+
     private Object[] params = null;
+
     private Object[] buffer = new Object[1];
 
     @Override

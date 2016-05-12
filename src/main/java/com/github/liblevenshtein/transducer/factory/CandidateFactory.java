@@ -10,8 +10,8 @@ import com.github.liblevenshtein.transducer.Candidate;
 /**
  * Builds spelling candidates of the requested type, optionally including the
  * distance of the candidate from the query term.
- * @param <CandidateType> Kind of spelling candidate built by this factory.
  * @author Dylon Edwards
+ * @param <CandidateType> Kind of spelling candidate built by this factory.
  * @since 2.1.2
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,7 +24,7 @@ public abstract class CandidateFactory<CandidateType> implements Serializable {
    * Levenshtein distance from the query term.
    * @param term Candidate term from the dictionary.
    * @param distance Levenshtein distance of the dictionary term from the query
-   * term.
+   *   term.
    * @return A new spelling candidate, optionally with the distance included.
    */
   public abstract CandidateType build(String term, int distance);
@@ -42,6 +42,7 @@ public abstract class CandidateFactory<CandidateType> implements Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Candidate build(final String term, final int distance) {
       return new Candidate(term, distance);
     }
@@ -60,6 +61,7 @@ public abstract class CandidateFactory<CandidateType> implements Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String build(final String term, final int distance) {
       return term;
     }

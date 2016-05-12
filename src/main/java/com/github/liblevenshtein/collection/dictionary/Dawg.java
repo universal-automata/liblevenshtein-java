@@ -31,9 +31,6 @@ public abstract class Dawg
 
   /**
    * Root node of this trie.
-   * -- GETTER --
-   * Root node of this trie.
-   * @return Root node of this trie.
    */
   @Getter
   protected DawgNode root = null;

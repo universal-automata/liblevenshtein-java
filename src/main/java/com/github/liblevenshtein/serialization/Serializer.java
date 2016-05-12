@@ -21,7 +21,7 @@ public interface Serializer {
    * @param object Object to serialize.
    * @param stream Stream into which to write the serialization.
    * @throws Exception When the object cannot be serialized
-   * (implementation-specific).
+   *   (implementation-specific).
    */
   void serialize(
       Serializable object,
@@ -32,7 +32,7 @@ public interface Serializer {
    * @param object Object to serialize.
    * @return Bytes of the serialized object.
    * @throws Exception When the object cannot be serialized
-   * (implementation-specific).
+   *   (implementation-specific).
    */
   byte[] serialize(Serializable object) throws Exception;
 
@@ -41,7 +41,7 @@ public interface Serializer {
    * @param object Object to serialize.
    * @param path Where the serialized object should be written.
    * @throws Exception When the object cannot be serialized
-   * (implementation-specific).
+   *   (implementation-specific).
    */
   void serialize(
       Serializable object,
@@ -52,7 +52,7 @@ public interface Serializer {
    * @param object Object to serialize.
    * @param file Where the serialized object should be written.
    * @throws Exception When the object cannot be serialized
-   * (implementation-specific).
+   *   (implementation-specific).
    */
   void serialize(
       Serializable object,
@@ -63,7 +63,7 @@ public interface Serializer {
    * @param object Object to serialize.
    * @param path Where the serialized object should be written.
    * @throws Exception When the object cannot be serialized
-   * (implementation-specific).
+   *   (implementation-specific).
    */
   void serialize(
       Serializable object,

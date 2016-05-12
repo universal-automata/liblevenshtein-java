@@ -38,7 +38,7 @@ public class SetAssertions<Type>
    * @param values Expected elements of the {@link #actual} set.
    * @return This {@link SetAssertions} for fluency.
    * @throws AssertionError When the {@link #actual} set is null or does not
-   * contain any of the {@link #values}.
+   *   contain any of the {@link #values}.
    */
   public SetAssertions<Type> contains(final Object... values) {
     isNotNull();
@@ -57,7 +57,7 @@ public class SetAssertions<Type>
    * @param values Elements expected not to be in the {@link #actual} set.
    * @return This {@link SetAssertions} for fluency.
    * @throws AssertionError When the {@link #actual} set is null or contains any
-   * of the {@link #values}.
+   *   of the {@link #values}.
    */
   public SetAssertions<Type> doesNotContain(final Object... values) {
     isNotNull();
@@ -76,7 +76,7 @@ public class SetAssertions<Type>
    * @param size Expected size of the {@link #actual} set.
    * @return This {@link SetAssertions} for fluency.
    * @throws AssertionError When the {@link #actual} set is null or does not
-   * have the expected size.
+   *   have the expected size.
    */
   public SetAssertions<Type> hasSize(final int size) {
     isNotNull();
@@ -93,7 +93,7 @@ public class SetAssertions<Type>
    * Asserts that {@link #actual} is empty.
    * @return This {@link SetAssertions} for fluency.
    * @throws AssertionError When the {@link #actual} set is null, its size is
-   * not zero, or {@link Set#isEmpty()} returns false.
+   *   not zero, or {@link Set#isEmpty()} returns false.
    */
   public SetAssertions<Type> isEmpty() {
     isNotNull();
@@ -114,7 +114,7 @@ public class SetAssertions<Type>
    * Asserts that {@link #actual} is not empty.
    * @return This {@link SetAssertions} for fluency.
    * @throws AssertionError When the {@link #actual} set is null, its size is
-   * non-positive, or {@link Set#isEmpty()} returns true.
+   *   non-positive, or {@link Set#isEmpty()} returns true.
    */
   public SetAssertions<Type> isNotEmpty() {
     isNotNull();
@@ -137,8 +137,8 @@ public class SetAssertions<Type>
    * @param expected Equivalent set of the actual one.
    * @return This {@link SetAssertions} for fluency.
    * @throws AssertionError When the {@link #actual} set is null,
-   * {@link Set#equals(Object)} return false, or the values of
-   * {@link Set#hashCode()} differ.
+   *   {@link Set#equals(Object)} return false, or the values of
+   *   {@link Set#hashCode()} differ.
    */
   public SetAssertions<Type> isEqualTo(final Set<Type> expected) {
     isNotNull();

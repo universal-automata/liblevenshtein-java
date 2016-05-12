@@ -24,19 +24,11 @@ public abstract class PositionTransitionFactory implements Serializable {
 
   /**
    * Builds Levenshtein states.
-   * -- SETTER --
-   * Builds Levenshtein states.
-   * @param stateFactory Builds Levenshtein states.
-   * @return This {@link PositionTransitionFactory} for fluency.
    */
   protected StateFactory stateFactory;
 
   /**
    * Builds Levenshtein positions.
-   * -- SETTER --
-   * Builds Levenshtein positions.
-   * @param positionFactory Builds Levenshtein positions.
-   * @return This {@link PositionTransitionFactory} for fluency.
    */
   protected PositionFactory positionFactory;
 

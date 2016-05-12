@@ -8,11 +8,13 @@ import static org.mockito.Mockito.when;
 
 import com.github.liblevenshtein.transducer.DistanceFunction;
 import com.github.liblevenshtein.transducer.State;
+
 import static com.github.liblevenshtein.assertion.DistanceFunctionAssertions.assertThat;
 
 public class DistanceFunctionAssertionsTest {
 
   private final ThreadLocal<DistanceFunction> distance = new ThreadLocal<>();
+
   private final ThreadLocal<State> state = new ThreadLocal<>();
 
   @BeforeMethod

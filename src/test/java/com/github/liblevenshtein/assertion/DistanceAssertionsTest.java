@@ -13,6 +13,12 @@ import static com.github.liblevenshtein.assertion.DistanceAssertions.assertThat;
 
 public class DistanceAssertionsTest {
 
+  private static final String FOO = "foo";
+
+  private static final String BAR = "bar";
+
+  private static final String BAZ = "baz";
+
   private final ThreadLocal<IDistance<String>> distance = new ThreadLocal<>();
 
   @BeforeMethod
@@ -23,23 +29,23 @@ public class DistanceAssertionsTest {
 
   @Test
   public void testEqualSelfSimilarity() {
-    when(distance.get().between("foo", "foo")).thenReturn(0);
-    when(distance.get().between("bar", "bar")).thenReturn(0);
-    assertThat(distance.get()).satisfiesEqualSelfSimilarity("foo", "bar");
+    when(distance.get().between(FOO, FOO)).thenReturn(0);
+    when(distance.get().between(BAR, BAR)).thenReturn(0);
+    assertThat(distance.get()).satisfiesEqualSelfSimilarity(FOO, BAR);
   }
 
   @Test(expectedExceptions = AssertionError.class)
   public void testEqualSelfSimilarityAgainstDifferingDistances() {
-    when(distance.get().between("foo", "foo")).thenReturn(0).thenReturn(1);
-    assertThat(distance.get()).satisfiesEqualSelfSimilarity("foo", "foo");
+    when(distance.get().between(FOO, FOO)).thenReturn(0).thenReturn(1);
+    assertThat(distance.get()).satisfiesEqualSelfSimilarity(FOO, FOO);
   }
 
   @Test
   public void testMinimality() {
-    when(distance.get().between("foo", "foo")).thenReturn(0);
-    when(distance.get().between("foo", "bar")).thenReturn(3);
-    when(distance.get().between("bar", "foo")).thenReturn(3);
-    assertThat(distance.get()).satisfiesMinimality("foo", "bar");
+    when(distance.get().between(FOO, FOO)).thenReturn(0);
+    when(distance.get().between(FOO, BAR)).thenReturn(3);
+    when(distance.get().between(BAR, FOO)).thenReturn(3);
+    assertThat(distance.get()).satisfiesMinimality(FOO, BAR);
   }
 
   @DataProvider(name = "minimalityViolations")
@@ -56,32 +62,32 @@ public class DistanceAssertionsTest {
       final int d11,
       final int d12,
       final int d21) {
-    when(distance.get().between("foo", "foo")).thenReturn(d11);
-    when(distance.get().between("foo", "bar")).thenReturn(d12);
-    when(distance.get().between("bar", "foo")).thenReturn(d21);
-    assertThat(distance.get()).satisfiesMinimality("foo", "bar");
+    when(distance.get().between(FOO, FOO)).thenReturn(d11);
+    when(distance.get().between(FOO, BAR)).thenReturn(d12);
+    when(distance.get().between(BAR, FOO)).thenReturn(d21);
+    assertThat(distance.get()).satisfiesMinimality(FOO, BAR);
   }
 
   @Test
   public void testSymmetry() {
-    when(distance.get().between("foo", "bar")).thenReturn(3);
-    when(distance.get().between("bar", "foo")).thenReturn(3);
-    assertThat(distance.get()).satisfiesSymmetry("foo", "bar");
+    when(distance.get().between(FOO, BAR)).thenReturn(3);
+    when(distance.get().between(BAR, FOO)).thenReturn(3);
+    assertThat(distance.get()).satisfiesSymmetry(FOO, BAR);
   }
 
   @Test(expectedExceptions = AssertionError.class)
   public void testSymmetryAgainstAsymmetricDistances() {
-    when(distance.get().between("foo", "bar")).thenReturn(3);
-    when(distance.get().between("bar", "foo")).thenReturn(2);
-    assertThat(distance.get()).satisfiesSymmetry("foo", "bar");
+    when(distance.get().between(FOO, BAR)).thenReturn(3);
+    when(distance.get().between(BAR, FOO)).thenReturn(2);
+    assertThat(distance.get()).satisfiesSymmetry(FOO, BAR);
   }
 
   @Test
   public void testTriangleInequality() {
-    when(distance.get().between("foo", "bar")).thenReturn(3);
-    when(distance.get().between("foo", "baz")).thenReturn(3);
-    when(distance.get().between("bar", "baz")).thenReturn(1);
-    assertThat(distance.get()).satisfiesTriangleInequality("foo", "bar", "baz");
+    when(distance.get().between(FOO, BAR)).thenReturn(3);
+    when(distance.get().between(FOO, BAZ)).thenReturn(3);
+    when(distance.get().between(BAR, BAZ)).thenReturn(1);
+    assertThat(distance.get()).satisfiesTriangleInequality(FOO, BAR, BAZ);
   }
 
   @DataProvider(name = "triangleInequalityViolations")
@@ -99,21 +105,21 @@ public class DistanceAssertionsTest {
       final int d12,
       final int d13,
       final int d23) {
-    when(distance.get().between("foo", "bar")).thenReturn(d12);
-    when(distance.get().between("foo", "baz")).thenReturn(d13);
-    when(distance.get().between("bar", "baz")).thenReturn(d23);
-    assertThat(distance.get()).satisfiesTriangleInequality("foo", "bar", "baz");
+    when(distance.get().between(FOO, BAR)).thenReturn(d12);
+    when(distance.get().between(FOO, BAZ)).thenReturn(d13);
+    when(distance.get().between(BAR, BAZ)).thenReturn(d23);
+    assertThat(distance.get()).satisfiesTriangleInequality(FOO, BAR, BAZ);
   }
 
   @Test
   public void testHasDistance() {
-    when(distance.get().between("foo", "bar")).thenReturn(3);
-    assertThat(distance.get()).hasDistance(3, "foo", "bar");
+    when(distance.get().between(FOO, BAR)).thenReturn(3);
+    assertThat(distance.get()).hasDistance(3, FOO, BAR);
   }
 
   @Test(expectedExceptions = AssertionError.class)
   public void testHasDistanceAgainstViolation() {
-    when(distance.get().between("foo", "bar")).thenReturn(3);
-    assertThat(distance.get()).hasDistance(2, "foo", "bar");
+    when(distance.get().between(FOO, BAR)).thenReturn(3);
+    assertThat(distance.get()).hasDistance(2, FOO, BAR);
   }
 }

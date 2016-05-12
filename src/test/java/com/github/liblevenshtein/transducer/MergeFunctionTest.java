@@ -8,7 +8,9 @@ import com.github.liblevenshtein.transducer.factory.PositionFactory;
 import com.github.liblevenshtein.transducer.factory.StateFactory;
 
 public class MergeFunctionTest {
+
   private final StateFactory stateFactory = new StateFactory();
+
   private final PositionFactory positionFactory = new PositionFactory();
 
   @Test

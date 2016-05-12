@@ -9,15 +9,21 @@ import static org.mockito.Mockito.when;
 import com.github.liblevenshtein.transducer.Position;
 import com.github.liblevenshtein.transducer.StandardPositionTransitionFunction;
 import com.github.liblevenshtein.transducer.State;
+
 import static com.github.liblevenshtein.assertion.StandardPositionTransitionFunctionAssertions.assertThat;
 
 public class StandardPositionTransitionFunctionAssertionsTest {
+
   private static final int N = 2;
+
   private static final Position POSITION = new Position(0, 0);
+
   private static final boolean[] CHARACTERISTIC_VECTOR = {true, false};
+
   private static final int OFFSET = 0;
 
   private final ThreadLocal<StandardPositionTransitionFunction> transition = new ThreadLocal<>();
+
   private final State output = mock(State.class);
 
   @BeforeMethod

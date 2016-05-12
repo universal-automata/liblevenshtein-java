@@ -6,16 +6,21 @@ import com.github.liblevenshtein.transducer.factory.PositionFactory;
 import com.github.liblevenshtein.transducer.factory.StateFactory;
 
 public abstract class AbstractPositionTransitionFunctionTest {
+
   protected static final int N = 3; // max number of errors
+
   protected static final int W = 4; // length of characteristic vector
 
   protected final PositionTransitionFunction transition = buildTransition();
 
   protected final StateFactory stateFactory = new StateFactory();
+
   protected final PositionFactory positionFactory = new PositionFactory();
 
   protected int i = 0;
+
   protected int e = 0;
+
   protected boolean x = false;
 
   protected AbstractPositionTransitionFunctionTest() {
