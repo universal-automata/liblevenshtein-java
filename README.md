@@ -64,6 +64,9 @@ on the rate at which I've been closing them.
 [![Tasks ready to be worked on][waffle-io-ready-badge]][waffle-io-link]
 [![Tasks being worked on][waffle-io-in-progress-badge]][waffle-io-link]
 
+Please visit [Bountysource][bountysource-link] to pledge your support for
+ongoing issues.
+
 ### Documentation
 
 When it comes to documentation, you have several options:
@@ -106,46 +109,46 @@ Add a Maven dependency on one of the following:
 <dependency>
   <groupId>com.github.universal-automata</groupId>
   <artifactId>liblevenshtein</artifactId>
-  <version>3.0.0-beta.1</version>
+  <version>3.0.0-rc.1</version>
 </dependency>
 ```
 
 ##### Apache Buildr
 
 ```ruby
-'com.github.universal-automata:liblevenshtein:jar:3.0.0-beta.1'
+'com.github.universal-automata:liblevenshtein:jar:3.0.0-rc.1'
 ```
 
 ##### Apache Ivy
 
 ```xml
-<dependency org="com.github.universal-automata" name="liblevenshtein" rev="3.0.0-beta.1" />
+<dependency org="com.github.universal-automata" name="liblevenshtein" rev="3.0.0-rc.1" />
 ```
 
 ##### Groovy Grape
 
 ```groovy
 @Grapes(
-@Grab(group='com.github.universal-automata', module='liblevenshtein', version='3.0.0-beta.1')
+@Grab(group='com.github.universal-automata', module='liblevenshtein', version='3.0.0-rc.1')
 )
 ```
 
 ##### Gradle / Grails
 
 ```groovy
-compile 'com.github.universal-automata:liblevenshtein:3.0.0-beta.1'
+compile 'com.github.universal-automata:liblevenshtein:3.0.0-rc.1'
 ```
 
 ##### Scala SBT
 
 ```scala
-libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "3.0.0-beta.1"
+libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "3.0.0-rc.1"
 ```
 
 ##### Leiningen
 
 ```clojure
-[com.github.universal-automata/liblevenshtein "3.0.0-beta.1"]
+[com.github.universal-automata/liblevenshtein "3.0.0-rc.1"]
 ```
 
 ##### Git
@@ -153,11 +156,11 @@ libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "3.0
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-remote: Counting objects: 7044, done.        
-remote: Compressing objects: 100% (1438/1438), done.        
-remote: Total 7044 (delta 1163), reused 0 (delta 0), pack-reused 5539        
-Receiving objects: 100% (7044/7044), 4.55 MiB | 509.00 KiB/s, done.
-Resolving deltas: 100% (4478/4478), done.
+remote: Counting objects: 7242, done.        
+remote: Compressing objects: 100% (1630/1630), done.        
+remote: Total 7242 (delta 1329), reused 0 (delta 0), pack-reused 5539        
+Receiving objects: 100% (7242/7242), 4.57 MiB | 5.21 MiB/s, done.
+Resolving deltas: 100% (4644/4644), done.
 Checking connectivity... done.
 
 % cd liblevenshtein-java
@@ -316,10 +319,10 @@ Petar Nikolaev Mitankin:
 [Fast String Correction with Levenshtein-Automata][fast-string-correction-2002].
 For more information, please see the [wiki][wiki].
 
-[top-20-most-common-english-words.txt]: https://raw.githubusercontent.com/universal-automata/liblevenshtein-java/3.0.0-beta.1/src/test/resources/top-20-most-common-english-words.txt "top-20-most-common-english-words.txt"
+[top-20-most-common-english-words.txt]: https://raw.githubusercontent.com/universal-automata/liblevenshtein-java/3.0.0-rc.1/src/test/resources/top-20-most-common-english-words.txt "top-20-most-common-english-words.txt"
 
-[artifactory-badge]: https://img.shields.io/badge/artifactory-v3.0.0--beta.1-yellow.svg?style=flat
-[artifactory-link]: https://oss.jfrog.org/artifactory/webapp/#/artifacts/browse/tree/General/oss-release-local/com/github/universal-automata/liblevenshtein/3.0.0-beta.1 "Latest, development release (Artifactory)"
+[artifactory-badge]: https://img.shields.io/badge/artifactory-v3.0.0--rc.1-yellowgreen.svg?style=flat
+[artifactory-link]: https://oss.jfrog.org/artifactory/webapp/#/artifacts/browse/tree/General/oss-release-local/com/github/universal-automata/liblevenshtein/3.0.0-rc.1 "Latest, development release (Artifactory)"
 [bintray-badge]: https://img.shields.io/bintray/v/universal-automata/liblevenshtein/liblevenshtein-java.svg?style=flat
 [bintray-link]: https://bintray.com/universal-automata/liblevenshtein/liblevenshtein-java/_latestVersion "Latest, stable release (Bintray)"
 [bintray-watch-img]: https://www.bintray.com/docs/images/bintray_badge_color.png
@@ -389,9 +392,9 @@ For more information, please see the [wiki][wiki].
 [release-branch-3.x]: https://github.com/universal-automata/liblevenshtein-java/tree/release-3.x "universal-automata/liblevenshtein-java/release-3.x"
 [release-branch-2.x]: https://github.com/universal-automata/liblevenshtein-java/tree/release-2.x "universal-automata/liblevenshtein-java/release-2.x"
 
-[wiki]: https://github.com/universal-automata/liblevenshtein-java/blob/gh-pages/docs/wiki/3.0.0-beta.1/index.md "liblevenshtein 3.0.0-beta.1 Wiki"
-[javadoc]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-beta.1/index.html "liblevenshtein 3.0.0-beta.1 API"
-[tagged-source]: https://github.com/universal-automata/liblevenshtein-java/tree/3.0.0-beta.1/src "liblevenshtein 3.0.0-beta.1"
+[wiki]: https://github.com/universal-automata/liblevenshtein-java/blob/gh-pages/docs/wiki/3.0.0-rc.1/index.md "liblevenshtein 3.0.0-rc.1 Wiki"
+[javadoc]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-rc.1/index.html "liblevenshtein 3.0.0-rc.1 API"
+[tagged-source]: https://github.com/universal-automata/liblevenshtein-java/tree/3.0.0-rc.1/src "liblevenshtein 3.0.0-rc.1"
 
 [java-lib]: https://github.com/universal-automata/liblevenshtein-java "liblevenshtein-java"
 [java-cli]: https://github.com/universal-automata/liblevenshtein-java-cli "liblevenshtein-java-cli"
@@ -402,27 +405,27 @@ For more information, please see the [wiki][wiki].
 [javadoc/Iterator]: https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html "java.util.Iterator"
 [javadoc/String]: https://docs.oracle.com/javase/8/docs/api/java/lang/String.html "java.lang.String"
 
-[javadoc/Algorithm.MERGE_AND_SPLIT]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-beta.1/com/github/liblevenshtein/transducer/Algorithm.html#MERGE_AND_SPLIT "Algorithm.MERGE_AND_SPLIT"
-[javadoc/Algorithm.STANDARD]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-beta.1/com/github/liblevenshtein/transducer/Algorithm.html#STANDARD "Algorithm.STANDARD"
-[javadoc/Algorithm.TRANSPOSITION]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-beta.1/com/github/liblevenshtein/transducer/Algorithm.html#TRANSPOSITION "Algorithm.TRANSPOSITION"
-[javadoc/ITransducer.transduce(String)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-beta.1/com/github/liblevenshtein/transducer/ITransducer.html#transduce-java.lang.String- "ITransducer.transduce(String):Iterable"
-[javadoc/ITransducer.transduce(String,int)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-beta.1/com/github/liblevenshtein/transducer/ITransducer.html#transduce-java.lang.String-int- "ITransducer.transduce(String,int):Iterable"
-[javadoc/MemoizedMergeAndSplit.between(String,String)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-beta.1/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.html "MemoizedMergeAndSplit.between(String,String):int"
-[javadoc/MemoizedStandard.between(String,String)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-beta.1/com/github/liblevenshtein/distance/MemoizedStandard.html "MemoizedStandard.between(String,String):int"
-[javadoc/MemoizedTransposition.between(String,String)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-beta.1/com/github/liblevenshtein/distance/MemoizedTransposition.html "MemoizedTransposition.between(String,String):int"
-[javadoc/TransducerBuilder.algorithm(Algorithm)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-beta.1/com/github/liblevenshtein/transducer/factory/TransducerBuilder.html#algorithm-com.github.liblevenshtein.Algorithm- "TransducerBuilder.algorithm(Algorithm):TransducerBuilder"
-[javadoc/TransducerBuilder.build()]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-beta.1/com/github/liblevenshtein/transducer/factory/TransducerBuilder.html#build-- "TransducerBuilder.build():ITransducer"
-[javadoc/TransducerBuilder.defaultMaxDistance(int)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-beta.1/com/github/liblevenshtein/transducer/factory/TransducerBuilder.html#defaultMaxDistance-int- "TransducerBuilder.defaultMaxDistance(int):TransducerBuilder"
-[javadoc/TransducerBuilder.dictionary(Collection)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-beta.1/com/github/liblevenshtein/transducer/factory/TransducerBuilder.html#dictionary-java.util.Collection- "TransducerBuilder.dictionary(Collection):TransducerBuilder"
-[javadoc/TransducerBuilder.dictionary(Collection,boolean)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-beta.1/com/github/liblevenshtein/transducer/factory/TransducerBuilder.html#dictionary-java.util.Collection-boolean- "TransducerBuilder.dictionary(Collection,boolean):TransducerBuilder"
-[javadoc/TransducerBuilder.includeDistance(boolean)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-beta.1/com/github/liblevenshtein/transducer/factory/TransducerBuilder.html#includeDistance-boolean- "TransducerBuilder.includeDistance(boolean):TransducerBuilder"
+[javadoc/Algorithm.MERGE_AND_SPLIT]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-rc.1/com/github/liblevenshtein/transducer/Algorithm.html#MERGE_AND_SPLIT "Algorithm.MERGE_AND_SPLIT"
+[javadoc/Algorithm.STANDARD]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-rc.1/com/github/liblevenshtein/transducer/Algorithm.html#STANDARD "Algorithm.STANDARD"
+[javadoc/Algorithm.TRANSPOSITION]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-rc.1/com/github/liblevenshtein/transducer/Algorithm.html#TRANSPOSITION "Algorithm.TRANSPOSITION"
+[javadoc/ITransducer.transduce(String)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-rc.1/com/github/liblevenshtein/transducer/ITransducer.html#transduce-java.lang.String- "ITransducer.transduce(String):Iterable"
+[javadoc/ITransducer.transduce(String,int)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-rc.1/com/github/liblevenshtein/transducer/ITransducer.html#transduce-java.lang.String-int- "ITransducer.transduce(String,int):Iterable"
+[javadoc/MemoizedMergeAndSplit.between(String,String)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-rc.1/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.html "MemoizedMergeAndSplit.between(String,String):int"
+[javadoc/MemoizedStandard.between(String,String)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-rc.1/com/github/liblevenshtein/distance/MemoizedStandard.html "MemoizedStandard.between(String,String):int"
+[javadoc/MemoizedTransposition.between(String,String)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-rc.1/com/github/liblevenshtein/distance/MemoizedTransposition.html "MemoizedTransposition.between(String,String):int"
+[javadoc/TransducerBuilder.algorithm(Algorithm)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-rc.1/com/github/liblevenshtein/transducer/factory/TransducerBuilder.html#algorithm-com.github.liblevenshtein.Algorithm- "TransducerBuilder.algorithm(Algorithm):TransducerBuilder"
+[javadoc/TransducerBuilder.build()]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-rc.1/com/github/liblevenshtein/transducer/factory/TransducerBuilder.html#build-- "TransducerBuilder.build():ITransducer"
+[javadoc/TransducerBuilder.defaultMaxDistance(int)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-rc.1/com/github/liblevenshtein/transducer/factory/TransducerBuilder.html#defaultMaxDistance-int- "TransducerBuilder.defaultMaxDistance(int):TransducerBuilder"
+[javadoc/TransducerBuilder.dictionary(Collection)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-rc.1/com/github/liblevenshtein/transducer/factory/TransducerBuilder.html#dictionary-java.util.Collection- "TransducerBuilder.dictionary(Collection):TransducerBuilder"
+[javadoc/TransducerBuilder.dictionary(Collection,boolean)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-rc.1/com/github/liblevenshtein/transducer/factory/TransducerBuilder.html#dictionary-java.util.Collection-boolean- "TransducerBuilder.dictionary(Collection,boolean):TransducerBuilder"
+[javadoc/TransducerBuilder.includeDistance(boolean)]: http://universal-automata.github.io/liblevenshtein-java/docs/javadoc/3.0.0-rc.1/com/github/liblevenshtein/transducer/factory/TransducerBuilder.html#includeDistance-boolean- "TransducerBuilder.includeDistance(boolean):TransducerBuilder"
 
 [src/Candidate]: https://github.com/universal-automata/liblevenshtein-java/blob/master/src/main/java/com/github/liblevenshtein/transducer/Candidate.java "Candidate.java"
-[src/ITransducer]: https://github.com/universal-automata/liblevenshtein-java/blob/3.0.0-beta.1/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java "TransducerBuilder.java"
-[src/TransducerBuilder.java]: https://github.com/universal-automata/liblevenshtein-java/blob/3.0.0-beta.1/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java "TransducerBuilder.java"
-[src/build.gradle]: https://github.com/universal-automata/liblevenshtein-java/blob/3.0.0-beta.1/build.gradle "build.gradle"
+[src/ITransducer]: https://github.com/universal-automata/liblevenshtein-java/blob/3.0.0-rc.1/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java "TransducerBuilder.java"
+[src/TransducerBuilder.java]: https://github.com/universal-automata/liblevenshtein-java/blob/3.0.0-rc.1/src/main/java/com/github/liblevenshtein/transducer/factory/TransducerBuilder.java "TransducerBuilder.java"
+[src/build.gradle]: https://github.com/universal-automata/liblevenshtein-java/blob/3.0.0-rc.1/build.gradle "build.gradle"
 
-[top-20-most-common-english-words.txt]: https://raw.githubusercontent.com/universal-automata/liblevenshtein-java/3.0.0-beta.1/src/test/resources/top-20-most-common-english-words.txt "top-20-most-common-english-words.txt"
+[top-20-most-common-english-words.txt]: https://raw.githubusercontent.com/universal-automata/liblevenshtein-java/3.0.0-rc.1/src/test/resources/top-20-most-common-english-words.txt "top-20-most-common-english-words.txt"
 
 [maven-repo]: https://repo1.maven.org/maven2 "Maven Central repository"
 [jcenter-repo]: https://jcenter.bintray.com "JCenter repository"
