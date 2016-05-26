@@ -8,7 +8,6 @@
 [![Artifactory][artifactory-badge]][artifactory-link]
 [![License][license-badge]][license-link]
 [![Build Status][travis-ci-badge]][travis-ci-link]
-[![Codacy Badge][codacy-badge]][codacy-link]
 [![Coverage Status][coveralls-badge]][coveralls-link]
 [![Coverity Scan Build Status][coverity-badge]][coverity-link]
 [![Dependency Status][versioneye-badge]][versioneye-link]
@@ -156,11 +155,10 @@ libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "3.0
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-remote: Counting objects: 7242, done.        
-remote: Compressing objects: 100% (1630/1630), done.        
-remote: Total 7242 (delta 1329), reused 0 (delta 0), pack-reused 5539        
-Receiving objects: 100% (7242/7242), 4.57 MiB | 5.21 MiB/s, done.
-Resolving deltas: 100% (4644/4644), done.
+remote: Counting objects: 7571, done.        
+remote: Total 7571 (delta 0), reused 0 (delta 0), pack-reused 7571        
+Receiving objects: 100% (7571/7571), 5.15 MiB | 175.00 KiB/s, done.
+Resolving deltas: 100% (4986/4986), done.
 Checking connectivity... done.
 
 % cd liblevenshtein-java
@@ -329,8 +327,6 @@ For more information, please see the [wiki][wiki].
 [bintray-watch-link]: https://bintray.com/universal-automata/liblevenshtein/liblevenshtein-java/view?source=watch 'Get automatic notifications about new "liblevenshtein-java" versions'
 [bountysource-badge]: https://img.shields.io/bountysource/team/universal-automata/activity.svg?style=flat
 [bountysource-link]: https://www.bountysource.com/teams/universal-automata "Create and pledge bounties"
-[codacy-badge]: https://api.codacy.com/project/badge/Grade/ad002473702c4d0b8532a6ba38af2010
-[codacy-link]: https://www.codacy.com/app/dylon-devo-github/liblevenshtein-java?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=universal-automata/liblevenshtein-java&amp;utm_campaign=Badge_Grade "Code health"
 [coveralls-badge]: https://coveralls.io/repos/github/universal-automata/liblevenshtein-java/badge.svg?branch=master
 [coveralls-link]: https://coveralls.io/github/universal-automata/liblevenshtein-java?branch=master "Unit test, code coverage"
 [coverity-badge]: https://img.shields.io/coverity/scan/8476.svg

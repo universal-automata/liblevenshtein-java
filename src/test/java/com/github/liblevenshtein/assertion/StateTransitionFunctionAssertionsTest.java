@@ -41,7 +41,6 @@ public class StateTransitionFunctionAssertionsTest {
 
   @Test(expectedExceptions = AssertionError.class)
   public void testTransitionsToAgainstInvalidTransition() {
-    when(transition.get().of(input, characteristicVector)).thenReturn(output);
-    assertThat(transition.get()).transitionsTo(output, null, characteristicVector);
+    assertThat(transition.get()).transitionsTo(output, input, characteristicVector);
   }
 }

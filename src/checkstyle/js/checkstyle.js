@@ -1,23 +1,42 @@
+/*global
+    $,
+    window,
+ */
+
+/*jslint
+    browser: true,
+    multivar: true,
+    this: true,
+ */
+
 $(function ($) {
-  "use strict";
+    "use strict";
 
-  $.fn.selectOnClick = function () {
-    return $(this).on('click', function (event) {
-      var range, selection;
+    var selectText = function () {
+        if (window.getSelection) {
+            return function () {
+                var range, selection;
+                selection = window.getSelection();
+                range = document.createRange();
+                range.selectNodeContents(this);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            };
+        }
 
-      if (window.getSelection) {
-        selection = window.getSelection();
-        range = document.createRange();
-        range.selectNodeContents(this);
-        selection.removeAllRanges();
-        selection.addRange(range);
-      } else if (document.body.createTextRange) {
-        range = document.body.createTextRange();
-        range.moveToElementText(this);
-        range.select();
-      }
-    });
-  };
+        if (document.body.createTextRange) {
+            return function () {
+                var range;
+                range = document.body.createTextRange();
+                range.moveToElementText(this);
+                range.select();
+            };
+        }
 
-  $('.highlight-click').selectOnClick();
+        return $.noop;
+    };
+
+    $('span.highlight-click').on('click', selectText());
 });
+
+// vim: set ft=javascript ts=4 sw=4 et sta:

@@ -402,6 +402,7 @@ bintray {
     labels = [
       'approximate string matching',
       'automata',
+      'bioinformatics',
       'computational biology',
       'computer science',
       'data science',

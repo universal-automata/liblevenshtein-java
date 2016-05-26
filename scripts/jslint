@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -ev
+
+source "$(dirname "$0")/functions"
+
+which git || fail "git is not installed"
+which node || fail "node is not installed"
+
+declare -r JSLINT_UTILS_HOME="${JSLINT_UTILS_HOME:-$HOME}"
+declare -r JSLINT_UTILS_DIR="$JSLINT_UTILS_HOME/jslint-utils"
+declare -r NODE_JSLINT_JS="$JSLINT_UTILS_DIR/lib/node_jslint.js"
+
+for JS_FILE in "$@"; do
+  echo node "$NODE_JSLINT_JS" "$JS_FILE"
+  node "$NODE_JSLINT_JS" "$JS_FILE"
+done
+
+# vim: set ft=sh ts=2 sw=2 et sta:

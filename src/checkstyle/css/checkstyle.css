@@ -3,46 +3,59 @@ ul {
   padding: 0;
   margin: 0;
 }
+
 table {
+  box-sizing: border-box;
   width: 100%;
   margin-top: 0.2em;
   border: 0.1em solid #888;
   border-right: none;
 }
+
 th.line {
   width: 5%;
 }
+
 th.column {
   width: 5%;
 }
+
 th.severity {
   width: 5%;
 }
+
 th.message {
   width: 70%;
 }
+
 th.source {
   width: 15%;
 }
+
 th {
   background-color: #A0A0A0;
   color: #F8F8F8;
 }
+
 tbody tr:nth-child(odd) {
   background-color: #F8F8F8;
 }
+
 tbody tr:nth-child(even) {
   background-color: #D8D8D8;
 }
+
 td, th {
   border-bottom: 0.1em solid #888;
   border-right: 0.1em solid #888;
   padding-left: 0.2em;
   padding-right: 0.2em;
 }
+
 tbody tr:last-child td {
   border-bottom: none;
 }
+
 div.file-errors {
   font-family: monospace;
   font-size: large;
@@ -54,13 +67,16 @@ div.file-errors {
   border: 0.1em solid #888;
   text-align: center;
 }
+
 li.file {
   margin-top: 1em;
   margin-bottom: 1em;
 }
+
 td.message {
   font-style: italic;
 }
+
 div.num-errors {
   margin-top: 0.2em;
   margin-bottom: 0.2em;

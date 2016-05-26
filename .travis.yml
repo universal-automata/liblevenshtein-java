@@ -18,21 +18,19 @@ env:
     - secure: "UMB7QXXN0PWHf/cyfpnBGDCou0cojU/a03dtuXX0Bb+Ijyq4R2GtAY9kX8H+bLZx16CX5J7ZNVallx87aLuHB95XmigDeOhEP+RYaI7P81O9tKpgrhbSg7rn9jBEQsQuns73EF7kMgUdbCZQ0OxYheVMQ8U+MR7U37vHtySmUwQ="
     # BINTRAY_API_KEY
     - secure: "hitcVHPfo0ztYCLQY0fkVZuZWb6z5uhi/zdSesQBZLBI2LE4nU85pbZqkde1faA4EMYHpRHsazJ+Ec7KhOuTGJGpbEvMYzjUvxSPXjTqag8e6P4KHaEWAXFg9dfNuiPIOUVDs+xOZMQ00pNKAtEFbJ0frpkoj5FBWHMEWmR3XIA="
-    # CODACY_PROJECT_TOKEN (https://github.com/codacy/codacy-coverage-reporter#setup)
-    - secure: "lZxQdwYe2PmyjZAmG7K6XUD6IX6HNgCrVGmvOOhr7Yk/KmqyvnICX9NwTI6ImT2QL+NeoM+ZDVecAhyRXKvtaTcyJap1cUxung778cMzoEfjXCtHAqVXZsfTNdPApmAzkECQO5zpRas0WNs4oqBtOTHTyE58eP04+tBp7AqqpVU="
 matrix:
   # A build will finish as soon as a job has failed, rather than running the
   # remaining jobs and accumulating failures.
   fast_finish: true
 before_install:
-  - curl -sL https://github.com/jpm4j/jpm4j.installers/raw/master/dist/biz.aQute.jpm.run.jar > jpm4j.jar
-  - java -jar jpm4j.jar -u init
-  - ~/jpm/bin/jpm install com.codacy:codacy-coverage-reporter:assembly
+  - npm install csslint
+  - git clone https://github.com/dylon/jslint-utils.git "$HOME/jslint-utils"
 script: if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then ./gradlew clean build; fi
 after_success:
+  - ./scripts/csslint --ignore=overqualified-elements,box-sizing src/checkstyle/css/checkstyle.css
+  - ./scripts/jslint src/checkstyle/js/checkstyle.js
   - ./gradlew check
   - ./gradlew jacocoTestReport
-  - ~/jpm/bin/codacy-coverage-reporter -l Java -r build/reports/jacoco/test/jacocoTestReport.xml
   - ./gradlew coveralls
   - ./gradlew versionEyeSecurityCheck
   - ./gradlew versionEyeLicenseCheck

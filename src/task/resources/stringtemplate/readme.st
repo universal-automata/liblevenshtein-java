@@ -9,7 +9,6 @@ readme(project, cmd) ::= <<
 [![Artifactory][artifactory-badge]][artifactory-link]
 [![License][license-badge]][license-link]
 [![Build Status][travis-ci-badge]][travis-ci-link]
-[![Codacy Badge][codacy-badge]][codacy-link]
 [![Coverage Status][coveralls-badge]][coveralls-link]
 [![Coverity Scan Build Status][coverity-badge]][coverity-link]
 [![Dependency Status][versioneye-badge]][versioneye-link]
@@ -108,8 +107,6 @@ For more information, please see the [wiki][wiki].
 [bintray-watch-link]: https://bintray.com/universal-automata/liblevenshtein/liblevenshtein-java/view?source=watch 'Get automatic notifications about new "liblevenshtein-java" versions'
 [bountysource-badge]: https://img.shields.io/bountysource/team/universal-automata/activity.svg?style=flat
 [bountysource-link]: https://www.bountysource.com/teams/universal-automata "Create and pledge bounties"
-[codacy-badge]: https://api.codacy.com/project/badge/Grade/ad002473702c4d0b8532a6ba38af2010
-[codacy-link]: https://www.codacy.com/app/dylon-devo-github/liblevenshtein-java?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=universal-automata/liblevenshtein-java&amp;utm_campaign=Badge_Grade "Code health"
 [coveralls-badge]: https://coveralls.io/repos/github/universal-automata/liblevenshtein-java/badge.svg?branch=master
 [coveralls-link]: https://coveralls.io/github/universal-automata/liblevenshtein-java?branch=master "Unit test, code coverage"
 [coverity-badge]: https://img.shields.io/coverity/scan/8476.svg
