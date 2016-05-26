@@ -155,10 +155,9 @@ libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "3.0
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-
 remote: Counting objects: 7571, done.        
 remote: Total 7571 (delta 0), reused 0 (delta 0), pack-reused 7571        
-Receiving objects: 100% (7571/7571), 5.15 MiB | 134.00 KiB/s, done.
+Receiving objects: 100% (7571/7571), 5.15 MiB | 140.00 KiB/s, done.
 Resolving deltas: 100% (4986/4986), done.
 Checking connectivity... done.
 
