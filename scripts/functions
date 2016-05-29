@@ -2,7 +2,11 @@
 
 set -ev
 
-declare -r GRADLEW="$(dirname $0)/../gradlew"
+if [[ "$(dirname "$0")" =~ ^/.*$ ]]; then
+  export GRADLEW="$(dirname "$0")/../gradlew"
+else
+  export GRADLEW="$PWD/$(dirname "$0")/../gradlew"
+fi
 
 function assert-changes-committed() {
   echo "Checking for uncommitted changes ..."

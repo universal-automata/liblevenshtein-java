@@ -30,10 +30,7 @@ public class Issue2RegrTest {
       .dictionary(terms)
       .build();
 
-    for (final Candidate candidate : transducer.transduce("foo")) {
-      if ("foo".equals(candidate.term())) {
-        assertThat(candidate.distance()).isEqualTo(0);
-      }
-    }
+    final Iterable<Candidate> candidates = transducer.transduce("foo");
+    assertThat(candidates).contains(new Candidate("foo", 0));
   }
 }
