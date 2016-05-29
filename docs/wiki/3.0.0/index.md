@@ -105,11 +105,11 @@ libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "3.0
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-remote: Counting objects: 7914, done.        
-remote: Compressing objects: 100% (275/275), done.        
-remote: Total 7914 (delta 189), reused 0 (delta 0), pack-reused 7619        
-Receiving objects: 100% (7914/7914), 5.50 MiB | 515.00 KiB/s, done.
-Resolving deltas: 100% (5203/5203), done.
+remote: Counting objects: 8120, done.        
+remote: Compressing objects: 100% (475/475), done.        
+remote: Total 8120 (delta 354), reused 0 (delta 0), pack-reused 7619        
+Receiving objects: 100% (8120/8120), 5.52 MiB | 213.00 KiB/s, done.
+Resolving deltas: 100% (5368/5368), done.
 Checking connectivity... done.
 
 % cd liblevenshtein-java
@@ -129,7 +129,7 @@ do so (now or later) by using -b with the checkout command again. Example:
 
   git checkout -b <new-branch-name>
 
-HEAD is now at d8a4e0f... Automatically-generated documentation for version 3.0.0
+HEAD is now at f6e0a77... Automatically-generated documentation for version 3.0.0
 
 % git submodule init
 % git submodule update
@@ -156,7 +156,7 @@ Please see [Installation](installation.md) for more details.
 
 BUILD SUCCESSFUL
 
-Total time: 6.754 secs
+Total time: 6.453 secs
 
 This build could be faster, please consider using the Gradle Daemon: https://docs.gradle.org/2.13/userguide/gradle_daemon.html
 
@@ -197,29 +197,29 @@ Please see [Building](building.md) for more details.
 :processIntegResources
 :integClasses
 :checkstyleInteg
-:checkstyleMain[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: Cyclomatic Complexity is 20 (max allowed is 10). [CyclomaticComplexity]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: Executable statement count is 53 (max allowed is 30). [ExecutableStatementCount]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: NCSS for this method is 62 (max allowed is 50). [JavaNCSS]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: NPath Complexity is 38,400 (max allowed is 200). [NPathComplexity]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:23:9: Variable 'key' should be declared final. [FinalLocalVariable]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:42:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:42:52: Only one statement per line allowed. [OneStatementPerLine]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:43:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:43:52: Only one statement per line allowed. [OneStatementPerLine]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:47:26: Assignment of parameter 'v' is not allowed. [ParameterAssignment]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:47:29: Only one statement per line allowed. [OneStatementPerLine]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:47:49: Only one statement per line allowed. [OneStatementPerLine]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:48:26: Assignment of parameter 'w' is not allowed. [ParameterAssignment]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:48:29: Only one statement per line allowed. [OneStatementPerLine]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:48:49: Only one statement per line allowed. [OneStatementPerLine]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:21:3: Cyclomatic Complexity is 14 (max allowed is 10). [CyclomaticComplexity]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:21:3: Executable statement count is 42 (max allowed is 30). [ExecutableStatementCount]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:21:3: NPath Complexity is 1,536 (max allowed is 200). [NPathComplexity]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:24:9: Variable 'key' should be declared final. [FinalLocalVariable]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:43:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:43:52: Only one statement per line allowed. [OneStatementPerLine]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:44:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:44:52: Only one statement per line allowed. [OneStatementPerLine]
+:checkstyleMain[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: Cyclomatic Complexity is 20 (max allowed is 10). [CyclomaticComplexity]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: Executable statement count is 53 (max allowed is 30). [ExecutableStatementCount]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: NCSS for this method is 62 (max allowed is 50). [JavaNCSS]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: NPath Complexity is 38,400 (max allowed is 200). [NPathComplexity]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:23:9: Variable 'key' should be declared final. [FinalLocalVariable]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:42:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:42:52: Only one statement per line allowed. [OneStatementPerLine]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:43:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:43:52: Only one statement per line allowed. [OneStatementPerLine]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:47:26: Assignment of parameter 'v' is not allowed. [ParameterAssignment]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:47:29: Only one statement per line allowed. [OneStatementPerLine]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:47:49: Only one statement per line allowed. [OneStatementPerLine]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:48:26: Assignment of parameter 'w' is not allowed. [ParameterAssignment]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:48:29: Only one statement per line allowed. [OneStatementPerLine]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:48:49: Only one statement per line allowed. [OneStatementPerLine]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:21:3: Cyclomatic Complexity is 14 (max allowed is 10). [CyclomaticComplexity]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:21:3: Executable statement count is 42 (max allowed is 30). [ExecutableStatementCount]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:21:3: NPath Complexity is 1,536 (max allowed is 200). [NPathComplexity]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:24:9: Variable 'key' should be declared final. [FinalLocalVariable]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:43:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:43:52: Only one statement per line allowed. [OneStatementPerLine]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:44:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:44:52: Only one statement per line allowed. [OneStatementPerLine]
 # ... TRUNCATED ...
 
 

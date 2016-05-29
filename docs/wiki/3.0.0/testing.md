@@ -21,41 +21,41 @@ Run `gradle test`:
 
 :processTestResources
 :testClasses
-:testobjc[64879]: Class JavaLaunchHelper is implemented in both /Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home/bin/java and /Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home/jre/lib/libinstrument.dylib. One of the two will be used. Which one is undefined.
+:testobjc[67138]: Class JavaLaunchHelper is implemented in both /Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home/bin/java and /Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home/jre/lib/libinstrument.dylib. One of the two will be used. Which one is undefined.
 
 
 Gradle suite > Gradle test STANDARD_OUT
-    20:22:49.541 [Test worker] [34mINFO [0;39m [36mc.g.l.s.AbstractSerializer[0;39m - Deserilizing instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from url [file:/private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/build/resources/test/programming-languages.protobuf.bytes]
-    20:22:49.546 [Test worker] [34mINFO [0;39m [36mc.g.l.s.ProtobufSerializer[0;39m - Deserializing an instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from a stream
-    20:22:49.591 [Test worker] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [673] terms with isSorted [false], algorithm [MERGE_AND_SPLIT], defaultMaxDistance [3], and includeDistance [true]
-    20:22:49.598 [Test worker] [34mINFO [0;39m [36mc.g.l.s.AbstractSerializer[0;39m - Deserilizing instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from url [file:/private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/build/resources/test/programming-languages.protobuf.bytes]
-    20:22:49.598 [Test worker] [34mINFO [0;39m [36mc.g.l.s.ProtobufSerializer[0;39m - Deserializing an instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from a stream
-    20:22:49.604 [Test worker] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [673] terms with isSorted [true], algorithm [STANDARD], defaultMaxDistance [3], and includeDistance [true]
-    20:22:49.606 [Test worker] [34mINFO [0;39m [36mc.g.l.s.AbstractSerializer[0;39m - Deserilizing instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from url [file:/private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/build/resources/test/programming-languages.protobuf.bytes]
-    20:22:49.606 [Test worker] [34mINFO [0;39m [36mc.g.l.s.ProtobufSerializer[0;39m - Deserializing an instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from a stream
-    20:22:49.611 [Test worker] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [673] terms with isSorted [false], algorithm [TRANSPOSITION], defaultMaxDistance [3], and includeDistance [true]
-    20:22:49.829 [pool-1-thread-8] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [10000] of [109582] terms
-    20:22:49.867 [pool-1-thread-8] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [20000] of [109582] terms
-    20:22:49.900 [pool-1-thread-8] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [30000] of [109582] terms
-    20:22:49.919 [pool-1-thread-8] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [40000] of [109582] terms
-    20:22:49.936 [pool-1-thread-8] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [50000] of [109582] terms
-    20:22:49.954 [pool-1-thread-8] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [60000] of [109582] terms
-    20:22:49.977 [pool-1-thread-8] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [70000] of [109582] terms
-    20:22:49.998 [pool-1-thread-8] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [80000] of [109582] terms
-    20:22:50.024 [pool-1-thread-8] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [90000] of [109582] terms
-    20:22:50.052 [pool-1-thread-8] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [100000] of [109582] terms
+    20:51:11.705 [Test worker] [34mINFO [0;39m [36mc.g.l.s.AbstractSerializer[0;39m - Deserilizing instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from url [file:/private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/build/resources/test/programming-languages.protobuf.bytes]
+    20:51:11.710 [Test worker] [34mINFO [0;39m [36mc.g.l.s.ProtobufSerializer[0;39m - Deserializing an instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from a stream
+    20:51:11.756 [Test worker] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [673] terms with isSorted [false], algorithm [MERGE_AND_SPLIT], defaultMaxDistance [3], and includeDistance [true]
+    20:51:11.762 [Test worker] [34mINFO [0;39m [36mc.g.l.s.AbstractSerializer[0;39m - Deserilizing instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from url [file:/private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/build/resources/test/programming-languages.protobuf.bytes]
+    20:51:11.762 [Test worker] [34mINFO [0;39m [36mc.g.l.s.ProtobufSerializer[0;39m - Deserializing an instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from a stream
+    20:51:11.767 [Test worker] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [673] terms with isSorted [true], algorithm [STANDARD], defaultMaxDistance [3], and includeDistance [true]
+    20:51:11.769 [Test worker] [34mINFO [0;39m [36mc.g.l.s.AbstractSerializer[0;39m - Deserilizing instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from url [file:/private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/build/resources/test/programming-languages.protobuf.bytes]
+    20:51:11.769 [Test worker] [34mINFO [0;39m [36mc.g.l.s.ProtobufSerializer[0;39m - Deserializing an instance of [class com.github.liblevenshtein.collection.dictionary.SortedDawg] from a stream
+    20:51:11.775 [Test worker] [34mINFO [0;39m [36mc.g.l.t.factory.TransducerBuilder[0;39m - Building transducer out of [673] terms with isSorted [false], algorithm [TRANSPOSITION], defaultMaxDistance [3], and includeDistance [true]
+    20:51:11.971 [pool-1-thread-2] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [10000] of [109582] terms
+    20:51:11.995 [pool-1-thread-2] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [20000] of [109582] terms
+    20:51:12.021 [pool-1-thread-2] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [30000] of [109582] terms
+    20:51:12.046 [pool-1-thread-2] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [40000] of [109582] terms
+    20:51:12.066 [pool-1-thread-2] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [50000] of [109582] terms
+    20:51:12.085 [pool-1-thread-2] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [60000] of [109582] terms
+    20:51:12.105 [pool-1-thread-2] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [70000] of [109582] terms
+    20:51:12.128 [pool-1-thread-2] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [80000] of [109582] terms
+    20:51:12.150 [pool-1-thread-2] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [90000] of [109582] terms
+    20:51:12.176 [pool-1-thread-2] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [100000] of [109582] terms
+    20:51:12.264 [pool-1-thread-3] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [10000] of [109582] terms
+    20:51:12.336 [pool-1-thread-3] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [20000] of [109582] terms
 
-Gradle suite > Gradle test > com.github.liblevenshtein.collection.dictionary.DawgTest.emptyDawgAcceptsNothing[119](abettal) STANDARD_OUT
-    20:22:50.153 [pool-1-thread-3] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [10000] of [109582] terms
+Gradle suite > Gradle test > com.github.liblevenshtein.distance.factory.MemoizedDistanceFactoryTest.testEqualSelfSimilarity[105](STANDARD, com.github.liblevenshtein.distance.MemoizedStandard@60e4c589, a, a) STANDARD_OUT
+    20:51:12.401 [pool-1-thread-3] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [30000] of [109582] terms
 
 Gradle suite > Gradle test STANDARD_OUT
-    20:22:50.292 [pool-1-thread-3] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [20000] of [109582] terms
-    20:22:50.382 [pool-1-thread-3] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [30000] of [109582] terms
-    20:22:50.506 [pool-1-thread-3] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [40000] of [109582] terms
-    20:22:50.562 [pool-1-thread-3] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [50000] of [109582] terms
-    20:22:50.612 [pool-1-thread-3] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [60000] of [109582] terms
+    20:51:12.476 [pool-1-thread-3] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [40000] of [109582] terms
 
-Gradle suite > Gradle test > com.github.liblevenshtein.collection.dictionary.DawgTest.emptyDawgAcceptsNothing[1112](adduced) STANDARD_OUT
+Gradle suite > Gradle test > com.github.liblevenshtein.distance.factory.MemoizedDistanceFactoryTest.testSymmetry[435](MERGE_AND_SPLIT, com.github.liblevenshtein.distance.MemoizedMergeAndSplit@229ce99f, be, he) STANDARD_OUT
+    20:51:12.583 [pool-1-thread-3] [34mINFO [0;39m [36mc.g.l.collection.dictionary.Dawg[0;39m - Added [50000] of [109582] terms
+
 # ... TRUNCATED ...
 
 
@@ -100,29 +100,29 @@ you should run all the checks against it and clean up any errors:
 :processIntegResources
 :integClasses
 :checkstyleInteg
-:checkstyleMain[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: Cyclomatic Complexity is 20 (max allowed is 10). [CyclomaticComplexity]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: Executable statement count is 53 (max allowed is 30). [ExecutableStatementCount]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: NCSS for this method is 62 (max allowed is 50). [JavaNCSS]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: NPath Complexity is 38,400 (max allowed is 200). [NPathComplexity]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:23:9: Variable 'key' should be declared final. [FinalLocalVariable]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:42:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:42:52: Only one statement per line allowed. [OneStatementPerLine]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:43:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:43:52: Only one statement per line allowed. [OneStatementPerLine]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:47:26: Assignment of parameter 'v' is not allowed. [ParameterAssignment]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:47:29: Only one statement per line allowed. [OneStatementPerLine]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:47:49: Only one statement per line allowed. [OneStatementPerLine]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:48:26: Assignment of parameter 'w' is not allowed. [ParameterAssignment]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:48:29: Only one statement per line allowed. [OneStatementPerLine]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:48:49: Only one statement per line allowed. [OneStatementPerLine]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:21:3: Cyclomatic Complexity is 14 (max allowed is 10). [CyclomaticComplexity]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:21:3: Executable statement count is 42 (max allowed is 30). [ExecutableStatementCount]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:21:3: NPath Complexity is 1,536 (max allowed is 200). [NPathComplexity]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:24:9: Variable 'key' should be declared final. [FinalLocalVariable]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:43:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:43:52: Only one statement per line allowed. [OneStatementPerLine]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:44:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
-[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-3128314943155508971/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:44:52: Only one statement per line allowed. [OneStatementPerLine]
+:checkstyleMain[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: Cyclomatic Complexity is 20 (max allowed is 10). [CyclomaticComplexity]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: Executable statement count is 53 (max allowed is 30). [ExecutableStatementCount]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: NCSS for this method is 62 (max allowed is 50). [JavaNCSS]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:20:3: NPath Complexity is 38,400 (max allowed is 200). [NPathComplexity]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:23:9: Variable 'key' should be declared final. [FinalLocalVariable]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:42:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:42:52: Only one statement per line allowed. [OneStatementPerLine]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:43:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:43:52: Only one statement per line allowed. [OneStatementPerLine]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:47:26: Assignment of parameter 'v' is not allowed. [ParameterAssignment]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:47:29: Only one statement per line allowed. [OneStatementPerLine]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:47:49: Only one statement per line allowed. [OneStatementPerLine]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:48:26: Assignment of parameter 'w' is not allowed. [ParameterAssignment]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:48:29: Only one statement per line allowed. [OneStatementPerLine]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedMergeAndSplit.java:48:49: Only one statement per line allowed. [OneStatementPerLine]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:21:3: Cyclomatic Complexity is 14 (max allowed is 10). [CyclomaticComplexity]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:21:3: Executable statement count is 42 (max allowed is 30). [ExecutableStatementCount]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:21:3: NPath Complexity is 1,536 (max allowed is 200). [NPathComplexity]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:24:9: Variable 'key' should be declared final. [FinalLocalVariable]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:43:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:43:52: Only one statement per line allowed. [OneStatementPerLine]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:44:5: Only one variable definition per line allowed. [MultipleVariableDeclarations]
+[ant:checkstyle] [WARN] /private/var/folders/x6/m_093hm90hx0stv1jl83643w0000gn/T/GenerateWikidoc-7688351961692878878/liblevenshtein-java/src/main/java/com/github/liblevenshtein/distance/MemoizedStandard.java:44:52: Only one statement per line allowed. [OneStatementPerLine]
 # ... TRUNCATED ...
 
 
