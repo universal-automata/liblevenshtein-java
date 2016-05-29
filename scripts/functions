@@ -19,7 +19,11 @@ function assert-changes-committed() {
 }
 
 function project-version() {
-  PROJECT_VERSION="${PROJECT_VERSION:-"$("$GRADLEW" printVersion --quiet)"}"
+  if [ -z "$PROJECT_VERSION" ]; then
+    pushd "$(dirname "$GRADLEW")"
+    PROJECT_VERSION="$("$GRADLEW" printVersion --quiet)"
+    popd
+  fi
   echo "${PROJECT_VERSION}"
 }
 
@@ -28,12 +32,20 @@ function print-project-version() {
 }
 
 function latest-version() {
-  LATEST_VERSION="${LATEST_VERSION:-"$("$GRADLEW" printLatestVersion --quiet)"}"
+  if [ -z "$LATEST_VERSION" ]; then
+    pushd "$(dirname "$GRADLEW")"
+    LATEST_VERSION="$("$GRADLEW" printLatestVersion --quiet)"
+    popd
+  fi
   echo "${LATEST_VERSION}"
 }
 
 function project-branch() {
-  PROJECT_BRANCH="${PROJECT_BRANCH:-"$("$GRADLEW" printGitBranch --quiet)"}"
+  if [ -z "$PROJECT_BRANCH" ]; then
+    pushd "$(dirname "$GRADLEW")"
+    PROJECT_BRANCH="$("$GRADLEW" printGitBranch --quiet)"
+    popd
+  fi
   echo "${PROJECT_BRANCH}"
 }
 
