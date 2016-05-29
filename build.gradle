@@ -53,7 +53,7 @@ repositories {
 
 group = 'com.github.universal-automata'
 archivesBaseName = name
-version = '3.0.0-rc.3' // http://semver.org/
+version = '3.0.0' // http://semver.org/
 
 description = 'A library for spelling-correction based on Levenshtein Automata.'
 
@@ -70,8 +70,8 @@ ext {
   githubRepo = "liblevenshtein-java"
   gitUri = "git@github.com:${githubOrg}/${githubRepo}.git"
   vcsUrl = "https://github.com/${githubOrg}/${githubRepo}.git"
-  gitBranch = "master"
-  //gitBranch = version
+  //gitBranch = "master"
+  gitBranch = version
   projectUrl = "https://github.com/${githubOrg}/${githubRepo}/"
   issuesUrl = "${projectUrl}/issues"
   projectAuthor = 'Dylon Edwards'

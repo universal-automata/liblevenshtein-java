@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased] - Currently in development
 
+## [3.0.0] - Sunday, May 29, 2016
+
 ### Added
 - Integration test suite
 - Regression test suite
@@ -129,7 +131,8 @@ MIT license.
 ## [2.1.0] - Friday, July 3, 2015
 - Initial release of the Java port of [liblevenshtein][liblevenshtein].
 
-[unreleased]: https://github.com/universal-automata/liblevenshtein-java/compare/2.2.3...master
+[unreleased]: https://github.com/universal-automata/liblevenshtein-java/compare/3.0.0...master
+[3.0.0]: https://github.com/universal-automata/liblevenshtein-java/compare/2.2.3...3.0.0
 [2.2.3]: https://github.com/universal-automata/liblevenshtein-java/compare/2.2.2...2.2.3
 [2.2.2]: https://github.com/universal-automata/liblevenshtein-java/compare/2.2.1...2.2.2
 [2.2.1]: https://github.com/universal-automata/liblevenshtein-java/compare/2.2.0...2.2.1
