@@ -116,7 +116,7 @@ function tag-release() {
 function retag-release() {
   echo "Retagging release $(project-version) ..."
   git tag -d "$(project-version)"
-  git push origin ":refs/$(project-version)"
+  git push origin ":tags/$(project-version)"
   tag-release
 }
 
