@@ -19,7 +19,7 @@ function assert-changes-committed() {
 }
 
 function project-version() {
-  PROJECT_VERSION="${PROJECT_VERSION:-"$($GRADLEW printVersion --quiet)"}"
+  PROJECT_VERSION="${PROJECT_VERSION:-"$("$GRADLEW" printVersion --quiet)"}"
   echo "${PROJECT_VERSION}"
 }
 
@@ -28,12 +28,12 @@ function print-project-version() {
 }
 
 function latest-version() {
-  LATEST_VERSION="${LATEST_VERSION:-"$($GRADLEW printLatestVersion --quiet)"}"
+  LATEST_VERSION="${LATEST_VERSION:-"$("$GRADLEW" printLatestVersion --quiet)"}"
   echo "${LATEST_VERSION}"
 }
 
 function project-branch() {
-  PROJECT_BRANCH="${PROJECT_BRANCH:-"$($GRADLEW printGitBranch --quiet)"}"
+  PROJECT_BRANCH="${PROJECT_BRANCH:-"$("$GRADLEW" printGitBranch --quiet)"}"
   echo "${PROJECT_BRANCH}"
 }
 
@@ -71,7 +71,7 @@ function assert-release-notes() {
 
 function clean-check() {
   echo "Doing a clean+check to make sure code quality is up-to-par ..."
-  $GRADLEW clean check
+  "$GRADLEW" clean check
 }
 
 function gendoc-message() {
@@ -81,7 +81,7 @@ function gendoc-message() {
 
 function update-readme() {
   echo "Generating readme ..."
-  $GRADLEW readme
+  "$GRADLEW" readme
   git add -A
   git commit -m "$(gendoc-message)"
   git push -u origin master
@@ -89,7 +89,7 @@ function update-readme() {
 
 function update-wikidoc-javadoc() {
   echo "Generating the documentation ..."
-  $GRADLEW wikidoc javadoc
+  "$GRADLEW" wikidoc javadoc
 
   pushd gh-pages
   git add -A
