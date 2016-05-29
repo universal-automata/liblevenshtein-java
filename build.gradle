@@ -84,7 +84,7 @@ ext {
 
   latestGroupId = rootProject.group
   latestArtifactId = rootProject.name
-  latestVersion = '2.2.3'
+  latestVersion = '3.0.0'
 
   isReleaseVersion = version ==~ /^\d+\.\d+\.\d+$/
   isDevelopmentVersion = !isReleaseVersion

@@ -6,8 +6,8 @@ source "$(dirname "$0")/functions"
 
 assert-changes-committed
 assert-release-version "$(project-version)"
-assert-versions-equal "$(project-version)" "$(latest-version)"
-assert-versions-equal "$(project-version)" "$(project-branch)"
+assert-versions-equal 'latestVersion' "$(project-version)" "$(latest-version)"
+assert-versions-equal 'gitBranch' "$(project-version)" "$(project-branch)"
 assert-release-notes
 print-project-version
 clean-check
