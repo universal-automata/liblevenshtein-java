@@ -155,11 +155,11 @@ libraryDependencies += "com.github.universal-automata" % "liblevenshtein" % "3.0
 ```
 % git clone --progress git@github.com:universal-automata/liblevenshtein-java.git
 Cloning into 'liblevenshtein-java'...
-remote: Counting objects: 7895, done.        
-remote: Compressing objects: 100% (256/256), done.        
-remote: Total 7895 (delta 175), reused 0 (delta 0), pack-reused 7619        
-Receiving objects: 100% (7895/7895), 5.49 MiB | 577.00 KiB/s, done.
-Resolving deltas: 100% (5189/5189), done.
+remote: Counting objects: 7911, done.        
+remote: Compressing objects: 100% (272/272), done.        
+remote: Total 7911 (delta 187), reused 0 (delta 0), pack-reused 7619        
+Receiving objects: 100% (7911/7911), 5.50 MiB | 532.00 KiB/s, done.
+Resolving deltas: 100% (5201/5201), done.
 Checking connectivity... done.
 
 % cd liblevenshtein-java
@@ -179,7 +179,7 @@ do so (now or later) by using -b with the checkout command again. Example:
 
   git checkout -b <new-branch-name>
 
-HEAD is now at 8c88a95... Adds logic to retag releases
+HEAD is now at 7c68571... Fixes retag function
 
 % git submodule init
 % git submodule update
