@@ -53,7 +53,7 @@ repositories {
 
 group = 'com.github.universal-automata'
 archivesBaseName = name
-version = '3.0.0-rc.2' // http://semver.org/
+version = '3.0.0-rc.3' // http://semver.org/
 
 description = 'A library for spelling-correction based on Levenshtein Automata.'
 
