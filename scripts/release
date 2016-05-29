@@ -11,11 +11,12 @@ assert-versions-equal 'gitBranch' "$(project-version)" "$(project-branch)"
 assert-release-notes
 print-project-version
 clean-check
+tag-release
 update-readme
+retag-release
 update-wikidoc-javadoc
 update-branch 'release'
 update-branch 'release-3.x'
-tag-release
 update-java-submodule
 succeed
 

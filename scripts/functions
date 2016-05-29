@@ -113,6 +113,13 @@ function tag-release() {
   git push --tags
 }
 
+function retag-release() {
+  echo "Retagging release $(project-version) ..."
+  git tag -d "$(project-version)"
+  git push origin ":refs/$(project-version)"
+  tag-release
+}
+
 function update-java-submodule() {
   echo "Updating submodules in universal-automata/liblevenshtein ..."
   local TMP_DIR="$(mktemp -d)"
