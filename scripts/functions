@@ -2,10 +2,13 @@
 
 set -ev
 
-if [[ "$(dirname "$0")" =~ ^/.*$ ]]; then
-  export GRADLEW="$(dirname "$0")/../gradlew"
-else
-  export GRADLEW="$PWD/$(dirname "$0")/../gradlew"
+GRADLEW="$(dirname "$0")/../gradlew"
+CHANGELOG="$(dirname "$0")/../CHANGELOG.md"
+
+# Ensure the file paths are fully-qualified
+if [[ ! "$(dirname "$0")" =~ ^/.*$ ]]; then
+  GRADLEW="$PWD/$GRADLEW"
+  CHANGELOG="$PWD/$CHANGELOG"
 fi
 
 function assert-changes-committed() {
@@ -58,14 +61,10 @@ function release-date() {
   echo "${RELEASE_DATE}"
 }
 
-function changelog() {
-  CHANGELOG="${CHANGELOG:-'CHANGELOG.md'}"
-}
-
 function assert-release-notes() {
-  if ! grep "^## \[$(project-version)] - $(release-date)\$" "$(changelog)"; then
+  if ! grep "^## \[$(project-version)] - $(release-date)\$" "${CHANGELOG}"; then
     fail "Either version [$(project-version)] has not been described in the" \
-         "CHANGELOG [$(changelog)], or the release date is not today" \
+         "CHANGELOG [${CHANGELOG}], or the release date is not today" \
          "[$(release-date)]."
   fi
 }
