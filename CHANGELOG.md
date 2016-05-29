@@ -4,7 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased] - Currently in development
 
+### Added
+- Integration test suite
+- Regression test suite
+- Checks for expected, dependency cycles with JDepend
+
 ### Changed
+- Updates dependencies upon each release
 - Improves the wiki documentation.
 - Checks for the presence of release version and date in the CHANGELOG, before
   releasing a version.

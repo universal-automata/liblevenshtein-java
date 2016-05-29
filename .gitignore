@@ -14,7 +14,6 @@ gh-pages/
 !/README.md
 !/build.gradle
 !/config/**/*.xml
-!/config/**/*.xsl
 !/gradle.properties
 !/gradle/wrapper/gradle-wrapper.jar
 !/gradle/wrapper/gradle-wrapper.properties
@@ -32,9 +31,11 @@ gh-pages/
 !/settings.gradle
 !/src/*/java/**/*.java
 !/src/*/java/**/lombok.config
+!/src/*/resources/jdepend.properties
 !/src/*/resources/logback.groovy
 !/src/checkstyle/css/**/*.css
 !/src/checkstyle/js/**/*.js
+!/src/checkstyle/xslt/**/*.xsl
 !/src/main/proto/**/*.proto
 !/src/task/resources/stringtemplate/**/*.st
 !/src/test/resources/**/*.bytes

@@ -257,6 +257,7 @@
         org.testng,
         org.mockito,
         org.assertj,
+        jdepend.framework,
         edu.umd.cs.findbugs,
         lombok,
         com.github.liblevenshtein

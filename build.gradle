@@ -120,9 +120,33 @@ configurations {
   jdepend resolutionStrategy
   pmd resolutionStrategy
   shell resolutionStrategy
+  // Regression tests
+  regr resolutionStrategy
+  regrCompile.extendsFrom testCompile
+  regrRuntime.extendsFrom testRuntime
+  // Integration tests
+  integ resolutionStrategy
+  integCompile.extendsFrom testCompile
+  integRuntime.extendsFrom testRuntime
 }
 
 sourceSets {
+  regr {
+    java {
+      compileClasspath += main.output + test.output
+      runtimeClasspath += main.output + test.output
+      srcDir file("$projectDir/src/regr/java")
+    }
+    resources.srcDir file("$projectDir/src/regr/resources")
+  }
+  integ {
+    java {
+      compileClasspath += main.output + test.output
+      runtimeClasspath += main.output + test.output
+      srcDir file("$projectDir/src/integ/java")
+    }
+    resources.srcDir file("$projectDir/src/integ/resources")
+  }
   task
 }
 
@@ -173,6 +197,8 @@ dependencies {
   testRuntime 'org.slf4j:log4j-over-slf4j:latest.release'
   testRuntime 'org.slf4j:osgi-over-slf4j:latest.release'
 
+  integCompile 'jdepend:jdepend:latest.release'
+
   // JaCoCo (Plugin)
   jacocoAgent 'org.jacoco:org.jacoco.agent:latest.release'
   jacocoAnt 'org.jacoco:org.jacoco.ant:latest.release'
@@ -222,9 +248,48 @@ test {
   }
 
   testLogging {
-    //events "passed", "skipped", "failed"
-    events "skipped", "failed"
-    exceptionFormat "full"
+    //events 'passed', 'skipped', 'failed'
+    events 'skipped', 'failed'
+    exceptionFormat 'full'
+    showStandardStreams true
+    showExceptions true
+    showStackTraces true
+  }
+}
+
+task regr(type: Test) {
+  useTestNG() {
+    // Run as many tests in-parallel as there are CPU cores
+    parallel 'methods'
+    threadCount Runtime.getRuntime().availableProcessors()
+  }
+
+  description = 'Runs regression tests for the project'
+  testClassesDir = sourceSets.regr.output.classesDir
+  classpath = sourceSets.regr.runtimeClasspath
+  testLogging {
+    events 'passed', 'skipped', 'failed'
+    exceptionFormat 'full'
+    showStandardStreams true
+    showExceptions true
+    showStackTraces true
+  }
+}
+
+task integ(type: Test) {
+  useTestNG() {
+    // Run as many tests in-parallel as there are CPU cores
+    parallel 'methods'
+    threadCount Runtime.getRuntime().availableProcessors()
+  }
+
+  description = 'Runs integration tests for the project'
+  testClassesDir = sourceSets.integ.output.classesDir
+  classpath = sourceSets.integ.runtimeClasspath
+  outputs.upToDateWhen { false } // always run integration tests
+  testLogging {
+    events 'passed', 'skipped', 'failed'
+    exceptionFormat 'full'
     showStandardStreams true
     showExceptions true
     showStackTraces true
@@ -592,9 +657,22 @@ tasks.withType(Checkstyle) {
     xml.enabled true
     html {
       enabled true
-      stylesheet resources.text.fromFile('config/checkstyle/checkstyle.xsl')
+      stylesheet resources.text.fromFile('src/checkstyle/xslt/checkstyle.xsl')
     }
   }
 }
+
+check.dependsOn regr
+regr.mustRunAfter test
+regr.dependsOn classes
+regr.dependsOn regrClasses
+
+check.dependsOn integ
+integ.mustRunAfter test
+integ.dependsOn classes
+integ.dependsOn testClasses
+integ.dependsOn regrClasses
+integ.dependsOn integClasses
+integ.dependsOn taskClasses
 
 // vim: set ft=groovy ts=2 sw=2 et sta:
