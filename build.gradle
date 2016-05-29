@@ -351,7 +351,7 @@ task printVersion {
   }
 }
 
-task printLatestRelease {
+task printLatestVersion {
   description = "Prints rootProject.ext.latestVersion [${rootProject.ext.latestVersion}]"
   doLast {
     println("${rootProject.ext.latestVersion}")
