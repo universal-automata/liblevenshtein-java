@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package com.github.liblevenshtein.transducer;<a name="line.1"></a>
+<span class="sourceLineNo">002</span><a name="line.2"></a>
+<span class="sourceLineNo">003</span>import java.io.Serializable;<a name="line.3"></a>
+<span class="sourceLineNo">004</span><a name="line.4"></a>
+<span class="sourceLineNo">005</span>/**<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * The distance of each position in a state can be defined as follows:<a name="line.6"></a>
+<span class="sourceLineNo">007</span> *<a name="line.7"></a>
+<span class="sourceLineNo">008</span> * &lt;p&gt;<a name="line.8"></a>
+<span class="sourceLineNo">009</span> * &lt;code&gt;distance = w - i + e&lt;/code&gt;<a name="line.9"></a>
+<span class="sourceLineNo">010</span> * &lt;/p&gt;<a name="line.10"></a>
+<span class="sourceLineNo">011</span> *<a name="line.11"></a>
+<span class="sourceLineNo">012</span> * &lt;p&gt;<a name="line.12"></a>
+<span class="sourceLineNo">013</span> * For every accepting position, it must be the case that &lt;code&gt;w - i &amp;le; n - e&lt;/code&gt;.<a name="line.13"></a>
+<span class="sourceLineNo">014</span> * It follows directly that the distance of every accepted position must be no<a name="line.14"></a>
+<span class="sourceLineNo">015</span> * more than {@code n}:<a name="line.15"></a>
+<span class="sourceLineNo">016</span> * &lt;/p&gt;<a name="line.16"></a>
+<span class="sourceLineNo">017</span> *<a name="line.17"></a>
+<span class="sourceLineNo">018</span> * &lt;p&gt;<a name="line.18"></a>
+<span class="sourceLineNo">019</span> * &lt;code&gt;(w - i &amp;le; n - e) &amp;hArr; (w - i + e &amp;le; n) &amp;hArr; (distance &amp;le; n)&lt;/code&gt;<a name="line.19"></a>
+<span class="sourceLineNo">020</span> * &lt;/p&gt;<a name="line.20"></a>
+<span class="sourceLineNo">021</span> *<a name="line.21"></a>
+<span class="sourceLineNo">022</span> * &lt;p&gt;<a name="line.22"></a>
+<span class="sourceLineNo">023</span> * The Levenshtein distance between any two terms is defined as the minimum<a name="line.23"></a>
+<span class="sourceLineNo">024</span> * edit distance between the two terms.  Therefore, iterate over each position<a name="line.24"></a>
+<span class="sourceLineNo">025</span> * in an accepting state, and take the minimum distance among all its accepting<a name="line.25"></a>
+<span class="sourceLineNo">026</span> * positions as the corresponding Levenshtein distance.<a name="line.26"></a>
+<span class="sourceLineNo">027</span> * &lt;/p&gt;<a name="line.27"></a>
+<span class="sourceLineNo">028</span> *<a name="line.28"></a>
+<span class="sourceLineNo">029</span> * @author Dylon Edwards<a name="line.29"></a>
+<span class="sourceLineNo">030</span> * @since 2.1.0<a name="line.30"></a>
+<span class="sourceLineNo">031</span> */<a name="line.31"></a>
+<span class="sourceLineNo">032</span>public abstract class DistanceFunction implements Serializable {<a name="line.32"></a>
+<span class="sourceLineNo">033</span><a name="line.33"></a>
+<span class="sourceLineNo">034</span>  private static final long serialVersionUID = 1L;<a name="line.34"></a>
+<span class="sourceLineNo">035</span><a name="line.35"></a>
+<span class="sourceLineNo">036</span>  /**<a name="line.36"></a>
+<span class="sourceLineNo">037</span>   * Returns the minimum distance between the spelling candidate and query term,<a name="line.37"></a>
+<span class="sourceLineNo">038</span>   * implied by the positions within {@code state}.<a name="line.38"></a>
+<span class="sourceLineNo">039</span>   * @param state Levenshtein state whose minimum, Levenshtein distance is to be<a name="line.39"></a>
+<span class="sourceLineNo">040</span>   *   determined.<a name="line.40"></a>
+<span class="sourceLineNo">041</span>   * @param w Length of the query term.<a name="line.41"></a>
+<span class="sourceLineNo">042</span>   * @return Minimum distance between the spelling candidate and query term,<a name="line.42"></a>
+<span class="sourceLineNo">043</span>   *   implied by the positions within {@code state}.<a name="line.43"></a>
+<span class="sourceLineNo">044</span>   */<a name="line.44"></a>
+<span class="sourceLineNo">045</span>  public abstract int at(State state, int w);<a name="line.45"></a>
+<span class="sourceLineNo">046</span><a name="line.46"></a>
+<span class="sourceLineNo">047</span>  /**<a name="line.47"></a>
+<span class="sourceLineNo">048</span>    * Distance function for the standard, Levenshtein distance algorithm.<a name="line.48"></a>
+<span class="sourceLineNo">049</span>    * @author Dylon Edwards<a name="line.49"></a>
+<span class="sourceLineNo">050</span>    * @since 2.1.0<a name="line.50"></a>
+<span class="sourceLineNo">051</span>    */<a name="line.51"></a>
+<span class="sourceLineNo">052</span>  public static class ForStandardPositions extends DistanceFunction {<a name="line.52"></a>
+<span class="sourceLineNo">053</span><a name="line.53"></a>
+<span class="sourceLineNo">054</span>    private static final long serialVersionUID = 1L;<a name="line.54"></a>
+<span class="sourceLineNo">055</span><a name="line.55"></a>
+<span class="sourceLineNo">056</span>    /**<a name="line.56"></a>
+<span class="sourceLineNo">057</span>      * {@inheritDoc}<a name="line.57"></a>
+<span class="sourceLineNo">058</span>      */<a name="line.58"></a>
+<span class="sourceLineNo">059</span>    @Override<a name="line.59"></a>
+<span class="sourceLineNo">060</span>    public int at(final State state, final int queryLength) {<a name="line.60"></a>
+<span class="sourceLineNo">061</span>      int minimumDistance = Integer.MAX_VALUE;<a name="line.61"></a>
+<span class="sourceLineNo">062</span><a name="line.62"></a>
+<span class="sourceLineNo">063</span>      for (final Position position : state) {<a name="line.63"></a>
+<span class="sourceLineNo">064</span>        final int i = position.termIndex();<a name="line.64"></a>
+<span class="sourceLineNo">065</span>        final int e = position.numErrors();<a name="line.65"></a>
+<span class="sourceLineNo">066</span>        final int distance = queryLength - i + e;<a name="line.66"></a>
+<span class="sourceLineNo">067</span>        if (distance &lt; minimumDistance) {<a name="line.67"></a>
+<span class="sourceLineNo">068</span>          minimumDistance = distance;<a name="line.68"></a>
+<span class="sourceLineNo">069</span>        }<a name="line.69"></a>
+<span class="sourceLineNo">070</span>      }<a name="line.70"></a>
+<span class="sourceLineNo">071</span><a name="line.71"></a>
+<span class="sourceLineNo">072</span>      return minimumDistance;<a name="line.72"></a>
+<span class="sourceLineNo">073</span>    }<a name="line.73"></a>
+<span class="sourceLineNo">074</span>  }<a name="line.74"></a>
+<span class="sourceLineNo">075</span><a name="line.75"></a>
+<span class="sourceLineNo">076</span>  /**<a name="line.76"></a>
+<span class="sourceLineNo">077</span>    * Distance function for the Levenshtein distance algorithms, extended with<a name="line.77"></a>
+<span class="sourceLineNo">078</span>    * transposition (standard- and t-positions), and with merge and split<a name="line.78"></a>
+<span class="sourceLineNo">079</span>    * (standard- and s-positions).<a name="line.79"></a>
+<span class="sourceLineNo">080</span>    * @author Dylon Edwards<a name="line.80"></a>
+<span class="sourceLineNo">081</span>    * @since 2.1.0<a name="line.81"></a>
+<span class="sourceLineNo">082</span>    */<a name="line.82"></a>
+<span class="sourceLineNo">083</span>  public static class ForSpecialPositions extends DistanceFunction {<a name="line.83"></a>
+<span class="sourceLineNo">084</span><a name="line.84"></a>
+<span class="sourceLineNo">085</span>    private static final long serialVersionUID = 1L;<a name="line.85"></a>
+<span class="sourceLineNo">086</span><a name="line.86"></a>
+<span class="sourceLineNo">087</span>    /**<a name="line.87"></a>
+<span class="sourceLineNo">088</span>      * {@inheritDoc}<a name="line.88"></a>
+<span class="sourceLineNo">089</span>      */<a name="line.89"></a>
+<span class="sourceLineNo">090</span>    @Override<a name="line.90"></a>
+<span class="sourceLineNo">091</span>    public int at(final State state, final int queryLength) {<a name="line.91"></a>
+<span class="sourceLineNo">092</span>      int minimumDistance = Integer.MAX_VALUE;<a name="line.92"></a>
+<span class="sourceLineNo">093</span><a name="line.93"></a>
+<span class="sourceLineNo">094</span>      for (final Position position : state) {<a name="line.94"></a>
+<span class="sourceLineNo">095</span>        if (!position.isSpecial()) {<a name="line.95"></a>
+<span class="sourceLineNo">096</span>          final int i = position.termIndex();<a name="line.96"></a>
+<span class="sourceLineNo">097</span>          final int e = position.numErrors();<a name="line.97"></a>
+<span class="sourceLineNo">098</span>          final int distance = queryLength - i + e;<a name="line.98"></a>
+<span class="sourceLineNo">099</span>          if (distance &lt; minimumDistance) {<a name="line.99"></a>
+<span class="sourceLineNo">100</span>            minimumDistance = distance;<a name="line.100"></a>
+<span class="sourceLineNo">101</span>          }<a name="line.101"></a>
+<span class="sourceLineNo">102</span>        }<a name="line.102"></a>
+<span class="sourceLineNo">103</span>      }<a name="line.103"></a>
+<span class="sourceLineNo">104</span><a name="line.104"></a>
+<span class="sourceLineNo">105</span>      return minimumDistance;<a name="line.105"></a>
+<span class="sourceLineNo">106</span>    }<a name="line.106"></a>
+<span class="sourceLineNo">107</span>  }<a name="line.107"></a>
+<span class="sourceLineNo">108</span>}<a name="line.108"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>
