@@ -109,15 +109,16 @@ function update-branch() {
 
 function tag-release() {
   echo "Tagging new release $(project-version) ..."
+  if git tag --list | grep "^$(project-version)$"; then
+    echo "Local tag $(project-version) exists, overwriting it ..."
+    git tag -d "$(project-version)"
+  fi
+  if git ls-remote --tags | grep "\brefs/tags/$(project-version)$"; then
+    echo "Remote tag $(project-version) exists, overwriting it ..."
+    git push origin :tags/$(project-version)
+  fi
   git tag "$(project-version)"
   git push --tags
-}
-
-function retag-release() {
-  echo "Retagging release $(project-version) ..."
-  git tag -d "$(project-version)"
-  git push origin ":tags/$(project-version)"
-  tag-release
 }
 
 function update-java-submodule() {
