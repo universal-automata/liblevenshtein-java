@@ -20,9 +20,9 @@ function assert-changes-committed() {
 
 function project-version() {
   if [ -z "$PROJECT_VERSION" ]; then
-    pushd "$(dirname "$GRADLEW")"
+    pushd "$(dirname "$GRADLEW")" 1>/dev/null
     PROJECT_VERSION="$("$GRADLEW" printVersion --quiet)"
-    popd
+    popd 1>/dev/null
   fi
   echo "${PROJECT_VERSION}"
 }
@@ -33,18 +33,18 @@ function print-project-version() {
 
 function latest-version() {
   if [ -z "$LATEST_VERSION" ]; then
-    pushd "$(dirname "$GRADLEW")"
+    pushd "$(dirname "$GRADLEW")" 1>/dev/null
     LATEST_VERSION="$("$GRADLEW" printLatestVersion --quiet)"
-    popd
+    popd 1>/dev/null
   fi
   echo "${LATEST_VERSION}"
 }
 
 function project-branch() {
   if [ -z "$PROJECT_BRANCH" ]; then
-    pushd "$(dirname "$GRADLEW")"
+    pushd "$(dirname "$GRADLEW")" 1>/dev/null
     PROJECT_BRANCH="$("$GRADLEW" printGitBranch --quiet)"
-    popd
+    popd 1>/dev/null
   fi
   echo "${PROJECT_BRANCH}"
 }
@@ -52,7 +52,7 @@ function project-branch() {
 function assert-release-version() {
   local VERSION="$1"
   if [[ ! "${VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-    fail "Expected a release version (version =~ ^[0-9]+\.[0-9]+\.[0-9]+$), not the development version ${VERSION}"
+    fail "Expected a release version (version =~ ^[0-9]+\.[0-9]+\.[0-9]+$), not the development version [${VERSION}]"
   fi
 }
 
