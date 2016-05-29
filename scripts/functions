@@ -52,9 +52,7 @@ function project-branch() {
 function assert-release-version() {
   local VERSION="$1"
   if [[ ! "${VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-    fail "Expected a release version" \
-         "(version =~ ^[0-9]+\.[0-9]+\.[0-9]+$), not the" \
-         "development version ${VERSION}"
+    fail "Expected a release version (version =~ ^[0-9]+\.[0-9]+\.[0-9]+$), not the development version ${VERSION}"
   fi
 }
 
@@ -63,8 +61,7 @@ function assert-versions-equal() {
   local ACTUAL_VERSION="$2"
   local EXPECTED_VERSION="$3"
   if [[ "${LHS_VERSION}" != "${RHS_VERSION}" ]]; then
-    fail "Expected [${PROPERTY_NAME}] to be [${EXPECTED_VERSION}], but was" \
-         "[${ACTUAL_VERSION}]"
+    fail "Expected [${PROPERTY_NAME}] to be [${EXPECTED_VERSION}], but was [${ACTUAL_VERSION}]"
   fi
 }
 
@@ -75,9 +72,7 @@ function release-date() {
 
 function assert-release-notes() {
   if ! grep "^## \[$(project-version)] - $(release-date)\$" "${CHANGELOG}"; then
-    fail "Either version [$(project-version)] has not been described in the" \
-         "CHANGELOG [${CHANGELOG}], or the release date is not today" \
-         "[$(release-date)]."
+    fail "Either version [$(project-version)] has not been described in the CHANGELOG [${CHANGELOG}], or the release date is not today [$(release-date)]."
   fi
 }
 
