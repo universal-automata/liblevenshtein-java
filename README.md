@@ -1,5 +1,7 @@
 # liblevenshtein
 
+[![Join the chat at https://gitter.im/universal-automata/liblevenshtein-java](https://badges.gitter.im/universal-automata/liblevenshtein-java.svg)](https://gitter.im/universal-automata/liblevenshtein-java?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Java
 
 ### A library for generating Finite State Transducers based on Levenshtein Automata.
