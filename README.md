@@ -15,7 +15,7 @@
 [![Bountysource][bountysource-badge]][bountysource-link]
 
 Levenshtein transducers accept a query term and return all terms in a
-dictionary that are within n spelling errors away from it. They constitute a
+dictionary that are within n spelling fixes away from it. They constitute a
 highly-efficient (space _and_ time) class of spelling correctors that work very
 well when you do not require context while making suggestions.  Forget about
 performing a linear scan over your dictionary to find all terms that are
