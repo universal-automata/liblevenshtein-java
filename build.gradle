@@ -4,9 +4,9 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath 'com.google.protobuf:protobuf-gradle-plugin:latest.release'
-    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:latest.release'
-    classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:latest.release'
+    classpath 'com.google.protobuf:protobuf-gradle-plugin:0.7.7'
+    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
+    classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.3.0'
     classpath 'org.standardout:gradle-versioneye-plugin:latest.release'
     classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:latest.release'
   }
@@ -162,27 +162,27 @@ protobuf {
 
 dependencies {
   compile 'com.google.code.findbugs:annotations:3.+'
-  compile 'com.google.guava:guava:19.+'
+  compile 'com.google.guava:guava:30.0-jre'
   compile 'com.google.protobuf:protobuf-java-util:3.+'
   compile 'com.google.protobuf:protobuf-java:3.+'
   compile 'it.unimi.dsi:fastutil:7.+'
   compile 'org.apache.commons:commons-lang3:3.+'
   compile 'org.projectlombok:lombok:1.+'
-  compile 'org.slf4j:slf4j-api:1.+'
+  compile 'org.slf4j:slf4j-api:1.7.21'
 
   taskCompile 'com.google.code.findbugs:annotations:latest.release'
-  taskCompile 'com.google.guava:guava:latest.release'
-  taskCompile 'commons-cli:commons-cli:latest.release'
+  taskCompile 'com.google.guava:guava:30.0-jre'
+  taskCompile 'commons-cli:commons-cli:1.3.1'
   taskCompile 'commons-io:commons-io:latest.release'
   taskCompile 'org.antlr:ST4:latest.release'
   taskCompile 'org.projectlombok:lombok:latest.release'
-  taskCompile 'org.slf4j:slf4j-api:latest.release'
+  taskCompile 'org.slf4j:slf4j-api:1.7.21'
 
-  taskRuntime 'ch.qos.logback:logback-classic:latest.release'
-  taskRuntime 'org.codehaus.groovy:groovy-all:latest.release'
-  taskRuntime 'org.slf4j:jcl-over-slf4j:latest.release'
-  taskRuntime 'org.slf4j:jul-to-slf4j:latest.release'
-  taskRuntime 'org.slf4j:log4j-over-slf4j:latest.release'
+  taskRuntime 'ch.qos.logback:logback-classic:1.2.0'
+  taskRuntime 'org.codehaus.groovy:groovy-all:2.4.6'
+  taskRuntime 'org.slf4j:jcl-over-slf4j:1.7.21'
+  taskRuntime 'org.slf4j:jul-to-slf4j:1.7.21'
+  taskRuntime 'org.slf4j:log4j-over-slf4j:1.7.21'
   taskRuntime 'org.slf4j:osgi-over-slf4j:latest.release'
 
   testCompile 'com.google.jimfs:jimfs:latest.release'
@@ -190,12 +190,12 @@ dependencies {
   testCompile 'org.mockito:mockito-all:1.+'
   testCompile 'org.testng:testng:latest.release'
 
-  testRuntime 'ch.qos.logback:logback-classic:latest.release'
-  testRuntime 'org.codehaus.groovy:groovy-all:latest.release'
-  testRuntime 'org.slf4j:jcl-over-slf4j:latest.release'
-  testRuntime 'org.slf4j:jul-to-slf4j:latest.release'
-  testRuntime 'org.slf4j:log4j-over-slf4j:latest.release'
-  testRuntime 'org.slf4j:osgi-over-slf4j:latest.release'
+  testRuntime 'ch.qos.logback:logback-classic:1.2.0'
+  testRuntime 'org.codehaus.groovy:groovy-all:2.4.6'
+  testRuntime 'org.slf4j:jcl-over-slf4j:1.7.21'
+  testRuntime 'org.slf4j:jul-to-slf4j:1.7.21'
+  testRuntime 'org.slf4j:log4j-over-slf4j:1.7.21'
+  testRuntime 'org.slf4j:osgi-over-slf4j:1.7.21'
 
   integCompile 'jdepend:jdepend:latest.release'
 
@@ -204,7 +204,7 @@ dependencies {
   jacocoAnt 'org.jacoco:org.jacoco.ant:latest.release'
 
   // Checkstyle (Plugin)
-  checkstyle 'com.puppycrawl.tools:checkstyle:latest.release'
+  checkstyle 'com.puppycrawl.tools:checkstyle:6.19'
 
   // JDepend (Plugin)
   jdepend 'org.apache.ant:ant-jdepend:latest.release'
@@ -212,7 +212,7 @@ dependencies {
   // PMD (Plugin)
   pmd 'net.sourceforge.pmd:pmd-java:latest.release'
 
-  shell 'commons-cli:commons-cli:latest.release'
+  shell 'commons-cli:commons-cli:1.3.1'
   shell('jline:jline:latest.release') {
     exclude(group: 'junit', module: 'junit')
   }
